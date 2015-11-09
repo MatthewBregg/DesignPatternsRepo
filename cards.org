@@ -1,0 +1,52 @@
+* Card shape
+- Rectangle, circle, etc
+- Corners, rounded, sharp?
+ 
+* Decal
+
+- Generic art, gets an art object
+- Decals will need to be patterned, one decal might want to be on each corner, or might want to go in a row, would be very awkward to have to manually do all this patterning : Decal shouldn't do patterning, let the transformation class do it.
+** Decal types
+- Image decals
+- Number decals
+- Text decals
+- Shape decal 
+  
+** Nesting
+Decals will want to be nested, a text box might want to be on top of a back ground.
+** Layout class
+Decorates an image with scale, position, etc, can be composited, and is clonable?
+- Could then handle patterning
+- Composite
+
+*** Background
+- Decal, covering the whole card
+
+*** General patterns
+- Textbox
+- Border
+- Etc?
+* Theming
+- Sub decks
+- Some sets will have the same decal applied to the same spot
+- Others will have the same decal, but used in a different spot per card
+  - EX) Cards have some number of $family decals, but those decals are in different spots, they don't know what image they are until we tell it its family. Thus, would say something like $family = spades, and all the $family decals will use the spades image.
+
+    #+BEGIN_SRC 
+    clone =  prototype.clone();
+    clone.setDecal("family",spades);
+    #+END_SRC
+    Families will still need per card information.
+    So perhaps...
+    #+BEGIN_SRC 
+    clone.setCharacter(charizard.jpg)
+    clone.setHP(120);
+    #+END_SRC
+    
+* Cards
+Card has a layout. Layouts can be cloned. 
+Cards can be cloned.
+- Card will have a name.
+- Card will have a layout
+- Card have a family? Family is just a map, string -> decal, Two types of layout leafs. FamilyLeaf, which just has a string, asks its family. DecalLeaf, which holds a decal.
+  - A family can be nested, will query its map, then parent map.
