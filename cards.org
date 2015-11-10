@@ -50,3 +50,69 @@ Cards can be cloned.
 - Card will have a layout
 - Card have a family? Family is just a map, string -> decal, Two types of layout leafs. FamilyLeaf, which just has a string, asks its family. DecalLeaf, which holds a decal.
   - A family can be nested, will query its map, then parent map.
+    
+* Example UML
+
+This should probably be split into multiple diagrams.
+#+BEGIN_SRC plantuml :file InitialCardsUmlqafd.png
+skinparam dpi 300
+
+class Card
+
+Card : Layout
+Card : Name
+Card : Family
+Card : Background
+note top : Background will either be a leaf layout, or special background decal holder.
+
+
+
+class Family
+note top : A family map may be nested, so the object has a Family reference in it, it check itself, if null, check reference.
+Family : Family
+Family : getDecal(s : String)
+Family : setDecal(s : String, d : Decal )
+
+abstract class Decal as "{abstract}\nDecal"
+Decal : render()
+
+class ImageDecal
+note left : Will likely wind up being an adapter to javas image class.
+class TextDecal
+Decal <|-- ImageDecal
+Decal <|-- TextDecal
+
+abstract class Layout as "{abstract}\nLayout"
+Layout : RelativePosition
+Layout : RelativeScale
+Layout : RelativeLocation
+Layout : getIterator()
+Layout : generalChildManagement()
+Layout : render()
+note top : Render is abstract, a leaf layout will just forward the render to it's decal. Render will probably return an image.
+class LayoutComposite
+note top :  A LayoutComposite needs to call render on it's children, and assemble that into one image. How this works will be tricky. 
+class StaticLayoutLeaf
+note bottom : Forwards render to decal
+class DynamicLayoutLeaf
+note bottom : Forwards render to decal. Will need access to family map. Looks up the decal to render from the family map. This is a form of proxy.
+StaticLayoutLeaf : Decal
+DynamicLayoutLeaf : DecalName
+
+Layout <|-- StaticLayoutLeaf
+Layout <|-- DynamicLayoutLeaf
+Layout <|-- LayoutComposite
+Layout --o LayoutComposite : 1 - N
+
+Card --> Layout
+Card --> Family
+
+StaticLayoutLeaf -> Decal
+DynamicLayoutLeaf -> Decal : Indirectly, form of proxy. Knows the name of it to look up in family map.
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:InitialCardsUmlqafd.png]]
+
