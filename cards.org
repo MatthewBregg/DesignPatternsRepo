@@ -54,6 +54,7 @@ Cards can be cloned.
 * Example UML
 
 This should probably be split into multiple diagrams.
+\newline
 #+BEGIN_SRC plantuml :file InitialCardsUmlqafd.png
 skinparam dpi 300
 
