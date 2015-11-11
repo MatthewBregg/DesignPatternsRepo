@@ -125,3 +125,61 @@ DynamicLayoutLeaf -> Decal : Indirectly, form of proxy. Knows the name of it to 
   - Iterator : For the composite 
 
 
+
+* Scripting
+** Configuration file
+
+#+BEGIN_SRC javascript
+decal = ...; //Some image file...
+LeafDecalFoo = { "position" : ..., "decal" : decal }
+LeafDecalBar = { "position" : ..., "decal" : "suite" }
+positionA = [ 50, 100, 50, 100 ]
+positionB = [ 50, 100, 50, 100 ]
+LayoutB = { "position" : positionB, "leafa":LeafDecalBar, "leafb":LeafDecalFoo };
+
+LayoutC = {
+    "position" : positionA;
+    "layoutA" : {"position" : positionA, "foo" :LeafDecalFoo, "bar":LeafDecalBar },
+    "layoutB" : LayoutB
+}
+
+LayoutD = {
+    "position" : positionB,
+    "layoutA" : LayoutC, //"layoutA" is a clone of LayoutC
+    "layoutB" : LayoutC["layoutA"] //"layoutB" is a clone of LayoutC["layoutA"]
+}
+LayoutD["layoutA"]["position"] = [0,100,0,100];
+
+//Layouts are always cloned! But they point to the same, immutable decals,
+//so they are cheap to clone.
+backgroundDecal = ..;
+heartDecal = ...;
+clubDecal = ...;
+familyBackground = {
+    family : null,
+    "background" : backgroundDecal
+}
+heartFamily = {
+    family : familyBackground,
+    "suite" : heartDecal
+}
+
+clubFamily = {
+    family : familyBackground,
+    "suite" : clubDecal
+}
+
+CardOne = {
+    "name" = "cardA",
+    "LayoutFront" = LayoutD,
+    "LayoutBack" = LayoutC,
+    family = heartFamily
+}
+#+END_SRC
+** Script
+#+BEGIN_SRC javascript
+CardSetA = [CardOne,CardOne];
+CardSetB = CardOne.clone(10);
+CardSetA.setFamily(clubFamily);
+CardSetA.add(CardOne);
+#+END_SRC
