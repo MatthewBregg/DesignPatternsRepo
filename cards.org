@@ -293,17 +293,10 @@ K = character(K)
 
 (let suite (list QueenCard JackCard KingCard oneCard ... tenCard))
 
-(let heartSuite (clone suite))
-(set-family heartSuite heartFamily)
-
-(let diamondSuite (clone suite))
-(set-family diamondSuite diamondFamily)
-
-(let clubSuite (clone suite))
-(set-family clubSuite clubFamily)
-
-(let spadeSuite (clone suite))
-(set-family spadeSuite spadeFamily)
+(render suite heartFamily)
+(render suite clubFamily)
+(render suite diamondSuite)
+(render suite spadeSuite)
 
 
 
