@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>cards</title>
-<!-- 2015-11-15 Sun 16:38 -->
+<!-- 2015-11-15 Sun 17:05 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Design Patterns Team" />
@@ -257,24 +257,17 @@ K = character(K)
 
 (let suite (list QueenCard JackCard KingCard oneCard ... tenCard))
 
-(let heartSuite (clone suite))
-(set-family heartSuite heartFamily)
-
-(let diamondSuite (clone suite))
-(set-family diamondSuite diamondFamily)
-
-(let clubSuite (clone suite))
-(set-family clubSuite clubFamily)
-
-(let spadeSuite (clone suite))
-(set-family spadeSuite spadeFamily)
+(render suite heartFamily)
+(render suite clubFamily)
+(render suite diamondSuite)
+(render suite spadeSuite)
 </pre>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Design Patterns Team</p>
-<p class="date">Created: 2015-11-15 Sun 16:38</p>
+<p class="date">Created: 2015-11-15 Sun 17:05</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
