@@ -1,0 +1,220 @@
+		    ________________________________
+
+		     SCRIPTINGLANGUAGESPECIFICATION
+
+			  Design Patterns Team
+		    ________________________________
+
+
+Table of Contents
+_________________
+
+1 Overview of Scripting Language
+.. 1.1 Built in functions
+..... 1.1.1 define
+..... 1.1.2 cons
+..... 1.1.3 card
+..... 1.1.4 render
+..... 1.1.5 list
+..... 1.1.6 position
+..... 1.1.7 layout
+..... 1.1.8 leaf-layout
+..... 1.1.9 family
+..... 1.1.10 eval-file
+2 Overview of configuration file
+.. 2.1 Syntax
+.. 2.2 Decals
+.. 2.3 Positions
+
+
+1 Overview of Scripting Language
+================================
+
+  For the scripting language, we have choosen a lisp style language.
+  While far from a complete lisp, it has a syntax similar to scheme, and
+  could easily be extended, without breaking existing scripts.
+
+
+1.1 Built in functions
+~~~~~~~~~~~~~~~~~~~~~~
+
+1.1.1 define
+------------
+
+  ,----
+  | (define name value)
+  | (define fooConstant 3)
+  `----
+  Assigns to the name the given value.  This version does not support
+  parameters atm.  (See [http://www.scheme.com/tspl2d/binding.html])
+
+
+1.1.2 cons
+----------
+
+  Takes two arguments, returns a pair holding the two arguments as one
+  object
+  ,----
+  | (cons a b)
+  | (cons 1 2)
+  `----
+  (See
+  [http://download.plt-scheme.org/doc/4.2.4/html/guide/Pairs__Lists__and_Scheme_Syntax.html])
+
+
+1.1.3 card
+----------
+
+  Takes a name, and two layouts, one for the front, one for the back.
+  ,----
+  | (card "name" frontLayout backLayout)
+  `----
+
+
+1.1.4 render
+------------
+
+  Takes in a single card, a list of cards, or a pair of cards, and a
+  family.  Renders them.
+  ,----
+  | (render card family)
+  | (render cards family)
+  | (render (cons carda cardb) family)
+  `----
+
+  Note: The family is an optional argument, leaving it empty is the same
+  as calling
+  ,----
+  | (render cards (family))
+  `----
+  Which runs render with an empty family.
+
+
+1.1.5 list
+----------
+
+  Takes in a n arguments, and returns a list of them.
+  ,----
+  | (list N0 ... Nn-1)
+  | (list 1 2 3 4 5 6 7)
+  `----
+
+
+1.1.6 position
+--------------
+
+  Takes in a x, y, and a width% and height%, and returns a position
+  object.
+  ,----
+  | (position x y width% height%)
+  | (position 0, 0 50 50)
+  | (define wholeCard (position 0 0 100 100))
+  `----
+
+
+1.1.7 layout
+------------
+
+  Creates a Layout object.  A layout contains 0-n layouts.  Takes 0-n
+  layouts as arguments.
+  ,----
+  | (Layout
+  |   layout0
+  |   layout1
+  |   ...
+  |   layoutn-1)
+  | 
+  | (Layout 
+  |   layoutFoo
+  |   (LeafLayout foobarImage wholeCard)
+  |   (LeafLayout "foo" wholeCard)
+  | )
+  `----
+
+
+1.1.8 leaf-layout
+-----------------
+
+  Returns a layout.  Takes in a decal, or a string, and a positon.  In
+  the event a string is given, the decal will be looked up in the
+  family.  This layout can then be used with the above layout function.
+  ,----
+  | (leaf-layout image position)
+  | (leaf-layout foobarImage wholeCard)
+  | (leaf-layout "foo" wholeCard)
+  `----
+
+
+1.1.9 family
+------------
+
+  Creates a map of strings to decals, a family.  Takes in N pairs.
+  barImage and fooImage must be defined in config gile.
+  ,----
+  | (family pair0 ... pairn-1)
+  | (family (cons "foo" fooImage) (cons "bar" barImage))
+  `----
+
+
+1.1.10 eval-file
+----------------
+
+  ,----
+  | (eval-file "filename.filename")
+  | (eval-file "foo.script")
+  `----
+  Eval foo.script.  Details on how that works to come.
+
+
+2 Overview of configuration file
+================================
+
+  The configuration file is for declaring resources.  Image files,
+  fonts, etc are loaded here.  Decals must be made here.  Positions can
+  be made here, but don't have to be.
+
+
+2.1 Syntax
+~~~~~~~~~~
+
+  ,----
+  | name = Type(args0,args1,...argsn-1);
+  `----
+  Just give the things to be declared one after another like so.
+
+
+2.2 Decals
+~~~~~~~~~~
+
+  - Image Decal
+  ,----
+  | name = Image("filepath.[jpg|png|etc]");
+  | fooImage = Image("foo.jpg");
+  `----
+  - Rectangle Decal
+  ,----
+  | name = Rectangle("color");
+  | whiteRectangle = Rectangle("white");
+  `----
+  - Circle Decal
+  ,----
+  | name = Circle("color");
+  | whiteCircle = Circle("white");
+  `----
+  - String details
+  A string from a given font.
+  ,----
+  | name = String("StringText","Font","Color",Size);
+  | text = String("Hello World!","Arial.font","Red",12);
+  | one = String("1","Arial.font","Red",12);
+  `----
+
+
+2.3 Positions
+~~~~~~~~~~~~~
+
+  A position that can be used in the script
+  ,----
+  | name = Position(x,y,width%,height%);
+  | wholeCard = Position(0,0,100,100);
+  `----
