@@ -1,0 +1,144 @@
+#+AUTHOR: Design Patterns Team 
+* Overview of Scripting Language
+For the scripting language, we have choosen a lisp style language.
+While far from a complete lisp, it has a syntax similar to scheme, and could easily be extended, without breaking existing scripts.
+
+** Built in functions
+*** define
+#+BEGIN_SRC scheme
+(define name value)
+(define fooConstant 3)
+#+END_SRC
+Assigns to the name the given value.
+This version does not support parameters atm.
+(See http://www.scheme.com/tspl2d/binding.html)
+*** cons
+Takes two arguments, returns a pair holding the two arguments as one object
+#+BEGIN_SRC scheme
+(cons a b)
+(cons 1 2)
+#+END_SRC
+(See http://download.plt-scheme.org/doc/4.2.4/html/guide/Pairs__Lists__and_Scheme_Syntax.html)
+*** card
+Takes a name, and two layouts, one for the front, one for the back.
+#+BEGIN_SRC scheme
+(card "name" frontLayout backLayout)
+#+END_SRC
+
+*** render
+Takes in a single card, a list of cards, or a pair of cards, and a family.
+Renders them.
+#+BEGIN_SRC scheme
+(render card family)
+(render cards family)
+(render (cons carda cardb) family)
+#+END_SRC
+
+Note: The family is an optional argument, leaving it empty is the same as calling
+#+BEGIN_SRC scheme
+(render cards (family))
+
+#+END_SRC
+Which runs render with an empty family.
+*** list
+Takes in a n arguments, and returns a list of them. 
+#+BEGIN_SRC scheme
+(list N0 ... Nn-1)
+(list 1 2 3 4 5 6 7)
+#+END_SRC
+*** position
+Takes in a x, y, and a width% and height%, and returns a position object. 
+#+BEGIN_SRC scheme
+(position x y width% height%)
+(position 0, 0 50 50)
+(define wholeCard (position 0 0 100 100))
+#+END_SRC
+*** layout
+Creates a Layout object.
+A layout contains 0-n layouts.
+Takes 0-n layouts as arguments.
+#+BEGIN_SRC scheme
+(Layout
+  layout0
+  layout1
+  ...
+  layoutn-1)
+
+(Layout 
+  layoutFoo
+  (LeafLayout foobarImage wholeCard)
+  (LeafLayout "foo" wholeCard)
+)
+
+#+END_SRC
+
+*** leaf-layout
+Returns a layout.
+Takes in a decal, or a string, and a positon.
+In the event a string is given, the decal will be looked up in the family.
+This layout can then be used with the above layout function.
+#+BEGIN_SRC scheme
+(leaf-layout image position)
+(leaf-layout foobarImage wholeCard)
+(leaf-layout "foo" wholeCard)
+#+END_SRC
+*** family
+Creates a map of strings to decals, a family.
+Takes in N pairs.
+barImage and fooImage must be defined in config gile.
+#+BEGIN_SRC family
+(family pair0 ... pairn-1)
+(family (cons "foo" fooImage) (cons "bar" barImage))
+
+#+END_SRC
+*** eval-file
+#+BEGIN_SRC scheme
+(eval-file "filename.filename")
+(eval-file "foo.script")
+#+END_SRC
+Eval foo.script.
+Details on how that works to come.
+* Overview of configuration file
+
+The configuration file is for declaring resources.
+Image files, fonts, etc are loaded here.
+Decals must be made here.
+Positions can be made here, but don't have to be. 
+
+** Syntax
+#+BEGIN_SRC 
+name = Type(args0,args1,...argsn-1);
+#+END_SRC
+Just give the things to be declared one after another like so.
+** Decals
+- Image Decal
+#+BEGIN_SRC 
+name = Image("filepath.[jpg|png|etc]");
+fooImage = Image("foo.jpg");
+#+END_SRC
+- Rectangle Decal
+#+BEGIN_SRC 
+name = Rectangle("color");
+whiteRectangle = Rectangle("white");
+#+END_SRC
+- Circle Decal
+#+BEGIN_SRC 
+name = Circle("color");
+whiteCircle = Circle("white");
+#+END_SRC
+- String details
+A string from a given font.
+#+BEGIN_SRC 
+name = String("StringText","Font","Color",Size);
+text = String("Hello World!","Arial.font","Red",12);
+one = String("1","Arial.font","Red",12);
+#+END_SRC
+** Positions
+A position that can be used in the script
+#+BEGIN_SRC 
+name = Position(x,y,width%,height%);
+wholeCard = Position(0,0,100,100);
+#+END_SRC
+
+
+

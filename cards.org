@@ -217,81 +217,82 @@ K = character(K)
 #+END_SRC
 
 #+BEGIN_SRC 
-(let emptyFamily (family))
-(let heartFamily (family (pair "suite" heartImage)))
-(let diamondFamily (family (pair "suite" diamondImage)))
-(let spadeFamily (family (pair "suite" spadeImage)))
-(let clubFamily (family (pair "suite" clubImage)))
+(define emptyFamily (family))
+(define heartFamily (family (cons "suite" heartImage)))
+(define diamondFamily (family (cons "suite" diamondImage)))
+(define spadeFamily (family (cons "suite" spadeImage)))
+(define clubFamily (family (cons "suite" clubImage)))
 
-(let backgroundLayout 
-  (Layout (cons whiteRectangle wholeCard)
-  (cons "suite" topRightCorner)
-  (cons "suite" bottomLeftCorner))
+(define backgroundLayout 
+  (layout 
+  (leaf-layout whiteRectangle wholeCard)
+  (leaf-layout "suite" topRightCorner)
+  (leaf-layout "suite" bottomLeftCorner))
 )
 
-(let jackLayout 
-  (Layout (cons backGroundLayout wholeCard)
-  (cons J topRightCorner)
-  (cons J bottomLeftCorner)
-  (cons jackImage center))
+(define jackLayout 
+  (layout (leaf-layout backGroundLayout wholeCard)
+  (leaf-layout J topRightCorner)
+  (leaf-layout J bottomLeftCorner)
+  (leaf-layout jackImage center))
 )
 
-(let queenLayout 
-  (Layout (cons backGroundLayout wholeCard)
-  (cons Q topRightCorner)
-  (cons Q bottomLeftCorner)
-  (cons queenImage center))
+(define queenLayout 
+  (layout (leaf-layout backGroundLayout wholeCard)
+  (leaf-layout Q topRightCorner)
+  (leaf-layout Q bottomLeftCorner)
+  (leaf-layout queenImage center))
 )
 
-(let kingLayout 
-  (Layout (cons backGroundLayout wholeCard)
-  (cons K topRightCorner)
-  (cons K bottomLeftCorner)
-  (cons kingImage center))
+(define kingLayout 
+  (layout (leaf-layout backGroundLayout wholeCard)
+  (leaf-layout K topRightCorner)
+  (leaf-layout K bottomLeftCorner)
+  (leaf-layout kingImage center))
 )
 
-(let KingCard 
-  (card ("King" kingLayout kingLayout emptyFamily))
+(define KingCard 
+  (card ("King" kingLayout kingLayout))
 )
 
-(let JackCard 
-  (card ("Jack" JackLayout JackLayout emptyFamily))
+(define JackCard 
+  (card ("Jack" JackLayout JackLayout))
 )
 
-(let QueenCard 
-  (card ("Queen" QueenLayout QueenLayout emptyFamily))
+(define QueenCard 
+  (card ("Queen" QueenLayout QueenLayout))
 )
 
-(let oneLayout
-  (Layout (cons backGroundLayout wholeCard)
-  (cons one topRightCorner)
-  (cons one topLeftCorner)
-  (cons "suite" center)
+(define oneLayout
+  (layout (leaf-layout backGroundLayout wholeCard)
+  (leaf-layout one topRightCorner)
+  (leaf-layout one topLeftCorner)
+  (leaf-layout "suite" center)
 )
 
-(let oneCard (card "One" oneLayout oneLayout emptyFamily))
+(define oneCard (card "One" oneLayout oneLayout))
 ...
 
-(let tenLayout
-  (Layout (cons backGroundLayout wholeCard)
-  (cons ten topRightCorner)
-  (cons ten topLeftCorner)
-  (cons "suite" center-10-1)
-  (cons "suite" center-10-2)
-  (cons "suite" center-10-3)
-  (cons "suite" center-10-4)
-  (cons "suite" center-10-5)
-  (cons "suite" center-10-6)
-  (cons "suite" center-10-7)
-  (cons "suite" center-10-8)
-  (cons "suite" center-10-9)
-  (cons "suite" center-10-10)
+(define tenLayout
+  (layout (leaf-layout backGroundLayout wholeCard)
+  (leaf-layout ten topRightCorner)
+  (leaf-layout ten topLeftCorner)
+  (leaf-layout "suite" center-10-1)
+  (leaf-layout "suite" center-10-2)
+  (leaf-layout "suite" center-10-3)
+  (leaf-layout "suite" center-10-4)
+  (leaf-layout "suite" center-10-5)
+  (leaf-layout "suite" center-10-6)
+  (leaf-layout "suite" center-10-7)
+  (leaf-layout "suite" center-10-8)
+  (leaf-layout "suite" center-10-9)
+  (leaf-layout "suite" center-10-10)
 )
 
-(let tenCard (card "Ten" tenLayout tenLayout emptyFamily))
+(define tenCard (card "Ten" tenLayout tenLayout))
 
 
-(let suite (list QueenCard JackCard KingCard oneCard ... tenCard))
+(define suite (list QueenCard JackCard KingCard oneCard ... tenCard))
 
 (render suite heartFamily)
 (render suite clubFamily)
