@@ -46,7 +46,8 @@ _________________
   | (define fooConstant 3)
   `----
   Assigns to the name the given value.  This version does not support
-  parameters atm.  (See [http://www.scheme.com/tspl2d/binding.html])
+  defining functions atm.  (See
+  [http://www.scheme.com/tspl2d/binding.html])
 
 
 1.1.2 cons
@@ -126,8 +127,8 @@ _________________
   | 
   | (Layout 
   |   layoutFoo
-  |   (LeafLayout foobarImage wholeCard)
-  |   (LeafLayout "foo" wholeCard)
+  |   (leaf-layout foobarImage wholeCard)
+  |   (leaf-layout "foo" wholeCard)
   | )
   `----
 

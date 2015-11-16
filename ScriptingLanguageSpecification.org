@@ -66,8 +66,8 @@ Takes 0-n layouts as arguments.
 
 (Layout 
   layoutFoo
-  (LeafLayout foobarImage wholeCard)
-  (LeafLayout "foo" wholeCard)
+  (leaf-layout foobarImage wholeCard)
+  (leaf-layout "foo" wholeCard)
 )
 
 #+END_SRC
