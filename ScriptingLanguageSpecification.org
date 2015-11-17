@@ -141,5 +141,11 @@ name = Position(x,y,width%,height%);
 wholeCard = Position(0,0,100,100);
 #+END_SRC
 
+** Size
+A size is used by a card to determine how many pixels it will be.
+#+BEGIN_SRC 
+size = Size(width, height)
+#+END_SRC
+
 
 

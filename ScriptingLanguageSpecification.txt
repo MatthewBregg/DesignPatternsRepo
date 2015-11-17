@@ -25,6 +25,7 @@ _________________
 .. 2.1 Syntax
 .. 2.2 Decals
 .. 2.3 Positions
+.. 2.4 Size
 
 
 1 Overview of Scripting Language
@@ -221,4 +222,13 @@ _________________
   ,----
   | name = Position(x,y,width%,height%);
   | wholeCard = Position(0,0,100,100);
+  `----
+
+
+2.4 Size
+~~~~~~~~
+
+  A size is used by a card to determine how many pixels it will be.
+  ,----
+  | size = Size(width, height)
   `----
