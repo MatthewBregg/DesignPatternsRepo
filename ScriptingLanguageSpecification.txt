@@ -66,10 +66,13 @@ _________________
 1.1.3 card
 ----------
 
-  Takes a name, and two layouts, one for the front, one for the back.
+  Takes a card-size, name, and two layouts, one for the front, one for
+  the back.
   ,----
-  | (card "name" frontLayout backLayout)
+  | (card card-size "name" frontLayout backLayout)
   `----
+  When a card is rendered, it will pair the layout with the wholeCard
+  position (0 0 100 100)
 
 
 1.1.4 render
@@ -116,19 +119,19 @@ _________________
 1.1.7 layout
 ------------
 
-  Creates a Layout object.  A layout contains 0-n layouts.  Takes 0-n
-  layouts as arguments.
+  Creates a Layout object.  A layout contains 0-n pairs of layouts and
+  positions.  Takes 0-n pairs of layouts and positions as arguments.
   ,----
   | (Layout
-  |   layout0
-  |   layout1
+  |   (cons layout0 position0)
+  |   (cons layout1 position1)
   |   ...
-  |   layoutn-1)
+  |   (cons layoutn-1 positionn-1))
   | 
   | (Layout 
-  |   layoutFoo
-  |   (leaf-layout foobarImage wholeCard)
-  |   (leaf-layout "foo" wholeCard)
+  |   (cons layoutFoo positionFoo)
+  |   (cons (leaf-layout foobarImage) wholeCard)
+  |   (cons (leaf-layout "foo") wholeCard)
   | )
   `----
 

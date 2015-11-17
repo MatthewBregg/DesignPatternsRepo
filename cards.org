@@ -197,11 +197,12 @@ jackImage = Image("jack.jpg")
 queenImage = Image("queen.jpg")
 kingImage = Image("king.jpg")
 
-whiteRectangle = rectangle("white")
-wholeCard = position(0,0,100,100)
+whiteRectangle = Rectangle("white")
+wholeCard = Position(0,0,100,100)
+cardSize = Size(1000,1000)
 //..Moreposiitons
 
-ace = character(A)
+ace = character(A) //This needs to be replaced with string.
 two = character(2)
 three = character(3)
 four = character(4)
@@ -225,71 +226,76 @@ K = character(K)
 
 (define backgroundLayout 
   (layout 
-  (leaf-layout whiteRectangle wholeCard)
-  (leaf-layout "suite" topRightCorner)
-  (leaf-layout "suite" bottomLeftCorner))
+  (cons (leaf-layout whiteRectangle) wholeCard)
+  (cons (leaf-layout "suite") topRightCorner)
+  (cons (leaf-layout "suite") bottomLeftCorner))
 )
 
 (define jackLayout 
-  (layout (leaf-layout backGroundLayout wholeCard)
-  (leaf-layout J topRightCorner)
-  (leaf-layout J bottomLeftCorner)
-  (leaf-layout jackImage center))
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout J) topRightCorner)
+  (cons (leaf-layout J) bottomLeftCorner)
+  (cons (leaf-layout jackImage) center))
 )
 
 (define queenLayout 
-  (layout (leaf-layout backGroundLayout wholeCard)
-  (leaf-layout Q topRightCorner)
-  (leaf-layout Q bottomLeftCorner)
-  (leaf-layout queenImage center))
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout Q) topRightCorner)
+  (cons (leaf-layout Q) bottomLeftCorner)
+  (cons (leaf-layout queenImage) center))
 )
 
 (define kingLayout 
-  (layout (leaf-layout backGroundLayout wholeCard)
-  (leaf-layout K topRightCorner)
-  (leaf-layout K bottomLeftCorner)
-  (leaf-layout kingImage center))
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout K) topRightCorner)
+  (cons (leaf-layout K) bottomLeftCorner)
+  (cons (leaf-layout kingImage) center))
 )
 
 (define KingCard 
-  (card ("King" kingLayout kingLayout))
+  (card cardSize "King" kingLayout kingLayout)
 )
 
 (define JackCard 
-  (card ("Jack" JackLayout JackLayout))
+  (card cardSize "Jack" JackLayout JackLayout)
 )
 
 (define QueenCard 
-  (card ("Queen" QueenLayout QueenLayout))
+  (card cardSize "Queen" QueenLayout QueenLayout)
 )
 
 (define oneLayout
-  (layout (leaf-layout backGroundLayout wholeCard)
-  (leaf-layout one topRightCorner)
-  (leaf-layout one topLeftCorner)
-  (leaf-layout "suite" center)
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout one) topRightCorner)
+  (cons (leaf-layout one) topLeftCorner)
+  (cons (leaf-layout "suite") center)
 )
 
-(define oneCard (card "One" oneLayout oneLayout))
+(define oneCard (card cardSize "One" oneLayout oneLayout))
 ...
 
 (define tenLayout
-  (layout (leaf-layout backGroundLayout wholeCard)
-  (leaf-layout ten topRightCorner)
-  (leaf-layout ten topLeftCorner)
-  (leaf-layout "suite" center-10-1)
-  (leaf-layout "suite" center-10-2)
-  (leaf-layout "suite" center-10-3)
-  (leaf-layout "suite" center-10-4)
-  (leaf-layout "suite" center-10-5)
-  (leaf-layout "suite" center-10-6)
-  (leaf-layout "suite" center-10-7)
-  (leaf-layout "suite" center-10-8)
-  (leaf-layout "suite" center-10-9)
-  (leaf-layout "suite" center-10-10)
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout ten) topRightCorner)
+  (cons (leaf-layout ten) topLeftCorner)
+  (cons (leaf-layout "suite") center-10-1)
+  (cons (leaf-layout "suite") center-10-2)
+  (cons (leaf-layout "suite") center-10-3)
+  (cons (leaf-layout "suite") center-10-4)
+  (cons (leaf-layout "suite") center-10-5)
+  (cons (leaf-layout "suite") center-10-6)
+  (cons (leaf-layout "suite") center-10-7)
+  (cons (leaf-layout "suite") center-10-8)
+  (cons (leaf-layout "suite") center-10-9)
+  (cons (leaf-layout "suite") center-10-10)
 )
 
-(define tenCard (card "Ten" tenLayout tenLayout))
+(define tenCard (card cardSize "Ten" tenLayout tenLayout))
 
 
 (define suite (list QueenCard JackCard KingCard oneCard ... tenCard))
