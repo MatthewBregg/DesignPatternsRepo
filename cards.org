@@ -322,7 +322,7 @@ K = character(K)
           sub_size.y*= (position.height/100);
           for (LayoutAndPositionHolder pair : this.data) {
               SubImage = pair.layout.render(family,pair.position,sub_size);
-              Image.insertImage(subImage,pair.position.x*(size.x/100),pair.position.y*(size.y/100))
+              Image.insertImage(subImage,pair.position.x*(size.x/100),pair.position.y*(size.y/100));
           }
           return Image;
       }
