@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>cards</title>
-<!-- 2015-11-17 Tue 17:54 -->
+<!-- 2015-11-17 Tue 18:19 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Design Patterns Team" />
@@ -621,7 +621,9 @@ The idea is that we
         Size sub_size = size; 
         for (LayoutAndPositionHolder pair : this.data) {
             SubImage = pair.layout.render(families,pair.position,sub_size);
-            image.insertImage(subImage,pair.position.x*(sub_size.x/100),pair.position.y*(sub_size.y/100));
+            image.insertImage(subImage,
+                              pair.position.x*(sub_size.x/100),
+                              pair.position.y*(sub_size.y/100));
         }
         return image;
     }
@@ -699,7 +701,9 @@ This process is started with the card, which will call
                 return decal.render(families,size);
             }
         }
-        //If we get here, error, throw an exception or something, and add an error to the user
+        //If we get here, error, 
+        //throw an exception or something,
+        // and add an error to the user
         //error output, something like
 
         // "ERROR, DECAL OF NAME " + name + "Not found in given family!"
@@ -712,7 +716,7 @@ This process is started with the card, which will call
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Design Patterns Team</p>
-<p class="date">Created: 2015-11-17 Tue 17:54</p>
+<p class="date">Created: 2015-11-17 Tue 18:19</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

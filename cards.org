@@ -333,7 +333,9 @@ The idea is that we
           Size sub_size = size; 
           for (LayoutAndPositionHolder pair : this.data) {
               SubImage = pair.layout.render(families,pair.position,sub_size);
-              image.insertImage(subImage,pair.position.x*(sub_size.x/100),pair.position.y*(sub_size.y/100));
+              image.insertImage(subImage,
+                                pair.position.x*(sub_size.x/100),
+                                pair.position.y*(sub_size.y/100));
           }
           return image;
       }
@@ -387,7 +389,9 @@ This process is started with the card, which will call
                   return decal.render(families,size);
               }
           }
-          //If we get here, error, throw an exception or something, and add an error to the user
+          //If we get here, error, 
+          //throw an exception or something,
+          // and add an error to the user
           //error output, something like
 
           // "ERROR, DECAL OF NAME " + name + "Not found in given family!"

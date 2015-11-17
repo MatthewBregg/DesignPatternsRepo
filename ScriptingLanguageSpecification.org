@@ -128,7 +128,12 @@ whiteRectangle = Rectangle("white");
 name = Circle("color");
 whiteCircle = Circle("white");
 #+END_SRC
-- String details
+- Custom Shape Decal
+  Gets given a list of points, connects point_1 -> point_2 -> ... point_n-1 -> point 1
+#+BEGIN_SRC 
+customShape = CustomShape((0,1),(1,0)...)
+#+END_SRC
+- String decal
 A string from a given font.
 #+BEGIN_SRC 
 name = String("StringText","Font","Color",Size);

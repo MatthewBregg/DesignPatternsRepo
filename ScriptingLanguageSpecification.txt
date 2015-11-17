@@ -17,8 +17,8 @@ _________________
 ..... 1.1.4 render
 ..... 1.1.5 list
 ..... 1.1.6 position
-..... 1.1.7 layout
-..... 1.1.8 leaf-layout
+..... 1.1.7 leaf-layout
+..... 1.1.8 layout
 ..... 1.1.9 family
 ..... 1.1.10 eval-file
 2 Overview of configuration file
@@ -49,6 +49,7 @@ _________________
   Assigns to the name the given value.  This version does not support
   defining functions atm.  (See
   [http://www.scheme.com/tspl2d/binding.html])
+  - Right now, defines may not be nested, and must be done at top level.
 
 
 1.1.2 cons
@@ -79,12 +80,13 @@ _________________
 1.1.4 render
 ------------
 
-  Takes in a single card, a list of cards, or a pair of cards, and a
-  family.  Renders them.
+  Takes in a single card, a list of cards, or a pair of cards, and 0-n
+  families.  Renders them.
   ,----
   | (render card family)
   | (render cards family)
   | (render (cons carda cardb) family)
+  | (render some-cards family0 ... familyn-1)
   `----
 
   Note: The family is an optional argument, leaving it empty is the same
@@ -108,16 +110,29 @@ _________________
 1.1.6 position
 --------------
 
-  Takes in a x, y, and a width% and height%, and returns a position
+  Takes in a x%, y%, and a width% and height%, and returns a position
   object.
   ,----
-  | (position x y width% height%)
+  | (position x% y% width% height%)
   | (position 0 0 50 50)
   | (define wholeCard (position 0 0 100 100))
   `----
 
 
-1.1.7 layout
+1.1.7 leaf-layout
+-----------------
+
+  Returns a layout.  Takes in a decal, or a string, and a positon.  In
+  the event a string is given, the decal will be looked up in the
+  family.  This layout can then be used with the above layout function.
+  ,----
+  | (leaf-layout image position)
+  | (leaf-layout foobarImage wholeCard)
+  | (leaf-layout "foo" wholeCard)
+  `----
+
+
+1.1.8 layout
 ------------
 
   Creates a Layout object.  A layout contains 0-n pairs of layouts and
@@ -134,19 +149,6 @@ _________________
   |   (cons (leaf-layout foobarImage) wholeCard)
   |   (cons (leaf-layout "foo") wholeCard)
   | )
-  `----
-
-
-1.1.8 leaf-layout
------------------
-
-  Returns a layout.  Takes in a decal, or a string, and a positon.  In
-  the event a string is given, the decal will be looked up in the
-  family.  This layout can then be used with the above layout function.
-  ,----
-  | (leaf-layout image position)
-  | (leaf-layout foobarImage wholeCard)
-  | (leaf-layout "foo" wholeCard)
   `----
 
 
@@ -206,7 +208,12 @@ _________________
   | name = Circle("color");
   | whiteCircle = Circle("white");
   `----
-  - String details
+  - Custom Shape Decal Gets given a list of points, connects point_1 ->
+    point_2 -> ... point_n-1 -> point 1
+  ,----
+  | customShape = CustomShape((0,1),(1,0)...)
+  `----
+  - String decal
   A string from a given font.
   ,----
   | name = String("StringText","Font","Color",Size);
@@ -220,7 +227,7 @@ _________________
 
   A position that can be used in the script
   ,----
-  | name = Position(x,y,width%,height%);
+  | name = Position(x%,y%,width%,height%);
   | wholeCard = Position(0,0,100,100);
   `----
 
