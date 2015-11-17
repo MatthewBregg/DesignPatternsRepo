@@ -312,23 +312,86 @@ K = character(K)
 #+END_SRC
 
 * Render method
+The idea is that we
+ - Calculate a size for our image, call this MainImage.
+   - Calculate the size of this layout with the size given to us of parent, plus our relative width + height to that
+ - If a composite, then
+   - Make MainImage a transparent image with the earlier calculated size.
+   - For each child, call render again, passing in the position it is paired with in the composite
+     - Pass through the family, and the subsize. 
+   - For each child, take the image retrieved from the above step, and place it in the MainImage.
+     - It will be placed at MainImage.size().x*x%, MainImage.size().y*y%
+   - Return MainImage
 #+BEGIN_SRC java
-  abstract class CompositeLayout {
+  class CompositeLayout {
       //...Stuff elided
-      Image render(Family family, Position position, Size size) {
-          Image = new Image(size.x,size.y);
+      Image render(ArrayList<Family> families, Position position, Size size) {
           Size sub_size = size; 
           sub_size.x*= (position.width/100);
           sub_size.y*= (position.height/100);
+          Image image = new Image(sub_size.x,sub_size.y);
+          Size sub_size = size; 
           for (LayoutAndPositionHolder pair : this.data) {
-              SubImage = pair.layout.render(family,pair.position,sub_size);
-              Image.insertImage(subImage,pair.position.x*(size.x/100),pair.position.y*(size.y/100));
+              SubImage = pair.layout.render(families,pair.position,sub_size);
+              image.insertImage(subImage,pair.position.x*(sub_size.x/100),pair.position.y*(sub_size.y/100));
           }
-          return Image;
+          return image;
       }
 
   }
+#+END_SRC
+ - If a LeafLayout
+   - Tell the decal to render at that calculated size.
+   - Return this image
 
+#+BEGIN_SRC java 
+ class LeafLayout {
+      //... Stuff ellided
 
+      Image render(ArrayList<Family> families, Position position, Size size) {
+          Size sub_size = size; 
+          sub_size.x*= (position.width/100);
+          sub_size.y*= (position.height/100);
+          Image sub_image = this.decal.render(families,sub_size);
+          return sub_image;
+      }
+#+END_SRC
+- Note how position is always handled by the parent.
+ 
+This process is started with the card, which will call
+#+BEGIN_SRC java 
+  class Card {
+      //Stuff ellided
+      Foo someMethod(ArrayList<Family> families,Some params...) {
+        Image image = FrontLayout.render(families,new Position(0,0,100,100),this.size);
+        Image image = BackLayout.render(families,new Position(0,0,100,100),this.size);
+          Do something with these images...
+      }
+  }
+#+END_SRC
+
+- Dynamic decal will look like this
+  - Decals only need Families + size to be rendered
+#+BEGIN_SRC java
+  class DynamicDecal {
+      private String key;
+
+      DynamicDecal(String key) {
+          this.key = key;
+      }
+
+      Image render(ArrayList<Family> families, size) {
+          for ( Family family : families ) {
+              Decal decal = family.get(key);
+              if ( decal != null ) {
+                  return decal.render(families,size);
+              }
+          }
+          //If we get here, error, throw an exception or something, and add an error to the user
+          //error output, something like
+
+          // "ERROR, DECAL OF NAME " + name + "Not found in given family!"
+      }
+  }
 
 #+END_SRC
