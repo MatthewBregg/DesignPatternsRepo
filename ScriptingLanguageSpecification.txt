@@ -112,7 +112,7 @@ _________________
   object.
   ,----
   | (position x y width% height%)
-  | (position 0, 0 50 50)
+  | (position 0 0 50 50)
   | (define wholeCard (position 0 0 100 100))
   `----
 

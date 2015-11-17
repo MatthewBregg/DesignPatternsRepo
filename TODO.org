@@ -1,5 +1,9 @@
 * TODO This meeting, Tuesday November 18th
-- Finalize scripting language
+- Examples ( Need 2, want 3, maybe 4)
+  - Finish up 52 playing card example
+  - do monopoly
+  - Do Pokemon
+  - Do settlers of Catan
 - Layout classes for parser
 - Elaborate on existing uml
 - Could potentially break into parts, composite, renderer, etc
@@ -12,6 +16,8 @@
       
 ** DONE 
 - Choose a basic design + language so we can start working!
+- Finalize scripting language
+
 
 * Tenative Schedule
 - Friday : Finalized Design, overall uml done or nearly done, side umls mostly done.

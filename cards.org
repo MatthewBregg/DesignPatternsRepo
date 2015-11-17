@@ -302,10 +302,32 @@ K = character(K)
 
 (render suite heartFamily)
 (render suite clubFamily)
-(render suite diamondSuite)
-(render suite spadeSuite)
+(render suite diamondFamily)
+(render suite spadeFamily)
 
 
+
+
+
+#+END_SRC
+
+* Render method
+#+BEGIN_SRC java
+  abstract class CompositeLayout {
+      //...Stuff elided
+      Image render(Family family, Position position, Size size) {
+          Image = new Image(size.x,size.y);
+          Size sub_size = size; 
+          sub_size.x*= (position.width/100);
+          sub_size.y*= (position.height/100);
+          for (LayoutAndPositionHolder pair : this.data) {
+              SubImage = pair.layout.render(family,pair.position,sub_size);
+              Image.insertImage(subImage,pair.position.x*(size.x/100),pair.position.y*(size.y/100))
+          }
+          return Image;
+      }
+
+  }
 
 
 

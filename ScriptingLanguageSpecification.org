@@ -12,6 +12,7 @@ While far from a complete lisp, it has a syntax similar to scheme, and could eas
 Assigns to the name the given value.
 This version does not support defining functions atm.
 (See http://www.scheme.com/tspl2d/binding.html)
+- Right now, defines may not be nested, and must be done at top level.
 *** cons
 Takes two arguments, returns a pair holding the two arguments as one object
 #+BEGIN_SRC scheme
@@ -27,12 +28,13 @@ Takes a card-size, name, and two layouts, one for the front, one for the back.
 When a card is rendered, it will pair the layout with the wholeCard position (0 0 100 100)
 
 *** render
-Takes in a single card, a list of cards, or a pair of cards, and a family.
+Takes in a single card, a list of cards, or a pair of cards, and 0-n families.
 Renders them.
 #+BEGIN_SRC scheme
 (render card family)
 (render cards family)
 (render (cons carda cardb) family)
+(render some-cards family0 ... familyn-1)
 #+END_SRC
 
 Note: The family is an optional argument, leaving it empty is the same as calling
@@ -48,11 +50,21 @@ Takes in a n arguments, and returns a list of them.
 (list 1 2 3 4 5 6 7)
 #+END_SRC
 *** position
-Takes in a x, y, and a width% and height%, and returns a position object. 
+Takes in a x%, y%, and a width% and height%, and returns a position object. 
 #+BEGIN_SRC scheme
-(position x y width% height%)
-(position 0, 0 50 50)
+(position x% y% width% height%)
+(position 0 0 50 50)
 (define wholeCard (position 0 0 100 100))
+#+END_SRC
+*** leaf-layout
+Returns a layout.
+Takes in a decal, or a string, and a positon.
+In the event a string is given, the decal will be looked up in the family.
+This layout can then be used with the above layout function.
+#+BEGIN_SRC scheme
+(leaf-layout image position)
+(leaf-layout foobarImage wholeCard)
+(leaf-layout "foo" wholeCard)
 #+END_SRC
 *** layout
 Creates a Layout object.
@@ -71,17 +83,6 @@ Takes 0-n pairs of layouts and positions as arguments.
   (cons (leaf-layout "foo") wholeCard)
 )
 
-#+END_SRC
-
-*** leaf-layout
-Returns a layout.
-Takes in a decal, or a string, and a positon.
-In the event a string is given, the decal will be looked up in the family.
-This layout can then be used with the above layout function.
-#+BEGIN_SRC scheme
-(leaf-layout image position)
-(leaf-layout foobarImage wholeCard)
-(leaf-layout "foo" wholeCard)
 #+END_SRC
 *** family
 Creates a map of strings to decals, a family.
@@ -137,7 +138,7 @@ one = String("1","Arial.font","Red",12);
 ** Positions
 A position that can be used in the script
 #+BEGIN_SRC 
-name = Position(x,y,width%,height%);
+name = Position(x%,y%,width%,height%);
 wholeCard = Position(0,0,100,100);
 #+END_SRC
 
