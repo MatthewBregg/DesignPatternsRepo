@@ -1,0 +1,20 @@
+* TODO This meeting, Tuesday November 18th
+- Finalize scripting language
+- Layout classes for parser
+- Elaborate on existing uml
+- Could potentially break into parts, composite, renderer, etc
+  - Need to describe the renderer, currently is absent
+  - Need composite operations, Layout composite will probably want a .render(family,relativeposition, size).
+  - Decals
+    - String decal needs a font when created, image decal needs image, etc. All these constructors and such need to be formally done.
+  - Multiple UML diagrams.
+    - One for the parser, one for the composite, one for the decals...
+      
+** DONE 
+- Choose a basic design + language so we can start working!
+
+* Tenative Schedule
+- Friday : Finalized Design, overall uml done or nearly done, side umls mostly done.
+- Monday : Everything except per class docs done
+- Over Thanksgiving break : We break up the classes, and assign each person an even amount of classes to right specs on
+- Turn in
