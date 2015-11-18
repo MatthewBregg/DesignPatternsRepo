@@ -2,73 +2,18 @@
 <diagram program="umlet" version="13.3">
   <zoom_level>9</zoom_level>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>522</x>
-      <y>405</y>
-      <w>108</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>603</x>
-      <y>333</y>
-      <w>27</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>603</x>
-      <y>405</y>
-      <w>117</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>738</x>
-      <y>405</y>
-      <w>27</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>693</x>
-      <y>405</y>
-      <w>297</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>310.0;80.0;310.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>900</x>
-      <y>477</y>
-      <w>153</w>
+      <x>1125</x>
+      <y>252</y>
+      <w>324</w>
       <h>126</h>
     </coordinates>
     <panel_attributes>DynamicDecal
 --
 - familyName:String
 --
-+ render(): void
++ render(families ArrayList&lt;Families&gt;, size Size): Image
 
 </panel_attributes>
     <additional_attributes/>
@@ -76,16 +21,16 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>477</y>
-      <w>180</w>
+      <x>747</x>
+      <y>252</y>
+      <w>333</w>
       <h>126</h>
     </coordinates>
     <panel_attributes>Image
 --
 - image: Image
 --
-+ render(): void
++ render(families ArrayList&lt;Families&gt;, size Size): Image
 + load(String fileName): Image
 
 </panel_attributes>
@@ -94,16 +39,16 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>459</x>
-      <y>477</y>
-      <w>153</w>
+      <x>342</x>
+      <y>432</y>
+      <w>369</w>
       <h>126</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Shape/
 --
 --
-+ render(): void
++ render(families ArrayList&lt;Families&gt;, size Size): void
 
 </panel_attributes>
     <additional_attributes/>
@@ -111,9 +56,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>261</x>
-      <y>477</y>
-      <w>153</w>
+      <x>0</x>
+      <y>252</y>
+      <w>324</w>
       <h>117</h>
     </coordinates>
     <panel_attributes>Text
@@ -123,7 +68,7 @@
 - size: int
 - font:Font
 --
-+render (): void
++ render(families ArrayList&lt;Families&gt;, size Size): Image
 
 </panel_attributes>
     <additional_attributes/>
@@ -131,57 +76,46 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>333</x>
-      <y>405</y>
-      <w>216</w>
-      <h>90</h>
+      <x>117</x>
+      <y>198</y>
+      <w>423</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0;220.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>531</x>
-      <y>405</y>
-      <w>27</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0;450.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>432</x>
-      <y>666</y>
-      <w>180</w>
+      <x>351</x>
+      <y>648</y>
+      <w>333</w>
       <h>99</h>
     </coordinates>
     <panel_attributes>Circle
 --
 - radius: double
 --
-+ render(): void</panel_attributes>
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>594</y>
-      <w>252</w>
-      <h>81</h>
+      <x>126</x>
+      <y>549</y>
+      <w>405</w>
+      <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>260.0;10.0;260.0;30.0;10.0;30.0;10.0;70.0</additional_attributes>
+    <additional_attributes>430.0;10.0;430.0;110.0;430.0;60.0;10.0;60.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>225</x>
-      <y>666</y>
-      <w>180</w>
+      <x>0</x>
+      <y>648</y>
+      <w>315</w>
       <h>99</h>
     </coordinates>
     <panel_attributes>Rectangle
@@ -189,26 +123,15 @@
 - width: double
 - height: double
 --
-+ render(): void</panel_attributes>
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>522</x>
-      <y>612</y>
-      <w>522</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;560.0;10.0;560.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>945</x>
-      <y>666</y>
-      <w>180</w>
+      <x>1107</x>
+      <y>648</y>
+      <w>324</w>
       <h>99</h>
     </coordinates>
     <panel_attributes>AnyShape
@@ -216,53 +139,31 @@
 - xCords: ArrayList&lt;double&gt;
 - yCords: ArrayList&lt;double?
 --
-+ render(): void</panel_attributes>
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>270</y>
-      <w>198</w>
+      <x>531</x>
+      <y>72</y>
+      <w>333</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Decal/
 --
-render():void
++ render(families ArrayList&lt;Families&gt;, size Size): Image
 
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>522</x>
-      <y>612</y>
-      <w>27</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>774</x>
-      <y>612</y>
-      <w>27</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>702</x>
-      <y>666</y>
-      <w>180</w>
+      <x>738</x>
+      <y>648</y>
+      <w>324</w>
       <h>99</h>
     </coordinates>
     <panel_attributes>Triangle
@@ -271,33 +172,40 @@ render():void
 - bLenght: double
 - cLength: double
 --
-+ render(): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>0</x>
-      <y>270</y>
-      <w>450</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>Note on render signature
-This is the same for all the other objects.
---
-+render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): void
-bg=white</panel_attributes>
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>441</x>
-      <y>306</y>
-      <w>90</w>
-      <h>27</h>
+      <x>513</x>
+      <y>135</y>
+      <w>207</w>
+      <h>315</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+    <additional_attributes>210.0;10.0;210.0;80.0;10.0;80.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>198</y>
+      <w>621</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>670.0;60.0;670.0;10.0;10.0;10.0;260.0;10.0;260.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>594</y>
+      <w>801</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>870.0;60.0;870.0;10.0;10.0;10.0;460.0;10.0;460.0;60.0</additional_attributes>
   </element>
 </diagram>

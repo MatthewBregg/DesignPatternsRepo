@@ -26,7 +26,7 @@
 - Finalize scripting language
 
 
-* Tenative Schedule
+* Tentative Schedule
 - Friday : Finalized Design, overall uml done or nearly done, side umls mostly done.
 - Monday : Everything except per class docs done
 - Over Thanksgiving break : We break up the classes, and assign each person an even amount of classes to right specs on
