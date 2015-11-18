@@ -4,15 +4,14 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
+      <x>200</x>
       <y>120</y>
-      <w>170</w>
+      <w>250</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>Family
 --
-- familyName: String
-- decal: Decal
+- familyMap Map&lt; String, Decal&gt;
 --
 
 
@@ -22,9 +21,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>270</y>
-      <w>170</w>
+      <x>190</x>
+      <y>280</y>
+      <w>260</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>Size
@@ -40,9 +39,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>380</x>
-      <y>440</y>
-      <w>170</w>
+      <x>190</x>
+      <y>450</y>
+      <w>260</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>PositionScaled
@@ -57,9 +56,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>590</x>
-      <y>110</y>
-      <w>310</w>
+      <x>530</x>
+      <y>120</y>
+      <w>360</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>Card
@@ -69,7 +68,7 @@
 - x: double
 - y: double
 --
-+ render (): void
++ render(): Pair&lt;Image,Image&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
