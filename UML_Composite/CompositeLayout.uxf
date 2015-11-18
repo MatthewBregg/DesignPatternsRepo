@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>518</x>
+      <y>448</y>
+      <w>392</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/ComponentLayout/
+--
+--
++render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): void
++removeLayout(l ComponentLayout): ComponentLayout
++iterator(): iterator&lt;ComponentLayout&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>266</x>
+      <y>679</y>
+      <w>350</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/LeafLayout/
+--
+--
++render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>875</x>
+      <y>665</y>
+      <w>392</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/CompositeLayout/
+--
+--
++render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): void
++addLayout(l ComponentLayout): void
++removeLayout(l ComponentLayout): ComponentLayout
++iterator(): iterator&lt;ComponentLayout&gt;
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>700</x>
+      <y>861</y>
+      <w>371</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>SingleComponentLayout
+--
+- child: ComponentLayout
+--
++render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): void
++addLayout(l ComponentLayout): void
++removeLayout(l ComponentLayout): ComponentLayout
++iterator(): iterator&lt;ComponentLayout&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>602</y>
+      <w>315</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0;430.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>707</x>
+      <y>525</y>
+      <w>378</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;&gt;</panel_attributes>
+    <additional_attributes>520.0;200.0;520.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>903</x>
+      <y>490</y>
+      <w>504</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2= 0..1
+</panel_attributes>
+    <additional_attributes>520.0;320.0;700.0;320.0;700.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1120</x>
+      <y>861</y>
+      <w>371</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>ArrayComponentLayout
+--
+- children: ArrayList &lt;ComponentLayout&gt;
+--
++render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): void
++addLayout(l ComponentLayout): void
++removeLayout(l ComponentLayout): ComponentLayout
++iterator(): iterator&lt;ComponentLayout&gt;
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>889</x>
+      <y>812</y>
+      <w>189</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1057</x>
+      <y>749</y>
+      <w>259</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>350.0;160.0;350.0;100.0;10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>735</y>
+      <w>21</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>847</y>
+      <w>371</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/Decal/
+--
+--
++render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): void
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>1029</x>
+      <y>364</y>
+      <w>42</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Ervis</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1127</x>
+      <y>322</y>
+      <w>98</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Hi Dave
+Why?
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>322</y>
+      <w>98</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;60.0;60.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>1085</x>
+      <y>392</y>
+      <w>42</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Matt</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>1204</x>
+      <y>399</y>
+      <w>42</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Ian</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>1267</x>
+      <y>378</y>
+      <w>56</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Brandon</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>35</x>
+      <y>581</y>
+      <w>301</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>Note on implementation of render() on a LeafLayout
+--
+// some code
+Image sub_image = this.decal.render(families,sub_size);
+         return sub_image;
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>623</y>
+      <w>147</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;190.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1449</x>
+      <y>679</y>
+      <w>308</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>Note on implementation of render() on a CompositeLayoout
+--
+// some code
+for (LayoutAndPositionHolder pair : this.data) {
+   SubImage = pair.layout.render(families,pair.position,sub_size);
+   image.insertImage(subImage,
+        pair.position.x*(sub_size.x/100),
+        pair.position.y*(sub_size.y/100));
+   }
+return image;
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1260</x>
+      <y>693</y>
+      <w>203</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

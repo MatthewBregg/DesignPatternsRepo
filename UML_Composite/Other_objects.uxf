@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>120</y>
+      <w>170</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Family
+--
+- familyName: String
+- decal: Decal
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>270</y>
+      <w>170</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Size
+--
+- width_percent: double
+- height_percent: double
+--
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>440</y>
+      <w>170</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>PositionScaled
+--
+- x: double
+- y: double
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>110</y>
+      <w>310</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Card
+--
+- frontLayout: ComponentLayout
+- backLayout: ComponentLayout
+- x: double
+- y: double
+--
++ render (): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
