@@ -13,6 +13,7 @@
     - String decal needs a font when created, image decal needs image, etc. All these constructors and such need to be formally done.
   - Multiple UML diagrams.
     - One for the parser, one for the composite, one for the decals...
+  - Write user manual, describing what a Layout, Family, etc are.
       
 ** DONE 
 - Choose a basic design + language so we can start working!

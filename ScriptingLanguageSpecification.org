@@ -25,7 +25,7 @@ Takes a card-size, name, and two layouts, one for the front, one for the back.
 #+BEGIN_SRC scheme
 (card card-size "name" frontLayout backLayout)
 #+END_SRC
-When a card is rendered, it will pair the layout with the wholeCard position (0 0 100 100)
+When a card is rendered, it will pair the layout with the wholeCard position-scaled (0 0 100 100)
 
 *** render
 Takes in a single card, a list of cards, or a pair of cards, and 0-n families.
@@ -49,12 +49,13 @@ Takes in a n arguments, and returns a list of them.
 (list N0 ... Nn-1)
 (list 1 2 3 4 5 6 7)
 #+END_SRC
-*** position
-Takes in a x%, y%, and a width% and height%, and returns a position object. 
+*** position-scaled
+Takes in a x-offset%, y-offset%, and a scale-width% and scale-height%, and returns a position-scaled object. 
+- The two scale arguments are optional, default to 100.
 #+BEGIN_SRC scheme
-(position x% y% width% height%)
-(position 0 0 50 50)
-(define wholeCard (position 0 0 100 100))
+(position-scaled x-offset% y-offset% scale-width% scale-height%)
+(position-scaled 0 0 50 50)
+(define wholeCard (position-scaled 0 0 100 100))
 #+END_SRC
 *** leaf-layout
 Returns a layout.
@@ -62,7 +63,7 @@ Takes in a decal, or a string, and a positon.
 In the event a string is given, the decal will be looked up in the family.
 This layout can then be used with the above layout function.
 #+BEGIN_SRC scheme
-(leaf-layout image position)
+(leaf-layout image position-scaled)
 (leaf-layout foobarImage wholeCard)
 (leaf-layout "foo" wholeCard)
 #+END_SRC
@@ -72,7 +73,7 @@ Takes an extra parameter, either a W, or an H.
 - If W, maximize the width, without height being larger than given size.
 - IF H, maximize the height, without width being larger than given size.
 #+BEGIN_SRC scheme
-(leaf-layout-mantain-aspect-ratio image position '[W|H])
+(leaf-layout-mantain-aspect-ratio image position-scaled '[W|H])
 
 (leaf-layout-mantain-aspect-ratio foobarImage wholeCard 'W)
 (leaf-layout-mantain-aspect-ratio foobarImage wholeCard 'H)
@@ -84,17 +85,17 @@ Takes an extra parameter, either a W, or an H.
 - Will still return an image of size asked, so will need to pad. 
 *** layout
 Creates a Layout object.
-A layout contains 0-n pairs of layouts and positions.
-Takes 0-n pairs of layouts and positions as arguments.
+A layout contains 0-n pairs of layouts and position-scaleds.
+Takes 0-n pairs of layouts and position-scaleds as arguments.
 #+BEGIN_SRC scheme
 (Layout
-  (cons layout0 position0)
-  (cons layout1 position1)
+  (cons layout0 position-scaled0)
+  (cons layout1 position-scaled1)
   ...
-  (cons layoutn-1 positionn-1))
+  (cons layoutn-1 position-scaledn-1))
 
 (Layout 
-  (cons layoutFoo positionFoo)
+  (cons layoutFoo position-scaledFoo)
   (cons (leaf-layout foobarImage) wholeCard)
   (cons (leaf-layout "foo") wholeCard)
 )
@@ -121,7 +122,7 @@ Details on how that works to come.
 The configuration file is for declaring resources.
 Image files, fonts, etc are loaded here.
 Decals must be made here.
-Positions can be made here, but don't have to be. 
+Position-Scaleds can be made here, but don't have to be. 
 
 ** Syntax
 #+BEGIN_SRC 
@@ -156,11 +157,11 @@ name = String("StringText","Font","Color",Size);
 text = String("Hello World!","Arial.font","Red",12);
 one = String("1","Arial.font","Red",12);
 #+END_SRC
-** Positions
-A position that can be used in the script
+** Position-Scaleds
+A position-scaled that can be used in the script
 #+BEGIN_SRC 
-name = Position(x%,y%,width%,height%);
-wholeCard = Position(0,0,100,100);
+name = Position-Scaled(x-offset%,y-offset%,scale-width%,scale-height%);
+wholeCard = Position-Scaled(0,0,100,100);
 #+END_SRC
 
 ** Size

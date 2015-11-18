@@ -14,14 +14,11 @@
 - Shape decal 
   
 ** Nesting
-Decals will want to be nested, a text box might want to be on top of a back ground.
+Layouts will want to be nested, a text box might want to be on top of a back ground.
 ** Layout class
-Decorates an image with scale, position, etc, can be composited, and is clonable?
+Composite, leafs hold decal.
 - Could then handle patterning
 - Composite
-
-*** Background
-- Decal, covering the whole card
 
 *** General patterns
 - Textbox
@@ -46,11 +43,13 @@ Decorates an image with scale, position, etc, can be composited, and is clonable
     
 * Cards
 Card has a layout. Layouts can be cloned. 
-Cards can be cloned.
+Cards can be cloned. Everything is immutable, so not anymore really.
 - Card will have a name.
-- Card will have a layout
+- Card will have a layout, front and back.
 - Card have a family? Family is just a map, string -> decal, Two types of layout leafs. FamilyLeaf, which just has a string, asks its family. DecalLeaf, which holds a decal.
+  - Cards will not have a family, family given to render.
   - A family can be nested, will query its map, then parent map.
+    - Families aren't nested, instead render takes in a list, checks all, uses first it finds. 
     
 * Example UML
 
@@ -126,8 +125,9 @@ DynamicLayoutLeaf -> Decal : Indirectly, form of proxy. Knows the name of it to 
 
 
 
-* Scripting
-** Configuration file
+* Older javascripty idea
+** Scripting
+*** Configuration file
 
 #+BEGIN_SRC javascript
 decal = ...; //Some image file...
@@ -177,7 +177,7 @@ CardOne = {
     family = heartFamily
 }
 #+END_SRC
-** Script
+*** Script
 #+BEGIN_SRC javascript
 CardSetA = [CardOne,CardOne];
 CardSetB = CardOne.clone(10);
@@ -198,7 +198,7 @@ queenImage = Image("queen.jpg")
 kingImage = Image("king.jpg")
 
 whiteRectangle = Rectangle("white")
-wholeCard = Position(0,0,100,100)
+wholeCard = Scaled-Position(0,0,100,100)
 cardSize = Size(1000,1000)
 //..Moreposiitons
 
@@ -325,7 +325,7 @@ The idea is that we
 #+BEGIN_SRC java
   class CompositeLayout {
       //...Stuff elided
-      Image render(ArrayList<Family> families, Position position, Size size) {
+      Image render(ArrayList<Family> families, PositionScaled position, Size size) {
           Size sub_size = size; 
           sub_size.x*= (position.width/100);
           sub_size.y*= (position.height/100);
@@ -350,7 +350,7 @@ The idea is that we
  class LeafLayout {
       //... Stuff ellided
 
-      Image render(ArrayList<Family> families, Position position, Size size) {
+      Image render(ArrayList<Family> families, PositionScaled position, Size size) {
           Size sub_size = size; 
           sub_size.x*= (position.width/100);
           sub_size.y*= (position.height/100);
@@ -365,8 +365,8 @@ This process is started with the card, which will call
   class Card {
       //Stuff ellided
       Foo someMethod(ArrayList<Family> families,Some params...) {
-        Image image = FrontLayout.render(families,new Position(0,0,100,100),this.size);
-        Image image = BackLayout.render(families,new Position(0,0,100,100),this.size);
+        Image image = FrontLayout.render(families,new PositionScaled(0,0,100,100),this.size);
+        Image image = BackLayout.render(families,new PositionScaled(0,0,100,100),this.size);
           Do something with these images...
       }
   }

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>cards</title>
-<!-- 2015-11-17 Tue 18:19 -->
+<!-- 2015-11-17 Tue 20:24 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Design Patterns Team" />
@@ -191,8 +191,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-2-2">2.2. Nesting</a></li>
 <li><a href="#sec-2-3">2.3. Layout class</a>
 <ul>
-<li><a href="#sec-2-3-1">2.3.1. Background</a></li>
-<li><a href="#sec-2-3-2">2.3.2. General patterns</a></li>
+<li><a href="#sec-2-3-1">2.3.1. General patterns</a></li>
 </ul>
 </li>
 </ul>
@@ -200,10 +199,14 @@ for the JavaScript code in this tag.
 <li><a href="#sec-3">3. Theming</a></li>
 <li><a href="#sec-4">4. Cards</a></li>
 <li><a href="#sec-5">5. Example UML</a></li>
-<li><a href="#sec-6">6. Scripting</a>
+<li><a href="#sec-6">6. Older javascripty idea</a>
 <ul>
-<li><a href="#sec-6-1">6.1. Configuration file</a></li>
-<li><a href="#sec-6-2">6.2. Script</a></li>
+<li><a href="#sec-6-1">6.1. Scripting</a>
+<ul>
+<li><a href="#sec-6-1-1">6.1.1. Configuration file</a></li>
+<li><a href="#sec-6-1-2">6.1.2. Script</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#sec-7">7. Example with new lisp for 52 cards</a></li>
@@ -222,6 +225,7 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
+
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2"><span class="section-number-2">2</span> Decal</h2>
 <div class="outline-text-2" id="text-2">
@@ -247,20 +251,20 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
+
 <div id="outline-container-sec-2-2" class="outline-3">
 <h3 id="sec-2-2"><span class="section-number-3">2.2</span> Nesting</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
-Decals will want to be nested, a text box might want to be on top of a back ground.
+Layouts will want to be nested, a text box might want to be on top of a back ground.
 </p>
 </div>
 </div>
-
 <div id="outline-container-sec-2-3" class="outline-3">
 <h3 id="sec-2-3"><span class="section-number-3">2.3</span> Layout class</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
-Decorates an image with scale, position, etc, can be composited, and is clonable?
+Composite, leafs hold decal.
 </p>
 <ul class="org-ul">
 <li>Could then handle patterning
@@ -271,17 +275,8 @@ Decorates an image with scale, position, etc, can be composited, and is clonable
 </div>
 
 <div id="outline-container-sec-2-3-1" class="outline-4">
-<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Background</h4>
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> General patterns</h4>
 <div class="outline-text-4" id="text-2-3-1">
-<ul class="org-ul">
-<li>Decal, covering the whole card
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-sec-2-3-2" class="outline-4">
-<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> General patterns</h4>
-<div class="outline-text-4" id="text-2-3-2">
 <ul class="org-ul">
 <li>Textbox
 </li>
@@ -294,7 +289,6 @@ Decorates an image with scale, position, etc, can be composited, and is clonable
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3"><span class="section-number-2">3</span> Theming</h2>
 <div class="outline-text-2" id="text-3">
@@ -325,27 +319,35 @@ clone.setHP(120);
 </ul>
 </div>
 </div>
+
 <div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4"><span class="section-number-2">4</span> Cards</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Card has a layout. Layouts can be cloned. 
-Cards can be cloned.
+Cards can be cloned. Everything is immutable, so not anymore really.
 </p>
 <ul class="org-ul">
 <li>Card will have a name.
 </li>
-<li>Card will have a layout
+<li>Card will have a layout, front and back.
 </li>
 <li>Card have a family? Family is just a map, string -&gt; decal, Two types of layout leafs. FamilyLeaf, which just has a string, asks its family. DecalLeaf, which holds a decal.
 <ul class="org-ul">
+<li>Cards will not have a family, family given to render.
+</li>
 <li>A family can be nested, will query its map, then parent map.
+<ul class="org-ul">
+<li>Families aren't nested, instead render takes in a list, checks all, uses first it finds. 
+</li>
+</ul>
 </li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-sec-5" class="outline-2">
 <h2 id="sec-5"><span class="section-number-2">5</span> Example UML</h2>
 <div class="outline-text-2" id="text-5">
@@ -377,12 +379,16 @@ This should probably be split into multiple diagrams.
 </div>
 
 
+
 <div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6"><span class="section-number-2">6</span> Scripting</h2>
+<h2 id="sec-6"><span class="section-number-2">6</span> Older javascripty idea</h2>
 <div class="outline-text-2" id="text-6">
 </div><div id="outline-container-sec-6-1" class="outline-3">
-<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Configuration file</h3>
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Scripting</h3>
 <div class="outline-text-3" id="text-6-1">
+</div><div id="outline-container-sec-6-1-1" class="outline-4">
+<h4 id="sec-6-1-1"><span class="section-number-4">6.1.1</span> Configuration file</h4>
+<div class="outline-text-4" id="text-6-1-1">
 <div class="org-src-container">
 
 <pre class="src src-javascript">decal = ...; //Some image file...
@@ -435,10 +441,9 @@ CardOne = {
 </div>
 </div>
 </div>
-
-<div id="outline-container-sec-6-2" class="outline-3">
-<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Script</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-sec-6-1-2" class="outline-4">
+<h4 id="sec-6-1-2"><span class="section-number-4">6.1.2</span> Script</h4>
+<div class="outline-text-4" id="text-6-1-2">
 <div class="org-src-container">
 
 <pre class="src src-javascript">CardSetA = [CardOne,CardOne];
@@ -450,6 +455,8 @@ CardSetA.add(CardOne);
 </div>
 </div>
 </div>
+</div>
+
 <div id="outline-container-sec-7" class="outline-2">
 <h2 id="sec-7"><span class="section-number-2">7</span> Example with new lisp for 52 cards</h2>
 <div class="outline-text-2" id="text-7">
@@ -465,7 +472,7 @@ queenImage = Image("queen.jpg")
 kingImage = Image("king.jpg")
 
 whiteRectangle = Rectangle("white")
-wholeCard = Position(0,0,100,100)
+wholeCard = Scaled-Position(0,0,100,100)
 cardSize = Size(1000,1000)
 //..Moreposiitons
 
@@ -575,6 +582,7 @@ K = character(K)
 </pre>
 </div>
 </div>
+
 <div id="outline-container-sec-8" class="outline-2">
 <h2 id="sec-8"><span class="section-number-2">8</span> Render method</h2>
 <div class="outline-text-2" id="text-8">
@@ -613,7 +621,7 @@ The idea is that we
 
 <pre class="src src-java">class CompositeLayout {
     //...Stuff elided
-    Image render(ArrayList&lt;Family&gt; families, Position position, Size size) {
+    Image render(ArrayList&lt;Family&gt; families, PositionScaled position, Size size) {
         Size sub_size = size; 
         sub_size.x*= (position.width/100);
         sub_size.y*= (position.height/100);
@@ -647,7 +655,7 @@ The idea is that we
 <pre class="src src-java">class LeafLayout {
      //... Stuff ellided
 
-     Image render(ArrayList&lt;Family&gt; families, Position position, Size size) {
+     Image render(ArrayList&lt;Family&gt; families, PositionScaled position, Size size) {
          Size sub_size = size; 
          sub_size.x*= (position.width/100);
          sub_size.y*= (position.height/100);
@@ -669,8 +677,8 @@ This process is started with the card, which will call
 <pre class="src src-java">class Card {
     //Stuff ellided
     Foo someMethod(ArrayList&lt;Family&gt; families,Some params...) {
-      Image image = FrontLayout.render(families,new Position(0,0,100,100),this.size);
-      Image image = BackLayout.render(families,new Position(0,0,100,100),this.size);
+      Image image = FrontLayout.render(families,new PositionScaled(0,0,100,100),this.size);
+      Image image = BackLayout.render(families,new PositionScaled(0,0,100,100),this.size);
         Do something with these images...
     }
 }
@@ -716,8 +724,8 @@ This process is started with the card, which will call
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Design Patterns Team</p>
-<p class="date">Created: 2015-11-17 Tue 18:19</p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.5h)</p>
+<p class="date">Created: 2015-11-17 Tue 20:24</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.2 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
