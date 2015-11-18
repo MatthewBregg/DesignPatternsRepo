@@ -146,10 +146,11 @@ _________________
   | (leaf-layout-mantain-aspect-ratio foobarImage wholeCard 'W)
   | (leaf-layout-mantain-aspect-ratio foobarImage wholeCard 'H)
   `----
-  1) Sometimes we will probably want an image to not be stretched, for
-     quality reasons.
-  2) This accomplishes that.
-  3) Can be used anywhere a leaf-layout can.
+  - Sometimes we will probably want an image to not be stretched, for
+    quality reasons.
+  - This accomplishes that.
+  - Can be used anywhere a leaf-layout can.
+  - Will still return an image of size asked, so will need to pad.
 
 
 1.1.8 layout
