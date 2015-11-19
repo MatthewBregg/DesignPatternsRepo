@@ -127,10 +127,16 @@ void acceptBuilder(Builder builder) {
     - We aren't switching between families of types!
     - Factory method could work better than that I think?. 
       
+  - Builders can use state pattern!
+    - Start at GenericLayout for example
+    - Go to error state if someone tries passing a card in, or something
+    - Go to leaf state if decal passed in, etc.
+      
 *** Both the above strategies work, and keep actually assembling the object separate from parsing.
 - A different parser could probably use the same builders.
   - The director is the parser!
   - Sorta strange to swap out directors, rather than builders, but eh....
+- Builder idea is my favorite
 
 
 ** InternalStructureManagement
