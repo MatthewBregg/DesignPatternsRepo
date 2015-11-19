@@ -21,11 +21,9 @@ _________________
 ..... 1.1.8 layout
 ..... 1.1.9 family
 ..... 1.1.10 eval-file
-2 Overview of configuration file
-.. 2.1 Syntax
-.. 2.2 Decals
-.. 2.3 Position-Scaleds
-.. 2.4 Size
+..... 1.1.11 Decals
+..... 1.1.12 Position-Scaleds
+..... 1.1.13 Size
 
 
 1 Overview of Scripting Language
@@ -193,72 +191,55 @@ _________________
   | (eval-file "filename.filename")
   | (eval-file "foo.script")
   `----
-  Eval foo.script.  Details on how that works to come.
+  Evals foo.script.
 
 
-2 Overview of configuration file
-================================
-
-  The configuration file is for declaring resources.  Image files,
-  fonts, etc are loaded here.  Decals must be made here.
-  Position-Scaleds can be made here, but don't have to be.
-
-
-2.1 Syntax
-~~~~~~~~~~
-
-  ,----
-  | name = Type(args0,args1,...argsn-1);
-  `----
-  Just give the things to be declared one after another like so.
-
-
-2.2 Decals
-~~~~~~~~~~
+1.1.11 Decals
+-------------
 
   - Image Decal
   ,----
-  | name = Image("filepath.[jpg|png|etc]");
-  | fooImage = Image("foo.jpg");
+  | (image "filepath.[jpg|png|etc]")
+  | (image "foo.jpg")
   `----
   - Rectangle Decal
   ,----
-  | name = Rectangle("color");
-  | whiteRectangle = Rectangle("white");
+  | (rectangle "color")
+  | (rectangle "white")
   `----
   - Circle Decal
   ,----
-  | name = Circle("color");
-  | whiteCircle = Circle("white");
+  | (circle "color")
+  | (Circle "white")
   `----
   - Custom Shape Decal Gets given a list of points, connects point_1 ->
     point_2 -> ... point_n-1 -> point 1
   ,----
-  | customShape = CustomShape((0,1),(1,0)...)
+  | (custom-shape (cons 0 1) (cons 1 0)...)
   `----
   - String decal
   A string from a given font.
   ,----
-  | name = String("StringText","Font","Color",Size);
-  | text = String("Hello World!","Arial.font","Red",12);
-  | one = String("1","Arial.font","Red",12);
+  | (string "StringText" "Font" "Color" Size)
+  | (string "Hello World!" "Arial.font" "Red" 12)
+  | (string "1" "Arial.font" "Red" 12)
   `----
 
 
-2.3 Position-Scaleds
-~~~~~~~~~~~~~~~~~~~~
+1.1.12 Position-Scaleds
+-----------------------
 
   A position-scaled that can be used in the script
   ,----
-  | name = Position-Scaled(x-offset%,y-offset%,scale-width%,scale-height%);
-  | wholeCard = Position-Scaled(0,0,100,100);
+  | (position-scaled x-offset% y-offset% scale-width% scale-height%)
+  | (position-scaled 0 0 100 100)
   `----
 
 
-2.4 Size
-~~~~~~~~
+1.1.13 Size
+-----------
 
   A size is used by a card to determine how many pixels it will be.
   ,----
-  | size = Size(width, height)
+  | (size width height)
   `----

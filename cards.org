@@ -188,33 +188,33 @@ CardSetA.add(CardOne);
 * Example with new lisp for 52 cards
 
 #+BEGIN_SRC config
-spadeImage = Image("spadeImage.jpg")
-heartImage = Image("heartImage.jpg")
-diamondImage = Image("diamondImage.jpg")
-clubImage = Image("clubImage.jpg")
+(define spadeImage  (image "spadeImage.jpg"))
+(define heartImage  (image "heartImage.jpg"))
+(define diamondImage  (image "diamondImage.jpg"))
+(define clubImage  (image "clubImage.jpg"))
 
-jackImage = Image("jack.jpg")
-queenImage = Image("queen.jpg")
-kingImage = Image("king.jpg")
+(define jackImage  (image "jack.jpg"))
+(define queenImage  (image "queen.jpg"))
+(define kingImage  (image "king.jpg"))
 
-whiteRectangle = Rectangle("white")
-wholeCard = Scaled-Position(0,0,100,100)
-cardSize = Size(1000,1000)
+(define whiteRectangle  (rectangle "white"))
+(define wholeCard  (scaled-position 0,0,100,100))
+(define cardSize  (size 1000 1000))
 //..Moreposiitons
 
-ace = character(A) //This needs to be replaced with string.
-two = character(2)
-three = character(3)
-four = character(4)
-five = character(5)
-six = character(6)
-seven = character(7)
-eight = character(8)
-nine = character(9)
-10 = character(10)
-J = character(J)
-Q = character(Q)
-K = character(K)
+(define ace    (string A Arial.font "Black" 12)) //This needs to be replaced with string.
+(define two    (string 2 Arial.font "Black" 12))
+(define three  (string 3 Arial.font "Black" 12))
+(define four   (string 4 Arial.font "Black" 12))
+(define five   (string 5 Arial.font "Black" 12))
+(define six    (string 6 Arial.font "Black" 12))
+(define seven  (string 7 Arial.font "Black" 12))
+(define eight  (string 8 Arial.font "Black" 12))
+(define nine   (string 9 Arial.font "Black" 12))
+(define 10    (string 10 Arial.font "Black" 12))
+(define J      (string J Arial.font "Black" 12))
+(define Q      (string Q Arial.font "Black" 12))
+(define K      (string K Arial.font "Black" 12))
 #+END_SRC
 
 #+BEGIN_SRC 

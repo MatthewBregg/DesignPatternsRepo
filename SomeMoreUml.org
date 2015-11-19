@@ -5,16 +5,14 @@
 **** Possible arguments
 - Parses inputs from command line
 - Will use defaults if arguments missing.
-  - Setting file. (Like .cardgenerator) -setting_file=".cardgenerator"
+  - Setting file. (Like .cardgenerator.cfg) -config_file=".cardgenerator.cfg"
     - Could specify all settings in here instead, defaults to looking for .cardgenerator in same directory
   - --help 
     - Print out help if passed in, and then quit program. 
   - -output-format="[png|jpg|pdf|etc]" (I'm leaving out SVG and any vector formats, that complicates design... Ignore them for now, not needed.
     - Set the format to output to. Defaults to pdf. 
-  - -script-file="config.cardc"
+  - -script-file="script.cards"
     - The script to run. Only one script file can be run, but this script file can reference other scripts.
-  - -config-file="script.cards"
-    - The config to load. Can only load one. 
   - output-dir="./"
     - Defaults to current directory.
     - Outputs created file here. Must already exist.
@@ -80,6 +78,58 @@ void acceptBuilder(Builder builder) {
     - Because an abstract Factory doesn't actually make that much sense!
     - We aren't switching between families of types!
     - Factory method could work better than that I think?. 
+      
+#+BEGIN_SRC java
+  //Null in this case, rather than using java null, might want to be
+  //A special subclass of script object.
+  //then we don't need null checks!
+  //The null object can just propogate!
+  //It would have ot hold it's error inside it.
+
+  //For defines, the defines is given in as usually, a define builder is made,
+  //The define builder will have to set the define, so builders will need
+  //Access to the map of var names -> ScriptObjects
+
+//The parser makes the tokens.
+
+//eval-file is handled by making a new Parser, and assembler, and running that on the script, but passing in the existing global environment/anything else. 
+
+
+  class Assembler {
+      //Lots of stuff elidded
+      Map<String,ScriptObject> map = ...;
+
+      ScriptObject doParse(Tokens token) {
+          Builder builder = token.getBuilder(ScriptObjectMap);
+         
+          for (Token arg : token.getArgumentTokens()) {
+              ScriptObject obj = doParse(arg);
+              obj.accept(builder);
+          }
+          ScriptObject obj = builder.getResult();
+
+          return obj;
+      }
+  }
+
+  class Token {
+      //...Lots of stuff elidded
+      Builder getBuilder(Map<String,ScriptObject> map) {
+          return BuilderFactory.getInstance().getBuilder(
+              map,this.getFunctionString());
+      }
+
+  }
+
+  class BuilderFactory {
+      //singleton stuff
+
+      //Paramatized factory
+      Map<String,BuilderClassObjects> map;
+  }
+  //We will also most likely want a singleton to log errors!
+
+#+END_SRC
 
 ** ScriptEvaluator
 - After parsing script, can return a list of tuples, each tuple has front image, back image, card name. 

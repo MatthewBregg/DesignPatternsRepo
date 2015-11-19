@@ -115,59 +115,49 @@ barImage and fooImage must be defined in config gile.
 (eval-file "filename.filename")
 (eval-file "foo.script")
 #+END_SRC
-Eval foo.script.
-Details on how that works to come.
-* Overview of configuration file
+Evals foo.script.
 
-The configuration file is for declaring resources.
-Image files, fonts, etc are loaded here.
-Decals must be made here.
-Position-Scaleds can be made here, but don't have to be. 
 
-** Syntax
-#+BEGIN_SRC 
-name = Type(args0,args1,...argsn-1);
-#+END_SRC
-Just give the things to be declared one after another like so.
-** Decals
+
+*** Decals
 - Image Decal
 #+BEGIN_SRC 
-name = Image("filepath.[jpg|png|etc]");
-fooImage = Image("foo.jpg");
+(image "filepath.[jpg|png|etc]")
+(image "foo.jpg")
 #+END_SRC
 - Rectangle Decal
 #+BEGIN_SRC 
-name = Rectangle("color");
-whiteRectangle = Rectangle("white");
+(rectangle "color")
+(rectangle "white") 
 #+END_SRC
 - Circle Decal
 #+BEGIN_SRC 
-name = Circle("color");
-whiteCircle = Circle("white");
+(circle "color")
+(Circle "white")
 #+END_SRC
 - Custom Shape Decal
   Gets given a list of points, connects point_1 -> point_2 -> ... point_n-1 -> point 1
 #+BEGIN_SRC 
-customShape = CustomShape((0,1),(1,0)...)
+(custom-shape (cons 0 1) (cons 1 0)...)
 #+END_SRC
 - String decal
 A string from a given font.
 #+BEGIN_SRC 
-name = String("StringText","Font","Color",Size);
-text = String("Hello World!","Arial.font","Red",12);
-one = String("1","Arial.font","Red",12);
+(string "StringText" "Font" "Color" Size)
+(string "Hello World!" "Arial.font" "Red" 12)
+(string "1" "Arial.font" "Red" 12)
 #+END_SRC
-** Position-Scaleds
+*** Position-Scaleds
 A position-scaled that can be used in the script
 #+BEGIN_SRC 
-name = Position-Scaled(x-offset%,y-offset%,scale-width%,scale-height%);
-wholeCard = Position-Scaled(0,0,100,100);
+(position-scaled x-offset% y-offset% scale-width% scale-height%)
+(position-scaled 0 0 100 100) 
 #+END_SRC
 
-** Size
+*** Size
 A size is used by a card to determine how many pixels it will be.
 #+BEGIN_SRC 
-size = Size(width, height)
+(size width height)
 #+END_SRC
 
 
