@@ -80,54 +80,84 @@ void acceptBuilder(Builder builder) {
     - Factory method could work better than that I think?. 
       
 #+BEGIN_SRC java
-  //Null in this case, rather than using java null, might want to be
-  //A special subclass of script object.
-  //then we don't need null checks!
-  //The null object can just propogate!
-  //It would have ot hold it's error inside it.
+    //Null in this case, rather than using java null, might want to be
+    //A special subclass of script object.
+    //then we don't need null checks!
+    //The null object can just propogate!
+    //It would have ot hold it's error inside it.
 
-  //For defines, the defines is given in as usually, a define builder is made,
-  //The define builder will have to set the define, so builders will need
-  //Access to the map of var names -> ScriptObjects
+    //For defines, the defines is given in as usually, a define builder is made,
+    //The define builder will have to set the define, so builders will need
+    //Access to the map of var names -> ScriptObjects
 
-//The parser makes the tokens.
+  //The parser makes the tokens.
 
-//eval-file is handled by making a new Parser, and assembler, and running that on the script, but passing in the existing global environment/anything else. 
+  //eval-file is handled by making a new Parser, and assembler, and running that on the script, but passing in the existing global environment/anything else. 
 
 
-  class Assembler {
-      //Lots of stuff elidded
-      Map<String,ScriptObject> map = ...;
+    class Assembler {
+        //Lots of stuff elidded
+        Map<String,ScriptObject> map = ...;
 
-      ScriptObject doParse(Tokens token) {
-          Builder builder = token.getBuilder(ScriptObjectMap);
-         
-          for (Token arg : token.getArgumentTokens()) {
-              ScriptObject obj = doParse(arg);
-              obj.accept(builder);
-          }
-          ScriptObject obj = builder.getResult();
+        ScriptObject doParse(Tokens token) {
+            Builder builder = token.getBuilder(this);
+           
+            for (Token arg : token.getArgumentTokens()) {
+                ScriptObject obj = doParse(arg);
+                obj.accept(builder);
+            }
+            ScriptObject obj = builder.getResult();
 
-          return obj;
-      }
+            return obj;
+        }
+    }
+
+  abstract class Token {
+      abstract ArrayList<Token> getArguments();
+      abstract Builder getBuilder(Assembler assembler);
   }
 
-  class Token {
+  class ExpressionToken extends Token {
       //...Lots of stuff elidded
-      Builder getBuilder(Map<String,ScriptObject> map) {
+      ArrayList<Token> getArguments(); //Return the sub expression
+  //Tokens
+      Builder getBuilder(Assembler assembler) {
           return BuilderFactory.getInstance().getBuilder(
-              map,this.getFunctionString());
+              assembler,this.getFunctionString());
       }
 
   }
 
-  class BuilderFactory {
-      //singleton stuff
-
-      //Paramatized factory
-      Map<String,BuilderClassObjects> map;
+  class AtomToken extends Token {
+      //This is the token for a literal
+      ArrayList<Token> getArguments(); //Always returns
+      //Empty list
+      Builder getBuilder(Assembler assembler) { 
+          return 
+              BuilderFactory.getInstance().getLiteralBuilder(
+                  assembler,this.value());
+      }
   }
-  //We will also most likely want a singleton to log errors!
+
+  class VariableToken extends Token {
+      //This is the token for a variable
+      ArrayList<Token> getArguments(); //Always returns
+      //Empty list
+      Builder getBuilder(Assembler assembler) { 
+          return 
+              BuilderFactory.getInstance().getVariableBuilder(
+                  assembler,this.varName());
+      }
+  }
+
+
+    class BuilderFactory {
+        //singleton stuff
+
+        //Paramatized factory
+        Map<String,BuilderClassObjects> map;
+    }
+    //We will also most likely want a singleton to log errors!
 
 #+END_SRC
 
