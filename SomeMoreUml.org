@@ -1,0 +1,146 @@
+
+* What is needed....
+** Driver
+*** Argument parser
+**** Possible arguments
+- Parses inputs from command line
+- Will use defaults if arguments missing.
+  - Setting file. (Like .cardgenerator) -setting_file=".cardgenerator"
+    - Could specify all settings in here instead, defaults to looking for .cardgenerator in same directory
+  - --help 
+    - Print out help if passed in, and then quit program. 
+  - -output-format="[png|jpg|pdf|etc]" (I'm leaving out SVG and any vector formats, that complicates design... Ignore them for now, not needed.
+    - Set the format to output to. Defaults to pdf. 
+  - -script-file="config.cardc"
+    - The script to run. Only one script file can be run, but this script file can reference other scripts.
+  - -config-file="script.cards"
+    - The config to load. Can only load one. 
+  - output-dir="./"
+    - Defaults to current directory.
+    - Outputs created file here. Must already exist.
+  - -logfile=".card_log"
+    - Defaults to .card_log
+    - Where to log errors/warning/notifications from parsing script/config.
+  - -loglevel="[1|2|3|4|5]"
+    - How much detail to log
+      
+**** Interface
+- Driver query options object it returns.
+- Most of these options should be handled by driver, this just parses it...
+*** Image Renderer
+- Maybe this will be a strategy?
+- Takes the Image files given in, plus option object.
+- Compose them into one sheet, cards should have front and backs next to each other, with the sides labelled, and the card name should be visible. 
+- Convert to desire format. (EX, to jpg, png,pdf)
+- Return the file
+*** File reading
+- Takes option object, and returns needed files.
+*** File writing
+- Takes option object, and output file, and writes it to given disk location. 
+  
+*** Main loop
+- If any of these steps returns an error/warning, place the error/warning into the log file
+  - and depending on the severity,
+  - abort and print error, or continue, and print warning.
+- Pass the args to the Argument Parser, hold onto option object.
+- Retrieve the input files from File Reading
+- Pass the input files into the ScriptEvaluator
+- Retrieve a ArrayList of tuplets from ScriptEvaluator, each tuplet has front image, back image, card name.
+- Send to Image Renderer
+- Send output from Image Renderer to file writer, write to disk. (Maybe use visiter?)
+- Done
+
+
+*** Object Creation builder
+- Allows one to create objects from the scripting langauge cleanly.
+  - Context sees it is making something new, sees what it is making from function.
+  - Token comparison will have to happen some how, although could avoid a hard coded comparison...
+  - A FooBuilder is made. 
+  - For each argument in foo, if it's a simple variable, grab it, if a new object as well, recursively run this to make it, and then....
+  - We store things as a broad supertype for all available types.
+  - This type then takes in the FooBuilder, and call the addAsArgMyType(this)
+    #+BEGIN_SRC java
+//Bar was made from the arguments
+class BarType {
+//...Ellided stuff
+
+void acceptBuilder(Builder builder) {
+   buildee.addAsArgMyType(this);
+}
+    
+    #+END_SRC
+  - When all arguments are in the builder, do builder.getScriptObject(), returning a script object. 
+  - If the builder was given arguments that it couldn't work with, then it will return null.
+  
+  - Why go through all this hassle?
+  - Then we can store all objects the script makes in a map of strings -> scriptobject.
+  - And then, when we reference them to create another object, we can do it without casting!
+  - It's essentially combing builder + visiter.
+  - This is instead of an abstract factory!
+    - Because an abstract Factory doesn't actually make that much sense!
+    - We aren't switching between families of types!
+    - Factory method could work better than that I think?. 
+
+** ScriptEvaluator
+- After parsing script, can return a list of tuples, each tuple has front image, back image, card name. 
+- Uses a strategy for parsing. 
+- Will likely want an overall parser, and a per sexp parser that can be recursively called on argument.
+
+*** Assembling strategy
+- We want to handle various languages, but don't want to rewrite the code that assembles the objects together.
+- Strategy will be the assembler
+  - Context will be the parser
+- Context will continue to parse
+- Context will then call strategy with each function + arguments.
+  - These functions + arguments should be agnostic of the language.
+  - Local arguments, like (card (size 100 100) "foo" (leaf-layout white-rectangle) (leaf-layout white-rectangle)), each argument will be held locally, will call to strategy to initiate each 
+  - arg, strategy will return that, then call strategy with cards + now initialized args. 
+  - If defining, after calling strategy with to get the object, proceed to tell the strategy to store it. 
+
+*** Assembling with builder!
+- Allows one to create objects from the scripting langauge cleanly.
+  - Context sees it is making something new, sees what it is making from function.
+  - Token comparison will have to happen some how, although could avoid a hard coded comparison...
+  - A FooBuilder is made. 
+  - For each argument in foo, if it's a simple variable, grab it, if a new object as well, recursively run this to make it, and then....
+  - We store things as a broad supertype for all available types.
+  - This type then takes in the FooBuilder, and call the addAsArgMyType(this)
+    #+BEGIN_SRC java
+//Bar was made from the arguments
+class BarType {
+//...Ellided stuff
+
+void acceptBuilder(Builder builder) {
+   buildee.addAsArgMyType(this);
+}
+    
+    #+END_SRC
+  - When all arguments are in the builder, do builder.getScriptObject(), returning a script object. 
+  - If the builder was given arguments that it couldn't work with, then it will return null.
+  
+  - Why go through all this hassle?
+  - Then we can store all objects the script makes in a map of strings -> scriptobject.
+  - And then, when we reference them to create another object, we can do it without casting!
+  - It's essentially combing builder + visiter.
+  - This is instead of an abstract factory!
+    - Because an abstract Factory doesn't actually make that much sense!
+    - We aren't switching between families of types!
+    - Factory method could work better than that I think?. 
+      
+*** Both the above strategies work, and keep actually assembling the object separate from parsing.
+- A different parser could probably use the same builders.
+  - The director is the parser!
+  - Sorta strange to swap out directors, rather than builders, but eh....
+
+
+** InternalStructureManagement
+- Abstract LayoutFactory
+  - Gets input a layout, and the arguments to create layout.
+  - Returns a layout for that. 
+- DecalFactory
+- Do the factories actually make sense?
+- Only one family?
+- Builder instead?
+
+
+
