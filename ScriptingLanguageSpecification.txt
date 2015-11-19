@@ -24,6 +24,7 @@ _________________
 ..... 1.1.11 Decals
 ..... 1.1.12 Position-Scaleds
 ..... 1.1.13 Size
+2 Config file
 
 
 1 Overview of Scripting Language
@@ -242,4 +243,35 @@ _________________
   A size is used by a card to determine how many pixels it will be.
   ,----
   | (size width height)
+  `----
+
+
+2 Config file
+=============
+
+  - Allows one to set various options
+  - Current options are
+    - script-file
+      - Specify the script to run
+      - No default, can be overridden by terminal args
+    - output-format
+      - Specify what format to output in
+      - Defaults to png
+    - output-dir
+      - Specify where to output the result to
+      - Defaults to ./
+    - logfile
+      - Specify where to log to
+      - Defaults to .cardlog
+    - loglevel
+      - Specify how much to log
+      - Defaults to highest
+
+  - Each option is enter in this format
+  ,----
+  | (set-option "option-name" "value")
+  `----
+  -So for example
+  ,----
+  | (set-option "output-dir" "./")
   `----

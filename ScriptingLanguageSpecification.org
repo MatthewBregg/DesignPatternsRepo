@@ -162,3 +162,31 @@ A size is used by a card to determine how many pixels it will be.
 
 
 
+
+* Config file
+- Allows one to set various options
+- Current options are 
+  - script-file
+    - Specify the script to run
+    - No default, can be overridden by terminal args
+  - output-format
+    - Specify what format to output in
+    - Defaults to png
+  - output-dir
+    - Specify where to output the result to
+    - Defaults to ./
+  - logfile
+    - Specify where to log to
+    - Defaults to .cardlog
+  - loglevel
+    - Specify how much to log
+    - Defaults to highest
+      
+- Each option is enter in this format
+#+BEGIN_SRC 
+(set-option "option-name" "value")
+#+END_SRC
+-So for example
+#+BEGIN_SRC 
+(set-option "output-dir" "./")
+#+END_SRC
