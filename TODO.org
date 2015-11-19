@@ -1,4 +1,10 @@
 * TODO This meeting, Tuesday November 18th
+- Things we have yet to design
+  - Driver program to the script based one.
+  - Parser
+  - Glue between parser, and internal represenatation of cards
+    - This is the thing that takes the parsed script from the parser, and assembles the layouts and cards and decals from it.
+    - The parser may very well make a good amount of these, decals would make sense. Or not.
 - Examples ( Need 2, want 3, maybe 4)
   - Finish up 52 playing card example
   - do monopoly
@@ -20,7 +26,7 @@
 - Finalize scripting language
 
 
-* Tenative Schedule
+* Tentative Schedule
 - Friday : Finalized Design, overall uml done or nearly done, side umls mostly done.
 - Monday : Everything except per class docs done
 - Over Thanksgiving break : We break up the classes, and assign each person an even amount of classes to right specs on
