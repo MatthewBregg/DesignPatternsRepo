@@ -163,6 +163,8 @@ void acceptBuilder(Builder builder) {
 
 **** UML
 
+Currently, no options object.
+Might want to  add in options object later.. Or it might be done at a higher level than this.
 #+BEGIN_SRC plantuml :file BuilderConstruction.png
 skinparam dpi 300
 
@@ -192,7 +194,7 @@ BuilderVisiter : addVarName(VarName V)
 
 note "The Token will add the Varname \n with addVarName before returning it." as simpleBuilderNote
 class VarBuilder as "VariableBuilderVisiter"
-note top : Just returns assembler.getMap().get(varname);
+note top : Just returns ScriptEvaluator.getMap().get(varname);
 simpleBuilderNote -- VarBuilder
 BuilderVisiter <|-- VarBuilder
 class ConstantBuilder as "ConstantBuilderVisiter"
@@ -224,7 +226,7 @@ abstract class Token as "{abstract}\nToken"
 
 Token : getArguments():List<Token>
 note top : For example,\n if (render someCard familyA (family (cons \"foo\" bar)), \n then someCard will be one token, familyA another, (family (cons \"foo\" bar)) will be a third. "
-Token : getBuilder(Assembler assembler):Builder
+Token : getBuilder(ScriptEvaluator ScriptEvaluator):Builder
 class VariableToken
 note bottom : FamilyA would be one of these tokens, a variable that is referenced. \n A variable name can't start with a number, to make it determinable from an int.
 VariableToken : varName : String
@@ -242,9 +244,9 @@ note top : If a parse error is hit, then make this, and stop parsing.
 ParseErrorToken : error : String
 
 
-ParseErrorToken : getBuilder(Assembler assembler): ErrorBuilderVisiter
-AtomToken : getBuilder(Assembler assembler): ConstantBuilderVisiter
-VariableToken : getBuilder(Assembler assembler): VariableBuilderVisiter
+ParseErrorToken : getBuilder(ScriptEvaluator ScriptEvaluator): ErrorBuilderVisiter
+AtomToken : getBuilder(ScriptEvaluator ScriptEvaluator): ConstantBuilderVisiter
+VariableToken : getBuilder(ScriptEvaluator ScriptEvaluator): VariableBuilderVisiter
 
 note "These tokens will add the info the builder they are returning needs, before returning" as N1
 
@@ -264,7 +266,7 @@ note bottom : Get arguments is always empty
 
 
 note "As defined in other UML" as AsDefined
-note "If a builder encounters a string + decal,\n or a Layout + Position,\n it will make the appropriate pair subclass. This is a bit ugly though" as subpairs
+note "If a Pair Builder encounters a string + decal,\n or a Layout + Position,\n it will make the appropriate pair subclass. This is a bit ugly though" as subpairs
 
 abstract class Layout as "{abstract}\nComponentLayout"
 Layout -- AsDefined
@@ -301,12 +303,24 @@ ScriptObject <|-- List
 ScriptObject <|-- consPair
 consPair <|-- KeyValuePair
 consPair <|-- LayoutPositionPair
+subpairs -- consPair
 ScriptObject <|-- Decal
 ScriptObject <|-- Layout
 
 
+class ScriptEvaluator
 
 
+ScriptEvaluator : currentDirectory:Path
+ScriptEvaluator : evalFile(FilePath)
+ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
+
+class BuilderFactory
+
+note top : Singleton
+
+BuilderFactory : Map<String,BuilderClassObjects
+BuilderFactory : getBuilder(s:String)
 
 
 
