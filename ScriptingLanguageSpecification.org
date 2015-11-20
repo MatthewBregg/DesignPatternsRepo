@@ -13,6 +13,7 @@ Assigns to the name the given value.
 This version does not support defining functions atm.
 (See http://www.scheme.com/tspl2d/binding.html)
 - Right now, defines may not be nested, and must be done at top level.
+- A variable name can't start with a number, to make it determinable from an int atom.
 *** cons
 Takes two arguments, returns a pair holding the two arguments as one object
 #+BEGIN_SRC scheme
@@ -73,10 +74,10 @@ Takes an extra parameter, either a W, or an H.
 - If W, maximize the width, without height being larger than given size.
 - IF H, maximize the height, without width being larger than given size.
 #+BEGIN_SRC scheme
-(leaf-layout-mantain-aspect-ratio image '[W|H])
+(leaf-layout-mantain-aspect-ratio image "[W|H]")
 
-(leaf-layout-mantain-aspect-ratio foobarImage 'W)
-(leaf-layout-mantain-aspect-ratio foobarImage 'H)
+(leaf-layout-mantain-aspect-ratio foobarImage "W")
+(leaf-layout-mantain-aspect-ratio foobarImage "H")
 
 #+END_SRC
 - Sometimes we will probably want an image to not be stretched, for quality reasons.
@@ -116,6 +117,7 @@ barImage and fooImage must be defined in config gile.
 (eval-file "foo.script")
 #+END_SRC
 Evals foo.script.
+Must be done at top level.
 
 
 

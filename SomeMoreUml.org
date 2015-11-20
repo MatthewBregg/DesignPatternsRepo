@@ -161,10 +161,170 @@ void acceptBuilder(Builder builder) {
 
 #+END_SRC
 
+**** UML
+
+#+BEGIN_SRC plantuml :file BuilderConstruction.png
+skinparam dpi 300
+
+abstract class BuilderVisiter as "{abstract}\nScriptObjectBuilder"
+abstract class ScriptObject as "{abstract}\nScriptObject"
+
+
+ScriptObject : acceptBuilder(ScriptObjectBuilder v)
+
+
+BuilderVisiter : getResult():ScriptObject
+BuilderVisiter : addLayout(Layout l)
+BuilderVisiter : addDecal(Decal l)
+BuilderVisiter : addString(StringScriptWrapper s)
+BuilderVisiter : addFamily(Family f)
+BuilderVisiter : addSize(Size s)
+BuilderVisiter : addPositionScaled(PositionScaled ps)
+BuilderVisiter : addCard(Card c)
+BuilderVisiter : addInt(IntScriptWrapper s)
+BuilderVisiter : addList(List<ScriptObject> l)
+BuilderVisiter : addPair(Pair<ScriptObject,ScriptObject> p)
+BuilderVisiter : addKeyValuePair(Pair<StringScriptWrapper,Decal> p)
+BuilderVisiter : addLayoutPositionPair(Pair<Layout,Position> p)
+BuilderVisiter : addError(ErrorScriptObject e)
+BuilderVisiter : addVoid(VoidScriptObject v)
+BuilderVisiter : addVarName(VarName V)
+
+note "The Token will add the Varname \n with addVarName before returning it." as simpleBuilderNote
+class VarBuilder as "VariableBuilderVisiter"
+note top : Just returns assembler.getMap().get(varname);
+simpleBuilderNote -- VarBuilder
+BuilderVisiter <|-- VarBuilder
+class ConstantBuilder as "ConstantBuilderVisiter"
+note top : Before the token returns it,\n the token will add the constant using the correct add method. 
+BuilderVisiter <|-- ConstantBuilder
+
+class LayoutBuilder as "LayoutBuilderVisiter"
+
+BuilderVisiter <|-- LayoutBuilder
+
+LayoutBuilder : state
+
+note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
+
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Token as "{abstract}\nToken"
+
+
+Token : getArguments():List<Token>
+note top : For example,\n if (render someCard familyA (family (cons \"foo\" bar)), \n then someCard will be one token, familyA another, (family (cons \"foo\" bar)) will be a third. "
+Token : getBuilder(Assembler assembler):Builder
+class VariableToken
+note bottom : FamilyA would be one of these tokens, a variable that is referenced. \n A variable name can't start with a number, to make it determinable from an int.
+VariableToken : varName : String
+class ExpressionToken
+note top : (family (cons "foo" bar)) would be one of these
+ExpressionToken : List<Token>
+class AtomToken
+note top : Any ints or strings will be one of these. 
+class StringAtomToken 
+StringAtomToken : value : String
+class IntAtomToken
+IntAtomToken : value : int
+class ParseErrorToken
+note top : If a parse error is hit, then make this, and stop parsing.
+ParseErrorToken : error : String
+
+
+ParseErrorToken : getBuilder(Assembler assembler): ErrorBuilderVisiter
+AtomToken : getBuilder(Assembler assembler): ConstantBuilderVisiter
+VariableToken : getBuilder(Assembler assembler): VariableBuilderVisiter
+
+note "These tokens will add the info the builder they are returning needs, before returning" as N1
+
+N1 -- AtomToken
+N1 -- VariableToken
+N1 -- ParseErrorToken
+
+Token <|-- VariableToken
+note bottom : Get arguments is always empty
+Token <|--ExpressionToken
+Token <|--AtomToken
+Token <|--IntAtomToken
+Token <|--StringAtomToken
+Token <|--ParseErrorToken
+note bottom : Get arguments is always empty
+
+
+
+note "As defined in other UML" as AsDefined
+note "If a builder encounters a string + decal,\n or a Layout + Position,\n it will make the appropriate pair subclass. This is a bit ugly though" as subpairs
+
+abstract class Layout as "{abstract}\nComponentLayout"
+Layout -- AsDefined
+abstract class Decal as "{abstract}\nDecal"
+Decal -- AsDefined
+class consPair
+class KeyValuePair
+class LayoutPositionPair
+class List
+class ErrorScriptObject
+class VoidScriptObject
+class VarName
+class Card 
+Card -- AsDefined
+class PositionScaled
+PositionScaled -- AsDefined
+class Size
+Size -- AsDefined
+class IntScriptWrapper
+class StringScriptWrapper
+class Family
+Family -- AsDefined
+
+ScriptObject <|-- Family
+ScriptObject <|-- StringScriptWrapper
+ScriptObject <|-- IntScriptWrapper
+ScriptObject <|-- Size
+ScriptObject <|-- PositionScaled
+ScriptObject <|-- Card
+ScriptObject <|-- VarName
+ScriptObject <|-- ErrorScriptObject
+ScriptObject <|-- VoidScriptObject
+ScriptObject <|-- List
+ScriptObject <|-- consPair
+consPair <|-- KeyValuePair
+consPair <|-- LayoutPositionPair
+ScriptObject <|-- Decal
+ScriptObject <|-- Layout
+
+
+
+
+
+
+
+
+
+note  "Getting stuff out of cons for layout and family will be a bit tricky, but doable, \n doing that is one weakness of this design, but can still do it without casting." as weakness
+
+#+END_SRC
+
+#+RESULTS:
+[[file:BuilderConstruction.png]]
+
 ** ScriptEvaluator
 - After parsing script, can return a list of tuples, each tuple has front image, back image, card name. 
 - Uses a strategy for parsing. 
 - Will likely want an overall parser, and a per sexp parser that can be recursively called on argument.
+  
+
 
 *** Assembling strategy
 - We want to handle various languages, but don't want to rewrite the code that assembles the objects together.
