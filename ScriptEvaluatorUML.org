@@ -315,6 +315,7 @@ ScriptEvaluator : currentDirectory:Path
 ScriptEvaluator : parseFile(FilePath) : List<Token>
 ScriptEvaluator : evalTokans(List<Tokens>)
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
+ScriptEvaluator : addRenderedCard(RenderedCard rc)
 
 class BuilderFactory
 

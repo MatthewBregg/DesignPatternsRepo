@@ -1,0 +1,54 @@
+#+BEGIN_SRC java
+/**
+class Image {
+    
+}
+
+class VectorImage extends Image {
+}
+class BitMapImage extends Image {
+}
+
+abstract class DecalRenderingStrategy {
+    abstract Image renderImage(filePath);
+    abstract Image renderText(String,font,size);
+    abstract Image shapeImage(shapeStuff);
+}
+
+class PNGDecalRenderingStrategy extends DecalRenderingStrategy {
+
+}
+
+class VectorDecalRenderingStrategy extends DecalRenderingStrategy {
+
+}
+
+**/
+
+class RenderedCard {
+    private Image front;
+    private Image back;
+    private String name;
+}
+
+int main() {
+    Options options = new OptionsParser(defaultOptionsFilePath);
+
+    ScriptEvaluator evaluator = new ScriptEvaluator();
+
+    evaluator.evalFile(options.scriptFile());
+
+
+    ArrayList<RenderedCard> cards = evaluator.getCardsThatWereRendered();
+
+    FinalOutput output = getOutput(options);
+    for ( RenderedCard c : cards ) {
+	output.addCard(c);
+    }
+
+    output.writeFiletoDisk();
+
+}
+
+
+#+END_SRC
