@@ -1,0 +1,416 @@
+
+* What is needed....
+** Driver
+*** Argument parser
+**** Possible arguments
+- Parses inputs from command line
+- Will use defaults if arguments missing.
+  - Setting file. (Like .cardgenerator.cfg) -config_file=".cardgenerator.cfg"
+    - Could specify all settings in here instead, defaults to looking for .cardgenerator in same directory
+  - --help 
+    - Print out help if passed in, and then quit program. 
+  - -output-format="[png|jpg|pdf|etc]" (I'm leaving out SVG and any vector formats, that complicates design... Ignore them for now, not needed.
+    - Set the format to output to. Defaults to pdf. 
+  - -script-file="script.cards"
+    - The script to run. Only one script file can be run, but this script file can reference other scripts.
+  - output-dir="./"
+    - Defaults to current directory.
+    - Outputs created file here. Must already exist.
+  - -logfile=".card_log"
+    - Defaults to .card_log
+    - Where to log errors/warning/notifications from parsing script/config.
+  - -loglevel="[1|2|3|4|5]"
+    - How much detail to log
+      
+**** Interface
+- Driver query options object it returns.
+- Most of these options should be handled by driver, this just parses it...
+*** Image Renderer
+- Maybe this will be a strategy?
+- Takes the Image files given in, plus option object.
+- Compose them into one sheet, cards should have front and backs next to each other, with the sides labelled, and the card name should be visible. 
+- Convert to desire format. (EX, to jpg, png,pdf)
+- Return the file
+*** File reading
+- Takes option object, and returns needed files.
+*** File writing
+- Takes option object, and output file, and writes it to given disk location. 
+  
+*** Main loop
+- If any of these steps returns an error/warning, place the error/warning into the log file
+  - and depending on the severity,
+  - abort and print error, or continue, and print warning.
+- Pass the args to the Argument Parser, hold onto option object.
+- Retrieve the input files from File Reading
+- Pass the input files into the ScriptEvaluator
+- Retrieve a ArrayList of tuplets from ScriptEvaluator, each tuplet has front image, back image, card name.
+- Send to Image Renderer
+- Send output from Image Renderer to file writer, write to disk. (Maybe use visiter?)
+- Done
+
+
+*** Object Creation builder
+- Allows one to create objects from the scripting langauge cleanly.
+  - Context sees it is making something new, sees what it is making from function.
+  - Token comparison will have to happen some how, although could avoid a hard coded comparison...
+  - A FooBuilder is made. 
+  - For each argument in foo, if it's a simple variable, grab it, if a new object as well, recursively run this to make it, and then....
+  - We store things as a broad supertype for all available types.
+  - This type then takes in the FooBuilder, and call the addAsArgMyType(this)
+    #+BEGIN_SRC java
+//Bar was made from the arguments
+class BarType {
+//...Ellided stuff
+
+void acceptBuilder(Builder builder) {
+   buildee.addAsArgMyType(this);
+}
+    
+    #+END_SRC
+  - When all arguments are in the builder, do builder.getScriptObject(), returning a script object. 
+  - If the builder was given arguments that it couldn't work with, then it will return null.
+  
+  - Why go through all this hassle?
+  - Then we can store all objects the script makes in a map of strings -> scriptobject.
+  - And then, when we reference them to create another object, we can do it without casting!
+  - It's essentially combing builder + visiter.
+  - This is instead of an abstract factory!
+    - Because an abstract Factory doesn't actually make that much sense!
+    - We aren't switching between families of types!
+    - Factory method could work better than that I think?. 
+      
+#+BEGIN_SRC java
+    //Null in this case, rather than using java null, might want to be
+    //A special subclass of script object.
+    //then we don't need null checks!
+    //The null object can just propogate!
+    //It would have ot hold it's error inside it.
+
+    //For defines, the defines is given in as usually, a define builder is made,
+    //The define builder will have to set the define, so builders will need
+    //Access to the map of var names -> ScriptObjects
+
+  //The parser makes the tokens.
+
+  //eval-file is handled by making a new Parser, and assembler, and running that on the script, but passing in the existing global environment/anything else. 
+
+
+    class Assembler {
+        //Lots of stuff elidded
+        Map<String,ScriptObject> map = ...;
+
+        ScriptObject doParse(Tokens token) {
+            Builder builder = token.getBuilder(this);
+           
+            for (Token arg : token.getArgumentTokens()) {
+                ScriptObject obj = doParse(arg);
+                obj.accept(builder);
+            }
+            ScriptObject obj = builder.getResult();
+
+            return obj;
+        }
+    }
+
+  abstract class Token {
+      abstract ArrayList<Token> getArguments();
+      abstract Builder getBuilder(Assembler assembler);
+  }
+
+  class ExpressionToken extends Token {
+      //...Lots of stuff elidded
+      ArrayList<Token> getArguments(); //Return the sub expression
+  //Tokens
+      Builder getBuilder(Assembler assembler) {
+          return BuilderFactory.getInstance().getBuilder(
+              assembler,this.getFunctionString());
+      }
+
+  }
+
+  class AtomToken extends Token {
+      //This is the token for a literal
+      ArrayList<Token> getArguments(); //Always returns
+      //Empty list
+      Builder getBuilder(Assembler assembler) { 
+          return 
+              BuilderFactory.getInstance().getLiteralBuilder(
+                  assembler,this.value());
+      }
+  }
+
+  class VariableToken extends Token {
+      //This is the token for a variable
+      ArrayList<Token> getArguments(); //Always returns
+      //Empty list
+      Builder getBuilder(Assembler assembler) { 
+          return 
+              BuilderFactory.getInstance().getVariableBuilder(
+                  assembler,this.varName());
+      }
+  }
+
+
+    class BuilderFactory {
+        //singleton stuff
+
+        //Paramatized factory
+        Map<String,BuilderClassObjects> map;
+    }
+    //We will also most likely want a singleton to log errors!
+
+#+END_SRC
+
+**** UML
+
+Currently, no options object.
+Might want to  add in options object later.. Or it might be done at a higher level than this.
+#+BEGIN_SRC plantuml :file BuilderConstruction.png
+skinparam dpi 300
+
+abstract class BuilderVisiter as "{abstract}\nScriptObjectBuilder"
+abstract class ScriptObject as "{abstract}\nScriptObject"
+
+
+ScriptObject : acceptBuilder(ScriptObjectBuilder v)
+
+
+BuilderVisiter : getResult():ScriptObject
+BuilderVisiter : addLayout(Layout l)
+BuilderVisiter : addDecal(Decal l)
+BuilderVisiter : addString(StringScriptWrapper s)
+BuilderVisiter : addFamily(Family f)
+BuilderVisiter : addSize(Size s)
+BuilderVisiter : addPositionScaled(PositionScaled ps)
+BuilderVisiter : addCard(Card c)
+BuilderVisiter : addInt(IntScriptWrapper s)
+BuilderVisiter : addList(List<ScriptObject> l)
+BuilderVisiter : addPair(Pair<ScriptObject,ScriptObject> p)
+BuilderVisiter : addKeyValuePair(Pair<StringScriptWrapper,Decal> p)
+BuilderVisiter : addLayoutPositionPair(Pair<Layout,Position> p)
+BuilderVisiter : addError(ErrorScriptObject e)
+BuilderVisiter : addVoid(VoidScriptObject v)
+BuilderVisiter : addVarName(VarName V)
+
+note "The Token will add the Varname \n with addVarName before returning it." as simpleBuilderNote
+class VarBuilder as "VariableBuilderVisiter"
+note top : Just returns ScriptEvaluator.getMap().get(varname);
+simpleBuilderNote -- VarBuilder
+BuilderVisiter <|-- VarBuilder
+class ConstantBuilder as "ConstantBuilderVisiter"
+note top : Before the token returns it,\n the token will add the constant using the correct add method. 
+BuilderVisiter <|-- ConstantBuilder
+
+class LayoutBuilder as "LayoutBuilderVisiter"
+
+BuilderVisiter <|-- LayoutBuilder
+
+LayoutBuilder : state
+
+note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
+
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Token as "{abstract}\nToken"
+
+
+Token : getArguments():List<Token>
+note top : For example,\n if (render someCard familyA (family (cons \"foo\" bar)), \n then someCard will be one token, familyA another, (family (cons \"foo\" bar)) will be a third. "
+Token : getBuilder(ScriptEvaluator ScriptEvaluator):Builder
+class VariableToken
+note bottom : FamilyA would be one of these tokens, a variable that is referenced. \n A variable name can't start with a number, to make it determinable from an int.
+VariableToken : varName : String
+class ExpressionToken
+note top : (family (cons "foo" bar)) would be one of these
+ExpressionToken : List<Token>
+class AtomToken
+note top : Any ints or strings will be one of these. 
+class StringAtomToken 
+StringAtomToken : value : String
+class IntAtomToken
+IntAtomToken : value : int
+class ParseErrorToken
+note top : If a parse error is hit, then make this, and stop parsing.
+ParseErrorToken : error : String
+
+
+ParseErrorToken : getBuilder(ScriptEvaluator ScriptEvaluator): ErrorBuilderVisiter
+AtomToken : getBuilder(ScriptEvaluator ScriptEvaluator): ConstantBuilderVisiter
+VariableToken : getBuilder(ScriptEvaluator ScriptEvaluator): VariableBuilderVisiter
+
+note "These tokens will add the info the builder they are returning needs, before returning" as N1
+
+N1 -- AtomToken
+N1 -- VariableToken
+N1 -- ParseErrorToken
+
+Token <|-- VariableToken
+note bottom : Get arguments is always empty
+Token <|--ExpressionToken
+Token <|--AtomToken
+AtomToken <|--IntAtomToken
+AtomToken <|--StringAtomToken
+Token <|--ParseErrorToken
+note bottom : Get arguments is always empty
+
+
+
+note "As defined in other UML" as AsDefined
+note "If a Pair Builder encounters a string + decal,\n or a Layout + Position,\n it will make the appropriate pair subclass. This is a bit ugly though" as subpairs
+
+abstract class Layout as "{abstract}\nComponentLayout"
+Layout -- AsDefined
+abstract class Decal as "{abstract}\nDecal"
+Decal -- AsDefined
+class consPair
+class KeyValuePair
+class LayoutPositionPair
+class List
+class ErrorScriptObject
+class VoidScriptObject
+class VarName
+class Card 
+Card -- AsDefined
+class PositionScaled
+PositionScaled -- AsDefined
+class Size
+Size -- AsDefined
+class IntScriptWrapper
+class StringScriptWrapper
+class Family
+Family -- AsDefined
+
+ScriptObject <|-- Family
+ScriptObject <|-- StringScriptWrapper
+ScriptObject <|-- IntScriptWrapper
+ScriptObject <|-- Size
+ScriptObject <|-- PositionScaled
+ScriptObject <|-- Card
+ScriptObject <|-- VarName
+ScriptObject <|-- ErrorScriptObject
+ScriptObject <|-- VoidScriptObject
+ScriptObject <|-- List
+ScriptObject <|-- consPair
+consPair <|-- KeyValuePair
+consPair <|-- LayoutPositionPair
+subpairs -- consPair
+ScriptObject <|-- Decal
+ScriptObject <|-- Layout
+
+
+class ScriptEvaluator
+
+
+ScriptEvaluator : currentDirectory:Path
+ScriptEvaluator : parseFile(FilePath) : List<Token>
+ScriptEvaluator : evalTokans(List<Tokens>)
+ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
+ScriptEvaluator : addRenderedCard(RenderedCard rc)
+
+class BuilderFactory
+
+note top : Singleton
+
+BuilderFactory : Map<String,BuilderClassObjects
+BuilderFactory : getBuilder(s:String)
+
+class RenderedCard
+
+RenderedCard : -card
+RenderedCard : -ArrayList<Family>
+RenderedCard : +getCard():card
+RenderedCard : +getFamilies():ArrayList<Family>
+
+
+
+
+
+
+note  "Getting stuff out of cons for layout and family will be a bit tricky, but doable, \n doing that is one weakness of this design, but can still do it without casting." as weakness
+
+#+END_SRC
+
+#+RESULTS:
+[[file:BuilderConstruction.png]]
+
+** ScriptEvaluator
+- After parsing script, can return a list of tuples, each tuple has front image, back image, card name. 
+- Uses a strategy for parsing. 
+- Will likely want an overall parser, and a per sexp parser that can be recursively called on argument.
+  
+
+
+*** Assembling strategy
+- We want to handle various languages, but don't want to rewrite the code that assembles the objects together.
+- Strategy will be the assembler
+  - Context will be the parser
+- Context will continue to parse
+- Context will then call strategy with each function + arguments.
+  - These functions + arguments should be agnostic of the language.
+  - Local arguments, like (card (size 100 100) "foo" (leaf-layout white-rectangle) (leaf-layout white-rectangle)), each argument will be held locally, will call to strategy to initiate each 
+  - arg, strategy will return that, then call strategy with cards + now initialized args. 
+  - If defining, after calling strategy with to get the object, proceed to tell the strategy to store it. 
+
+*** Assembling with builder!
+- Allows one to create objects from the scripting langauge cleanly.
+  - Context sees it is making something new, sees what it is making from function.
+  - Token comparison will have to happen some how, although could avoid a hard coded comparison...
+  - A FooBuilder is made. 
+  - For each argument in foo, if it's a simple variable, grab it, if a new object as well, recursively run this to make it, and then....
+  - We store things as a broad supertype for all available types.
+  - This type then takes in the FooBuilder, and call the addAsArgMyType(this)
+    #+BEGIN_SRC java
+//Bar was made from the arguments
+class BarType {
+//...Ellided stuff
+
+void acceptBuilder(Builder builder) {
+   buildee.addAsArgMyType(this);
+}
+    
+    #+END_SRC
+  - When all arguments are in the builder, do builder.getScriptObject(), returning a script object. 
+  - If the builder was given arguments that it couldn't work with, then it will return null.
+  
+  - Why go through all this hassle?
+  - Then we can store all objects the script makes in a map of strings -> scriptobject.
+  - And then, when we reference them to create another object, we can do it without casting!
+  - It's essentially combing builder + visiter.
+  - This is instead of an abstract factory!
+    - Because an abstract Factory doesn't actually make that much sense!
+    - We aren't switching between families of types!
+    - Factory method could work better than that I think?. 
+      
+  - Builders can use state pattern!
+    - Start at GenericLayout for example
+    - Go to error state if someone tries passing a card in, or something
+    - Go to leaf state if decal passed in, etc.
+      
+*** Both the above strategies work, and keep actually assembling the object separate from parsing.
+- A different parser could probably use the same builders.
+  - The director is the parser!
+  - Sorta strange to swap out directors, rather than builders, but eh....
+- Builder idea is my favorite
+
+
+** InternalStructureManagement
+- Abstract LayoutFactory
+  - Gets input a layout, and the arguments to create layout.
+  - Returns a layout for that. 
+- DecalFactory
+- Do the factories actually make sense?
+- Only one family?
+- Builder instead?
+
+
+

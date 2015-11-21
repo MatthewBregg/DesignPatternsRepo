@@ -16,16 +16,15 @@ _________________
 ..... 1.1.3 card
 ..... 1.1.4 render
 ..... 1.1.5 list
-..... 1.1.6 position
+..... 1.1.6 position-scaled
 ..... 1.1.7 leaf-layout
 ..... 1.1.8 layout
 ..... 1.1.9 family
 ..... 1.1.10 eval-file
-2 Overview of configuration file
-.. 2.1 Syntax
-.. 2.2 Decals
-.. 2.3 Positions
-.. 2.4 Size
+..... 1.1.11 Decals
+..... 1.1.12 Position-Scaleds
+..... 1.1.13 Size
+2 Config file
 
 
 1 Overview of Scripting Language
@@ -50,6 +49,8 @@ _________________
   defining functions atm.  (See
   [http://www.scheme.com/tspl2d/binding.html])
   - Right now, defines may not be nested, and must be done at top level.
+  - A variable name can't start with a number, to make it determinable
+    from an int atom.
 
 
 1.1.2 cons
@@ -74,7 +75,7 @@ _________________
   | (card card-size "name" frontLayout backLayout)
   `----
   When a card is rendered, it will pair the layout with the wholeCard
-  position (0 0 100 100)
+  position-scaled (0 0 100 100)
 
 
 1.1.4 render
@@ -107,28 +108,29 @@ _________________
   `----
 
 
-1.1.6 position
---------------
+1.1.6 position-scaled
+---------------------
 
-  Takes in a x%, y%, and a width% and height%, and returns a position
-  object.
+  Takes in a x-offset%, y-offset%, and a scale-width% and scale-height%,
+  and returns a position-scaled object.
+  - The two scale arguments are optional, default to 100.
   ,----
-  | (position x% y% width% height%)
-  | (position 0 0 50 50)
-  | (define wholeCard (position 0 0 100 100))
+  | (position-scaled x-offset% y-offset% scale-width% scale-height%)
+  | (position-scaled 0 0 50 50)
+  | (define wholeCard (position-scaled 0 0 100 100))
   `----
 
 
 1.1.7 leaf-layout
 -----------------
 
-  Returns a layout.  Takes in a decal, or a string, and a positon.  In
-  the event a string is given, the decal will be looked up in the
-  family.  This layout can then be used with the above layout function.
+  Returns a layout.  Takes in a decal, or a string.  In the event a
+  string is given, the decal will be looked up in the family.  This
+  layout can then be used with the above layout function.
   ,----
-  | (leaf-layout image position)
-  | (leaf-layout foobarImage wholeCard)
-  | (leaf-layout "foo" wholeCard)
+  | (leaf-layout image)
+  | (leaf-layout foobarImage)
+  | (leaf-layout "foo")
   `----
 
 
@@ -141,10 +143,10 @@ _________________
   - IF H, maximize the height, without width being larger than given
     size.
   ,----
-  | (leaf-layout-mantain-aspect-ratio image position '[W|H])
+  | (leaf-layout-mantain-aspect-ratio image "[W|H]")
   | 
-  | (leaf-layout-mantain-aspect-ratio foobarImage wholeCard 'W)
-  | (leaf-layout-mantain-aspect-ratio foobarImage wholeCard 'H)
+  | (leaf-layout-mantain-aspect-ratio foobarImage "W")
+  | (leaf-layout-mantain-aspect-ratio foobarImage "H")
   `----
   - Sometimes we will probably want an image to not be stretched, for
     quality reasons.
@@ -157,16 +159,17 @@ _________________
 ------------
 
   Creates a Layout object.  A layout contains 0-n pairs of layouts and
-  positions.  Takes 0-n pairs of layouts and positions as arguments.
+  position-scaleds.  Takes 0-n pairs of layouts and position-scaleds as
+  arguments.
   ,----
   | (Layout
-  |   (cons layout0 position0)
-  |   (cons layout1 position1)
+  |   (cons layout0 position-scaled0)
+  |   (cons layout1 position-scaled1)
   |   ...
-  |   (cons layoutn-1 positionn-1))
+  |   (cons layoutn-1 position-scaledn-1))
   | 
   | (Layout 
-  |   (cons layoutFoo positionFoo)
+  |   (cons layoutFoo position-scaledFoo)
   |   (cons (leaf-layout foobarImage) wholeCard)
   |   (cons (leaf-layout "foo") wholeCard)
   | )
@@ -191,72 +194,86 @@ _________________
   | (eval-file "filename.filename")
   | (eval-file "foo.script")
   `----
-  Eval foo.script.  Details on how that works to come.
+  Evals foo.script.  Must be done at top level.
 
 
-2 Overview of configuration file
-================================
-
-  The configuration file is for declaring resources.  Image files,
-  fonts, etc are loaded here.  Decals must be made here.  Positions can
-  be made here, but don't have to be.
-
-
-2.1 Syntax
-~~~~~~~~~~
-
-  ,----
-  | name = Type(args0,args1,...argsn-1);
-  `----
-  Just give the things to be declared one after another like so.
-
-
-2.2 Decals
-~~~~~~~~~~
+1.1.11 Decals
+-------------
 
   - Image Decal
   ,----
-  | name = Image("filepath.[jpg|png|etc]");
-  | fooImage = Image("foo.jpg");
+  | (image "filepath.[jpg|png|etc]")
+  | (image "foo.jpg")
   `----
   - Rectangle Decal
   ,----
-  | name = Rectangle("color");
-  | whiteRectangle = Rectangle("white");
+  | (rectangle "color")
+  | (rectangle "white")
   `----
   - Circle Decal
   ,----
-  | name = Circle("color");
-  | whiteCircle = Circle("white");
+  | (circle "color")
+  | (Circle "white")
   `----
   - Custom Shape Decal Gets given a list of points, connects point_1 ->
     point_2 -> ... point_n-1 -> point 1
   ,----
-  | customShape = CustomShape((0,1),(1,0)...)
+  | (custom-shape (cons 0 1) (cons 1 0)...)
   `----
   - String decal
   A string from a given font.
   ,----
-  | name = String("StringText","Font","Color",Size);
-  | text = String("Hello World!","Arial.font","Red",12);
-  | one = String("1","Arial.font","Red",12);
+  | (string "StringText" "Font" "Color" Size)
+  | (string "Hello World!" "Arial.font" "Red" 12)
+  | (string "1" "Arial.font" "Red" 12)
   `----
 
 
-2.3 Positions
-~~~~~~~~~~~~~
+1.1.12 Position-Scaleds
+-----------------------
 
-  A position that can be used in the script
+  A position-scaled that can be used in the script
   ,----
-  | name = Position(x%,y%,width%,height%);
-  | wholeCard = Position(0,0,100,100);
+  | (position-scaled x-offset% y-offset% scale-width% scale-height%)
+  | (position-scaled 0 0 100 100)
   `----
 
 
-2.4 Size
-~~~~~~~~
+1.1.13 Size
+-----------
 
   A size is used by a card to determine how many pixels it will be.
   ,----
-  | size = Size(width, height)
+  | (size width height)
+  `----
+
+
+2 Config file
+=============
+
+  - Allows one to set various options
+  - Current options are
+    - script-file
+      - Specify the script to run
+      - No default, can be overridden by terminal args
+    - output-format
+      - Specify what format to output in
+      - Defaults to png
+    - output-dir
+      - Specify where to output the result to
+      - Defaults to ./
+    - logfile
+      - Specify where to log to
+      - Defaults to .cardlog
+    - loglevel
+      - Specify how much to log
+      - Defaults to highest
+
+  - Each option is enter in this format
+  ,----
+  | (set-option "option-name" "value")
+  `----
+  -So for example
+  ,----
+  | (set-option "output-dir" "./")
   `----
