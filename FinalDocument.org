@@ -1,0 +1,65 @@
+* Overall System
+
+* Layout System
+** for each class
+*** Purpose
+*** What patterns it partakes in
+** Design Patterns used
+*** Why we used?
+*** What we gained?
+*** Consequences
+
+
+* Decal System
+** for each class
+*** Purpose
+*** What patterns it partakes in
+** Design Patterns used
+*** Why we used?
+*** What we gained?
+*** Consequences
+
+* Driver System
+** Options Reading system
+*** for each class
+**** Purpose
+**** What patterns it partakes in
+*** Design Patterns used
+**** Why we used?
+**** What we gained?
+**** Consequences
+** for each class
+*** Purpose
+*** What patterns it partakes in
+** Design Patterns used
+*** Why we used?
+*** What we gained?
+*** Consequences
+
+
+* ScriptEvaluator
+** for each class
+*** Purpose
+*** What patterns it partakes in
+** Design Patterns used
+*** Why we used?
+*** What we gained?
+*** Consequences
+** Parser
+*** for each class
+**** Purpose
+**** What patterns it partakes in
+*** Design Patterns used
+**** Why we used?
+**** What we gained?
+**** Consequences
+** Builder System
+*** for each class
+**** Purpose
+**** What patterns it partakes in
+*** Design Patterns used
+**** Why we used?
+**** What we gained?
+**** Consequences
+
+
