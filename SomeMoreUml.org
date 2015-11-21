@@ -258,8 +258,8 @@ Token <|-- VariableToken
 note bottom : Get arguments is always empty
 Token <|--ExpressionToken
 Token <|--AtomToken
-Token <|--IntAtomToken
-Token <|--StringAtomToken
+AtomToken <|--IntAtomToken
+AtomToken <|--StringAtomToken
 Token <|--ParseErrorToken
 note bottom : Get arguments is always empty
 
