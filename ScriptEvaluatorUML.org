@@ -310,10 +310,9 @@ ScriptObject <|-- Layout
 
 class ScriptEvaluator
 
-
 ScriptEvaluator : currentDirectory:Path
 ScriptEvaluator : parseFile(FilePath) : List<Token>
-ScriptEvaluator : evalTokans(List<Tokens>)
+ScriptEvaluator : evalTokans(List<Token>)
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
 ScriptEvaluator : addRenderedCard(RenderedCard rc)
 
@@ -323,6 +322,10 @@ note top : Singleton
 
 BuilderFactory : Map<String,BuilderClassObjects
 BuilderFactory : getBuilder(s:String)
+BuilderFactory : getBuilderFactory() : BuilderFactory
+
+Token -> BuilderFactory
+
 
 class RenderedCard
 
