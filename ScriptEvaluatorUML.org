@@ -326,10 +326,12 @@ BuilderFactory : getBuilder(s:String)
 
 class RenderedCard
 
-RenderedCard : -card
-RenderedCard : -ArrayList<Family>
+RenderedCard : -Card:card
+RenderedCard : -Families:ArrayList<Family>
+RenderedCard : -name:String
 RenderedCard : +getCard():card
 RenderedCard : +getFamilies():ArrayList<Family>
+RenderedCard : +getName():String
 
 
 
