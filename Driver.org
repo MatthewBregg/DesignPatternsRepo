@@ -1,54 +1,91 @@
 #+BEGIN_SRC java
-/**
-class Image {
-    
-}
+  /**
+     class Image {
+      
+     }
 
-class VectorImage extends Image {
-}
-class BitMapImage extends Image {
-}
+     class VectorImage extends Image {
+     }
+     class BitMapImage extends Image {
+     }
 
-abstract class DecalRenderingStrategy {
-    abstract Image renderImage(filePath);
-    abstract Image renderText(String,font,size);
-    abstract Image shapeImage(shapeStuff);
-}
+     abstract class DecalRenderingStrategy {
+     abstract Image renderImage(filePath);
+     abstract Image renderText(String,font,size);
+     abstract Image shapeImage(shapeStuff);
+     }
 
-class PNGDecalRenderingStrategy extends DecalRenderingStrategy {
+     class PNGDecalRenderingStrategy extends DecalRenderingStrategy {
 
-}
+     }
 
-class VectorDecalRenderingStrategy extends DecalRenderingStrategy {
+     class VectorDecalRenderingStrategy extends DecalRenderingStrategy {
 
-}
+     }
 
-**/
+  ,**/
 
-class RenderedCard {
-    private Image front;
-    private Image back;
-    private String name;
-}
+  class RenderedCard {
+      private Image front;
+      private Image back;
+      private String name;
+  }
 
-int main() {
-    Options options = new OptionsParser(defaultOptionsFilePath);
+  class ErrorOrWarning {
+      String message;
+      File occuredIn;
+      int line;
+      int col;
+      int code;
+  }
 
-    ScriptEvaluator evaluator = new ScriptEvaluator();
+  class Logger {
+      void addError(ErrorOrWarning s);
+      void addWarning(ErrorOrWarning s);
 
-    evaluator.evalFile(options.scriptFile());
+      ArrayList<ErrorOrWarning> getWarnings();
+      ArrayList<ErrorOrWarning> getErrors();
+      int getErrorCode();
+      boolean hasErrors();
+
+      private Logger() {};
+
+      public Logger getInstance();
+
+  }
+
+  void exitIfErrors() {
+      Logger logger = Logger.getInstance();
+      if ( hasErrors() ) {
+          //Print erors
+      }
+      System.exit(errorCode);
+  }
 
 
-    ArrayList<RenderedCard> cards = evaluator.getCardsThatWereRendered();
 
-    FinalOutput output = getOutput(options);
-    for ( RenderedCard c : cards ) {
-	output.addCard(c);
-    }
+  void main() {
+      Options options = new OptionsParser(defaultOptionsFilePath);
+      exitIfErors();
 
-    output.writeFiletoDisk();
+      ScriptEvaluator evaluator = new ScriptEvaluator();
 
-}
+      evaluator.evalFile(options.scriptFile());
+      exitIfErors();
+
+
+
+      ArrayList<RenderedCard> cards = evaluator.getCardsThatWereRendered();
+
+      FinalOutput output = getOutput(options);
+      for ( RenderedCard c : cards ) {
+          output.addCard(c);
+      }
+
+      output.writeFiletoDisk();
+      //Print warnings from Logger
+
+  }
 
 
 #+END_SRC
