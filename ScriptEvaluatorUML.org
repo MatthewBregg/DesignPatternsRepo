@@ -324,6 +324,14 @@ note top : Singleton
 BuilderFactory : Map<String,BuilderClassObjects
 BuilderFactory : getBuilder(s:String)
 
+class RenderedCard
+
+RenderedCard : -card
+RenderedCard : -ArrayList<Family>
+RenderedCard : +getCard():card
+RenderedCard : +getFamilies():ArrayList<Family>
+
+
 
 
 
