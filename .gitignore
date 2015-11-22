@@ -1,5 +1,5 @@
 /auto/
-/cards.tex
+*.tex
 /.#cards.org
 /TODO.org~
 /cards.html~
@@ -7,10 +7,11 @@
 /Image.org~
 /Lexer.org~
 /Parser.org~
-/FinalDocument.org~
+*.*~
 /Driver.org~
 /ScriptEvaluatorUML.org~
 /ScriptingLanguageSpecification.html~
 /ScriptingLanguageSpecification.txt~
 /ScriptingLanguageSpecification.tex
 /TODO.tex
+/Driver.tex
