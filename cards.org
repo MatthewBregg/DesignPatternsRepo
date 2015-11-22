@@ -70,7 +70,7 @@ note top : Background will either be a leaf layout, or special background decal 
 class PositionScaled
 class Size
 Size : width : double
-size : height : double
+Size : height : double
 PositionScaled : xPercentage : double
 PositionScaled : yPercentage : double
 PositionScaled : widthPercentage : double

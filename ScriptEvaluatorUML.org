@@ -233,7 +233,7 @@ VariableToken : varName : String
 class ExpressionToken
 note top : (family (cons "foo" bar)) would be one of these
 ExpressionToken : List<Token>
-class AtomToken
+abstract class AtomToken as "{abstract}\nAtomToken"
 note top : Any ints or strings will be one of these. 
 class StringAtomToken 
 StringAtomToken : value : String
