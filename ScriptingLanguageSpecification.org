@@ -174,15 +174,12 @@ A size is used by a card to determine how many pixels it will be.
   - output-format
     - Specify what format to output in
     - Defaults to png
-  - output-dir
+  - output-file
     - Specify where to output the result to
     - Defaults to ./
   - logfile
     - Specify where to log to
     - Defaults to .cardlog
-  - loglevel
-    - Specify how much to log
-    - Defaults to highest
       
 - Each option is enter in this format
 #+BEGIN_SRC 

@@ -31,7 +31,7 @@
       private String name;
   }
 
-  class ErrorOrWarning {
+  class ErrorMessage {
       String message;
       File occuredIn;
       int line;
@@ -40,13 +40,11 @@
   }
 
   class Logger {
-      void addError(ErrorOrWarning s);
-      void addWarning(ErrorOrWarning s);
+      void addError(ErrorMessage s);
+      void addWarning(ErrorMessage s);
 
-      ArrayList<ErrorOrWarning> getWarnings();
-      ArrayList<ErrorOrWarning> getErrors();
-      int getErrorCode();
-      boolean hasErrors();
+      ArrayList<ErrorMessage> getWarnings();
+      ArrayList<ErrorMessage> getErrors();
 
       private Logger() {};
 
@@ -54,11 +52,12 @@
 
   }
 
-  void exitIfErrors() {
+  void exitIfErrors(Options options) {
       Logger logger = Logger.getInstance();
       if ( hasErrors() ) {
           //Print erors
       }
+      //Print to file with the options
       System.exit(errorCode);
   }
 
@@ -66,18 +65,18 @@
 
   void main() {
       Options options = new OptionsParser(defaultOptionsFilePath);
-      exitIfErors();
+      exitIfErors(options);
 
       ScriptEvaluator evaluator = new ScriptEvaluator();
 
       evaluator.evalFile(options.scriptFile());
-      exitIfErors();
+      exitIfErors(options);
 
 
 
       ArrayList<RenderedCard> cards = evaluator.getCardsThatWereRendered();
 
-      FinalOutput output = getOutput(options);
+      Output output = new Output(options);
       for ( RenderedCard c : cards ) {
           output.addCard(c);
       }
@@ -86,6 +85,69 @@
       //Print warnings from Logger
 
   }
+
+
+#+END_SRC
+
+#+BEGIN_SRC plantum :file DriverUML.png
+skinparam dpi 300
+
+class Logger
+Logger : adddError(ErrorMessage s)
+Logger : addWarning(ErrorMessage s)
+Logger : getWarnings():ArrayList<ErrorMessage>
+Logger : getErrors():ArrayList<ErrorMessage>
+
+note bottom : Is a singleton
+
+
+class ErrorMessage
+ErrorMessage : message : String
+ErrorMessage : occuredIn : FilePath
+ErrorMessage : line:Int
+ErrorMessage : col:Int
+ErrorMessage : code:Int
+
+Logger o--> ErrorMessage 
+
+class Option
+Option : ScriptFile() : FilePath
+Option : OutFormat() : Enum
+Option : OutputFile() : FilePath
+Option : LogFile() : FilePath
+
+class Output
+Output : List<RenderedCards>
+Output : outputPath : FilePath
+Output : format : OutputFormat
+Output : addCard(c:Card)
+Output : writeFiletoDisk() 
+Output : Output(o:Option)
+note bottom : This creates one file with all the cards in it, and converts the lossless PNG Images to the output format. 
+
+
+enum OutputFormat {
+  JPG
+  JPG2000
+  JPGX
+  PNG
+  PDF
+  GIF
+  BMP
+}
+
+class Driver
+Driver : public static void main(String[] args)
+
+Output --> OutputFormat
+
+Driver --> Output
+Driver --> ScriptEvaluator
+Driver --> Options
+Driver --> Logger
+Driver --> RenderedCard
+  
+
 
 
 #+END_SRC

@@ -1,0 +1,8 @@
+- Needs to take a file in, return a list of tokens.
+
+#+BEGIN_SRC plantuml :file LexerUML.png
+skinparam dpi 300
+
+class Lexer
+Lexer : tokenizeFile(File file) : List<Token>
+#+END_SRC
