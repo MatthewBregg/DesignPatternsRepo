@@ -311,7 +311,7 @@ ScriptObject <|-- Layout
 class ScriptEvaluator
 
 ScriptEvaluator : currentDirectory:Path
-ScriptEvaluator : parseFile(FilePath) : List<Token>
+ScriptEvaluator : parseFile(Path) : List<Token>
 ScriptEvaluator : evalTokans(List<Token>)
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
 ScriptEvaluator : addRenderedCard(RenderedCard rc)

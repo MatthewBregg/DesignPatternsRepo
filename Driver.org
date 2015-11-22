@@ -103,7 +103,7 @@ note bottom : Is a singleton
 
 class ErrorMessage
 ErrorMessage : message : String
-ErrorMessage : occuredIn : FilePath
+ErrorMessage : occuredIn : Path
 ErrorMessage : line:Int
 ErrorMessage : col:Int
 ErrorMessage : code:Int
@@ -111,14 +111,14 @@ ErrorMessage : code:Int
 Logger o--> ErrorMessage 
 
 class Option
-Option : ScriptFile() : FilePath
+Option : ScriptFile() : Path
 Option : OutFormat() : Enum
-Option : OutputFile() : FilePath
-Option : LogFile() : FilePath
+Option : OutputFile() : Path
+Option : LogFile() : Path
 
 class Output
 Output : List<RenderedCards>
-Output : outputPath : FilePath
+Output : outputPath : Path
 Output : format : OutputFormat
 Output : addCard(c:Card)
 Output : writeFiletoDisk() 
