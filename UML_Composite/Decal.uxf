@@ -11,7 +11,7 @@
     </coordinates>
     <panel_attributes>DynamicDecal
 --
-- familyName:String
+- key:String
 --
 + render(families ArrayList&lt;Families&gt;, size Size): Image
 
@@ -26,12 +26,12 @@
       <w>333</w>
       <h>126</h>
     </coordinates>
-    <panel_attributes>Image
+    <panel_attributes>ImageDecal
 --
 - image: Image
 --
 + render(families ArrayList&lt;Families&gt;, size Size): Image
-+ load(String fileName): Image
++ load(Path path): Image
 
 </panel_attributes>
     <additional_attributes/>
@@ -63,12 +63,12 @@
     </coordinates>
     <panel_attributes>Text
 --
-- font: String
 - color: Color
 - size: int
 - font:Font
 --
 + render(families ArrayList&lt;Families&gt;, size Size): Image
++ load(fontPath : Path, c : Color, size : int)
 
 </panel_attributes>
     <additional_attributes/>
@@ -136,8 +136,7 @@
     </coordinates>
     <panel_attributes>AnyShape
 --
-- xCords: ArrayList&lt;double&gt;
-- yCords: ArrayList&lt;double?
+- points : ArrayList&lt;Point&gt;
 --
 + render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
     <additional_attributes/>

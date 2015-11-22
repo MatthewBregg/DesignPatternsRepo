@@ -89,7 +89,7 @@
 
 #+END_SRC
 
-#+BEGIN_SRC plantum :file DriverUML.png
+#+BEGIN_SRC plantuml :file DriverUML.png
 skinparam dpi 300
 
 class Logger

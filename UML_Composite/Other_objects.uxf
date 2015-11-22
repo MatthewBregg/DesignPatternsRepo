@@ -28,8 +28,8 @@
     </coordinates>
     <panel_attributes>Size
 --
-- width_percent: double
-- height_percent: double
+- width: double
+- height: double
 --
 
 
@@ -46,8 +46,10 @@
     </coordinates>
     <panel_attributes>PositionScaled
 --
-- x: double
-- y: double
+- xPercentage: double
+- yPercentage: double
+- widthPercentage: double
+- heightPercentage: double
 --
 
 </panel_attributes>
@@ -65,8 +67,8 @@
 --
 - frontLayout: ComponentLayout
 - backLayout: ComponentLayout
-- x: double
-- y: double
+- width: double
+- height: double
 --
 + render(): Pair&lt;Image,Image&gt;
 </panel_attributes>
