@@ -49,7 +49,7 @@
 - Done
 
 
-*** Object Creation builder
+** Object Creation builder
 - Allows one to create objects from the scripting langauge cleanly.
   - Context sees it is making something new, sees what it is making from function.
   - Token comparison will have to happen some how, although could avoid a hard coded comparison...
@@ -80,37 +80,177 @@ void acceptBuilder(Builder builder) {
     - Factory method could work better than that I think?. 
       
 #+BEGIN_SRC java
-    //Null in this case, rather than using java null, might want to be
-    //A special subclass of script object.
-    //then we don't need null checks!
-    //The null object can just propogate!
-    //It would have ot hold it's error inside it.
+  //Null in this case, rather than using java null, might want to be
+  //A special subclass of script object.
+  //then we don't need null checks!
+  //The null object can just propogate!
+  //It would have ot hold it's error inside it.
 
-    //For defines, the defines is given in as usually, a define builder is made,
-    //The define builder will have to set the define, so builders will need
-    //Access to the map of var names -> ScriptObjects
+  //For defines, the defines is given in as usually, a define builder is made,
+  //The define builder will have to set the define, so builders will need
+  //Access to the map of var names -> ScriptObjects
 
   //The parser makes the tokens.
 
   //eval-file is handled by making a new Parser, and assembler, and running that on the script, but passing in the existing global environment/anything else. 
 
+  /**
+     (VarName x y)
+     (define (VarName x y) (function token))
+     In both cases above, VarName is going to be parsed as an expression token.
+     The difference will then be during evaluation....
+     The token itself will attempt to look up the varname.
+     So, for already defined functions, the builder will have been created.
+     For undefined functions, returned undefined builder?
+     And undefined builder will return an undefined function call block, which a
+     define can then use to know, ok, I am making a function, make that function, and put it in the
+     function builders!! The function builder won't be a singleton, but will be kept in the env!!
+     Then when calling, the builder will retreive the function, whose builder will have stored
+     the function body tokens.
+     This builder then gets the arguments, input, makes a new env frame, and then calls the
+     Script evaluator on the tokens given in.
+     Then pop the stack frame!
+     One problem, the tokens are already evaluated the former stage...
 
-    class Assembler {
-        //Lots of stuff elidded
-        Map<String,ScriptObject> map = ...;
+     Oh, and current design should have undefined varname.
+     So, add 2 objs.
+     Undefined varname
+     Undefined function call
+     Null script object
 
-        ScriptObject doParse(Tokens token) {
-            Builder builder = token.getBuilder(this);
-           
-            for (Token arg : token.getArgumentTokens()) {
-                ScriptObject obj = doParse(arg);
-                obj.accept(builder);
-            }
-            ScriptObject obj = builder.getResult();
+     Builder Factory will be in env...
 
-            return obj;
-        }
-    }
+     The two undefined* ScriptObjects will be made by the tokens.
+     Upon seeing the respective map is only returning null, they will take name, put it in, and then in the case of function obj, all parameters
+     will be in argument list. Returns that builder, lets the ScriptEvaluator add the args if needed, and then that builder returns the correct
+     undefined object.
+    
+   
+
+  ,**/
+
+  class Builder {
+      ScriptEvaluator eval = ...;
+      void setScriptEvaluator(ScriptEvaluator eval) { 
+           this.eval = eval;
+      }
+      //This will be the default method for this in Builder.
+      //Very few things will override it, but the define builder will!
+      //Define builder will say, ok,
+      //First below as usual, then see if I get added a varname, or a undefined function block.
+      //If undefined var name, then eval the body to get the ScriptObject, and then
+      //set the top environment with the name,value pair
+      //If a undefined function block, then make a new function builder.
+      //Add to that function builder the parameters from the undefined function block. (A list)
+      //The addToken function now no longer parses and accepts each token, instead add to
+      //function builder
+      //Then get the top env, and add it to the BuilderFactory.
+      //Done!
+      //When the expression token looks in the env::BuilderFactory for the correct builder, it will find
+      //it!
+      ScriptEvaluator getEval() {
+          return eval;
+      }
+      void addToken(Token token) {
+          ScriptObject obj = eval.doParse(token);
+          obj.accept(this);
+
+      }
+          
+          
+  }
+
+  class DefineBuilder {
+      FunctionBuilder functionBuilder = null;
+      State currentState = new UnknownState();
+      ScriptObject var = new NullScriptObj();
+      String name = "";
+      //Define builder will say, ok,
+      //First below as usual, then see if I get added a varname, or a undefined function block.
+      //If undefined var name, then eval the body to get the ScriptObject, and then
+      //set the top environment with the name,value pair
+      //If a undefined function block, then make a new function builder.
+      //Add to that function builder the parameters from the undefined function block. (A list)
+      //The addToken function now no longer parses and accepts each token, instead add to
+      //function builder
+      //Then get the top env, and add it to the BuilderFactory.
+      //Done!
+      //When the expression token looks in the env::BuilderFactory for the correct builder, it will find
+      //it!
+      void addToken(Token token) {
+          if ( currentState.equals(new UnknownState()) || currentState.equals(new variableState()) ) {
+              ScriptObject obj = eval.doParse(token);
+              obj.accept(this);
+          }
+          else if (currentState.equals(new FunctionState())){
+              functionBuilder.add(token);
+          }
+      }
+      void addUndefinedFunction(UndefinedFunction f) {
+          if ( currentState.equals(new UnknownState()) ) {
+              currentState = new FunctionState();
+              functionBuilder = new FunctionBuilder(f.getFunctionName(),f.getFunctionParameters());
+          }
+          else {
+              this.setVar(f);
+          }
+      }
+      void addUndefinedVariableObject(UndefinedVariable v) {
+          if ( currentState.equals(new UnkownState()) ) {
+              currentState = new VarState();
+              name = v.getName();
+          } else {
+              this.setVar(v);
+          }
+      }
+              
+
+      void setVar(ScriptObject f) {
+          //IF state is unknown, then set the state to error state,
+          //IF state is var state, then set the var object to this.
+          //IF state is function state, then go to error state.
+          //If state is varFull state, then go to error state.
+      }
+      ScriptObject getResult() {
+          //If state != varFullState, or function state, return errorState
+          //Else perform the appropriate set, either set the BuilderFactory, or the map in the current environment
+          //And return null script object..
+      }
+          
+          
+  }
+
+  class Environment {
+      BuilderFactory builder;
+      Map<String,ScriptObject> vars;
+      //Has getters for each.
+  }
+      
+
+  class ScriptEvaluator {
+      //Lots of stuff elidded
+      //When looking up a variable, a function will start at the back of list,
+      //And go through it, checking each one, and taking the first match. 
+      //The first environment must be specially initialized with the BuilderFactory that has the
+      //Correct special builders.
+      ArrayList<Map<Environment> envs = ...;
+      //A function, when it is first evaluated, needs to put a new frame into env, and then
+      //On exit, pop a frame off of env.
+
+      ArrayList<BuilderFactory>  = ...;
+
+         
+      ScriptObject doParse(Tokens token) {
+          Builder builder = token.getBuilder(this);
+            
+          for (Token arg : token.getArgumentTokens()) {
+              builder.addToken(this);
+          }
+          ScriptObject obj = builder.getResult();
+
+          return obj;
+      }
+  }
 
   abstract class Token {
       abstract ArrayList<Token> getArguments();
@@ -120,7 +260,7 @@ void acceptBuilder(Builder builder) {
   class ExpressionToken extends Token {
       //...Lots of stuff elidded
       ArrayList<Token> getArguments(); //Return the sub expression
-  //Tokens
+      //Tokens
       Builder getBuilder(Assembler assembler) {
           return BuilderFactory.getInstance().getBuilder(
               assembler,this.getFunctionString());
@@ -151,13 +291,13 @@ void acceptBuilder(Builder builder) {
   }
 
 
-    class BuilderFactory {
-        //singleton stuff
+  class BuilderFactory {
+      //singleton stuff
 
-        //Paramatized factory
-        Map<String,BuilderClassObjects> map;
-    }
-    //We will also most likely want a singleton to log errors!
+      //Paramatized factory
+      Map<String,BuilderClassObjects> map;
+  }
+  //We will also most likely want a singleton to log errors!
 
 #+END_SRC
 
@@ -189,7 +329,7 @@ BuilderVisiter : addPair(Pair<ScriptObject,ScriptObject> p)
 BuilderVisiter : addKeyValuePair(Pair<StringScriptWrapper,Decal> p)
 BuilderVisiter : addLayoutPositionPair(Pair<Layout,Position> p)
 BuilderVisiter : addError(ErrorScriptObject e)
-BuilderVisiter : addVoid(VoidScriptObject v)
+BuilderVisiter : addNull(NullScriptObject v)
 BuilderVisiter : addVarName(VarName V)
 
 note "The Token will add the Varname \n with addVarName before returning it." as simpleBuilderNote
@@ -277,7 +417,7 @@ class KeyValuePair
 class LayoutPositionPair
 class List
 class ErrorScriptObject
-class VoidScriptObject
+class NullScriptObject
 class VarName
 class Card 
 Card -- AsDefined
@@ -298,7 +438,7 @@ ScriptObject <|-- PositionScaled
 ScriptObject <|-- Card
 ScriptObject <|-- VarName
 ScriptObject <|-- ErrorScriptObject
-ScriptObject <|-- VoidScriptObject
+ScriptObject <|-- NullScriptObject
 ScriptObject <|-- List
 ScriptObject <|-- consPair
 consPair <|-- KeyValuePair
@@ -348,6 +488,30 @@ note  "Getting stuff out of cons for layout and family will be a bit tricky, but
 #+RESULTS:
 [[file:BuilderConstruction.png]]
 
+
+**** Builders we need
+- LayoutBuilder : Ervis
+- DefineBuilder : Matt
+- CardBuilder :  Ian
+- NullBuilder : Ian
+- UndefinedFunctionBuilder : Matt
+- UndefinedVariableBuilder : Matt
+- ListBuilder : Ian 
+- ConsBuilder : Brandon
+- SizeBuilder : Brandon
+- PositionScaledBuilder : Brandon
+- FamilyBuilder : Matt
+- VariableBuilder : Matt
+- LiteralBuilder : Matt
+
+- DecalBuilders 
+  - ImageDecalBuilder :  Brandon
+  - StringDecalBuilder : Brandon 
+  - ShapeDecalBuilders : Ervis
+    - RectangleDecalBuilder : Ervis
+    - CircleDecalBuilder : Ervis
+    - TriangleDecalBuilder : Ervis
+    - AnyShapeDecalBuilder : Ervis
 ** ScriptEvaluator
 - After parsing script, can return a list of tuples, each tuple has front image, back image, card name. 
 - Uses a strategy for parsing. 
