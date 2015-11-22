@@ -31,3 +31,11 @@
 - Monday : Everything except per class docs done
 - Over Thanksgiving break : We break up the classes, and assign each person an even amount of classes to right specs on
 - Turn in
+
+ 
+* THE TODO Before Thanksgiving 
+- Rework examples a tiny bit, family needs a name
+- Builder Construction
+  - Make the builders
+  - Make the ScriptObject subclasses more detailed
+- Parser : Mostly done, should probably mention a tiny bit about how it will recur to work...

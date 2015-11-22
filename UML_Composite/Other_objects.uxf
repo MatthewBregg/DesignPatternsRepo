@@ -12,6 +12,7 @@
     <panel_attributes>Family
 --
 - familyMap Map&lt; String, Decal&gt;
+- name : String
 --
 
 

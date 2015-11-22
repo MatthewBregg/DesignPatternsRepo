@@ -80,6 +80,7 @@ PositionScaled : heightPercentage : double
 ' Family
 class Family
 note top : A family map may be nested, so the object has a Family reference in it, it check itself, if null, check reference.
+Family : name : String
 Family : familyMap : Map<String,Decal>
 Family : getDecal(s : String)
 Family : setDecal(s : String, d : Decal )
@@ -213,11 +214,11 @@ ScriptObject <|-- Card
 #+END_SRC
 
 #+BEGIN_SRC 
-(define emptyFamily (family))
-(define heartFamily (family (cons "suite" heartImage)))
-(define diamondFamily (family (cons "suite" diamondImage)))
-(define spadeFamily (family (cons "suite" spadeImage)))
-(define clubFamily (family (cons "suite" clubImage)))
+(define emptyFamily (family "empty"))
+(define heartFamily (family "heart" (cons "suite" heartImage)))
+(define diamondFamily (family "diamond" (cons "suite" diamondImage)))
+(define spadeFamily (family "spade" (cons "suite" spadeImage)))
+(define clubFamily (family "club" (cons "suite" clubImage)))
 
 (define backgroundLayout 
   (layout 

@@ -104,11 +104,14 @@ Takes 0-n pairs of layouts and position-scaleds as arguments.
 #+END_SRC
 *** family
 Creates a map of strings to decals, a family.
-Takes in N pairs.
-barImage and fooImage must be defined in config gile.
+Takes in a name, and N pairs.
+- Requires a family name.
+  - The family name is added to the card name when a card is rendered, to avoid name collisions when rendering the same card with multiple families.
+  - If a multiple families given, append the names of all the families.
+
 #+BEGIN_SRC family
-(family pair0 ... pairn-1)
-(family (cons "foo" fooImage) (cons "bar" barImage))
+(family name pair0 ... pairn-1)
+(family "fooFamily" (cons "foo" fooImage) (cons "bar" barImage))
 
 #+END_SRC
 *** eval-file
