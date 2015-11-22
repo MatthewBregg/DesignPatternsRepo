@@ -6,12 +6,12 @@
 * Decal
 
 - Generic art, gets an art object
-- Decals will need to be patterned, one decal might want to be on each corner, or might want to go in a row, would be very awkward to have to manually do all this patterning : Decal shouldn't do patterning, let the transformation class do it.
+- Decals will need to be patterned, one decal might want to be on each corner, or might want to go in a row, would be very awkward to have to manually do all this patterning : Decal shouldn't do patterning, let the transformation [Layout] class do it.
 ** Decal types
 - Image decals
-- Number decals
 - Text decals
 - Shape decal 
+- DynamicDecal
   
 ** Nesting
 Layouts will want to be nested, a text box might want to be on top of a back ground.
@@ -24,32 +24,27 @@ Composite, leafs hold decal.
 - Textbox
 - Border
 - Etc?
-* Theming
-- Sub decks
-- Some sets will have the same decal applied to the same spot
-- Others will have the same decal, but used in a different spot per card
-  - EX) Cards have some number of $family decals, but those decals are in different spots, they don't know what image they are until we tell it its family. Thus, would say something like $family = spades, and all the $family decals will use the spades image.
-
-    #+BEGIN_SRC 
-    clone =  prototype.clone();
-    clone.setDecal("family",spades);
-    #+END_SRC
-    Families will still need per card information.
-    So perhaps...
-    #+BEGIN_SRC 
-    clone.setCharacter(charizard.jpg)
-    clone.setHP(120);
-    #+END_SRC
+  
+- This could still be a good idea...
+  
+* Family
+A family contains a mapping of keys to decals.
+A leaf created with a string key will hold a dynamic decal.
+The dynamic decal will look up it's actually decal in a family when rendered.
+Switching families allows one to switch the theme of a card.
     
 * Cards
-Card has a layout. Layouts can be cloned. 
-Cards can be cloned. Everything is immutable, so not anymore really.
+Card has a layout. 
+Everything is immutable, so no cloning anymore, maybe GUI will be reason to bring back clone.
 - Card will have a name.
 - Card will have a layout, front and back.
-- Card have a family? Family is just a map, string -> decal, Two types of layout leafs. FamilyLeaf, which just has a string, asks its family. DecalLeaf, which holds a decal.
   - Cards will not have a family, family given to render.
-  - A family can be nested, will query its map, then parent map.
-    - Families aren't nested, instead render takes in a list, checks all, uses first it finds. 
+  - Families aren't nested, instead render takes in a list, checks all, uses first it finds. 
+      
+- Dynamic decal only holds string, uses said string to locate decal in family.
+- Could nest dynamic decals if you really wanted....
+  - That's be pretty weird, but might have a use......
+  - Maybe with one family, you want that decal to look up background, but in another, otherbackground?
     
 * Example UML
 
@@ -184,65 +179,6 @@ ScriptObject <|-- Card
 
 
 
-* Older javascripty idea
-** Scripting
-*** Configuration file
-
-#+BEGIN_SRC javascript
-decal = ...; //Some image file...
-LeafDecalFoo = { "position" : ..., "decal" : decal }
-LeafDecalBar = { "position" : ..., "decal" : "suite" }
-positionA = [ 50, 100, 50, 100 ]
-positionB = [ 50, 100, 50, 100 ]
-LayoutB = { "position" : positionB, "leafa":LeafDecalBar, "leafb":LeafDecalFoo };
-
-LayoutC = {
-    "position" : positionA;
-    "layoutA" : {"position" : positionA, "foo" :LeafDecalFoo, "bar":LeafDecalBar },
-    "layoutB" : LayoutB
-}
-
-LayoutD = {
-    "position" : positionB,
-    "layoutA" : LayoutC, //"layoutA" is a clone of LayoutC
-    "layoutB" : LayoutC["layoutA"] //"layoutB" is a clone of LayoutC["layoutA"]
-}
-LayoutD["layoutA"]["position"] = [0,100,0,100];
-
-
-//Layouts are always cloned! But they point to the same, immutable decals,
-//so they are cheap to clone.
-backgroundDecal = ..;
-heartDecal = ...;
-clubDecal = ...;
-familyBackground = {
-    family : null,
-    "background" : backgroundDecal
-}
-heartFamily = {
-    family : familyBackground,
-    "suite" : heartDecal
-}
-
-clubFamily = {
-    family : familyBackground,
-    "suite" : clubDecal
-}
-
-CardOne = {
-    "name" = "cardA",
-    "LayoutFront" = LayoutD,
-    "LayoutBack" = LayoutC,
-    family = heartFamily
-}
-#+END_SRC
-*** Script
-#+BEGIN_SRC javascript
-CardSetA = [CardOne,CardOne];
-CardSetB = CardOne.clone(10);
-CardSetA.setFamily(clubFamily);
-CardSetA.add(CardOne);
-#+END_SRC
 
 * Example with new lisp for 52 cards
 
