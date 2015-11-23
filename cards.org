@@ -100,7 +100,7 @@ Text : color : Color
 Text : size : int
 
 class DynamicDecal
-note bottom : Is a virtual proxy, looks up correct decal in map. 
+note bottom : Is a virtual proxy or a smart reference, not completely sure yet, looks up correct decal in map. 
 DynamicDecal : key : String
 abstract class Shape as "{abstract}\nShape"
 
