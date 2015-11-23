@@ -398,9 +398,11 @@ ExpressionToken : List<Token>
 abstract class AtomToken as "{abstract}\nAtomToken"
 note top : Any ints or strings will be one of these. 
 class StringAtomToken 
+note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an StringScriptWrapper of the appropriate value
 StringAtomToken : value : String
 class IntAtomToken
 IntAtomToken : value : int
+note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an IntScriptWrapper of the appropriate value
 class ParseErrorToken
 note top : If a parse error is hit, then make this, and stop parsing.
 ParseErrorToken : error : String
@@ -447,7 +449,9 @@ PositionScaled -- AsDefined
 class Size
 Size -- AsDefined
 class IntScriptWrapper
+IntScriptWrapper : value : int
 class StringScriptWrapper
+StringScriptWrapper : value : String
 class Family
 Family -- AsDefined
 
@@ -793,6 +797,10 @@ note bottom : FunctionBuilder is retrieved from the environments BuilderFactory.
 note bottom : getResult() will compare paramNames and paramObjects lengths. \n If they are different lengths, return an error. \n Otherwise, make a new Environment. Add to it all the given variables. \n Then, push that environment into the evals environment list. Then call doParse(token) for each token in the functionBody list. \n Then pop an env frame from the EnvironmentList, and return the last obj returned from doParse.
 
   #+END_SRC
+
+  #+RESULTS:
+  [[file:FunctionBuilder.png]]
+
 - CardBuilder :  Ian
 - NullBuilder : Ian
 - UndefinedFunctionBuilder : Matt
@@ -833,8 +841,8 @@ ErrorState : addScriptObj() : State
 note top : addScriptObj() always returns this \n getResults() always returns a new ErrorScriptObject
 
 class NormalState 
-ErrorState : getResults(s:ScriptObject) : ScriptObject
-ErrorState : addScriptObj() : State 
+NormalState : getResults(s:ScriptObject) : ScriptObject
+NormalState : addScriptObj() : State 
 
 State <|-- ErrorState
 State <|-- NormalState
@@ -846,7 +854,49 @@ note top : addScriptObj() always returns new ErrorState() \n getResults() always
   #+RESULTS:
   [[file:Variablebuilder.png]]
 
-- LiteralBuilder : Matt
+- ConstantBuilder : Matt
+  #+BEGIN_SRC plantuml :file ConstantBuilder.png
+skinparam dpi 300
+class ConstantBuilderVisiter
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+
+ScriptObjectBuilder <|-- ConstantBuilderVisiter
+
+ConstantBuilderVisiter : -addScriptObject(s:ScriptObject) : Go to error state
+ConstantBuilderVisiter : +getResult() : ScriptObject 
+ConstantBuilderVisiter : -obj:ScriptObject
+ConstantBuilderVisiter : -state:State = new NormalState
+ConstantBuilderVisiter : +ConstantBuilder(ScriptObject)
+
+note bottom : The Constant visiter is unlike most other visiters,\n it's made by the Constant token directly, and get result simply returns the obj it is paramaterized with. Adding anything to it sets it to error state, \n which will make it return an error obj instead...
+note bottom : addScriptObject(s:ScriptObject) will just do state = state.addScriptObj() \n and getResult will return state.getResult(obj)
+
+abstract class State as "{abstract}\nState"
+State : getResult(s:ScriptObject) : ScriptObject
+State : addScriptObj() : State
+
+ConstantBuilderVisiter +-- State
+
+class ErrorState 
+ErrorState : getResults(s:ScriptObject) : ScriptObject
+ErrorState : addScriptObj() : State 
+
+note top : addScriptObj() always returns new ErrorState() \n getResults() always returns a new ErrorScriptObject
+
+class NormalState 
+NormalState : getResults(s:ScriptObject) : ScriptObject
+NormalState : addScriptObj() : State 
+
+State <|-- ErrorState
+State <|-- NormalState
+
+note top : addScriptObj() always returns new ErrorState() \n getResults() always returns an obj
+
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:ConstantBuilder.png]]
 
 - DecalBuilders 
   - ImageDecalBuilder :  Brandon
