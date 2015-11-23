@@ -124,15 +124,15 @@ void acceptBuilder(Builder builder) {
      Upon seeing the respective map is only returning null, they will take name, put it in, and then in the case of function obj, all parameters
      will be in argument list. Returns that builder, lets the ScriptEvaluator add the args if needed, and then that builder returns the correct
      undefined object.
-    
-   
+      
+     
 
   ,**/
 
   class Builder {
       ScriptEvaluator eval = ...;
       void setScriptEvaluator(ScriptEvaluator eval) { 
-           this.eval = eval;
+          this.eval = eval;
       }
       //This will be the default method for this in Builder.
       //Very few things will override it, but the define builder will!
@@ -156,8 +156,8 @@ void acceptBuilder(Builder builder) {
           obj.accept(this);
 
       }
-          
-          
+            
+            
   }
 
   class DefineBuilder {
@@ -203,7 +203,7 @@ void acceptBuilder(Builder builder) {
               this.setVar(v);
           }
       }
-              
+                
 
       void setVar(ScriptObject f) {
           //IF state is unknown, then set the state to error state,
@@ -216,8 +216,40 @@ void acceptBuilder(Builder builder) {
           //Else perform the appropriate set, either set the BuilderFactory, or the map in the current environment
           //And return null script object..
       }
-          
-          
+            
+            
+  }
+
+  class EnvironmentList {
+      ArrayList<Environment> environments = new ArrayList<Environment>();
+      ScriptObject hasVariable(String name) {
+          ListIterator li = environment.listIterator(environment.size());
+          while(li.hasPrevious()) {
+              Map<String,ScriptObject> vars = li.previous.getVars();
+              if ( vars.get(name) != null ) {
+                  return vars.get(name);
+              }
+          }
+          return null;
+      }
+
+      Builder hasBuilder(String name) {
+          ListIterator li = environment.listIterator(environment.size());
+          while(li.hasPrevious()) {
+              BuilderFactory b = li.previous.getBuilderFactory();
+              if ( BuilderFactory.get(name) != null ) {
+                  return BuilderFactory.get(name);
+              }
+          }
+          return null;
+      }
+
+      void pushEnv(Environment env) {
+          environments.add(env);
+      }
+      void popEnv() {
+          environments.remove(environments.size()-1);
+      }
   }
 
   class Environment {
@@ -225,7 +257,7 @@ void acceptBuilder(Builder builder) {
       Map<String,ScriptObject> vars;
       //Has getters for each.
   }
-      
+        
 
   class ScriptEvaluator {
       //Lots of stuff elidded
@@ -233,16 +265,17 @@ void acceptBuilder(Builder builder) {
       //And go through it, checking each one, and taking the first match. 
       //The first environment must be specially initialized with the BuilderFactory that has the
       //Correct special builders.
-      ArrayList<Map<Environment> envs = ...;
+      EnvironmentList envList = new EnvironmentList();
+      //The thing making the script evaluator must be smart enough to put the global env in.
       //A function, when it is first evaluated, needs to put a new frame into env, and then
       //On exit, pop a frame off of env.
 
       ArrayList<BuilderFactory>  = ...;
 
-         
+           
       ScriptObject doParse(Tokens token) {
           Builder builder = token.getBuilder(this);
-            
+              
           for (Token arg : token.getArgumentTokens()) {
               builder.addToken(this);
           }
@@ -314,41 +347,27 @@ abstract class ScriptObject as "{abstract}\nScriptObject"
 
 ScriptObject : acceptBuilder(ScriptObjectBuilder v)
 
+BuilderVisiter : -eval : ScriptEvaluator
+BuilderVisiter : +getResult():ScriptObject
+BuilderVisiter : +addLayout(l:Layout)
+BuilderVisiter : +addDecal(d:Decal)
+BuilderVisiter : +addString(s:StringScriptWrapper)
+BuilderVisiter : +addFamily(f:Family)
+BuilderVisiter : +addSize(s:Size)
+BuilderVisiter : +addPositionScaled(ps:PositionScaled)
+BuilderVisiter : +addCard(c:Card)
+BuilderVisiter : +addInt(s:IntScriptWrapper)
+BuilderVisiter : +addList(l:List<ScriptObject>)
+BuilderVisiter : +addPair(p:Pair<ScriptObject,ScriptObject>)
+BuilderVisiter : +addKeyValuePair(p:Pair<StringScriptWrapper,Decal>)
+BuilderVisiter : +addLayoutPositionPair(p:Pair<Layout,Position>)
+BuilderVisiter : +addError(e:ErrorScriptObject)
+BuilderVisiter : +addNull(v:NullScriptObject)
+BuilderVisiter : +addToken(t:Token)
+BuilderVisiter : -addScriptObject(s:ScriptObject)
+note top : addToken will be implemented by default as running eval.doParse on the token, and then having the token accept itself.
 
-BuilderVisiter : getResult():ScriptObject
-BuilderVisiter : addLayout(Layout l)
-BuilderVisiter : addDecal(Decal l)
-BuilderVisiter : addString(StringScriptWrapper s)
-BuilderVisiter : addFamily(Family f)
-BuilderVisiter : addSize(Size s)
-BuilderVisiter : addPositionScaled(PositionScaled ps)
-BuilderVisiter : addCard(Card c)
-BuilderVisiter : addInt(IntScriptWrapper s)
-BuilderVisiter : addList(List<ScriptObject> l)
-BuilderVisiter : addPair(Pair<ScriptObject,ScriptObject> p)
-BuilderVisiter : addKeyValuePair(Pair<StringScriptWrapper,Decal> p)
-BuilderVisiter : addLayoutPositionPair(Pair<Layout,Position> p)
-BuilderVisiter : addError(ErrorScriptObject e)
-BuilderVisiter : addNull(NullScriptObject v)
-BuilderVisiter : addVarName(VarName V)
-
-note "The Token will add the Varname \n with addVarName before returning it." as simpleBuilderNote
-class VarBuilder as "VariableBuilderVisiter"
-note top : Just returns ScriptEvaluator.getMap().get(varname);
-simpleBuilderNote -- VarBuilder
-BuilderVisiter <|-- VarBuilder
-class ConstantBuilder as "ConstantBuilderVisiter"
-note top : Before the token returns it,\n the token will add the constant using the correct add method. 
-BuilderVisiter <|-- ConstantBuilder
-
-class LayoutBuilder as "LayoutBuilderVisiter"
-
-BuilderVisiter <|-- LayoutBuilder
-
-LayoutBuilder : state
-
-note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
-
+note bottom : The add methods by default will forward to addScriptObject, so that each add* doesn't need to be overridden, can only override the adds that are expected, and can otherwise switch to error if an unexpected thing is added. 
 
 
 
@@ -369,6 +388,7 @@ note top : For example,\n if (render someCard familyA (family \"foo\" (cons \"fo
 Token : getBuilder(ScriptEvaluator ScriptEvaluator):Builder
 class VariableToken
 note bottom : FamilyA would be one of these tokens, a variable that is referenced. \n A variable name can't start with a number, to make it determinable from an int.
+note left : When asked for a builder, will look in the ScriptEvaluators environment for a variable of it's name. \n If found, return a VariableBuilder, paramatized with said ScriptObject. \n If not found, return an UndefinedVariableBuilder, paramatized with the name.
 VariableToken : varName : String
 class ExpressionToken
 note top : (family "foo" (cons "foo" bar)) would be one of these
@@ -405,7 +425,7 @@ note bottom : Get arguments is always empty
 
 
 
-note "As defined in other UML" as AsDefined
+note "As defined in other UML, members and operations ellided in this one" as AsDefined
 note "If a Pair Builder encounters a string + decal,\n or a Layout + Position,\n it will make the appropriate pair subclass. This is a bit ugly though" as subpairs
 
 abstract class Layout as "{abstract}\nComponentLayout"
@@ -418,7 +438,6 @@ class LayoutPositionPair
 class List
 class ErrorScriptObject
 class NullScriptObject
-class VarName
 class Card 
 Card -- AsDefined
 class PositionScaled
@@ -436,7 +455,6 @@ ScriptObject <|-- IntScriptWrapper
 ScriptObject <|-- Size
 ScriptObject <|-- PositionScaled
 ScriptObject <|-- Card
-ScriptObject <|-- VarName
 ScriptObject <|-- ErrorScriptObject
 ScriptObject <|-- NullScriptObject
 ScriptObject <|-- List
@@ -448,21 +466,47 @@ ScriptObject <|-- Decal
 ScriptObject <|-- Layout
 
 
+class BuilderFactory
+
+
+BuilderFactory : Map<String,ScriptObjectBuilder>
+BuilderFactory : getBuilder(s:String)
+BuilderFactory : getBuilderFactory() : BuilderFactory
+
+class Environment
+Environment : builders : BuilderFactory 
+Environment : variables : Map<String,ScriptObject>
+Environment : getVariables() : Map<String,ScriptObject>
+Environment : getBuilders() : BuilderFactory
+
+class EnvironmentList
+
+EnvironmentList : envs : ArrayList<Environment>
+EnvironmentList : hasVariable(String name) : ScriptObject
+EnvironmentList : hasBuilder(String name) : BuilderFactory
+EnvironmentList : pushEnv(Environment env) : void
+EnvironmentList : popEnv() : void
+
+
+note top : The EnvironmentList starts checking from the most recently pushed, until it gets to the oldest env. If no matching variable/builder is found, returns null.
+
+EnvironmentList o-> Environment
+
 class ScriptEvaluator
 
 ScriptEvaluator : currentDirectory:Path
 ScriptEvaluator : parseFile(Path) : List<Token>
-ScriptEvaluator : evalTokans(List<Token>)
+ScriptEvaluator : evalTokans(List<Token>) : void
+ScriptEvaluator : doParse(Token) : ScriptObject
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
 ScriptEvaluator : addRenderedCard(RenderedCard rc)
+ScriptEvaluator : getEnvironmentList() : EnvironmentList
 
-class BuilderFactory
+ScriptEvaluator -> EnvironmentList
 
-note top : Singleton
+note top : doParse gets the builder for that token, from the token, then for each argument token in the token, gives the builder said token, before returning the builder result. 
 
-BuilderFactory : Map<String,BuilderClassObjects
-BuilderFactory : getBuilder(s:String)
-BuilderFactory : getBuilderFactory() : BuilderFactory
+
 
 Token -> BuilderFactory
 
@@ -483,6 +527,113 @@ RenderedCard : +getName():String
 
 note  "Getting stuff out of cons for layout and family will be a bit tricky, but doable, \n doing that is one weakness of this design, but can still do it without casting." as weakness
 
+note "See each Builders UML for more details..., members and operations ellided in this one" as BuilderNoteS
+'The builders
+
+' VarBuilder
+note "The Varbuilder is made by var token, so var token paramatizes VarBuilder with what it gets from looking up the var." as simpleBuilderNote
+class VarBuilder as "VariableBuilderVisiter"
+note top : Just returns the ScriptObject it is paramatized with as a result. Attemping to add to it will make it enter error state. 
+simpleBuilderNote -- VarBuilder
+BuilderVisiter <|-- VarBuilder
+
+'ConstantVisiter
+class ConstantBuilder as "ConstantBuilderVisiter"
+note top : Before the token returns it,\n the token will add the constant using the correct add method. 
+BuilderVisiter <|-- ConstantBuilder
+
+'LayoutVisiter
+class LayoutBuilder as "LayoutBuilderVisiter"
+
+BuilderVisiter <|-- LayoutBuilder
+
+
+note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
+
+'Define builder
+class DefineBuilder 
+BuilderVisiter <|-- DefineBuilder 
+BuilderNoteS -- DefineBuilder 
+
+'CardBuilder 
+class CardBuilder 
+BuilderVisiter <|-- CardBuilder 
+BuilderNoteS -- CardBuilder 
+
+'NullBuilder 
+class NullBuilder 
+BuilderVisiter <|-- NullBuilder 
+BuilderNoteS -- NullBuilder 
+
+'UndefinedFunctionBuilder 
+class UndefinedFunctionBuilder 
+BuilderVisiter <|-- UndefinedFunctionBuilder 
+BuilderNoteS -- UndefinedFunctionBuilder 
+
+'UndefinedVariableBuilder 
+class UndefinedVariableBuilder 
+BuilderVisiter <|-- UndefinedVariableBuilder 
+BuilderNoteS -- UndefinedVariableBuilder 
+
+'ListBuilder 
+class ListBuilder 
+BuilderVisiter <|-- ListBuilder 
+BuilderNoteS -- ListBuilder 
+
+'ConsBuilder 
+class ConsBuilder 
+BuilderVisiter <|-- ConsBuilder 
+BuilderNoteS -- ConsBuilder 
+
+'SizeBuilder 
+class SizeBuilder 
+BuilderVisiter <|-- SizeBuilder 
+BuilderNoteS -- SizeBuilder 
+
+'PositionScaledBuilder 
+class PositionScaledBuilder 
+BuilderVisiter <|-- PositionScaledBuilder 
+BuilderNoteS -- PositionScaledBuilder 
+
+'FamilyBuilder 
+class FamilyBuilder 
+BuilderVisiter <|-- FamilyBuilder 
+BuilderNoteS -- FamilyBuilder 
+
+'ImageDecalBuilder 
+class ImageDecalBuilder 
+BuilderVisiter <|-- ImageDecalBuilder 
+BuilderNoteS -- ImageDecalBuilder 
+
+'StringDecalBuilder 
+class StringDecalBuilder 
+BuilderVisiter <|-- StringDecalBuilder 
+BuilderNoteS -- StringDecalBuilder 
+
+'ShapeDecalBuilder 
+abstract class ShapeDecalBuilder as "{abstract}\nShapeDecalBuilder"
+BuilderVisiter <|-- ShapeDecalBuilder 
+BuilderNoteS -- ShapeDecalBuilder 
+
+'RectangleDecalBuilder
+class RectangleDecalBuilder
+BuilderVisiter <|-- RectangleDecalBuilder
+BuilderNoteS -- RectangleDecalBuilder
+
+'CircleDecalBuilder 
+class CircleDecalBuilder 
+BuilderVisiter <|-- CircleDecalBuilder 
+BuilderNoteS -- CircleDecalBuilder 
+
+'TriangleDecalBuilder
+class TriangleDecalBuilder
+BuilderVisiter <|-- TriangleDecalBuilder
+BuilderNoteS -- TriangleDecalBuilder
+
+'AnyShapeDecalBuilder
+class AnyShapeDecalBuilder
+BuilderVisiter <|-- AnyShapeDecalBuilder
+BuilderNoteS -- AnyShapeDecalBuilder
 #+END_SRC
 
 #+RESULTS:
@@ -492,6 +643,10 @@ note  "Getting stuff out of cons for layout and family will be a bit tricky, but
 **** Builders we need
 - LayoutBuilder : Ervis
 - DefineBuilder : Matt
+  #+BEGIN_SRC plantuml :file DefineBuilder.png
+skinparam dpi 300
+  
+  #+END_SRC
 - CardBuilder :  Ian
 - NullBuilder : Ian
 - UndefinedFunctionBuilder : Matt
@@ -502,6 +657,43 @@ note  "Getting stuff out of cons for layout and family will be a bit tricky, but
 - PositionScaledBuilder : Brandon
 - FamilyBuilder : Matt
 - VariableBuilder : Matt
+  #+BEGIN_SRC plantuml :file Variablebuilder.png
+skinparam dpi 300
+class VariableBuilderVisiter
+VariableBuilderVisiter : -addScriptObject(s:ScriptObject) : Go to error state
+VariableBuilderVisiter : +getResult() : ScriptObject 
+VariableBuilderVisiter : -obj:ScriptObject
+VariableBuilderVisiter : -state:State = new NormalState
+VariableBuilderVisiter : +VariableBuilder(ScriptObject)
+
+note bottom : The variable visiter is unlike most other visiters,\n it's made by the Variable token directly, and get result simply returns the obj it is paramaterized with. Adding anything to it sets it to error state, \n which will make it return an error obj instead...
+note bottom : addScriptObject(s:ScriptObject) will just do state = state.addScriptObj() \n and getResult will return state.getResult(obj)
+class State 
+State : getResult(s:ScriptObject) : ScriptObject
+State : addScriptObj() : State
+
+VariableBuilderVisiter +-- State
+
+class ErrorState 
+ErrorState : getResults(s:ScriptObject) : ScriptObject
+ErrorState : addScriptObj() : State 
+
+note top : addScriptObj() always returns this \n getResults() always returns an ErrorScriptObject
+
+class NormalState 
+ErrorState : getResults(s:ScriptObject) : ScriptObject
+ErrorState : addScriptObj() : State 
+
+State <|-- ErrorState
+State <|-- NormalState
+
+note top : addScriptObj() always returns new ErrorState() \n getResults() always returns an obj
+
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:Variablebuilder.png]]
+
 - LiteralBuilder : Matt
 
 - DecalBuilders 
