@@ -394,6 +394,7 @@ note left : When asked for a builder, will look in the ScriptEvaluators environm
 VariableToken : varName : String
 class ExpressionToken
 note top : (family "foo" (cons "foo" bar)) would be one of these
+note left : When asked for a builder, will look in environment for builder matching current function name. \n If none found, will create an UndefinedFunctionBuilder, with the name, and paramater names paramaterized
 ExpressionToken : List<Token>
 abstract class AtomToken as "{abstract}\nAtomToken"
 note top : Any ints or strings will be one of these. 
@@ -456,7 +457,15 @@ class Family
 Family -- AsDefined
 
 class UndefinedFunction
+UndefinedFunction : -funcName : String
+UndefinedFunction : -funcArgumentNames : ArrayList<String>
+UndefinedFunction : +getFuncName() : String
+UndefinedFunction : +getFuncArgumentNames() : ArrayList<String>
+
 class UndefinedVariable
+UndefinedVariable : variableName : String
+UndefinedVariable : getVariableName() : String
+
 
 ScriptObject <|-- Family
 ScriptObject <|-- StringScriptWrapper
