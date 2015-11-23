@@ -700,7 +700,7 @@ ScriptObjectBuilder <|-- DefineBuilder
     note top of UnknownState
          addToken : Has the eval parse the token, and then has the object accept the DefineBuilder
          addUndefinedFunction : Sets the state to FunctionState, and make a FunctionBuilder object
-                              The Function builder object gets the UndefinedFunctions name, and paramaters.
+                              The Function builder object gets the UndefinedFunctions paramater name list, and name is set to the undefined functions name.
          addUndefinedVarialbe : Sets the state to EmptyVariable state, and sets the name to the variable name.
          getResult() : Return error Script Object
     end note
@@ -773,7 +773,26 @@ State <|-- ErrorState
 
   #+RESULTS:
   [[file:DefineBuilder.png]]
+- FunctionBuilder : Matt
+  #+BEGIN_SRC plantuml :file FunctionBuilder.png
+skinparam dpi 300
+class FunctionBuilder
 
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+
+ScriptObjectBuilder <|-- FunctionBuilder
+FunctionBuilder : -paramNames : ArrayList<String>
+FunctionBuilder : -paramObjects : ArrayList<ScriptObject>
+FunctionBuilder : -addScriptObject(s:ScriptObject) : Add s to paramObjects list
+FunctionBuilder : +setParamNames(names:ArrayList<String>) : Add s to paramObjects list
+FunctionBuilder : +getResult() : ScriptObject 
+FunctionBuilder : -functionBody : ArrayList<Token>
+FunctionBuilder : +addFunctionBodyToken(t:Token)
+
+note bottom : FunctionBuilder is retrieved from the environments BuilderFactory.
+note bottom : getResult() will compare paramNames and paramObjects lengths. \n If they are different lengths, return an error. \n Otherwise, make a new Environment. Add to it all the given variables. \n Then, push that environment into the evals environment list. Then call doParse(token) for each token in the functionBody list. \n Then pop an env frame from the EnvironmentList, and return the last obj returned from doParse.
+
+  #+END_SRC
 - CardBuilder :  Ian
 - NullBuilder : Ian
 - UndefinedFunctionBuilder : Matt
