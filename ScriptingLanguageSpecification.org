@@ -132,18 +132,25 @@ Must be done at top level.
 #+END_SRC
 - Rectangle Decal
 #+BEGIN_SRC 
-(rectangle "color")
-(rectangle "white") 
+(rectangle "color" width height)
+(rectangle "white" 100 200) 
+#+END_SRC
+- Triangle Decal
+#+BEGIN_SRC 
+(triangle "color" lengthA lengthB lengthC)
+(triangle "white" 100 200 300)
+#+END_SRC
+- AnyShape Decal
+  - Connect point0 -> point1, and then pointn-1 -> point0 to make a shape
+#+BEGIN_SRC 
+(any-shape "color" point0x point0y point1x point1y ... pointn-1x pointn-1y)
+(any-shape "white" 100 100 200 200 300 300)
+
 #+END_SRC
 - Circle Decal
 #+BEGIN_SRC 
-(circle "color")
-(Circle "white")
-#+END_SRC
-- Custom Shape Decal
-  Gets given a list of points, connects point_1 -> point_2 -> ... point_n-1 -> point 1
-#+BEGIN_SRC 
-(custom-shape (cons 0 1) (cons 1 0)...)
+(circle "color" radius)
+(Circle "white" 100)
 #+END_SRC
 - String decal
 A string from a given font.
