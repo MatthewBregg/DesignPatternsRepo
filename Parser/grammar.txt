@@ -1,0 +1,33 @@
+
+		
+Statement 
+		-> LAYOUT '(' Statement List ')' 		=> "layout"
+		-> FAMILY '(' Statement List ')' 		=>  "family"
+		-> LEAF_LAYOUT Expression				=> "leaf-layout"
+		-> DEFINE Name '(' Statement ')'		=>  "define"
+		-> CONS Expression Statement 			=> "cons"
+		-> Decal 
+		-> RENDER 
+		-> Position
+		-> Size	;
+
+Decal
+		-> Name '=' Expression					=> "=";
+Position
+		-> POSITION '(' Expression List ',' ')' => "position";
+Size 
+		-> SIZE '(' Expression List ',' ')'		=> "size";
+
+		
+Expression
+		-> STRING				=> "String"
+		-> INTEGER				=> "int"
+		-> DOUBLE				=> "double"
+		-> IMAGE
+		-> Name;
+
+Name
+		-> Identifier			=> <var_name>;
+		
+		
+

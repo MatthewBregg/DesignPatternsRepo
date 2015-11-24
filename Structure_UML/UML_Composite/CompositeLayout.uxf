@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>592</x>
+      <y>408</y>
+      <w>448</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/ComponentLayout/
+--
+--
++ render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): Image
++ removeLayout(l LayoutPositionPair): LayoutPositionPair
++ iterator(): iterator&lt;LayoutPositionPair&gt;
++ acceptBuilder(v ScriptObjectBuilder): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>304</x>
+      <y>640</y>
+      <w>448</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/LeafLayout/
+--
+--
++ render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): Image
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>656</y>
+      <w>448</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/CompositeLayout/
+--
+--
++ render(families ArrayList&lt;Families&gt;, position PositionScaled, size Size): Image
++ addLayout(l LayoutPositionPair): void
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>864</y>
+      <w>424</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>SingleComponentLayout
+--
+- child: LayoutPositionPair
+--
++addLayout(l LayoutPositionPair): void
++removeLayout(l LayoutPositionPair): LayoutPositionPair
++iterator(): iterator&lt;LayoutPositionPair&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>584</y>
+      <w>360</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0;430.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>808</x>
+      <y>496</y>
+      <w>432</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>520.0;200.0;520.0;120.0;10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1512</x>
+      <y>864</y>
+      <w>360</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2= 0..n
+</panel_attributes>
+    <additional_attributes>360.0;10.0;430.0;10.0;430.0;250.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1376</x>
+      <y>864</y>
+      <w>424</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>ArrayComponentLayout
+--
+
+- pairs : ArrayList&lt;LayoutPositionPair&gt;
+--
++addLayout(l LayoutPositionPair): void
++removeLayout(l LayoutPositionPair): LayoutPositionPair
++iterator(): iterator&lt;LayoutPositionPair&gt;
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1016</x>
+      <y>824</y>
+      <w>320</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;380.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1304</x>
+      <y>720</y>
+      <w>296</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>350.0;180.0;350.0;140.0;10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>704</y>
+      <w>24</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>288</x>
+      <y>864</y>
+      <w>424</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/Decal/
+--
+--
++render(families ArrayList&lt;Families&gt;, size Size): Image
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>600</x>
+      <y>48</y>
+      <w>48</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Ervis</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>712</x>
+      <y>0</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Hi Dave
+Why?
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>624</x>
+      <y>0</y>
+      <w>112</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;60.0;60.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>664</x>
+      <y>80</y>
+      <w>48</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Matt</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>800</x>
+      <y>88</y>
+      <w>48</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Ian</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>872</x>
+      <y>64</y>
+      <w>64</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Brandon</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>40</x>
+      <y>544</y>
+      <w>344</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Note on implementation of render() on a LeafLayout
+--
+/* some code */
+Image sub_image = this.decal.render(families,sub_size);
+         return sub_image;
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>152</x>
+      <y>608</y>
+      <w>168</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;190.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1488</x>
+      <y>672</y>
+      <w>352</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Note on implementation of render() on a CompositeLayoout
+--
+/*some code*/
+for (LayoutAndPositionHolder pair : this.data) {
+   SubImage = pair.layout.render(families,pair.position,sub_size);
+   image.insertImage(subImage,
+        pair.position.x*(sub_size.x/100),
+        pair.position.y*(sub_size.y/100));
+   }
+return image;
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1440</x>
+      <y>688</y>
+      <w>64</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>808</x>
+      <y>304</y>
+      <w>24</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>696</x>
+      <y>248</y>
+      <w>248</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/ScriptObject/
+--
+--
++ acceptBuilder(v ScriptObjectBuilder): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>336</x>
+      <y>248</y>
+      <w>232</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Note on ScriptObejct
+--
+The UML for the ScriptObject is defined on the other file.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>248</y>
+      <w>152</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1072</x>
+      <y>1056</y>
+      <w>448</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>LayoutPositionPair
+--
+- layout : ComponentLayout
+- position : PositionScaled
+--
++ getLayout() : ComponentLayout
++ getPositionScaled() : PositionScaled
++ acceptBuilder(v ScriptObjectBuilder): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>752</x>
+      <y>864</y>
+      <w>336</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2= 0..1
+</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;250.0;400.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>416</y>
+      <w>944</w>
+      <h>704</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2= 1
+</panel_attributes>
+    <additional_attributes>610.0;860.0;1160.0;860.0;1160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>208</x>
+      <y>440</y>
+      <w>304</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Note on the implementation of acceptBuilder
+--
+/* some code */
+void acceptBuilder (ScriptObjectBuilder v){
+	       v.addLayout( this );
+}
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>72</y>
+      <w>424</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Note / Questions
+
+should it be ScriptObjectBuilder or LayoutBuilderVisiter ?
+so should my Component be Abstract Class or Interface?
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>480</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>688</x>
+      <y>1088</y>
+      <w>304</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Note on the implementation of acceptBuilder
+--
+/* some code */
+void acceptBuilder (ScriptObjectBuilder v){
+	       v.addLayoutPositionPair( this );
+}
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>984</x>
+      <y>1128</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+</diagram>

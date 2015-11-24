@@ -1,0 +1,17 @@
+
+#+BEGIN_SRC plantuml :file ImageClass.png
+skinparam dpi 300
+
+class JavaImage as "Image \n The one from Java Libraries"
+
+JavaImage <|-- Image
+
+class Image 
+
+Image : insertImage(subImage:Image,x_position:Double,y_position:Double)
+
+Image : resize(x:Int,y:Int)
+
+Image : Image(x:Int,y:Int)
+
+#+END_SRC

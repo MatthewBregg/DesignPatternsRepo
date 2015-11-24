@@ -1,0 +1,78 @@
+//------------------------------------------------------
+//back of the card
+//------------------------------------------------------
+cardBack = Image("cardBack.jpg");
+
+//------------------------------------------------------
+//suit images
+//------------------------------------------------------
+spadeImage = Image("spadeImage.jpg");
+heartImage = Image("heartImage.jpg");
+diamondImage = Image("diamondImage.jpg");
+clubImage = Image("clubImage.jpg");
+
+//------------------------------------------------------
+//all face card images
+//------------------------------------------------------
+jackHeartImage = Image("jackHeart.jpg");
+queenHeartImage = Image("queenHeart.jpg");
+kingHeartImage = Image("kingHeart.jpg");
+jackDiamondImage = Image("jackDiamond.jpg");
+queenDiamondImage = Image("queenDiamond.jpg");
+kingDiamondImage = Image("kingDiamond.jpg");
+jackSpadeImage = Image("jackSpade.jpg");
+queenSpadeImage = Image("queenSpade.jpg");
+kingSpadeImage = Image("kingSpade.jpg");
+jackClubImage = Image("jackClub.jpg");
+queenClubImage = Image("queenClub.jpg");
+kingClubImage = Image("kingClub.jpg");
+
+//------------------------------------------------------
+//shape of card
+//------------------------------------------------------
+whiteRectangle = Rectangle("white");
+
+//------------------------------------------------------
+//relative positions and card size
+//------------------------------------------------------
+cardSize = Size(1000,1000);
+wholeCard = Position(0,0,100,100);
+topLeftCorner = Position();
+bottomRightCorner = Position();
+center = Position();
+centerFace = Position();
+//..Moreposiitons
+
+//------------------------------------------------------
+//red card text values
+//------------------------------------------------------
+redAce = String("A","Arial.font","Red",12);
+redTwo = String("2","Arial.font","Red",12);
+redThree = String("3","Arial.font","Red",12);
+redFour = String("4","Arial.font","Red",12);
+redFive = String("5","Arial.font","Red",12);
+redSix = String("6","Arial.font","Red",12);
+redSeven = String("7","Arial.font","Red",12);
+redEight = String("8","Arial.font","Red",12);
+redNine = String("9","Arial.font","Red",12);
+redTen = String("10","Arial.font","Red",12);
+redJack = String("J","Arial.font","Red",12);
+redQueen = String("Q","Arial.font","Red",12);
+redKing = String("K","Arial.font","Red",12);
+
+//------------------------------------------------------
+//black card text values
+//------------------------------------------------------
+blackAce = String("A","Arial.font","Black",12);
+blackTwo = String("2","Arial.font","Black",12);
+blackThree = String("3","Arial.font","Black",12);
+blackFour = String("4","Arial.font","Black",12);
+blackFive = String("5","Arial.font","Black",12);
+blackSix = String("6","Arial.font","Black",12);
+blackSeven = String("7","Arial.font","Black",12);
+blackEight = String("8","Arial.font","Black",12);
+blackNine = String("9","Arial.font","Black",12);
+blackTen = String("10","Arial.font","Black",12);
+blackJack = String("J","Arial.font","Black",12);
+blackQueen = String("Q","Arial.font","Black",12);
+blackKing = String("K","Arial.font","Black",12);

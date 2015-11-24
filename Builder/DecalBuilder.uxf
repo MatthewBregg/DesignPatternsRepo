@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>210</y>
+      <w>270</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/ScriptObjectBuilder/
+--
+--
++ addDecal (d Decal): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>280</y>
+      <w>40</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>470</y>
+      <w>310</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/DecalBuilder/
+--
+--
++ getResult() : ScriptObject
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>710</y>
+      <w>350</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>RectangleDecalBuilder
+--
+- width: double
+- height: double
+--
++ getResult() : ScriptObject
++ setWidth (w double) : void
++ setHeigth (h double) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>710</y>
+      <w>370</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>CircleDecalBuilder
+--
+- radius: double
+--
++ getResult() : ScriptObject
++ setRadius (r double) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>710</y>
+      <w>360</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>TriangleDEcalBuilder
+--
+- aLength: double
+- bLenght: double
+- cLength: double
+--
++ getResult() : ScriptObject
++ setASide (a double) : void
++ setBSide (b double) : void
++ setCSide (c double) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1230</x>
+      <y>710</y>
+      <w>360</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>AnyShapeDecalBuilder
+--
+- points : ArrayList&lt;Point&gt;
+--
++ getResult() : ScriptObject
++ setPoints (list ArrayList&lt;Point&gt;) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1290</x>
+      <y>560</y>
+      <w>140</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Note..
+Why was this Abstract ??
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

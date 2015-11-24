@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1125</x>
+      <y>459</y>
+      <w>324</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>DynamicDecal
+--
+- key:String
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>747</x>
+      <y>459</y>
+      <w>333</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>ImageDecal
+--
+- image: Image
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image
++ load(Path path): Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>342</x>
+      <y>639</y>
+      <w>369</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/Shape/
+--
+--
++ render(families ArrayList&lt;Families&gt;, size Size): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>459</y>
+      <w>324</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>Text
+--
+- color: Color
+- size: int
+- font:Font
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image
++ load(fontPath : Path, c : Color, size : int)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>117</x>
+      <y>405</y>
+      <w>423</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0;450.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>351</x>
+      <y>855</y>
+      <w>333</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>Circle
+--
+- radius: double
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>126</x>
+      <y>756</y>
+      <w>405</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>430.0;10.0;430.0;110.0;430.0;60.0;10.0;60.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>855</y>
+      <w>315</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>Rectangle
+--
+- width: double
+- height: double
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1107</x>
+      <y>855</y>
+      <w>324</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>AnyShape
+--
+- points : ArrayList&lt;Point&gt;
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>531</x>
+      <y>279</y>
+      <w>333</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/Decal/
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image
++ acceptBuilder(v ScriptObjectBuilder): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>738</x>
+      <y>855</y>
+      <w>324</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>Triangle
+--
+- aLength: double
+- bLenght: double
+- cLength: double
+--
++ render(families ArrayList&lt;Families&gt;, size Size): Image</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>513</x>
+      <y>342</y>
+      <w>207</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>210.0;10.0;210.0;80.0;10.0;80.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>405</y>
+      <w>621</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>670.0;60.0;670.0;10.0;10.0;10.0;260.0;10.0;260.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>801</y>
+      <w>801</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>870.0;60.0;870.0;10.0;10.0;10.0;460.0;10.0;460.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>576</x>
+      <y>99</y>
+      <w>297</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/ScriptObject/
+--
+--
++ acceptBuilder(v ScriptObjectBuilder): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>702</x>
+      <y>162</y>
+      <w>27</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>171</x>
+      <y>99</y>
+      <w>261</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Note on ScriptObejct
+--
+The UML for the ScriptObject is defined on the other file.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>423</x>
+      <y>99</y>
+      <w>171</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>90</x>
+      <y>288</y>
+      <w>351</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Note on the implementation of acceptBuilder
+--
+/* some code */
+void acceptBuilder (ScriptObjectBuilder v){
+	       v.addDecal( this );
+}
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>333</y>
+      <w>117</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+</diagram>
