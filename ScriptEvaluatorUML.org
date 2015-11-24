@@ -431,15 +431,18 @@ note bottom : Get arguments is always empty
 
 
 note "As defined in other UML, members and operations ellided in this one" as AsDefined
-note "If a Pair Builder encounters a string + decal,\n or a Layout + Position,\n it will make the appropriate pair subclass. This is a bit ugly though" as subpairs
 
 abstract class Layout as "{abstract}\nComponentLayout"
 Layout -- AsDefined
 abstract class Decal as "{abstract}\nDecal"
 Decal -- AsDefined
 class consPair
-class KeyValuePair
-class LayoutPositionPair
+consPair : first : ScriptObject
+consPair : second : ScriptObject
+consPair : first() : ScriptObject
+consPair : second() : ScriptObject
+consPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
+note bottom : Calls acceptBuilder on the first, and then the second pair
 class List
 class ErrorScriptObject
 class NullScriptObject
@@ -477,9 +480,6 @@ ScriptObject <|-- ErrorScriptObject
 ScriptObject <|-- NullScriptObject
 ScriptObject <|-- List
 ScriptObject <|-- consPair
-consPair <|-- KeyValuePair
-consPair <|-- LayoutPositionPair
-subpairs -- consPair
 ScriptObject <|-- Decal
 ScriptObject <|-- Layout
 

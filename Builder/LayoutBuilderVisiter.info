@@ -1,0 +1,52 @@
+
+class ConsPair {
+    ScriptObject first;
+    ScriptObject second;
+    //normal accept
+    void acceptBuilder(Vuilder v) {
+	v.addConsPair(this);
+    }
+
+    
+    void acceptBuilderOnPair(Builder v) {
+	first.accept(v);
+	second.accept(v);
+
+    }
+}
+
+class Family {
+    state = noArgumentsGiven;
+}
+
+class LayoutBuilder {
+    void addLayoutPosition(LayoutPositionPair LPP) {
+	LPP.layout();
+	LPP.position();
+    }
+    void addConsPair(ConsPair cp) {
+	state = examiningPair(state);
+	cp.acceptBuilderOnPair(this);
+	state = state.next();
+    }
+    void addLayout(Layout l) {
+	state.addLayout(l,this);
+    }
+}
+States : empty state, examiningPair0, examiningPair1, examiningPairDone, error state,
+leaf-layout, composite layout, leaf-layout-mantain-aspect-ratio
+
+Start in empty
+if first item in is string, or decal, become leaf-layout-state
+  if next item is a string, then if W or H, then become a leaf-layout-mantain-aspect-ratio
+  else go to error state
+  if another item is aded, go to error state
+else if item is pair, then go to examiningPair0 state
+  if item 0 is a Layout, then go to examiningPair1 state
+  if item 1 is a Position, the ngo to composite layout state
+  Else, if either is false, go to error state
+  IF next item is a pair, return to examiningPair0 state.
+else go to error state
+
+
+return state.getResult(anyinfoneeded);
