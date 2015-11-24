@@ -1,0 +1,329 @@
+#+BEGIN_SRC plantuml :file BuilderConstruction.png
+skinparam dpi 300
+
+abstract class BuilderVisiter as "{abstract}\nScriptObjectBuilder"
+abstract class ScriptObject as "{abstract}\nScriptObject"
+
+
+ScriptObject : acceptBuilder(ScriptObjectBuilder v)
+
+BuilderVisiter : -eval : ScriptEvaluator
+BuilderVisiter : +getResult():ScriptObject
+BuilderVisiter : +addLayout(l:Layout)
+BuilderVisiter : +addDecal(d:Decal)
+BuilderVisiter : +addString(s:StringScriptWrapper)
+BuilderVisiter : +addFamily(f:Family)
+BuilderVisiter : +addSize(s:Size)
+BuilderVisiter : +addPositionScaled(ps:PositionScaled)
+BuilderVisiter : +addCard(c:Card)
+BuilderVisiter : +addDouble(s:DoubleScriptWrapper)
+BuilderVisiter : +addList(l:List<ScriptObject>)
+BuilderVisiter : +addConsPair(p:ConsPair)
+BuilderVisiter : +addError(e:ErrorScriptObject)
+BuilderVisiter : +addNull(v:NullScriptObject)
+BuilderVisiter : +addToken(t:Token)
+BuilderVisiter : -addScriptObject(s:ScriptObject)
+note top : addToken will be implemented by default as running eval.doParse on the token, and then having the token accept itself.
+
+note bottom : The add methods by default will forward to addScriptObject, so that each add* doesn't need to be overridden, can only override the adds that are expected, and can otherwise switch to error if an unexpected thing is added. 
+
+
+
+
+
+
+
+
+
+
+
+
+abstract class Token as "{abstract}\nToken"
+
+
+Token : getArguments():List<Token>
+note top : For example,\n if (render someCard familyA (family \"foo\" (cons \"foo\" bar)), \n then someCard will be one token, familyA another, (family \"foo\" (cons \"foo\" bar)) will be a third. "
+Token : getBuilder(ScriptEvaluator ScriptEvaluator):Builder
+class VariableToken
+note bottom : FamilyA would be one of these tokens, a variable that is referenced. \n A variable name can't start with a number, to make it determinable from an int.
+note left : When asked for a builder, will look in the ScriptEvaluators environment for a variable of it's name. \n If found, return a VariableBuilder, paramatized with said ScriptObject. \n If not found, return an UndefinedVariableBuilder, paramatized with the name.
+VariableToken : varName : String
+class ExpressionToken
+note top : (family "foo" (cons "foo" bar)) would be one of these
+note left : When asked for a builder, will look in environment for builder matching current function name. \n If none found, will create an UndefinedFunctionBuilder, with the name, and paramater names paramaterized
+ExpressionToken : List<Token>
+abstract class AtomToken as "{abstract}\nAtomToken"
+note top : Any ints or strings will be one of these. 
+class StringAtomToken 
+note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an StringScriptWrapper of the appropriate value
+StringAtomToken : value : String
+class IntAtomToken
+IntAtomToken : value : int
+note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an DoubleScriptWrapper of the appropriate value
+class ParseErrorToken
+note top : If a parse error is hit, then make this, and stop parsing.
+ParseErrorToken : error : String
+
+
+ParseErrorToken : getBuilder(ScriptEvaluator ScriptEvaluator): ErrorBuilderVisiter
+AtomToken : getBuilder(ScriptEvaluator ScriptEvaluator): ConstantBuilderVisiter
+VariableToken : getBuilder(ScriptEvaluator ScriptEvaluator): VariableBuilderVisiter
+
+note "These tokens will add the info the builder they are returning needs, before returning" as N1
+
+N1 -- AtomToken
+N1 -- VariableToken
+N1 -- ParseErrorToken
+
+Token <|-- VariableToken
+note bottom : Get arguments is always empty
+Token <|--ExpressionToken
+Token <|--AtomToken
+AtomToken <|--IntAtomToken
+AtomToken <|--StringAtomToken
+Token <|--ParseErrorToken
+note bottom : Get arguments is always empty
+
+
+
+note "As defined in other UML, members and operations ellided in this one" as AsDefined
+
+abstract class Layout as "{abstract}\nComponentLayout"
+Layout -- AsDefined
+abstract class Decal as "{abstract}\nDecal"
+Decal -- AsDefined
+class ConsPair
+ConsPair : first : ScriptObject
+ConsPair : second : ScriptObject
+ConsPair : first() : ScriptObject
+ConsPair : second() : ScriptObject
+ConsPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
+note bottom : Calls acceptBuilder on the first, and then the second pair
+class List
+class ErrorScriptObject
+class NullScriptObject
+class Card 
+Card -- AsDefined
+class PositionScaled
+PositionScaled -- AsDefined
+class Size
+Size -- AsDefined
+class DoubleScriptWrapper
+DoubleScriptWrapper : value : int
+class StringScriptWrapper
+StringScriptWrapper : value : String
+class Family
+Family -- AsDefined
+
+class UndefinedFunction
+UndefinedFunction : -funcName : String
+UndefinedFunction : -funcArgumentNames : ArrayList<String>
+UndefinedFunction : +getFuncName() : String
+UndefinedFunction : +getFuncArgumentNames() : ArrayList<String>
+
+class UndefinedVariable
+UndefinedVariable : variableName : String
+UndefinedVariable : getVariableName() : String
+
+
+ScriptObject <|-- Family
+ScriptObject <|-- StringScriptWrapper
+ScriptObject <|-- DoubleScriptWrapper
+ScriptObject <|-- Size
+ScriptObject <|-- PositionScaled
+ScriptObject <|-- Card
+ScriptObject <|-- ErrorScriptObject
+ScriptObject <|-- NullScriptObject
+ScriptObject <|-- List
+ScriptObject <|-- ConsPair
+ScriptObject <|-- Decal
+ScriptObject <|-- Layout
+
+ScriptObject <|-- UndefinedFunction
+ScriptObject <|-- UndefinedVariable
+
+class BuilderFactory
+
+
+BuilderFactory : Map<String,ScriptObjectBuilder>
+BuilderFactory : getBuilder(s:String)
+BuilderFactory : getBuilderFactory() : BuilderFactory
+
+class Environment
+Environment : builders : BuilderFactory 
+Environment : variables : Map<String,ScriptObject>
+Environment : getVariables() : Map<String,ScriptObject>
+Environment : getBuilders() : BuilderFactory
+
+class EnvironmentList
+
+EnvironmentList : envs : ArrayList<Environment>
+EnvironmentList : hasVariable(String name) : ScriptObject
+EnvironmentList : hasBuilder(String name) : BuilderFactory
+EnvironmentList : pushEnv(Environment env) : void
+EnvironmentList : popEnv() : void
+EnvironmentList : addToTopEnv(name:String,obj:ScriptObject):void
+EnvironmentList : addToTopEnv(name:String,builder:ScriptObjectBuilder):void
+
+
+note top : The EnvironmentList starts checking from the most recently pushed, until it gets to the oldest env. If no matching variable/builder is found, returns null.
+
+EnvironmentList o-> Environment
+
+class ScriptEvaluator
+
+ScriptEvaluator : currentDirectory:Path
+ScriptEvaluator : parseFile(Path) : List<Token>
+ScriptEvaluator : evalTokans(List<Token>) : void
+ScriptEvaluator : doParse(Token) : ScriptObject
+ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
+ScriptEvaluator : addRenderedCard(RenderedCard rc)
+ScriptEvaluator : getEnvironmentList() : EnvironmentList
+
+ScriptEvaluator -> EnvironmentList
+
+note top : doParse gets the builder for that token, from the token, then for each argument token in the token, gives the builder said token, before returning the builder result. 
+
+
+
+Token -> BuilderFactory
+
+
+class RenderedCard
+
+RenderedCard : -Card:card
+RenderedCard : -Families:ArrayList<Family>
+RenderedCard : -name:String
+RenderedCard : +getCard():card
+RenderedCard : +getFamilies():ArrayList<Family>
+RenderedCard : +getName():String
+
+
+
+
+
+
+note  "Getting stuff out of cons for layout and family will be a bit tricky, but doable, \n doing that is one weakness of this design, but can still do it without casting." as weakness
+
+note "See each Builders UML for more details..., members and operations ellided in this one" as BuilderNoteS
+'The builders
+
+' VarBuilder
+note "The Varbuilder is made by var token, so var token paramatizes VarBuilder with what it gets from looking up the var." as simpleBuilderNote
+class VarBuilder as "VariableBuilderVisiter"
+note top : Just returns the ScriptObject it is paramatized with as a result. Attemping to add to it will make it enter error state. 
+simpleBuilderNote -- VarBuilder
+BuilderVisiter <|-- VarBuilder
+
+'ConstantVisiter
+class ConstantBuilder as "ConstantBuilderVisiter"
+note top : Before the token returns it,\n the token will add the constant using the correct add method. 
+BuilderVisiter <|-- ConstantBuilder
+
+'LayoutVisiter
+class LayoutBuilder as "LayoutBuilderVisiter"
+
+BuilderVisiter <|-- LayoutBuilder
+
+
+note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
+
+'Define builder
+class DefineBuilder 
+BuilderVisiter <|-- DefineBuilder 
+BuilderNoteS -- DefineBuilder 
+
+'CardBuilder 
+class CardBuilder 
+BuilderVisiter <|-- CardBuilder 
+BuilderNoteS -- CardBuilder 
+
+'NullBuilder 
+class NullBuilder 
+BuilderVisiter <|-- NullBuilder 
+BuilderNoteS -- NullBuilder 
+
+'UndefinedFunctionBuilder 
+class UndefinedFunctionBuilder 
+BuilderVisiter <|-- UndefinedFunctionBuilder 
+BuilderNoteS -- UndefinedFunctionBuilder 
+
+'UndefinedVariableBuilder 
+class UndefinedVariableBuilder 
+BuilderVisiter <|-- UndefinedVariableBuilder 
+BuilderNoteS -- UndefinedVariableBuilder 
+
+'ListBuilder 
+class ListBuilder 
+BuilderVisiter <|-- ListBuilder 
+BuilderNoteS -- ListBuilder 
+
+'ConsBuilder 
+class ConsBuilder 
+BuilderVisiter <|-- ConsBuilder 
+BuilderNoteS -- ConsBuilder 
+
+'SizeBuilder 
+class SizeBuilder 
+BuilderVisiter <|-- SizeBuilder 
+BuilderNoteS -- SizeBuilder 
+
+'PositionScaledBuilder 
+class PositionScaledBuilder 
+BuilderVisiter <|-- PositionScaledBuilder 
+BuilderNoteS -- PositionScaledBuilder 
+
+'FamilyBuilder 
+class FamilyBuilder 
+BuilderVisiter <|-- FamilyBuilder 
+BuilderNoteS -- FamilyBuilder 
+
+'ImageDecalBuilder 
+class ImageDecalBuilder 
+BuilderVisiter <|-- ImageDecalBuilder 
+BuilderNoteS -- ImageDecalBuilder 
+
+'StringDecalBuilder 
+class StringDecalBuilder 
+BuilderVisiter <|-- StringDecalBuilder 
+BuilderNoteS -- StringDecalBuilder 
+
+'ShapeDecalBuilder 
+abstract class ShapeDecalBuilder as "{abstract}\nShapeDecalBuilder"
+BuilderVisiter <|-- ShapeDecalBuilder 
+BuilderNoteS -- ShapeDecalBuilder 
+
+'RectangleDecalBuilder
+class RectangleDecalBuilder
+BuilderVisiter <|-- RectangleDecalBuilder
+BuilderNoteS -- RectangleDecalBuilder
+
+'CircleDecalBuilder 
+class CircleDecalBuilder 
+BuilderVisiter <|-- CircleDecalBuilder 
+BuilderNoteS -- CircleDecalBuilder 
+
+'TriangleDecalBuilder
+class TriangleDecalBuilder
+BuilderVisiter <|-- TriangleDecalBuilder
+BuilderNoteS -- TriangleDecalBuilder
+
+'AnyShapeDecalBuilder
+class AnyShapeDecalBuilder
+BuilderVisiter <|-- AnyShapeDecalBuilder
+BuilderNoteS -- AnyShapeDecalBuilder
+
+'FunctionBuilder
+class FunctionBuilder
+BuilderVisiter <|-- FunctionBuilder
+BuilderNoteS -- FunctionBuilder
+
+'EvalFileBuilder
+class EvalFileBuilder
+BuilderVisiter <|-- EvalFileBuilder
+BuilderNoteS -- EvalFileBuilder
+
+#+END_SRC
+
+#+RESULTS:
+[[file:BuilderConstruction.png]]
