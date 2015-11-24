@@ -358,11 +358,9 @@ BuilderVisiter : +addFamily(f:Family)
 BuilderVisiter : +addSize(s:Size)
 BuilderVisiter : +addPositionScaled(ps:PositionScaled)
 BuilderVisiter : +addCard(c:Card)
-BuilderVisiter : +addInt(s:IntScriptWrapper)
+BuilderVisiter : +addDouble(s:DoubleScriptWrapper)
 BuilderVisiter : +addList(l:List<ScriptObject>)
-BuilderVisiter : +addPair(p:Pair<ScriptObject,ScriptObject>)
-BuilderVisiter : +addKeyValuePair(p:Pair<StringScriptWrapper,Decal>)
-BuilderVisiter : +addLayoutPositionPair(p:Pair<Layout,Position>)
+BuilderVisiter : +addConsPair(p:ConsPair)
 BuilderVisiter : +addError(e:ErrorScriptObject)
 BuilderVisiter : +addNull(v:NullScriptObject)
 BuilderVisiter : +addToken(t:Token)
@@ -403,7 +401,7 @@ note bottom : When asked for a builder, returns a ConstantBuilderVisiter, parama
 StringAtomToken : value : String
 class IntAtomToken
 IntAtomToken : value : int
-note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an IntScriptWrapper of the appropriate value
+note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an DoubleScriptWrapper of the appropriate value
 class ParseErrorToken
 note top : If a parse error is hit, then make this, and stop parsing.
 ParseErrorToken : error : String
@@ -436,12 +434,12 @@ abstract class Layout as "{abstract}\nComponentLayout"
 Layout -- AsDefined
 abstract class Decal as "{abstract}\nDecal"
 Decal -- AsDefined
-class consPair
-consPair : first : ScriptObject
-consPair : second : ScriptObject
-consPair : first() : ScriptObject
-consPair : second() : ScriptObject
-consPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
+class ConsPair
+ConsPair : first : ScriptObject
+ConsPair : second : ScriptObject
+ConsPair : first() : ScriptObject
+ConsPair : second() : ScriptObject
+ConsPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
 note bottom : Calls acceptBuilder on the first, and then the second pair
 class List
 class ErrorScriptObject
@@ -452,8 +450,8 @@ class PositionScaled
 PositionScaled -- AsDefined
 class Size
 Size -- AsDefined
-class IntScriptWrapper
-IntScriptWrapper : value : int
+class DoubleScriptWrapper
+DoubleScriptWrapper : value : int
 class StringScriptWrapper
 StringScriptWrapper : value : String
 class Family
@@ -472,14 +470,14 @@ UndefinedVariable : getVariableName() : String
 
 ScriptObject <|-- Family
 ScriptObject <|-- StringScriptWrapper
-ScriptObject <|-- IntScriptWrapper
+ScriptObject <|-- DoubleScriptWrapper
 ScriptObject <|-- Size
 ScriptObject <|-- PositionScaled
 ScriptObject <|-- Card
 ScriptObject <|-- ErrorScriptObject
 ScriptObject <|-- NullScriptObject
 ScriptObject <|-- List
-ScriptObject <|-- consPair
+ScriptObject <|-- ConsPair
 ScriptObject <|-- Decal
 ScriptObject <|-- Layout
 
@@ -661,6 +659,12 @@ BuilderNoteS -- AnyShapeDecalBuilder
 class FunctionBuilder
 BuilderVisiter <|-- FunctionBuilder
 BuilderNoteS -- FunctionBuilder
+
+'EvalFileBuilder
+class EvalFileBuilder
+BuilderVisiter <|-- EvalFileBuilder
+BuilderNoteS -- EvalFileBuilder
+
 #+END_SRC
 
 #+RESULTS:
@@ -915,6 +919,7 @@ note top : addScriptObj() always returns new ErrorState() \n getResults() always
     - CircleDecalBuilder : Ervis
     - TriangleDecalBuilder : Ervis
     - AnyShapeDecalBuilder : Ervis
+- EvalFileBuilder : Matt
 ** ScriptEvaluator
 - After parsing script, can return a list of tuples, each tuple has front image, back image, card name. 
 - Uses a strategy for parsing. 
