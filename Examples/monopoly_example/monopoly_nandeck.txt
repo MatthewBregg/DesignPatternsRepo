@@ -1,0 +1,181 @@
+CARDSIZE = 5, 5
+
+[font]="Arial", 5, "BT"
+[titleDeed]="TITLE DEED"
+[place] = "MEDITERRANEAN AVE. | BALTIC AVE. | ORIENTAL AVE. | VERMONT AVE. | CONNECTICUT AVE. | ST. CHARLES PLACE | STATES AVE. | VIRGINIA AVE. | ST. JAMES PLACE | TENNESSEE AVE. | NEW YORK AVE. | KENTUCKY AVE. | INDIANA AVE. | ILLINOIS AVE. | ATLANTIC AVE. | VENTNOR AVE. | MARVIN GARDENS | PACIFIC AVE. | NORTH CAROLINA AVE. | PENNSYLVANIA AVE. | PARK PLACE | BOARDWALK"
+[rents]         = "$2  | $4  | $6  | $6  | $8  | $10 | $10 | $12 | $14 | $14 | $16  | $18  | $18  | $20  | $22  | $22  | $24  | $26  | $26  | $28  | $35  | $50  | "
+[house1Rent]    = "10  | 20  | 30  | 30  | 40  | 50  | 50  | 60  | 70  | 70  | 80   | 90   | 90   | 100  | 110  | 110  | 120  | 130  | 130  | 150  | 175  | 200  | "
+[house2Rent]    = "30  | 60  | 90  | 90  | 100 | 150 | 150 | 180 | 200 | 200 | 220  | 250  | 250  | 300  | 330  | 330  | 360  | 390  | 390  | 450  | 500  | 600  | "
+[house3Rent]    = "90  | 180 | 270 | 270 | 300 | 450 | 450 | 500 | 550 | 550 | 600  | 700  | 700  | 750  | 800  | 800  | 850  | 900  | 900  | 1000 | 1100 | 1400 | "
+[house4Rent]    = "160 | 320 | 400 | 400 | 450 | 625 | 625 | 700 | 750 | 750 | 800  | 875  | 875  | 925  | 975  | 975  | 1025 | 1100 | 1100 | 1200 | 1300 | 1700 | "
+[hotelRent]     = "250 | 450 | 550 | 550 | 600 | 750 | 750 | 900 | 950 | 950 | 1000 | 1050 | 1050 | 1100 | 1150 | 1150 | 1200 | 1275 | 1275 | 1400 | 1500 | 2000 | "
+[mortgageValue] = "30  | 30  | 50  | 50  | 60  | 70  | 70  | 80  | 90  | 90  | 100  | 110  | 110  | 120  | 130  | 130  | 140  | 150  | 150  | 160  | 175  | 200  | "
+[houseCost]     = "50  | 50  | 50  | 50  | 50  | 100 | 100 | 100 | 100 | 100 | 100  | 150  | 150  | 150  | 150  | 150  | 150  | 200  | 200  | 200  | 200  | 200  | "
+[hotelCost]     = "50  | 50  | 50  | 50  | 50  | 100 | 100 | 100 | 100 | 100 | 100  | 150  | 150  | 150  | 150  | 150  | 150  | 200  | 200  | 200  | 200  | 200  | "
+[finePrint]     = "If a player owns ALL the lots of any Color-Group, the rent is DOUBLED on UNIMPROVED lots in that group."
+
+[railroads] = "Reading Railroad | Pennsylvania Railroad | B. & O. Railroad | Short Line"
+[railroadRent1] = "25"
+[railroadRent2] = "50"
+[railroadRent3] = "100"
+[railroadRent4] = "200"
+[railroadMorgage] = "100"
+
+
+[purple]  = "#452A77"
+[lBlue]   = "#ACC0D9"
+[pink]    = "#D5307C"
+[orange]  = "#CF6519"
+[red]     = "#DD311D"
+[yellow]  = "#FEF037"
+[green]   = "#39803A"
+[blue]    = "#253E97"
+[black]   = "#000000"
+
+RECTANGLE="1-28", 0, 0, 5, 5, "#FFFFFF"
+RECTANGLE="1-28", 0.15, 0.15, 4.7, 4.7, "#000000"
+RECTANGLE="1-28", 0.17, 0.17, 4.67, 4.67, "#FFFFFF"
+
+'header boarder
+RECTANGLE="1-22", 0.25, 0.2, 4.49, 1.05, [black]
+
+'header rectangle
+RECTANGLE="1-2",   0.28, 0.23, 4.45, 1, [purple]
+RECTANGLE="3-5",   0.28, 0.23, 4.45, 1, [lBlue]
+RECTANGLE="6-8",   0.28, 0.23, 4.45, 1, [pink]
+RECTANGLE="9-11",  0.28, 0.23, 4.45, 1, [orange]
+RECTANGLE="12-14", 0.28, 0.23, 4.45, 1, [red]
+RECTANGLE="15-17", 0.28, 0.23, 4.45, 1, [yellow]
+RECTANGLE="18-20", 0.28, 0.23, 4.45, 1, [green]
+RECTANGLE="21-22", 0.28, 0.23, 4.45, 1, [blue]
+
+'railroad image
+IMAGE="23-26", "C:\Users\ifell\Downloads\Train.gif", 1.5, 0.2, 1.75, 1.75, 0
+
+'railroad headers
+FONT = "Arial", 8, "BT", [black]
+TEXT = "23-26", [railroads], 0.22, 1.85, 4.455, 0.3345, "center", "center"
+
+'railroad rent details
+FONT = "Arial", 7, "BT", [black]
+TEXT = "23-26", "Rent", -1.35, 2.35, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", "If 2 R.R.'s are owned", -0.42, 2.85, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", "If 3      ''     ''       ''", -0.64, 3.35, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", "If 4      ''     ''       ''", -0.64, 3.85, 4.455, 0.3345, "center", "center"
+
+'railroad rents
+FONT = "Arial", 7, "BT", [black]
+TEXT = "23-26", "$", 1.4, 2.35, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", [railroadRent1], 1.72, 2.35, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", ".", 2, 2.35, 4.455, 0.3345, "center", "center"
+
+TEXT = "23-26", "$", 1.4, 2.85, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", [railroadRent2], 1.72, 2.85, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", ".", 2, 2.85, 4.455, 0.3345, "center", "center"
+
+TEXT = "23-26", "$", 1.4, 3.35, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", [railroadRent3], 1.72, 3.35, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", ".", 2, 3.35, 4.455, 0.3345, "center", "center"
+
+TEXT = "23-26", "$", 1.4, 3.85, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", [railroadRent4], 1.72, 3.85, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", ".", 2, 3.85, 4.455, 0.3345, "center", "center"
+
+'railroad morgage details
+FONT = "Arial", 7, "BT", [black]
+TEXT = "23-26", "$", 1.4, 4.45, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", "Mortgage Value", -0.73, 4.45, 4.455, 0.3345, "center", "center"
+TEXT = "23-26", ".", 2, 4.45, 4.455, 0.3345, "center", "center"
+
+'railroad morgage
+FONT = "Arial", 7, "BT", [black]
+TEXT = "23-26", "100", 1.72, 4.45, 4.455, 0.3345, "center", "center"
+
+'electric company image and name
+IMAGE="27", "C:\Users\ifell\Pictures\electric_company.png", 1.5, 0.2, 1.75, 1.75, 0
+FONT = "Arial", 7, "T", [black]
+TEXT = "27", "Electric Company", 0.22, 1.85, 4.455, 0.3345, "center", "center"
+
+'water works image and name
+IMAGE="28", "C:\Users\ifell\Pictures\water_works.png", 1.5, 0.2, 1.75, 1.75, 0
+FONT = "Arial", 7, "T", [black]
+TEXT = "28", "Water Works", 0.22, 1.85, 4.455, 0.3345, "center", "center"
+
+'electic and water stuff
+FONT = "Arial", 7, "T", [black]
+
+TEXT = "27-28", "If one ''Utility'' is owned rent is 4", 0.62, 2.45, 4.455, 0.3345, "left", "center"
+TEXT = "27-28", "times amount shown on dice.", 1.0, 2.85, 4.455, 0.3345, "left", "center"
+
+TEXT = "27-28", "If both ''Utilities'' are owned rent is", 0.62, 3.45, 4.455, 0.3345, "left", "center"
+TEXT = "27-28", "10 times amount shown on dice.", 1.0, 3.85, 4.455, 0.3345, "left", "center"
+
+TEXT = "27-28", "Morgage Value", 0.62, 4.45, 4.455, 0.3345, "left", "center"
+TEXT = "27-28", "$75.", 3.82, 4.45, 4.455, 0.3345, "left", "center"
+
+'title deed header
+FONT = [font], [black]
+TEXT = "1-22", [titleDeed], 0.3, 0.21, 4.455, 0.3345, "center", "center"
+
+'places
+FONT = [font], [black]
+TEXT = "1-22", [PLACE], 0.3, 0.562, 4.455, 0.65, "center", "center"
+
+'rent
+FONT = [font], [black]
+TEXT = "1-22", "RENT", 1.4, 0.5, 2, 2, "center", "center"
+TEXT = "1-22", [rents], 1.9, 0.5, 2, 2, "center", "center"
+
+'with houses
+FONT = [font], [black]
+TEXT = "1-22", "With 1 house", 0.7, 1.8, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", "$", 3.5, 1.8, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", [house1Rent], 3.7, 1.8, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", ".", 4.1, 1.8, 2.3, 2, "left", "wordwrap"
+
+TEXT = "1-22", "With 2 houses", 0.7, 2.1, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", [house2Rent], 3.7, 2.1, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", ".", 4.1, 2.1, 2.3, 2, "left", "wordwrap"
+
+TEXT = "1-22", "With 3 houses", 0.7, 2.4, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", [house3Rent], 3.7, 2.4, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", ".", 4.1, 2.4, 2.3, 2, "left", "wordwrap"
+
+
+TEXT = "1-22", "With 4 houses", 0.7, 2.7, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", [house4Rent], 3.7, 2.7, 2.3, 2, "left", "wordwrap"
+TEXT = "1-22", ".", 4.1, 2.7, 2.3, 2, "left", "wordwrap"
+
+'hotel rent
+FONT = [font], [black]
+TEXT = "1-22", "With Hotel", 1.0, 3.1, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", "$", 1.6, 3.1, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", [hotelRent], 1.85, 3.1, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", ".", 3.32, 3.1, 2.3, 2, "left", "wordwrap"
+
+'mortgage value
+FONT = [font], [black]
+TEXT = "1-22", "Mortgage Value", 0.9, 3.57, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", "$", 1.74, 3.57, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", [mortgageValue], 2.0, 3.57, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", ".", 3.45, 3.57, 2.3, 2, "left", "wordwrap"
+
+'houses cost
+FONT = [font], [black]
+TEXT = "1-22", "Houses Cost", 0.55, 3.88, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", "$", 1.39, 3.88, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", [houseCost], 1.65, 3.88, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", ".", 2, 3.88, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", "each", 2.3, 3.88, 2.3, 2, "center", "wordwrap"
+
+'hotel cost
+FONT = [font], [black]
+TEXT = "1-22", "Hotels,", 0.3, 4.2, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", "$", 0.7, 4.2, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", [hotelCost], 1, 4.2, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", ".", 1.25, 4.2, 2.3, 2, "center", "wordwrap"
+TEXT = "1-22", "plus 4 houses", 1.95, 4.2, 2.3, 2, "center", "wordwrap"
+
+'fine print
+FONT = "Arial", 3, "BT", [black]
+TEXT = "1-22", [finePrint], 0.3, 4.5, 4.3, 2, "center", "wordwrap"
