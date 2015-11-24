@@ -10,7 +10,7 @@ While far from a complete lisp, it has a syntax similar to scheme, and could eas
 (define fooConstant 3)
 #+END_SRC
 Assigns to the name the given value.
-This version does not support defining functions atm.
+This version does support defining functions atm.
 (See http://www.scheme.com/tspl2d/binding.html)
 - Right now, defines may not be nested, and must be done at top level.
 - A variable name can't start with a number, to make it determinable from an int atom.
