@@ -6,7 +6,7 @@ abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
 
 ScriptObjectBuilder <|-- VariableBuilderVisiter
 
-VariableBuilderVisiter : -addScriptObject(s:ScriptObject) : Go to error state
+VariableBuilderVisiter : #addScriptObject(s:ScriptObject) : Go to error state
 VariableBuilderVisiter : +getResult() : ScriptObject 
 VariableBuilderVisiter : -obj:ScriptObject
 VariableBuilderVisiter : -state:State = new NormalState

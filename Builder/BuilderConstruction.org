@@ -22,7 +22,7 @@ BuilderVisiter : +addConsPair(p:ConsPair)
 BuilderVisiter : +addError(e:ErrorScriptObject)
 BuilderVisiter : +addNull(v:NullScriptObject)
 BuilderVisiter : +addToken(t:Token)
-BuilderVisiter : -addScriptObject(s:ScriptObject)
+BuilderVisiter : #addScriptObject(s:ScriptObject)
 note top : addToken will be implemented by default as running eval.doParse on the token, and then having the token accept itself.
 
 note bottom : The add methods by default will forward to addScriptObject, so that each add* doesn't need to be overridden, can only override the adds that are expected, and can otherwise switch to error if an unexpected thing is added. 
@@ -98,7 +98,7 @@ ConsPair : second : ScriptObject
 ConsPair : first() : ScriptObject
 ConsPair : second() : ScriptObject
 ConsPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
-note bottom : Calls acceptBuilder on the first, and then the second pair
+note bottom : Calls acceptBuilder on the first, and then the second item
 class List
 class ErrorScriptObject
 class NullScriptObject

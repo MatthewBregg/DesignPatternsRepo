@@ -1,0 +1,30 @@
+#+BEGIN_SRC plantuml :file FamilyBuilder.png
+skinparam dpi 300
+class FamilyBuilder
+FamilyBuilder : map : Map<String,Decal>
+FamilyBuilder : name : String
+FamilyBuilder : setName(name:String):void
+FamilyBuilder : addPair(key:String,value:Decal):void
+FamilyBuilder : addString(s:StringScriptWrapper)
+FamilyBuilder : addConsPair(p:ConsPair)
+FamilyBuilder : addScriptObject(s:ScriptObject)
+
+
+abstract class State as "{abstract}\nState"
+State : getResult(name:String,map:Map<String,Decal>):ScriptObject
+State : addString(name:String)
+State : addDecal(value:Decal)
+
+class InitialState 
+
+class HasNameState
+
+class AwaitingString
+
+class AwaitingDecal
+
+#+END_SRC
+
+#+RESULTS:
+[[file:FamilyBuilder.png]]
+

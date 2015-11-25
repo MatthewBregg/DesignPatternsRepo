@@ -7,7 +7,7 @@ abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
 ScriptObjectBuilder <|-- FunctionBuilder
 FunctionBuilder : -paramNames : ArrayList<String>
 FunctionBuilder : -paramObjects : ArrayList<ScriptObject>
-FunctionBuilder : -addScriptObject(s:ScriptObject) : Add s to paramObjects list
+FunctionBuilder : #addScriptObject(s:ScriptObject) : Add s to paramObjects list
 FunctionBuilder : +setParamNames(names:ArrayList<String>) : Add s to paramObjects list
 FunctionBuilder : +getResult() : ScriptObject 
 FunctionBuilder : -functionBody : ArrayList<Token>

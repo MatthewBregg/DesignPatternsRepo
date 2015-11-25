@@ -344,8 +344,8 @@ Might want to  add in options object later.. Or it might be done at a higher lev
 
 **** Builders we need
 - LayoutBuilder : Ervis
-- DefineBuilder : Matt
-- FunctionBuilder : Matt
+- DefineBuilder : Matt : Done
+- FunctionBuilder : Matt : Done
 
 - CardBuilder :  Ian
 - NullBuilder : Ian
@@ -356,8 +356,8 @@ Might want to  add in options object later.. Or it might be done at a higher lev
 - SizeBuilder : Brandon
 - PositionScaledBuilder : Brandon
 - FamilyBuilder : Matt
-- VariableBuilder : Matt
-- ConstantBuilder : Matt
+- VariableBuilder : Matt : Done
+- ConstantBuilder : Matt : Done
 
 - DecalBuilders 
   - ImageDecalBuilder :  Brandon
