@@ -52,6 +52,8 @@ class ExpressionToken
 note top : (family "foo" (cons "foo" bar)) would be one of these
 note left : When asked for a builder, will look in environment for builder matching current function name. \n If none found, will create an UndefinedFunctionBuilder, with the name, and paramater names paramaterized
 ExpressionToken : List<Token>
+ExpressionToken : allParamsVars : boolean = true
+note left : allParamsVars is defaults to true, and should any class that is not a variable be added to its arguments by the parser, it will be set to false.
 abstract class AtomToken as "{abstract}\nAtomToken"
 note top : Any ints or strings will be one of these. 
 class StringAtomToken 

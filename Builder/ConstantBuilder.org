@@ -15,6 +15,7 @@ ConstantBuilderVisiter : +ConstantBuilder(ScriptObject)
 
 note bottom : The Constant visiter is unlike most other visiters,\n it's made by the Constant token directly, and get result simply returns the obj it is paramaterized with. Adding anything to it sets it to error state, \n which will make it return an error obj instead...
 note bottom : addScriptObject(s:ScriptObject) will just do state = state.addScriptObj() \n and getResult will return state.getResult(obj)
+note bottom : Delegates getResult and addScriptObject to state. For getResult, the ScriptObject the Builder holds is added as a parameter, for addScriptObject, the ScriptObject is not passed along. 
 
 abstract class State as "{abstract}\nState"
 State : getResult(s:ScriptObject) : ScriptObject

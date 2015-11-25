@@ -24,7 +24,7 @@ ScriptObjectBuilder <|-- DefineBuilder
     DefineBuilder : setFunctionBuilder(functionBuilder:FunctionBuilder)
     DefineBuilder : getFunctionBuilder():FunctionBuilder
 
-    note bottom : Forwards calls to addToken, addUndefinedFunction,addUndefinedVariable, and addScriptObject to state. 
+    note bottom : Delegates calls to addToken, addUndefinedFunction,addUndefinedVariable, and addScriptObject to state. 
 
     abstract class State as "{abstract}\nState"
     State : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
