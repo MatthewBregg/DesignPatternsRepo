@@ -115,12 +115,16 @@ Takes in a name, and N pairs.
 
 #+END_SRC
 *** eval-file
+Takes in n filepaths, evals each file in given order
 #+BEGIN_SRC scheme
 (eval-file "filename.filename")
 (eval-file "foo.script")
+(eval-file "foo.script" "bar.script")
 #+END_SRC
 Evals foo.script.
-Must be done at top level.
+Returns null.
+
+
 
 
 

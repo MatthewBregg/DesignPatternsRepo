@@ -349,8 +349,8 @@ Might want to  add in options object later.. Or it might be done at a higher lev
 
 - CardBuilder :  Ian
 - NullBuilder : Ian
-- UndefinedFunctionBuilder : Matt
-- UndefinedVariableBuilder : Matt
+- UndefinedFunctionBuilder : Matt : Done
+- UndefinedVariableBuilder : Matt : Done
 - ListBuilder : Ian 
 - ConsBuilder : Brandon
 - SizeBuilder : Brandon
@@ -367,7 +367,7 @@ Might want to  add in options object later.. Or it might be done at a higher lev
     - CircleDecalBuilder : Ervis
     - TriangleDecalBuilder : Ervis
     - AnyShapeDecalBuilder : Ervis
-- EvalFileBuilder : Matt
+- EvalFileBuilder : Matt : Done
 ** ScriptEvaluator
 - After parsing script, can return a list of tuples, each tuple has front image, back image, card name. 
 - Uses a strategy for parsing. 

@@ -9,6 +9,7 @@ ScriptObject : acceptBuilder(ScriptObjectBuilder v)
 
 BuilderVisiter : -eval : ScriptEvaluator
 BuilderVisiter : +getResult():ScriptObject
+BuilderVisiter : getEval():ScriptEvaluator
 BuilderVisiter : +addLayout(l:Layout)
 BuilderVisiter : +addDecal(d:Decal)
 BuilderVisiter : +addString(s:StringScriptWrapper)
@@ -175,7 +176,8 @@ EnvironmentList o-> Environment
 class ScriptEvaluator
 
 ScriptEvaluator : currentDirectory:Path
-ScriptEvaluator : parseFile(Path) : List<Token>
+ScriptEvaluator : setPath(p:Path)
+ScriptEvaluator : getPath():Path
 ScriptEvaluator : evalTokans(List<Token>) : void
 ScriptEvaluator : doParse(Token) : ScriptObject
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>

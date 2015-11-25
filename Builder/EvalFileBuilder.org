@@ -1,0 +1,44 @@
+#+BEGIN_SRC plantuml :file EvalFileBuilder.png
+skinparam dpi 600
+
+class EVF as "EvalFileBuilder"
+EVF : +getResult() : ScriptObject
+EVF : -obj : ScriptObject = new NullScriptObject
+EVF : #addScriptObject(s:ScriptObject) : void
+EVF : +addString(s:StringScriptWrapper) : void
+EVF : -getPathFromString(s:String) : Path
+EVF : -getDirectoryOfPath(p:Path) : Path
+
+note bottom of EVF
+  getResult : Return obj
+  addScriptObject : Set obj to a new ErrorScriptObject
+  getPathFromString : Attemps to convert a string to a file path. Return null path. If path only points to directory, return null.
+  getDirectory : Get the directory the file pointed to by the path resides in. If the path points to a directory, return that path. 
+  addString : 
+    First get the path via Path p = getPathFromString(s)
+     If null, then set obj to new ErrorScriptObject, and return
+    Then get the directory with Path d = getDirectoryOfPath(p)
+    Save the current working directory. (Path oldD = super.getEval().getPath())
+    Set the ScriptEvaluator currentDirectory to d. (super.getEval().setPath(d))
+    Make a lexer. (Lexer l = new Lexer();
+    Parse the file
+     List<Token> tokens = tokenizeFile(p)
+    Let the eval eval the tokens.
+     super.getEval().evalTokens(tokens);
+    Restore the old working directory
+     super.getEval().setPath(oldD)
+    
+     
+
+
+Facade might make this slightly easier.
+end note
+    
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:EvalFileBuilder.png]]
+
