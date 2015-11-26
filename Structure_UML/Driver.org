@@ -138,6 +138,8 @@ enum OutputFormat {
 class Driver
 Driver : public static void main(String[] args)
 
+note top : The driver, after creating the ScriptEvaluator, will add the predefined builders to it, via eval.getEnvironmentList().addToTopEnv("Buildername",new XBuilder()), \n it will do this for all Builders defined in the Builders section.
+
 Output --> OutputFormat
 
 Driver --> Output
