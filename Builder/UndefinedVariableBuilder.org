@@ -1,0 +1,27 @@
+#+BEGIN_SRC plantuml :file UndefinedVariableBuilder.png
+skinparam dpi 300
+
+class UndefinedVariableBuilder
+UndefinedVariableBuilder : ScriptObject obj;
+UndefinedVariableBuilder : UndefinedVariableBuilder(varName : String)
+UndefinedVariableBuilder : addScriptObject(s:ScriptObject)
+UndefinedVariableBuilder : getResult() : ScriptObject
+
+note bottom of UndefinedVariableBuilder
+ The UndefinedVariableBuilder is unlike most builders in that is it paramtized solely by the token.  
+ A Var token knows that it is a var token. If the var is not in the environment, then return this, with the var name given in.
+
+ Then, all the builder has left to do is...
+  Return obj, if something tries to add to obj, then replace obj with an error. 
+  If vars could be functions, this would be a problem, especially if we had lambda.
+  Also, technically, this isn't compliant with scheme. Scheme is a lisp 1, so functions and variables can't have
+  the same name but be different. This is essentially going to be a lisp-2, rather than a lisp-1, which
+  scheme is.
+  
+
+end note
+#+END_SRC
+
+#+RESULTS:
+[[file:UndefinedVariableBuilder.png]]
+

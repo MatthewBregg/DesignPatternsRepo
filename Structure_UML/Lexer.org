@@ -4,5 +4,9 @@
 skinparam dpi 300
 
 class Lexer
-Lexer : tokenizeFile(File file) : List<Token>
+Lexer : tokenizeFile(file:Path) : List<Token>
 #+END_SRC
+
+#+RESULTS:
+[[file:LexerUML.png]]
+

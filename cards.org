@@ -1,0 +1,264 @@
+#+AUTHOR: Design Patterns Team 
+* Card shape
+- Rectangle, circle, etc
+- Corners, rounded, sharp?
+ 
+* Decal
+
+- Generic art, gets an art object
+- Decals will need to be patterned, one decal might want to be on each corner, or might want to go in a row, would be very awkward to have to manually do all this patterning : Decal shouldn't do patterning, let the transformation [Layout] class do it.
+** Decal types
+- Image decals
+- Text decals
+- Shape decal 
+- DynamicDecal
+  
+** Nesting
+Layouts will want to be nested, a text box might want to be on top of a back ground.
+** Layout class
+Composite, leafs hold decal.
+- Could then handle patterning
+- Composite
+
+*** General patterns
+- Textbox
+- Border
+- Etc?
+  
+- This could still be a good idea...
+  
+* Family
+A family contains a mapping of keys to decals.
+A leaf created with a string key will hold a dynamic decal.
+The dynamic decal will look up it's actually decal in a family when rendered.
+Switching families allows one to switch the theme of a card.
+    
+* Cards
+Card has a layout. 
+Everything is immutable, so no cloning anymore, maybe GUI will be reason to bring back clone.
+- Card will have a name.
+- Card will have a layout, front and back.
+  - Cards will not have a family, family given to render.
+  - Families aren't nested, instead render takes in a list, checks all, uses first it finds. 
+      
+- Dynamic decal only holds string, uses said string to locate decal in family.
+- Could nest dynamic decals if you really wanted....
+  - That's be pretty weird, but might have a use......
+  - Maybe with one family, you want that decal to look up background, but in another, otherbackground?
+    
+
+
+* Example with new lisp for 52 cards
+
+#+BEGIN_SRC config
+(define spadeImage  (image "spadeImage.jpg"))
+(define heartImage  (image "heartImage.jpg"))
+(define diamondImage  (image "diamondImage.jpg"))
+(define clubImage  (image "clubImage.jpg"))
+
+(define jackImage  (image "jack.jpg"))
+(define queenImage  (image "queen.jpg"))
+(define kingImage  (image "king.jpg"))
+
+(define whiteRectangle  (rectangle "white"))
+(define wholeCard  (scaled-position 0,0,100,100))
+(define cardSize  (size 1000 1000))
+//..Moreposiitons
+
+(define ace    (string A Arial.font "Black" 12)) //This needs to be replaced with string.
+(define two    (string 2 Arial.font "Black" 12))
+(define three  (string 3 Arial.font "Black" 12))
+(define four   (string 4 Arial.font "Black" 12))
+(define five   (string 5 Arial.font "Black" 12))
+(define six    (string 6 Arial.font "Black" 12))
+(define seven  (string 7 Arial.font "Black" 12))
+(define eight  (string 8 Arial.font "Black" 12))
+(define nine   (string 9 Arial.font "Black" 12))
+(define 10    (string 10 Arial.font "Black" 12))
+(define J      (string J Arial.font "Black" 12))
+(define Q      (string Q Arial.font "Black" 12))
+(define K      (string K Arial.font "Black" 12))
+#+END_SRC
+
+#+BEGIN_SRC 
+(define emptyFamily (family "empty"))
+(define heartFamily (family "heart" (cons "suite" heartImage)))
+(define diamondFamily (family "diamond" (cons "suite" diamondImage)))
+(define spadeFamily (family "spade" (cons "suite" spadeImage)))
+(define clubFamily (family "club" (cons "suite" clubImage)))
+
+(define backgroundLayout 
+  (layout 
+  (cons (leaf-layout whiteRectangle) wholeCard)
+  (cons (leaf-layout "suite") topRightCorner)
+  (cons (leaf-layout "suite") bottomLeftCorner))
+)
+
+(define jackLayout 
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout J) topRightCorner)
+  (cons (leaf-layout J) bottomLeftCorner)
+  (cons (leaf-layout jackImage) center))
+)
+
+(define queenLayout 
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout Q) topRightCorner)
+  (cons (leaf-layout Q) bottomLeftCorner)
+  (cons (leaf-layout queenImage) center))
+)
+
+(define kingLayout 
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout K) topRightCorner)
+  (cons (leaf-layout K) bottomLeftCorner)
+  (cons (leaf-layout kingImage) center))
+)
+
+(define KingCard 
+  (card cardSize "King" kingLayout kingLayout)
+)
+
+(define JackCard 
+  (card cardSize "Jack" JackLayout JackLayout)
+)
+
+(define QueenCard 
+  (card cardSize "Queen" QueenLayout QueenLayout)
+)
+
+(define oneLayout
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout one) topRightCorner)
+  (cons (leaf-layout one) topLeftCorner)
+  (cons (leaf-layout "suite") center)
+)
+
+(define oneCard (card cardSize "One" oneLayout oneLayout))
+...
+
+(define tenLayout
+  (layout 
+  (cons backGroundLayout wholeCard)
+  (cons (leaf-layout ten) topRightCorner)
+  (cons (leaf-layout ten) topLeftCorner)
+  (cons (leaf-layout "suite") center-10-1)
+  (cons (leaf-layout "suite") center-10-2)
+  (cons (leaf-layout "suite") center-10-3)
+  (cons (leaf-layout "suite") center-10-4)
+  (cons (leaf-layout "suite") center-10-5)
+  (cons (leaf-layout "suite") center-10-6)
+  (cons (leaf-layout "suite") center-10-7)
+  (cons (leaf-layout "suite") center-10-8)
+  (cons (leaf-layout "suite") center-10-9)
+  (cons (leaf-layout "suite") center-10-10)
+)
+
+(define tenCard (card cardSize "Ten" tenLayout tenLayout))
+
+
+(define suite (list QueenCard JackCard KingCard oneCard ... tenCard))
+
+(render suite heartFamily)
+(render suite clubFamily)
+(render suite diamondFamily)
+(render suite spadeFamily)
+
+
+
+
+
+#+END_SRC
+
+* Render method
+The idea is that we
+ - Calculate a size for our image, call this MainImage.
+   - Calculate the size of this layout with the size given to us of parent, plus our relative width + height to that
+ - If a composite, then
+   - Make MainImage a transparent image with the earlier calculated size.
+   - For each child, call render again, passing in the position it is paired with in the composite
+     - Pass through the family, and the subsize. 
+   - For each child, take the image retrieved from the above step, and place it in the MainImage.
+     - It will be placed at MainImage.size().x*x%, MainImage.size().y*y%
+   - Return MainImage
+#+BEGIN_SRC java
+  class CompositeLayout {
+      //...Stuff elided
+      Image render(ArrayList<Family> families, PositionScaled position, Size size) {
+          Size sub_size = size; 
+          sub_size.x*= (position.width/100);
+          sub_size.y*= (position.height/100);
+          Image image = new Image(sub_size.x,sub_size.y);
+          Size sub_size = size; 
+          for (LayoutAndPositionHolder pair : this.data) {
+              SubImage = pair.layout.render(families,pair.position,sub_size);
+              image.insertImage(subImage,
+                                pair.position.x*(sub_size.x/100),
+                                pair.position.y*(sub_size.y/100));
+          }
+          return image;
+      }
+
+  }
+#+END_SRC
+ - If a LeafLayout
+   - Tell the decal to render at that calculated size.
+   - Return this image
+
+#+BEGIN_SRC java 
+ class LeafLayout {
+      //... Stuff ellided
+
+      Image render(ArrayList<Family> families, PositionScaled position, Size size) {
+          Size sub_size = size; 
+          sub_size.x*= (position.width/100);
+          sub_size.y*= (position.height/100);
+          Image sub_image = this.decal.render(families,sub_size);
+          return sub_image;
+      }
+#+END_SRC
+- Note how position is always handled by the parent.
+ 
+This process is started with the card, which will call
+#+BEGIN_SRC java 
+  class Card {
+      //Stuff ellided
+      Foo someMethod(ArrayList<Family> families,Some params...) {
+        Image image = FrontLayout.render(families,new PositionScaled(0,0,100,100),this.size);
+        Image image = BackLayout.render(families,new PositionScaled(0,0,100,100),this.size);
+          Do something with these images...
+      }
+  }
+#+END_SRC
+
+- Dynamic decal will look like this
+  - Decals only need Families + size to be rendered
+#+BEGIN_SRC java
+  class DynamicDecal {
+      private String key;
+
+      DynamicDecal(String key) {
+          this.key = key;
+      }
+
+      Image render(ArrayList<Family> families, size) {
+          for ( Family family : families ) {
+              Decal decal = family.get(key);
+              if ( decal != null ) {
+                  return decal.render(families,size);
+              }
+          }
+          //If we get here, error, 
+          //throw an exception or something,
+          // and add an error to the user
+          //error output, something like
+
+          // "ERROR, DECAL OF NAME " + name + "Not found in given family!"
+      }
+  }
+
+#+END_SRC

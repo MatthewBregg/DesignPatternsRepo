@@ -1,0 +1,116 @@
+  #+BEGIN_SRC plantuml :file DefineBuilder.png
+    skinparam dpi 300
+
+    note "This must be set in the global environment as an already existing builder" as note1
+
+    class DefineBuilder
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+
+ScriptObjectBuilder <|-- DefineBuilder
+
+    DefineBuilder : functionBuilder : FunctionBuilder = null
+    DefineBuilder : state : State = new UnknownState
+    DefineBuilder : var : ScriptObject = new NullScriptObject();
+    DefineBuilder : name : String
+    DefineBuilder : addToken(token:Token) : void
+    DefineBuilder : addUndefinedVariable(v:UndefinedVariable) : void
+    DefineBuilder : addUndefinedFunction(f:UndefinedFunction) : void
+    DefineBuilder : getResult() : ScriptObject
+    DefineBuilder : addScriptObject(s:ScriptObject) : void
+    DefineBuilder : setVariable(v:ScriptObject)
+    DefineBuilder : setName(name:String )
+    DefineBuilder : setState(state:State)
+    DefineBuilder : setFunctionBuilder(functionBuilder:FunctionBuilder)
+    DefineBuilder : getFunctionBuilder():FunctionBuilder
+
+    note bottom : Delegates calls to addToken, addUndefinedFunction,addUndefinedVariable, and addScriptObject to state. 
+
+    abstract class State as "{abstract}\nState"
+    State : {abstract}addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
+    State : {abstract}addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
+    State : {abstract}addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
+    State : {abstract}addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
+
+    class UnknownState
+    UnknownState : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
+    UnknownState : addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
+    UnknownState : addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
+    UnknownState : addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
+    
+    note top of UnknownState
+         addToken : Has the eval parse the token, and then has the object accept the DefineBuilder
+         addUndefinedFunction : Sets the state to FunctionState, and make a FunctionBuilder object
+                              The Function builder object gets the UndefinedFunctions paramater name list, and name is set to the undefined functions name.
+         addUndefinedVarialbe : Sets the state to EmptyVariable state, and sets the name to the variable name.
+         getResult() : Return error Script Object
+    end note
+
+    class EmptyVariableState
+    EmptyVariableState : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
+    EmptyVariableState : addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
+    EmptyVariableState : addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
+    EmptyVariableState : addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
+
+    note top of EmptyVariableState
+         addToken : Has the eval parse the token, and then has the object accept the DefineBuilder
+         addUndefinedFunction : Set the variable to given undefined function ScriptObject
+         addUndefinedVarialbe : Set the variable to given undefined variable ScriptObject
+         getResult() : Return error Script Object
+    end note
+
+    class FullVariableState
+    FullVariableState : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
+    FullVariableState : addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
+    FullVariableState : addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
+    FullVariableState : addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
+
+    note top of FullVariableState
+         addToken : Has the eval parse the token, and then has the object accept the DefineBuilder
+         addUndefinedFunction : Go to error state
+         addUndefinedVarialbe : Go to error state
+         getResult() : Get the environment from evaluator, and add the name -> variable key value pair
+                     to the variable map to current env, then return a NullScriptObject
+    end note
+
+    class FunctionState
+    FunctionState : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
+    FunctionState : addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
+    FunctionState : addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
+    FunctionState : addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
+
+    note top of FunctionState
+         addToken : Add unparsed token to function builder, this is the function body.
+         addUndefinedFunction : Go to error state
+         addUndefinedVarialbe : Go to error state
+         getResult() : Get the environment from evaluator, and add the name -> Builder key value pair
+                     to the BuilderFactory to current env, then return a NullScriptObject
+    end note
+
+    class ErrorState
+    ErrorState : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
+    ErrorState : addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
+    ErrorState : addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
+    ErrorState : addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
+    ErrorState : errorMessage : String
+
+    note top of ErrorState
+         
+         addToken : Has the eval parse the token, and then has the object accept the DefineBuilder
+         addUndefinedFunction : Update error message
+         addUndefinedVarialbe : Update error message
+         getResult() : Return new ErrorScriptObject paramatarized with the error message. 
+                     
+    end note
+
+DefineBuilder +-- State
+State <|-- UnknownState
+State <|-- EmptyVariableState
+State <|-- FullVariableState
+State <|-- FunctionState
+State <|-- ErrorState
+      
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:DefineBuilder.png]]

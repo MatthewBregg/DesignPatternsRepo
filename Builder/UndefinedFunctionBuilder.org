@@ -1,0 +1,28 @@
+#+BEGIN_SRC plantuml :file UndefinedFunctionBuilder.png
+skinparam dpi 300
+
+class UndefinedFunctionBuilder
+UndefinedFunctionBuilder : ScriptObject obj;
+UndefinedFunctionBuilder : UndefinedFunctionBuilder(funcName : String, funcArgumentNames : ArrayList<String>)
+UndefinedFunctionBuilder : UndefinedFunctionBuilder(ErrorScriptObject err)
+UndefinedFunctionBuilder : addScriptObject(s:ScriptObject)
+UndefinedFunctionBuilder : getResult() : ScriptObject
+
+note bottom of UndefinedFunctionBuilder
+ The UndefinedFunctionBuilder is unlike most builders in that is it paramtized solely by the token.  
+ The token will know during parsing if all arguments given to the func name are var names, which makes it possible to be a undefined function.
+ If it is not found in env, then the token will assume it is. 
+ If it is not found in env, but not all args are Variables,
+ then we can just set the UndefinedFunctionBuilder straight to an error. (Bit hacky!)
+ Then, all the builder has left to do is...
+  Return obj, if something tries to add to obj, then replace obj with an error. 
+
+  The ExpressionToken, if it returns this builder type, will then return an empty argument list when asked.
+  It will clear its argument list after constructing this. 
+
+end note
+#+END_SRC
+
+#+RESULTS:
+[[file:UndefinedFunctionBuilder.png]]
+

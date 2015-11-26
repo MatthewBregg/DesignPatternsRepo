@@ -1,0 +1,121 @@
+#+BEGIN_SRC plantuml :file FamilyBuilder.png
+skinparam dpi 300
+class FamilyBuilder
+FamilyBuilder : map : Map<String,Decal>
+FamilyBuilder : name : String
+FamilyBuilder : state : State = new Empty
+FamilyBuilder : setName(name:String):void
+FamilyBuilder : addPair(key:String,value:Decal):void
+FamilyBuilder : addString(s:StringScriptWrapper)
+FamilyBuilder : addConsPair(p:ConsPair)
+FamilyBuilder : addScriptObject(s:ScriptObject)
+FamilyBuilder : setState(s:State)
+FamilyBuilder : getResult() : ScriptObject
+
+note bottom : Forwards getResult, addSTring, and AddDecal to State, changing parameters to fit, so \n getResult gets the Families currently stored name and string passed along, \n addString has the string unwrapped, and the builder itself passed along, \n and addDecal gets the builder reference as well. \n It will call receivedPair(this) on its state in the beginning of the addConsPair method, and call finishedPair(this) when the method is done. 
+
+
+abstract class State as "{abstract}\nState"
+State : {abstract}getResult(name:String,map:Map<String,Decal>):ScriptObject
+State : {abstract}addString(name:String,fb:FamilyBuilder)
+State : {abstract}addDecal(value:Decal,fb:FamilyBuilder)
+State : {abstract}receivedPair(fb:FamilyBuilder)
+State : {abstract}finishedPair(fb:FamilyBuilder)
+
+FamilyBuilder +-- State
+
+note left : receivedPair defaults to setting the FamilyBuilder state to AwaitingString, finishedPair sets it back to hasName state
+
+abstract class PairIsErrorStates as "{abstract}\nPairIsErrorStates"
+State <|-- PairIsErrorStates
+PairIsErrorStates : receivedPair(fb:FamilyBuilder)
+PairIsErrorStates : finishedPair(fb:FamilyBuilder)
+
+note left of PairIsErrorStates
+receivedPair : Go to error state
+finishedPair: Go to error state
+end note
+
+class Empty 
+PairIsErrorStates <|-- Empty 
+Empty : getResult(name:String,map:Map<STring,Decal>):ScriptObject
+Empty : addString(name:String,fb:FamilyBuilder)
+Empty : addDecal(value:Decal,fb:FamilyBuilder)
+
+note left of Empty
+getResult : Returns an empty family. "" for name, empty map
+addString : Sets the name of the family to be the given string, via calling set name on fb. Go to has name state.
+addDecal : set state on fb to error state
+end note
+
+class HasName
+State <|-- HasName
+HasName : getResult(name:String,map:Map<String,Decal>):ScriptObject
+HasName : addString(name:String,fb:FamilyBuilder)
+HasName : addDecal(value:Decal,fb:FamilyBuilder)
+
+note left of HasName
+getResult : Returns a family with the name passed in from fb, and whatever is in the map passed in by fb. (Map starts out empty, so if it just got to this state, empty map.)
+addString : set state to error state
+addDecal : set state on fb to error state
+end note
+
+class AwaitingString
+PairIsErrorStates <|-- AwaitingString
+AwaitingString : getResult(name:String,map:Map<STring,Decal>):ScriptObject
+AwaitingString : addString(name:String,fb:FamilyBuilder)
+AwaitingString : addDecal(value:Decal,fb:FamilyBuilder)
+note left of AwaitingString
+
+getResult : Returns an ErrorScriptObject, set fb state to error state
+addString : create an AwaitingDecal with given key, set fb state to it.
+addDecal : set state on fb to error state
+end note
+
+class AwaitingDecal
+PairIsErrorStates <|-- AwaitingDecal
+AwaitingDecal : AwaitingDecal(key:String)
+AwaitingDecal : key : String
+AwaitingDecal : getResult(name:String,map:Map<STring,Decal>):ScriptObject
+AwaitingDecal : addString(name:String,fb:FamilyBuilder)
+AwaitingDecal : addDecal(value:Decal,fb:FamilyBuilder)
+
+note left of AwaitingDecal
+getResult : Returns an ErrorScriptObject, set fb state to error state
+addString : set state to error state
+addDecal : Creates a DoneWithPair with given decal as value, and key as key, set fb state to it
+end note
+
+class DoneWithPair
+PairIsErrorStates <|-- DoneWithPair
+DoneWithPair : key:String
+DoneWithPair : value:Decal
+DoneWithPair : DoneWithPair(key:String,value:Decal)
+DoneWithPair : getResult(name:String,map:Map<STring,Decal>):ScriptObject
+DoneWithPair : addString(name:String,fb:FamilyBuilder)
+DoneWithPair : addDecal(value:Decal,fb:FamilyBuilder)
+DoneWithPair : finishedPair(fb:FamilyBuilder)
+
+note left of DoneWithPair
+getResult : Returns an ErrorScriptObject, set fb state to error state
+addString : set state to error state
+addDecal : set state to error state
+finishedPair : Add key/value to fb map. Set state back to hasName.
+end note
+
+
+class ErrorState
+State <|-- ErrorState
+ErrorState : getResult(name:String,map:Map<STring,Decal>):ScriptObject
+ErrorState : addString(name:String,fb:FamilyBuilder)
+ErrorState : addDecal(value:Decal,fb:FamilyBuilder)
+ErrorState : errorMessage 
+
+note left : All methods will do nothing but mantain the error state, with the error message, getResult will return an ErrorScriptObject
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:FamilyBuilder.png]]
+
