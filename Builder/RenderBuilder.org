@@ -1,0 +1,71 @@
+#+BEGIN_SRC plantuml :file RenderBuilder.png
+skinparam dpi 300
+
+class RenderBuilder
+
+RenderBuilder : families : ArrayList<Families> 
+RenderBuilder : card : Card
+RenderBuilder : setCard(c:Card)
+RenderBuilder : addFamily(Family f)
+RenderBuilder : doRender()
+RenderBuilder : state : State = new Empty
+RenderBuilder : setState(s:State)
+RenderBuilder : addCard(c:Card)
+RenderBuilder : addList(l:List)
+RenderBuilder : addConsPair(l:ConsPair)
+RenderBuilder : addScriptObject(s:ScriptObject)
+RenderBuilder : getResult():ScriptObject
+
+note bottom : doRender calls on card render, with the families as an argument. It will then take the result, and add it to the eval, super.getEval().addRenderedCard(rc)
+
+note bottom : Delegates getResult,addCard,addFamily to state. \n For addList, get the list, and for each ScriptObject, call accept(this). \n For ConsPair, do acceptBuilderOnPair(this).
+
+RenderBuilder +-- State
+
+abstract class State as "{abstract}\nState"
+State : {abstract}getResult(rb:RenderBuilder) : ScriptObject
+State : {abstract}addFamily(f:Family,rb:RenderBuilder)
+State : {abstract}addCard(c:Card,rb:RenderBuilder)
+
+State <|--Empty
+State <|--HaveCard
+State <|--ErrorState
+
+class Empty
+Empty : getResult(rb:RenderBuilder) : ScriptObject
+Empty : addFamily(f:Family,rb:RenderBuilder)
+Empty : addCard(c:Card,rb:RenderBuilder)
+
+note top of Empty
+  getResult : Return ErrorScriptObject, set rb state to error state
+  addFamily : Must have card first, set rb state to error state
+  addCard : Call rb.setCard(c), set rb state to HaveCard state.
+end note
+
+class HaveCard
+HaveCard : getResult(rb:RenderBuilder) : ScriptObject
+HaveCard : addFamily(f:Family,rb:RenderBuilder)
+HaveCard : addCard(c:Card,rb:RenderBuilder)
+
+note top of HaveCard
+  getResult : Call rb.doRender(), return NullScriptObject
+  addFamily : call rb.addFamily(f)
+  addCard : set rb state to error state.
+end note
+
+class ErrorState
+ErrorState : getResult(rb:RenderBuilder) : ScriptObject
+ErrorState : addFamily(f:Family,rb:RenderBuilder) 
+ErrorState : addCard(c:Card,rb:RenderBuilder)
+
+note top of ErrorState 
+  getResult : Return ErrorScriptObject
+  addFamily : Do nothing, already an error
+  addCard : Do nothing, already an error
+end note
+
+#+END_SRC
+
+#+RESULTS:
+[[file:RenderBuilder.png]]
+
