@@ -71,7 +71,7 @@
 - width: double
 - height: double
 --
-+ render(): Pair&lt;Image,Image&gt;
++ render(families:List&lt;Family&gt;): RenderedCard
 + acceptBuilder(v ScriptObjectBuilder): void</panel_attributes>
     <additional_attributes/>
   </element>

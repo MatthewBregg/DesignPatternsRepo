@@ -3,7 +3,7 @@ skinparam dpi 300
 class FamilyBuilder
 FamilyBuilder : map : Map<String,Decal>
 FamilyBuilder : name : String
-FamilyBuilder : state : State
+FamilyBuilder : state : State = new Empty
 FamilyBuilder : setName(name:String):void
 FamilyBuilder : addPair(key:String,value:Decal):void
 FamilyBuilder : addString(s:StringScriptWrapper)
@@ -96,7 +96,7 @@ DoneWithPair : addString(name:String,fb:FamilyBuilder)
 DoneWithPair : addDecal(value:Decal,fb:FamilyBuilder)
 DoneWithPair : finishedPair(fb:FamilyBuilder)
 
-note left of AwaitingDecal
+note left of DoneWithPair
 getResult : Returns an ErrorScriptObject, set fb state to error state
 addString : set state to error state
 addDecal : set state to error state

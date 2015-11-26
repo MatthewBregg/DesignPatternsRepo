@@ -16,6 +16,7 @@ Card : backLayout : ComponentLayout
 Card : name : String
 Card : width : double
 Card : height : double
+Card : render(families:List<Family>):RenderedCard
 note top : Background will either be a leaf layout, or special background decal holder.
 
 'Position/Size

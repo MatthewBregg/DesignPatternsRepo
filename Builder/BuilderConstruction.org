@@ -18,12 +18,12 @@ BuilderVisiter : +addSize(s:Size)
 BuilderVisiter : +addPositionScaled(ps:PositionScaled)
 BuilderVisiter : +addCard(c:Card)
 BuilderVisiter : +addDouble(s:DoubleScriptWrapper)
-BuilderVisiter : +addList(l:List<ScriptObject>)
+BuilderVisiter : +addList(l:List)
 BuilderVisiter : +addConsPair(p:ConsPair)
 BuilderVisiter : +addError(e:ErrorScriptObject)
 BuilderVisiter : +addNull(v:NullScriptObject)
 BuilderVisiter : +addToken(t:Token)
-BuilderVisiter : #addScriptObject(s:ScriptObject)
+BuilderVisiter : #{abstract}addScriptObject(s:ScriptObject)
 note top : addToken will be implemented by default as running eval.doParse on the token, and then having the token accept itself.
 note top : add* except for token default to calling addScriptObject(*)
 
@@ -104,6 +104,8 @@ ConsPair : second() : ScriptObject
 ConsPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
 note bottom : Calls acceptBuilder on the first, and then the second item
 class List
+List : list:List<ScriptObject>
+List : getList():List<ScriptObject>
 class ErrorScriptObject
 class NullScriptObject
 class Card 
@@ -179,10 +181,10 @@ class ScriptEvaluator
 ScriptEvaluator : currentDirectory:Path
 ScriptEvaluator : setPath(p:Path)
 ScriptEvaluator : getPath():Path
-ScriptEvaluator : evalTokans(List<Token>) : void
+ScriptEvaluator : evalTokans(l:List<Token>) : void
 ScriptEvaluator : doParse(Token) : ScriptObject
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
-ScriptEvaluator : addRenderedCard(RenderedCard rc)
+ScriptEvaluator : addRenderedCard(rc:RenderedCard)
 ScriptEvaluator : getEnvironmentList() : EnvironmentList
 
 ScriptEvaluator -> EnvironmentList
@@ -195,13 +197,12 @@ Environment -> BuilderFactory
 
 
 class RenderedCard
-
-RenderedCard : -Card:card
-RenderedCard : -Families:ArrayList<Family>
+RenderedCard : -front : Image
+RenderedCard : -back  : Image
 RenderedCard : -name:String
-RenderedCard : +getCard():card
-RenderedCard : +getFamilies():ArrayList<Family>
 RenderedCard : +getName():String
+RenderedCard : +getFront():Image
+RenderedCard : +getBack():Image
 
 
 

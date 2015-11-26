@@ -10,7 +10,7 @@ abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
 ScriptObjectBuilder <|-- DefineBuilder
 
     DefineBuilder : functionBuilder : FunctionBuilder = null
-    DefineBuilder : state : State = new UnknownState()
+    DefineBuilder : state : State = new UnknownState
     DefineBuilder : var : ScriptObject = new NullScriptObject();
     DefineBuilder : name : String
     DefineBuilder : addToken(token:Token) : void
