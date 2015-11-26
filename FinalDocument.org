@@ -1,6 +1,6 @@
 * Overall System
 
-* Layout System
+* Layout System  (Ervis)
 ** for each class
 *** Purpose
 *** What patterns it partakes in
@@ -10,7 +10,7 @@
 *** Consequences
 
 
-* Decal System
+* Decal System  (Ervis)
 ** for each class
 *** Purpose
 *** What patterns it partakes in

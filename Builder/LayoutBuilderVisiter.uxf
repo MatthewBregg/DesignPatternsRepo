@@ -1,92 +1,647 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>10</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>180</y>
-      <w>270</w>
-      <h>80</h>
+      <x>750</x>
+      <y>24</y>
+      <w>162</w>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /ScriptObjectBuilder/
 --
 --
++ getResult() : ScriptObject
 + addLayout(l ComponentLayout): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>460</y>
-      <w>250</w>
-      <h>100</h>
+      <x>702</x>
+      <y>120</y>
+      <w>270</w>
+      <h>138</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
-/LayoutBuilderVisiter/
+    <panel_attributes>LayoutBuilderVisiter
 --
+- layout : ComponentLayout
+- position : PositionScaled
+- state: BuilderState
 --
 + getResult() : ScriptObject
++ addLayout(l ComponentLayout): void
++ addPositionScaled (position PositionScaled): void
++ addLayoutPositionPair (LLP LayoutPositionPair): void
++ addConsPair (cp ConsPair): void
++ getState (): BuilderState
++ setComponentLayout (l ComponentLayout): void
++ setPosition (PS PositionScale): void
++ changeState (state newBuilderState): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>822</x>
+      <y>78</y>
+      <w>18</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>120</y>
+      <w>300</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/BuilderState/
+--
+--
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject
++ addLayout(l ComponentLayout, LBV LayoutBuilderVisiter): void
++ changeState (state BuilderState, LBV LayoutBuilderVisiter): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>396</x>
+      <y>612</y>
+      <w>270</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>ErrorState
+--
+- errorMessage: Error
+--
++ ErrorState (String newMessage)
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>336</x>
+      <y>450</y>
+      <w>270</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>EmptyState
+--
+--
++ startBuild (l ComponentLayout, LBV LayoutBuilderVisiter): void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>690</x>
-      <y>250</y>
-      <w>30</w>
-      <h>230</h>
+      <x>966</x>
+      <y>120</y>
+      <w>126</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>m1=state
+lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1914</x>
+      <y>552</y>
+      <w>294</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>LeafLayoutState
+--
+--
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject
++ addLayout(l ComponentLayout, LBV LayoutBuilderVisiter): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1794</x>
+      <y>444</y>
+      <w>282</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>CompositeState
+--
+--
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject
++ addLayout(l ComponentLayout, LBV LayoutBuilderVisiter): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1962</x>
+      <y>684</y>
+      <w>306</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>LeafLayoutMaintainRatioState
+--
+--
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject
++ addLayout(l ComponentLayout, LBV LayoutBuilderVisiter): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1032</x>
+      <y>432</y>
+      <w>282</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>ExamFirstArgState
+--
+--
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject
++ addLayout(l ComponentLayout, LBV LayoutBuilderVisiter): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1074</x>
+      <y>522</y>
+      <w>282</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>ExamSecondArgState
+--
+--
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject
++ addLayout(l ComponentLayout, LBV LayoutBuilderVisiter): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>618</y>
+      <w>282</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>DoneState
+--
+--
++ getResult(l ComponentLayout, position PositionScaled) : ScriptObject
++ addLayout(l ComponentLayout, LBV LayoutBuilderVisiter): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>390</x>
+      <y>234</y>
+      <w>168</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>void changeState (state newBuilderState){
+     state = newBuilderState;
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>390</x>
+      <y>174</y>
+      <w>168</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>void addLayout (l ComponentLayout){
+     state = new EmptyState();
+     state.startBuild (l, this);
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1080</x>
+      <y>42</y>
+      <w>300</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>void changeState (state newBuilderState, LBV LayoutBuilderVisiter){
+        LBV.changeState(newStateBuilder);
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>468</y>
+      <w>270</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>void startBuild (l ComponentLayout, LBV LayoutBuilderVisiter)
+    / The Abstract class changes state
+    if (arg1 == decal)
+        changeState (new LeafLayout, LBV);
+        LBV.getState().addLayout(l, LBV);
+     if (arg is a pair)
+        changeState (new ExamFirstArgState, LBV);
+        LBV.getState().addLayout(l, LBV);
+     else
+        changeState (new ErrorState("Incorrect Args"), LBV);
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>102</x>
+      <y>642</y>
+      <w>228</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>ErrorState (String newMessage){
+  errorMessage = newMessage;
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1578</x>
+      <y>570</y>
+      <w>270</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>void addLayout (l ComponentLayout, LBV LayoutBuilderVisiter)
+     if (there is a W or H or W and H)
+        changeState (new LeafLayoutMaintainRatioState, LBV);
+        LBV.getState().addLayout(l, LBV);
+     if (there is soemthing else or another item)
+        changeState (new ErrorState("Incorrect Args"), LBV);
+     if (there is nothing else)
+        changeState (new DoneState, LBV); 
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>696</x>
+      <y>456</y>
+      <w>270</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>void addLayout (l ComponentLayout, LBV LayoutBuilderVisiter)
+     if (the first Item is a Layout)
+        changeState (new ExamSecondArgState, LBV);
+        LBV.getState().addLayout(l, LBV);
+      else
+        changeState (new ErrorState("Incorrect Args"), LBV);
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>738</x>
+      <y>552</y>
+      <w>270</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>void addLayout (l ComponentLayout, LBV LayoutBuilderVisiter)
+     if (the second Item is a Position)
+        changeState (new CompositeState, LBV);
+        LBV.getState().addLayout( l, LBV);
+      else
+        changeState (new ErrorState("Incorrect Args"), LBV);
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1464</x>
+      <y>462</y>
+      <w>270</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>void addLayout (l ComponentLayout, LBV LayoutBuilderVisiter)
+     if (there is another layout to be build)
+         LBV.addLayout(l);
+     if (there is nothing else)
+        changeState (new DoneState, LBV);
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1626</x>
+      <y>702</y>
+      <w>270</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>void addLayout (l ComponentLayout, LBV LayoutBuilderVisiter)
+     if (there is soemthing else or another item)
+        changeState (new ErrorState("Incorrect Args"), LBV);
+     if (there is nothing else)
+        changeState (new DoneState, LBV); 
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1722</x>
+      <y>468</y>
+      <w>84</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;210.0</additional_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1842</x>
+      <y>576</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1890</x>
+      <y>708</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>960</x>
+      <y>462</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1002</x>
+      <y>552</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>468</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>324</x>
+      <y>642</y>
+      <w>84</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>174</y>
+      <w>162</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>240</y>
+      <w>162</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;250.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1032</x>
+      <y>42</y>
+      <w>60</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>80.0;220.0;10.0;220.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>180</y>
+      <w>1812</w>
+      <h>282</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>1250.0;10.0;1250.0;270.0;3000.0;270.0;10.0;270.0;10.0;450.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>618</x>
+      <y>336</y>
+      <w>18</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;460.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1398</x>
+      <y>336</y>
+      <w>18</w>
+      <h>294</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;470.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1326</x>
+      <y>336</y>
+      <w>18</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1194</x>
+      <y>276</y>
+      <w>18</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2244</x>
+      <y>336</y>
+      <w>18</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;580.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2154</x>
+      <y>336</y>
+      <w>18</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1986</x>
+      <y>336</y>
+      <w>18</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>120</x>
-      <y>700</y>
-      <w>250</w>
-      <h>100</h>
+      <x>2310</x>
+      <y>534</y>
+      <w>96</w>
+      <h>18</h>
     </coordinates>
-    <panel_attributes>ErroLayoutBuilderVisiter
---
---
-+ getResult() : ScriptObject
-</panel_attributes>
+    <panel_attributes>*CompositeLayout*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
+    <id>Relation</id>
     <coordinates>
-      <x>1070</x>
-      <y>680</y>
-      <w>250</w>
-      <h>100</h>
+      <x>2010</x>
+      <y>510</y>
+      <w>312</w>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>CompositeLayoutBuilderVisiter
---
-- child: LayoutPositionPair
---
-+ getResult() : ScriptObject
+    <panel_attributes>lt=&lt;&lt;&lt;.
 </panel_attributes>
-    <additional_attributes/>
+    <additional_attributes>500.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2064</x>
+      <y>600</y>
+      <w>258</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.
+</panel_attributes>
+    <additional_attributes>410.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>690</y>
-      <w>250</w>
-      <h>100</h>
+      <x>2310</x>
+      <y>624</y>
+      <w>96</w>
+      <h>18</h>
     </coordinates>
-    <panel_attributes>LeafLayoutBuilderVisiter
---
---
-+ getResult() : ScriptObject
+    <panel_attributes>*LeafLayout*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2100</x>
+      <y>732</y>
+      <w>228</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.
 </panel_attributes>
+    <additional_attributes>360.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2316</x>
+      <y>756</y>
+      <w>96</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>*LeafLayoutRatio*</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
