@@ -14,6 +14,7 @@ This version does support defining functions atm.
 (See http://www.scheme.com/tspl2d/binding.html)
 - Right now, defines may not be nested, and must be done at top level.
 - A variable name can't start with a number, to make it determinable from an int atom.
+  - It must start with an alpha character.
 *** cons
 Takes two arguments, returns a pair holding the two arguments as one object
 #+BEGIN_SRC scheme

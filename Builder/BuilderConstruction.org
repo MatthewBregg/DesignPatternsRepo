@@ -51,6 +51,7 @@ note bottom : FamilyA would be one of these tokens, a variable that is reference
 note left : When asked for a builder, will look in the ScriptEvaluators environment for a variable of it's name. \n If found, return a VariableBuilder, paramatized with said ScriptObject. \n If not found, return an UndefinedVariableBuilder, paramatized with the name.
 VariableToken : varName : String
 class ExpressionToken
+ExpressionToken : funcName : String
 note top : (family "foo" (cons "foo" bar)) would be one of these
 note left : When asked for a builder, will look in environment for builder matching current function name. \n If none found, will create an UndefinedFunctionBuilder, with the name, and paramater names paramaterized
 ExpressionToken : List<Token>
@@ -61,8 +62,8 @@ note top : Any ints or strings will be one of these.
 class StringAtomToken 
 note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an StringScriptWrapper of the appropriate value
 StringAtomToken : value : String
-class IntAtomToken
-IntAtomToken : value : int
+class DoubleAtomToken
+IntAtomToken : value : double
 note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an DoubleScriptWrapper of the appropriate value
 class ParseErrorToken
 note top : If a parse error is hit, then make this, and stop parsing.

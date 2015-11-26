@@ -4,7 +4,47 @@
 skinparam dpi 300
 
 class Lexer
-Lexer : tokenizeFile(file:Path) : List<Token>
+Lexer : +tokenizeFile(file:Path) : List<Token>
+Lexer : -clear():void
+Lexer : -fileContents:String
+Lexer : -position:int
+Lexer : -tokenizeSexp(file:String,t:ExpressionToken) : Token
+Lexer : -tokens:List<Token>
+Lexer : -makeDoubleToken(n:double) : Token
+Lexer : -makeParseErrorToken(position:int,error:String) : Token
+Lexer : -makeStringToken(str:String) : Token
+Lexer : -makeVariableToken(varName:String) : Token
+Lexer : -makeExpressionToken() : ExpressionToken
+
+note top of Lexer
+ The lexer load the file into a String.
+ It will then call tokenizeSexp on the String, pass in null for t.
+ Then inside tokenizeSexp
+ If there is a "(", then make an ExpressionToken.
+  Set t, if not null, allParamsVars to false.
+  There should be a new symbol immediately after the opener
+   If there isn't return a call makeErrorToken, and return.
+  This symbol must not contain double quotes, and must start with an alpha character.
+   Else, call makeErrorToken, and return. 
+  Set the expression funcName to be this symbol. 
+  Advance position past this symbol.
+  If the current position is a ")", then return Expression token, and move position past it.
+  Else Call tokenizeSexp again, and add the returned token to the ExpressionToken argument list.
+If double quotes are hit, call makeStringToken with the contents of those double quotes, and return the token.
+  Set t, if not null, allParamsVars to false.
+If a number is hit, aka, anything with no spaces, and only 0-9 and maybe a decimal, then call 
+     makeDoubleToken with that value, 
+     Set t, if not null, allParamsVars to false,
+     and return the token
+If a symbol is hit, aka, something with an alpha character in it, then call makeVariableToken with that
+     symbol, and return the token.
+In all three above cases, upon return, update the position.
+
+Then add the position returned from tokenizeSexp to the list of tokens, and call it again if position is still inside the string.
+
+end note
+  
+
 #+END_SRC
 
 #+RESULTS:
