@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>130</y>
+      <x>430</x>
+      <y>0</y>
       <w>270</w>
       <h>90</h>
     </coordinates>
@@ -20,39 +20,21 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>680</x>
-      <y>210</y>
-      <w>30</w>
-      <h>100</h>
+      <x>180</x>
+      <y>80</y>
+      <w>890</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>370.0;10.0;370.0;110.0;10.0;110.0;10.0;160.0;10.0;110.0;870.0;110.0;870.0;160.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
-      <y>290</y>
-      <w>310</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
-/DecalBuilder/
---
-- 
---
-+ getResult() : ScriptObject
-+ addDecal (d Decal): void
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>0</x>
-      <y>540</y>
+      <x>900</x>
+      <y>240</y>
       <w>350</w>
-      <h>140</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>RectangleDecalBuilder
 --
@@ -62,16 +44,17 @@
 --
 + getResult() : ScriptObject
 + setWidth (w double) : void
-+ setHeigth (h double) : void</panel_attributes>
++ setHeigth (h double) : void
++ setColor (c Color): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>420</x>
-      <y>540</y>
+      <x>40</x>
+      <y>240</y>
       <w>370</w>
-      <h>110</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>CircleDecalBuilder
 --
@@ -79,18 +62,19 @@
 - color: Color
 --
 + getResult() : ScriptObject
-+ setRadius (r double) : void</panel_attributes>
++ setRadius (r double) : void
++ setColor (c Color): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>860</x>
-      <y>540</y>
+      <x>280</x>
+      <y>500</y>
       <w>360</w>
       <h>160</h>
     </coordinates>
-    <panel_attributes>TriangleDEcalBuilder
+    <panel_attributes>TriangleDecalBuilder
 --
 - aLength: double
 - bLenght: double
@@ -100,16 +84,17 @@
 + getResult() : ScriptObject
 + setASide (a double) : void
 + setBSide (b double) : void
-+ setCSide (c double) : void</panel_attributes>
++ setCSide (c double) : void
++ setColor (c Color): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1250</x>
-      <y>540</y>
+      <x>730</x>
+      <y>500</y>
       <w>360</w>
-      <h>110</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /AnyShapeDecalBuilder/
@@ -118,18 +103,111 @@
 - color: Color
 --
 + getResult() : ScriptObject
-+ setPoints (list ArrayList&lt;Point&gt;) : void</panel_attributes>
++ setPoints (list ArrayList&lt;Point&gt;) : void
++ setColor (c Color): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>430</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*CircleDecal*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>120</x>
-      <y>400</y>
-      <w>1280</w>
-      <h>160</h>
+      <x>40</x>
+      <y>350</y>
+      <w>70</w>
+      <h>110</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>570.0;10.0;570.0;80.0;1260.0;80.0;1260.0;140.0;1260.0;80.0;910.0;80.0;910.0;140.0;910.0;80.0;500.0;80.0;500.0;140.0;500.0;80.0;10.0;80.0;10.0;140.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>50.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>730</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*TriangleDecal*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>280</x>
+      <y>650</y>
+      <w>70</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>50.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>710</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*AnyShapeDecal*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>630</y>
+      <w>70</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>50.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1180</x>
+      <y>450</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>*RectangleDecal*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1130</x>
+      <y>380</y>
+      <w>70</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>50.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>80</y>
+      <w>500</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>160.0;10.0;160.0;350.0;10.0;350.0;10.0;420.0;10.0;350.0;480.0;350.0;480.0;420.0</additional_attributes>
   </element>
 </diagram>
