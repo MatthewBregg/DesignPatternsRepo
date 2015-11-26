@@ -92,6 +92,8 @@
 skinparam dpi 300
 
 class Logger
+Logger : {static} loggerInstance : Logger
+Logger : {static} getLoggerInstance():Logger
 Logger : adddError(ErrorMessage s)
 Logger : addWarning(ErrorMessage s)
 Logger : getWarnings():ArrayList<ErrorMessage>

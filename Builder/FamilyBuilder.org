@@ -16,11 +16,11 @@ note bottom : Forwards getResult, addSTring, and AddDecal to State, changing par
 
 
 abstract class State as "{abstract}\nState"
-State : getResult(name:String,map:Map<String,Decal>):ScriptObject
-State : addString(name:String,fb:FamilyBuilder)
-State : addDecal(value:Decal,fb:FamilyBuilder)
-State : receivedPair(fb:FamilyBuilder)
-State : finishedPair(fb:FamilyBuilder)
+State : {abstract}getResult(name:String,map:Map<String,Decal>):ScriptObject
+State : {abstract}addString(name:String,fb:FamilyBuilder)
+State : {abstract}addDecal(value:Decal,fb:FamilyBuilder)
+State : {abstract}receivedPair(fb:FamilyBuilder)
+State : {abstract}finishedPair(fb:FamilyBuilder)
 
 FamilyBuilder +-- State
 

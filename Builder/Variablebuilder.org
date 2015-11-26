@@ -17,8 +17,8 @@ note bottom : addScriptObject(s:ScriptObject) will just do state = state.addScri
 note bottom : Delegates getResult and addScriptObject to state. For getResult, the ScriptObject the Builder holds is added as a parameter, for addScriptObject, the ScriptObject is not passed along. 
 
 abstract class State as "{abstract}\nState"
-State : getResult(s:ScriptObject) : ScriptObject
-State : addScriptObj() : State
+State : {abstract}getResult(s:ScriptObject) : ScriptObject
+State : {abstract}addScriptObj() : State
 
 VariableBuilderVisiter +-- State
 

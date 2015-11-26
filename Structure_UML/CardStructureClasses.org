@@ -6,7 +6,7 @@ This should probably be split into multiple diagrams.
 skinparam dpi 300
 
 abstract class ScriptObject as "{abstract}\nScriptObject"
-ScriptObject : acceptBuilder(v : ScriptObjectBuilder) 
+ScriptObject : {abstract}acceptBuilder(v : ScriptObjectBuilder) 
 
 ' CARD
 class Card
@@ -39,7 +39,7 @@ Family : setDecal(s : String, d : Decal )
 
 'Decals
 abstract class Decal as "{abstract}\nDecal"
-Decal : render(families : ArrayList<Family>, size Size ) : Image
+Decal : {abstract}render(families : ArrayList<Family>, size Size ) : Image
 
 class ImageDecal
 note left : Will likely wind up being an adapter to javas image class.
@@ -92,7 +92,7 @@ LayoutPositionPair : getPostionScaled() : PositionScaled
 abstract class Layout as "{abstract}\nComponentLayout"
 note top : Render is abstract, a leaf layout will just forward the render to it's decal. Render will probably return an image.
 class CompositeLayout
-note top :  A ComponentLayout needs to call render on it's children, and assemble that into one image. How this works will be tricky. See the render section for more info.
+note top :  A ComponentLayout needs to call render on it's children, and assemble that into one image. See render section for more on that. Implementors of composite layout ellided in this uml.
 class LeafLayout
 note bottom : Forwards render to decal, after getting the correct size.
 LeafLayout : Decal
@@ -102,9 +102,9 @@ LayoutPositionPair --o CompositeLayout: 1 - N
 LayoutPositionPair o-- Layout : 1
 LayoutPositionPair o- PositionScaled : 1
 
-Layout : render(families : ArrayList<Family>, position : PositionScaled, size : Size) : Image
-Layout : removeLayout(l : LayoutPositionPair) : LayoutPositionPair
-Layout : iterator() : Iterator<LayoutPositionPair>
+Layout : {abstract}render(families : ArrayList<Family>, position : PositionScaled, size : Size) : Image
+Layout : {abstract}removeLayout(l : LayoutPositionPair) : LayoutPositionPair
+Layout : {abstract}iterator() : Iterator<LayoutPositionPair>
 
 CompositeLayout : addLayout(l : LayoutPositionPair)
 

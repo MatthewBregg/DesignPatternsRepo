@@ -27,10 +27,10 @@ ScriptObjectBuilder <|-- DefineBuilder
     note bottom : Delegates calls to addToken, addUndefinedFunction,addUndefinedVariable, and addScriptObject to state. 
 
     abstract class State as "{abstract}\nState"
-    State : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
-    State : addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
-    State : addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
-    State : addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
+    State : {abstract}addToken(t:Token,ScriptEvaluator,this:DefineBuilder)
+    State : {abstract}addUndefinedFunction(f:UndefinedFunction,env:ScriptEvaluator,this:DefineBuilder)
+    State : {abstract}addUndefinedVariable(v:UndefinedVarialbe,env:ScriptEvaluator,this:DefineBuilder)
+    State : {abstract}addScriptObject(o:ScriptObject,env:ScriptEvaluator,this:DefineBuilder)
 
     class UnknownState
     UnknownState : addToken(t:Token,ScriptEvaluator,this:DefineBuilder)

@@ -5,11 +5,11 @@ abstract class BuilderVisiter as "{abstract}\nScriptObjectBuilder"
 abstract class ScriptObject as "{abstract}\nScriptObject"
 
 
-ScriptObject : acceptBuilder(ScriptObjectBuilder v)
+ScriptObject : {abstract}acceptBuilder(ScriptObjectBuilder v)
 
 BuilderVisiter : -eval : ScriptEvaluator
-BuilderVisiter : +getResult():ScriptObject
-BuilderVisiter : getEval():ScriptEvaluator
+BuilderVisiter : +{abstract}getResult():ScriptObject
+BuilderVisiter : #getEval():ScriptEvaluator
 BuilderVisiter : +addLayout(l:Layout)
 BuilderVisiter : +addDecal(d:Decal)
 BuilderVisiter : +addString(s:StringScriptWrapper)
@@ -25,6 +25,7 @@ BuilderVisiter : +addNull(v:NullScriptObject)
 BuilderVisiter : +addToken(t:Token)
 BuilderVisiter : #addScriptObject(s:ScriptObject)
 note top : addToken will be implemented by default as running eval.doParse on the token, and then having the token accept itself.
+note top : add* except for token default to calling addScriptObject(*)
 
 note bottom : The add methods by default will forward to addScriptObject, so that each add* doesn't need to be overridden, can only override the adds that are expected, and can otherwise switch to error if an unexpected thing is added. 
 
@@ -42,9 +43,9 @@ note bottom : The add methods by default will forward to addScriptObject, so tha
 abstract class Token as "{abstract}\nToken"
 
 
-Token : getArguments():List<Token>
+Token : {abstract}getArguments():List<Token>
 note top : For example,\n if (render someCard familyA (family \"foo\" (cons \"foo\" bar)), \n then someCard will be one token, familyA another, (family \"foo\" (cons \"foo\" bar)) will be a third. "
-Token : getBuilder(ScriptEvaluator ScriptEvaluator):Builder
+Token : {abstract}getBuilder(ScriptEvaluator ScriptEvaluator):Builder
 class VariableToken
 note bottom : FamilyA would be one of these tokens, a variable that is referenced. \n A variable name can't start with a number, to make it determinable from an int.
 note left : When asked for a builder, will look in the ScriptEvaluators environment for a variable of it's name. \n If found, return a VariableBuilder, paramatized with said ScriptObject. \n If not found, return an UndefinedVariableBuilder, paramatized with the name.
@@ -69,7 +70,7 @@ ParseErrorToken : error : String
 
 
 ParseErrorToken : getBuilder(ScriptEvaluator ScriptEvaluator): ErrorBuilderVisiter
-AtomToken : getBuilder(ScriptEvaluator ScriptEvaluator): ConstantBuilderVisiter
+AtomToken : {abstract}getBuilder(ScriptEvaluator ScriptEvaluator): ConstantBuilderVisiter
 VariableToken : getBuilder(ScriptEvaluator ScriptEvaluator): VariableBuilderVisiter
 
 note "These tokens will add the info the builder they are returning needs, before returning" as N1
@@ -190,7 +191,7 @@ note top : doParse gets the builder for that token, from the token, then for eac
 
 
 
-Token -> BuilderFactory
+Environment -> BuilderFactory
 
 
 class RenderedCard
