@@ -34,7 +34,7 @@ class LayoutBuilder {
     }
 }
 States : empty state, examiningPair0, examiningPair1, examiningPairDone, error state,
-leaf-layout, composite layout, leaf-layout-mantain-aspect-ratio
+leaf-layout, composite layout, leaf-layout-with-options
 
 Start in empty
 if first item in is string, or decal, become leaf-layout-state

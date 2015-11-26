@@ -69,6 +69,17 @@ This layout can then be used with the above layout function.
 (layout foobarImage)
 (layout "foo")
 #+END_SRC
+**** Leaf-Layout options
+A Leaf-Layout can be given a third argument, to determine some extra behavior.
+Takes an extra parameter, either a W, or an H, A, or O.
+- If W, width will be at most maximimum width of an image.
+- If H, height will be at most, maximum height of given image
+- If A, the original aspect ratio will be maintained.
+- If O, original size will be mantained. 
+- IF S, stretch to fit.
+- All the options aside S, which does need to, will add transparent padding to return a 
+  size render desires.
+- The default is "S", so calling with the "S" argument is the same as not having a third argument
 *** layout
 Creates a Layout object.
 A layout contains 0-n pairs of layouts and position-scaleds.
@@ -114,24 +125,11 @@ Returns null.
 
 
 *** Decals
+
 - Image Decal
 #+BEGIN_SRC 
 (image "filepath.[jpg|png|etc]")
 (image "foo.jpg")
-#+END_SRC
-A image decal can be given a third argument, to determine some extra behavior.
-Takes an extra parameter, either a W, or an H, A, or O.
-- If W, width will be at most maximimum width of an image.
-- If H, height will be at most, maximum height of given image
-- If A, the original aspect ratio will be maintained.
-- If O, original size will be mantained. 
-- IF S, stretch to fit.
-- All the options aside S, which does need to, will add transparent padding to return an image the size 
-  render desires.
-- The default is "S", so calling with the "S" argument is the same as not having a third argument
-#+BEGIN_SRC 
-(image "filepath.[jpg|png|etc]" "W")
-(image "foo.jpg" "S")
 #+END_SRC
 - Rectangle Decal
 #+BEGIN_SRC 
@@ -174,7 +172,6 @@ A size is used by a card to determine how many pixels it will be.
 #+BEGIN_SRC 
 (size width height)
 #+END_SRC
-
 
 
 
