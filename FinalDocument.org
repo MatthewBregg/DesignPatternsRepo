@@ -297,6 +297,12 @@ A simple POD class, holds the rendered images of the card, plus it's name.
 
 
 ** Interactions
+The ScriptEvaluator implementor is what will go through the tokens, and run the constructor process on the builder.
+The driver gets a Lexer from said implementor, and then uses that lexer to make Tokens.
+The driver then uses the ScriptEvaluator to eval those tokens. 
+The tokens know what builder to make, and may do some small configuration to it. 
+Then the builders get directed, as said above. 
+When all the tokens are finished, the driver will retrieve the rendered cards.
 ** Note on Lexer + ScriptEvaluator interfaces
 Paralell hierarchy!
 For each language supported, there will be a ScriptEvaluator + a Lexer implementor pair for it!
