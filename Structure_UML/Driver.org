@@ -69,7 +69,8 @@
 
       ScriptEvaluator evaluator = new ScriptEvaluator();
 
-      evaluator.evalFile(options.scriptFile());
+      Lexer lexer = evaluator.getLexer();
+      evaluator.evalTokens(lexer.tokenizeFile(options.scriptFile()));
       exitIfErors(options);
 
 

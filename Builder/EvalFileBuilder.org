@@ -21,9 +21,10 @@ note bottom of EVF
     Then get the directory with Path d = getDirectoryOfPath(p)
     Save the current working directory. (Path oldD = super.getEval().getPath())
     Set the ScriptEvaluator currentDirectory to d. (super.getEval().setPath(d))
-    Make a lexer. (Lexer l = new Lexer();
+    Get the Lexer from the Factory method.
+      Lexer lexer = super.getEval().makeLexer()
     Parse the file
-     List<Token> tokens = tokenizeFile(p)
+     List<Token> tokens = lexer.tokenizeFile(p)
     Let the eval eval the tokens.
      super.getEval().evalTokens(tokens);
     Restore the old working directory

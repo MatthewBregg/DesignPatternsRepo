@@ -261,7 +261,7 @@ void acceptBuilder(Builder builder) {
   }
         
 
-  class ScriptEvaluator {
+  class ScriptEvaluatorImp implements ScriptEvaluator {
       //Lots of stuff elidded
       //When looking up a variable, a function will start at the back of list,
       //And go through it, checking each one, and taking the first match. 

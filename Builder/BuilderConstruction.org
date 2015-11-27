@@ -160,7 +160,7 @@ note bottom : Calls .clone() on the Builder retrieved from the map, and returns 
 
 BuilderFactory : Map<String,ScriptObjectBuilder>
 BuilderFactory : getBuilder(s:String)
-BuilderFactory : getBuilderFactory() : BuilderFactory
+BuilderFactory : addBuilder(name:String,b:ScriptObjectBuilder)
 
 class Environment
 Environment : builders : BuilderFactory 
@@ -183,18 +183,23 @@ note top : The EnvironmentList starts checking from the most recently pushed, un
 
 EnvironmentList o-> Environment
 
-class ScriptEvaluator
+interface ScriptEvaluator<<interface>>
+class CardLispScriptEvaluator
 
-ScriptEvaluator : currentDirectory:Path
+ScriptEvaluator <|.. CardLispScriptEvaluator 
+
+CardLispScriptEvaluator : currentDirectory:Path
+CardLispScriptEvaluator : renderedCards : List<RenderedCard>
 ScriptEvaluator : setPath(p:Path)
+ScriptEvaluator : getLexer() : Lexer
 ScriptEvaluator : getPath():Path
 ScriptEvaluator : evalTokans(l:List<Token>) : void
 ScriptEvaluator : doParse(Token) : ScriptObject
-ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCards>
+ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCard>
 ScriptEvaluator : addRenderedCard(rc:RenderedCard)
 ScriptEvaluator : getEnvironmentList() : EnvironmentList
 
-ScriptEvaluator -> EnvironmentList
+CardLispScriptEvaluator -> EnvironmentList
 
 note top : doParse gets the builder for that token, from the token, then for each argument token in the token, gives the builder said token, before returning the builder result. 
 

@@ -3,20 +3,23 @@
 #+BEGIN_SRC plantuml :file LexerUML.png
 skinparam dpi 300
 
-class Lexer
+interface Lexer<<interface>>
 Lexer : +tokenizeFile(file:Path) : List<Token>
 Lexer : -clear():void
-Lexer : -fileContents:String
-Lexer : -position:int
 Lexer : -tokenizeSexp(file:String,t:ExpressionToken) : Token
-Lexer : -tokens:List<Token>
 Lexer : -makeDoubleToken(n:double) : Token
 Lexer : -makeParseErrorToken(position:int,error:String) : Token
 Lexer : -makeStringToken(str:String) : Token
 Lexer : -makeVariableToken(varName:String) : Token
 Lexer : -makeExpressionToken() : ExpressionToken
 
-note top of Lexer
+class LispLexer
+LispLexer : -fileContents:String
+LispLexer : -position:int
+Lexer <|.. LispLexer
+LispLexer : -tokens:List<Token>
+
+note top of LispLexer
  The lexer load the file into a String.
  It will then call tokenizeSexp on the String, pass in null for t.
  Then inside tokenizeSexp
