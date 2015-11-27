@@ -5,7 +5,7 @@
 ** Example scripts
 ** Example config file
 
-* Layout System  (Ervis)
+* Card Representation System  (Ervis)
 ** for each class
 *** Purpose
 *** What patterns it partakes in
@@ -14,6 +14,13 @@
 *** What we gained?
 *** Consequences
 
+
+Note : This will include the ScriptObject, and everything inheriting from it.
+Note : Changing layouts to this.
+This covers
+- Layouts
+- ScriptObject
+  - Size,family, etc...
 
 * Decal System  (Ervis)
 ** for each class
@@ -51,7 +58,8 @@
 **** Consequences
 
 
-* ScriptEvaluator (Matt) (This includes all the builders, and the Lexer
+
+* ScriptEvaluator system (Matt) (This includes all the builders, and the Lexer
 When ever I say Builders, I mean subclasses of ScriptObjectBuilder
 
 ** Builder
@@ -100,7 +108,7 @@ Also, most builders have an error state they will go to if an invalid sequence o
   - However, since the Builders will almost always be treated as their super class, ScriptObjectBuilder, which has a much tighter interface, this is a non-issue. 
   - Additionally, since the states are to be implemented as inner classes, these operations need not be part of the public interface, again making it a non-issue. 
 
-
+    
 ** Adapter (String/Double wrappers are tailored object adapters)
 *** Why we used?
 The Scripting language contains two types of Atom literals. These are numbers (doubles), and strings. 
@@ -122,7 +130,7 @@ These are constant values, they shouldn't be changed. (If set was added, then th
 *** Consequences
 - Inefficiency of an extra object, and an extra reference to follow.
 
-
+  
 ** ScriptEvaluator and the Facade Patter
 The ScriptEvaluator was originally going to just be a Facade. 
 The ScriptObjectBuilder subclasses would be fine to use without it, and could be used separately on tokens.
@@ -193,20 +201,49 @@ Since Tokens are not changed, the FunctionBuilder can share these.
 - String comparisons can be more expensive time wise than hard coded class instances. 
 
 ** Lexer
-*** for each class
+*** Purpose
+To take an input file, and return a list of tokens from it. 
+A fairly simple class, see the UML for decals.
+If a new langauge were to be added, perhaps the Lexer would become abstract, and have concrete Lexers implementing it. But we are only caring about support one scripting langauge. 
+
+*** UML
+file:Structure_UML/LexerUML.png
+*** Token
+**** Types
+***** VariableToken
+- Leaf token, holds a var name.
+***** AtomToken
+****** StringAtomToken
+- Leaf token, holds a string.
+****** DoubleAtomToken
+- Leaf token, holds a double.
+***** ParseErrorToken
+- Leaf token, represents an error that occured during parsing.
+***** ExpressionToken
+- The composite of the layouts.
+  - Holds other tokens, they are the arguments given to the expression.
+  - Holds the name of the function invoked.
 **** Purpose
-**** What patterns it partakes in
-*** Design Patterns used
-**** Why we used?
-**** What we gained?
-**** Consequences
+To represent a the language in objects, rather than plain text.
+To destringify it. 
+That logic can be put in one place, the lexer.
+Each token then knows what it is, and knows what builder to get. 
+This separates the text representation of the scripting language, from the objects it creates.
+
 ** Builder System
-*** for each class
+*** For each class
 **** Purpose
 **** What patterns it partakes in
 *** Design Patterns used
 **** Why we used?
 **** What we gained?
 **** Consequences
+** ScriptEvaluator 
+*** Environment Subsystem
+**** Environment 
+**** EnvrionmentList
+**** BuilderFactory
+
+*** Builder subsystem
 
 
