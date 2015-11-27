@@ -23,6 +23,8 @@ ScriptObjectBuilder <|-- DefineBuilder
     DefineBuilder : setState(state:State)
     DefineBuilder : setFunctionBuilder(functionBuilder:FunctionBuilder)
     DefineBuilder : getFunctionBuilder():FunctionBuilder
+    DefineBuilder : clone() : DefineBuilder
+    note top : clone will deep copy all attributes.
 
     note bottom : Delegates calls to addToken, addUndefinedFunction,addUndefinedVariable, and addScriptObject to state. 
 

@@ -8,6 +8,8 @@ EVF : #addScriptObject(s:ScriptObject) : void
 EVF : +addString(s:StringScriptWrapper) : void
 EVF : -getPathFromString(s:String) : Path
 EVF : -getDirectoryOfPath(p:Path) : Path
+EVF : +clone() : EvalFileBuilder
+note top : clone will deep copy all attributes.
 
 note bottom of EVF
   getResult : Return obj

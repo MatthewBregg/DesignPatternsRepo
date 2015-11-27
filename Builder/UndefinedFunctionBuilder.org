@@ -7,6 +7,8 @@ UndefinedFunctionBuilder : UndefinedFunctionBuilder(funcName : String, funcArgum
 UndefinedFunctionBuilder : UndefinedFunctionBuilder(ErrorScriptObject err)
 UndefinedFunctionBuilder : addScriptObject(s:ScriptObject)
 UndefinedFunctionBuilder : getResult() : ScriptObject
+UndefinedFunctionBuilder : clone() : UndefinedFunctionBuilder
+note top : clone will deep copy all attributes.
 
 note bottom of UndefinedFunctionBuilder
  The UndefinedFunctionBuilder is unlike most builders in that is it paramtized solely by the token.  

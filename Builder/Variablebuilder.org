@@ -11,6 +11,8 @@ VariableBuilderVisiter : +getResult() : ScriptObject
 VariableBuilderVisiter : -obj:ScriptObject
 VariableBuilderVisiter : -state:State = new NormalState
 VariableBuilderVisiter : +VariableBuilder(ScriptObject)
+VariableBuilderVisiter : +clone() : VariableBuilderVisiter
+note top : clone will deep copy all attributes.
 
 note bottom : The variable visiter is unlike most other visiters,\n it's made by the Variable token directly, and get result simply returns the obj it is paramaterized with. Adding anything to it sets it to error state, \n which will make it return an error obj instead...
 note bottom : addScriptObject(s:ScriptObject) will just do state = state.addScriptObj() \n and getResult will return state.getResult(obj)

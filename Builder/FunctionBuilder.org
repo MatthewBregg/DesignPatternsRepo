@@ -12,6 +12,8 @@ FunctionBuilder : +setParamNames(names:ArrayList<String>) : Add s to paramObject
 FunctionBuilder : +getResult() : ScriptObject 
 FunctionBuilder : -functionBody : ArrayList<Token>
 FunctionBuilder : +addFunctionBodyToken(t:Token)
+FunctionBuilder : +clone() : FunctionBuilder
+note top : clone will deep copy all attributes.
 
 note bottom : FunctionBuilder is retrieved from the environments BuilderFactory.
 note bottom : getResult() will compare paramNames and paramObjects lengths. \n If they are different lengths, return an error. \n Otherwise, make a new Environment. Add to it all the given variables. \n Then, push that environment into the evals environment list. Then call doParse(token) for each token in the functionBody list. \n Then pop an env frame from the EnvironmentList, and return the last obj returned from doParse.
