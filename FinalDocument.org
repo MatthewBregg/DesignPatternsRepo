@@ -58,7 +58,7 @@
 *** Why we used?
 *** What we gained?
 *** Consequences
-** State
+** State ( Builders )
 *** Why we used?
 *** What we gained?
 *** Consequences
@@ -73,6 +73,15 @@
 *** Consequences
 
 ** Facade (The script evaluator, might want to make something a bit higher even?)
+*** Why we used?
+*** What we gained?
+*** Consequences
+
+** Prototype (Builders)
+*** Why we used?
+*** What we gained?
+*** Consequences
+** Abstract Factory with Prototypes
 *** Why we used?
 *** What we gained?
 *** Consequences
