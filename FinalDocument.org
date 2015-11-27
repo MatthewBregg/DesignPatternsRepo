@@ -17,6 +17,17 @@ For detail of how the systems interact internally, see each system.
 ** Example scripts
 ** Example config file
 
+** Examples
+*** 52 cards
+file:Examples/52_deck_example/deckConfig.txt
+CONFIG HAS TO BE REDONE, CONFIG IS NOW SCRIPT
+file:Examples/52_deck_example/deckScript.txt
+*** Monopoly
+file:Examples/monopoly_example/monopoly.script
+CONFIG HAS TO BE REDONE, CONFIG IS NOW SCRIPT
+file:Examples/monopoly_example/monopoly.config
+
+
 * Card Representation System  (Ervis)
 ** for each class
 *** Purpose
