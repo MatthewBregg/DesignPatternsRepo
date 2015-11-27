@@ -62,9 +62,11 @@ note top : Any ints or strings will be one of these.
 class StringAtomToken 
 note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an StringScriptWrapper of the appropriate value
 StringAtomToken : value : String
+
 class DoubleAtomToken
-IntAtomToken : value : double
+DoubleAtomToken : value : double
 note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an DoubleScriptWrapper of the appropriate value
+
 class ParseErrorToken
 note top : If a parse error is hit, then make this, and stop parsing.
 ParseErrorToken : error : String
@@ -82,11 +84,11 @@ N1 -- ParseErrorToken
 
 Token <|-- VariableToken
 note bottom : Get arguments is always empty
-Token <|--ExpressionToken
-Token <|--AtomToken
-AtomToken <|--IntAtomToken
-AtomToken <|--StringAtomToken
-Token <|--ParseErrorToken
+Token <|-- ExpressionToken
+Token <|-- AtomToken
+AtomToken <|-- DoubleAtomToken
+AtomToken <|-- StringAtomToken
+Token <|-- ParseErrorToken
 note bottom : Get arguments is always empty
 
 
@@ -210,7 +212,6 @@ RenderedCard : +getBack():Image
 
 
 
-note  "Getting stuff out of cons for layout and family will be a bit tricky, but doable, \n doing that is one weakness of this design, but can still do it without casting." as weakness
 
 note "See each Builders UML for more details..., members and operations ellided in this one" as BuilderNoteS
 'The builders
