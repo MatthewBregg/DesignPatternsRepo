@@ -1,4 +1,9 @@
 * Overall System, How all these sub systems interact
+ 
+* General Goals, and Overview
+** What features the system has
+** Example scripts
+** Example config file
 
 * Layout System  (Ervis)
 ** for each class
@@ -47,44 +52,127 @@
 
 
 * ScriptEvaluator (Matt) (This includes all the builders, and the Lexer
-** for each class
-*** Purpose
-*** What patterns it partakes in
+When ever I say Builders, I mean subclasses of ScriptObjectBuilder
+
 ** Builder
 *** Why we used?
+We have a ScriptObject which needs to be constructed, but the script objects vary quite a bit, and are all constructed differently. 
+We can however, use a same general process, of first determining what to make, and then the arguments given.
+Thus, we can use a builder to separate the actual construction and representation from the construction process.
+The builder itself knows what to do from the parameters given, and the tokens return the correct builder.
+The ScriptEvaluator then can run the same process for each builder to receive the script object result.
 *** What we gained?
+- Ability to easily change how a certain thing is constructed, just replace the builder
+- The same process to construct all ScriptBuilders
+- Can add new products by putting in new builders
 *** Consequences
+- Lots of builder classes, complicated design. 
+- Builder might be overkill for some simple objects constructed.
+- Builder has access to script evaluator, which is needed for construction, but is some coupling.
+  - Evaluator has a big larger interface than it should to allow this coupling with the builders.
+*** Where used
+In the ScriptObjectBuilder, and subclasses
 ** Visitor
 *** Why we used?
+Needed to perform various operations across the various forms of ScriptObjects, both for rendering, and to construct ScriptObjects that contain ScriptObjects. 
+Avoids need to cast when retrieving a ScriptObject from the environment, the ScriptObject tells the visiter what is being added. 
 *** What we gained?
+- Ability to avoid casting when adding parameters, and retrieving variables from the environment.
 *** Consequences
+- Must modify the ScriptObjectBuilder class for each new ScriptObject made
+  - However, since their is a default for adding, that is, to forward to addScriptObject for an unexpected/unneeded type, only the concrete builders that need to deal with this new type need to be modified, so in practice, not a big problem
+- Visiter has lots of methods, potentially lots to inherit.
+  
+*** Where used
+In the ScriptObjectBuilder, and subclasses.
 ** State ( Builders )
 *** Why we used?
+Most of the  ScruptObjectBuilder concrete subclassess change what they do depending on what arguments are given in. Generally they need to choose how to create the thing they are supposed to build, based on arguments are given in. There are some cases where a builder might choose between a few different, but similar, concrete class based on the arguments. And some other of the ScriptObjects are only valid if certain arguments are given, and until then, the context doesn't know if valid arguments were given!
+
+This results in a context that needs to mantain its state, and change what it does based on what arguments have been given in.
+The state pattern is an ideal fit for this.
+Also, most builders have an error state they will go to if an invalid sequence of arguments occurs. 
 *** What we gained?
+- Builders isolate behavior in state.
+  - No need for conditional logic to check what should be done, states handle this.
 *** Consequences
+- Many of the context (Builders) have to provide numerous extra operations to support the tight coupling between the two, some of which potentially violate state.
+  - However, since the Builders will almost always be treated as their super class, ScriptObjectBuilder, which has a much tighter interface, this is a non-issue. 
+  - Additionally, since the states are to be implemented as inner classes, these operations need not be part of the public interface, again making it a non-issue. 
+    
 ** Adapter (String/Int wrappers are tailored object adapters I think)
 *** Why we used?
 *** What we gained?
 *** Consequences
 
-** Facade (The script evaluator, might want to make something a bit higher even?)
-*** Why we used?
-*** What we gained?
-*** Consequences
+** ScriptEvaluator and the Facade Patter
+The ScriptEvaluator was originally going to just be a Facade. 
+The ScriptObjectBuilder subclasses would be fine to use without it, and could be used separately on tokens.
+However, as the Environment got more complicated, and a current working directory path was needed, the ScriptObject became coupled with the Builders. 
+A possible redesign would to make a data interface, which would be all the Builders dependended on, which could then enable the ScriptEvaluator to just be a Facade. However, I do not think that much would be gained from this, and while it is a fairly easy change to make, it is probably not worth the effort.
+A more worthwhile Facade could be to make something that takes in a file path, runs the Lexer on it, then the ScriptEvaluator, but this would still be a fairly minor thing.
 
-** Facade (The script evaluator, might want to make something a bit higher even?)
-*** Why we used?
-*** What we gained?
-*** Consequences
+This being a fairly minor thing is the main reason I believe this not being a Facade is not a problem, the things it is doing are fairly simple. While it is interacting with a complex subsystem, the interactions are fairly simple.
+
+
+** Composite  for ScriptObject and Token?
+*** ScriptObject
+ScriptObject and Token both feature recursive composition. 
+However, for the ScriptObject, this is limited to just a few special cases, and the ScriptObject has no child management operations. 
+Additionally, it's intent is not to represent part-whole hierarchies, or to let clients treat individuals/collections uniformly.
+It's intention is to provide a common type, with some common functionality for all objects that exist in the scripting language. Then, code can interact with these objects, and only know that it is some object from the scripting language, but not care exactly what it is.
+ - Not Composite pattern
+*** Token
+The Token features an ExpressionToken, which can have other tokens as arguments, and these can be further expression tokens. The rest of the Tokens are leaves.
+The Token type also contains basic child management, in the form of getting the list of arguments as tokens.
+Leaf tokens return an empty list. 
+The intent is to enable an expression to be treated the same, regardless of whether it is a simple literal, a simple expression, or a bunch of sub expressions. 
+- Thus, this is an example of composite pattern
+**** Why we used?
+Used to enable expression tokens to be made up of subexpressions, and for any piece of an expression to be treated the same when iterating through it, regardless of if it is a Variable, Expression, or Atom literal.
+**** What we gained?
+- ScriptEvaluator is simple, it does a simple iteration through the tokens. 
+- When designing, was able to fairly easily split the original AtomToken into two subclasses, which fit better. Flexibility in adding Token types. 
+- Tokens are similar to existing textual structure of language, easy to parse into tokens.
+**** Consequences
+- The getArguments() is unneeded for most tokens, which are leaves
+  - But at least well defined, it's just empty!
 
 ** Prototype (Builders)
 *** Why we used?
+Some of the Builders are paramtized and configured. (The FunctionBuilder is the main one).
+Additionally, need a way to get a new instance of the correct builders. 
+One option is to store class objects, or a giant conditional statement for each builder.
+But the latter hard codes them, and makes it hard to add dynamically (needed for FunctionBuilder), and both don't allow builders that have been configured to be stored. 
+
+While the FunctionBuilder is the main one that needs this, to store the FunctionBody and arguments it is given, and then stored with, it allows flexibility for future builders.
+For example, a number operation builder might have one builder concrete class, that takes in the operation to do, +,-,/,*,etc, and then store that builder paramatized with each operation as a prototype.
+
+*** Implementation note
+For most of the builders, they are easy to clone. 
+They are stored with their freshly constructed state, and don't have much to share.
+They can share the initial state, but upon changing state, the clone will get it's own.
+The only condition is that any change to the clone shouldn't effect the original.
+Lists should be cloned, but items don't need to be deep copied. 
+ScriptObjects can be shared, as they are not changed after being constructed.
+(If the builder has the object it is constructing, and thus changing, then it should either set a new one, or deep copy it on clone.)
+Since Tokens are not changed, the FunctionBuilder can share these.
 *** What we gained?
+- Can store Builders in the factory easily, and retrieve them via cloning.
+- Can change a builder to change an operation, and then store it under a new name, essentially adding a builder to the system.
 *** Consequences
+- Clone adds some complications.
+  - Need to be careful of what can be shared, what must be deep copied. 
 ** Abstract Factory with Prototypes
 *** Why we used?
 *** What we gained?
+- Enabled tokens to easily retrieve the Builder they need.
+- To be able to store the Builders created for defined functions, and retrieve them as if they were the predefined Builders
+- To lesson hard coding Builder types in tokens.
+- Provide a central repository of the builder prototype. 
 *** Consequences
+- Memory consequence, Builder prototypes use memory in the map.
+- String comparisons can be more expensive time wise than hard coded class instances. 
 
 ** Lexer
 *** for each class
