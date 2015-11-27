@@ -99,11 +99,29 @@ Also, most builders have an error state they will go to if an invalid sequence o
 - Many of the context (Builders) have to provide numerous extra operations to support the tight coupling between the two, some of which potentially violate state.
   - However, since the Builders will almost always be treated as their super class, ScriptObjectBuilder, which has a much tighter interface, this is a non-issue. 
   - Additionally, since the states are to be implemented as inner classes, these operations need not be part of the public interface, again making it a non-issue. 
-    
-** Adapter (String/Int wrappers are tailored object adapters I think)
+
+
+** Adapter (String/Double wrappers are tailored object adapters)
 *** Why we used?
+The Scripting language contains two types of Atom literals. These are numbers (doubles), and strings. 
+We want to use Javas built in String and double type, but those can't be aggregated with the rest of the ScriptObjects. String could potentially be stored as common type Object, but then we'd lose the ScriptObject specific stuff. double could be boxed in Double, and then stored as object, but same issue.
+The solution, is to make tailored object adapters, one for each type.
+They each have just one operation to adapt, which is to get the value.
+This lets the double and String be used with the rest of the ScriptObjects in the system.
 *** What we gained?
+double, and String can now be used with their Adapters as if they were any other ScriptObject sub type.
 *** Consequences
+- Inefficiency of an extra object, and an extra reference to follow.
+
+** Protection Proxy (String/Double wrappers)
+*** Why we used?
+These are constant values, they shouldn't be changed. (If set was added, then this would change, and we would need to add a set method to the proxies. This would still be good, as it would ensure the objects can only be changed one way.)
+
+*** What we gained?
+- String/Double ScriptObjects cannot be changed, and if that changes, it will be through one easily monitorable point.
+*** Consequences
+- Inefficiency of an extra object, and an extra reference to follow.
+
 
 ** ScriptEvaluator and the Facade Patter
 The ScriptEvaluator was originally going to just be a Facade. 
