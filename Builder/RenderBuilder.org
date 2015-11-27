@@ -16,7 +16,7 @@ RenderBuilder : addConsPair(l:ConsPair)
 RenderBuilder : addScriptObject(s:ScriptObject)
 RenderBuilder : getResult():ScriptObject
 RenderBuilder : clone() : RenderBuilder
-note top : clone will deep copy all attributes.
+note top : clone will make a new list, with the elements of the existing one. Card will be shared, but since clone is used to get instances from factory, will always be null anyway when clone is called.
 note bottom : doRender calls on card render, with the families as an argument. It will then take the result, and add it to the eval, super.getEval().addRenderedCard(rc)
 
 note bottom : Delegates getResult,addCard,addFamily to state. \n For addList, get the list, and for each ScriptObject, call accept(this). \n For ConsPair, do acceptBuilderOnPair(this).

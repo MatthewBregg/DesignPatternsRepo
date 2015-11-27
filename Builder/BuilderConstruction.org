@@ -27,7 +27,7 @@ BuilderVisiter : +addToken(t:Token)
 BuilderVisiter : #{abstract}addScriptObject(s:ScriptObject)
 note top : addToken will be implemented by default as running eval.doParse on the token, and then having the token accept itself.
 note top : add* except for token default to calling addScriptObject(*)
-note top : clone will deep copy everything, except the ScriptEvaluator. Subclasses when overriding will call super, and thus not deep copy the ScriptEvaluator.
+note top : Clone will deep copy primitives, and collections, but will shallow copy/share most objects.
 note bottom : The add methods by default will forward to addScriptObject, so that each add* doesn't need to be overridden, can only override the adds that are expected, and can otherwise switch to error if an unexpected thing is added. 
 
 

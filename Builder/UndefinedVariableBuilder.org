@@ -7,7 +7,6 @@ UndefinedVariableBuilder : UndefinedVariableBuilder(varName : String)
 UndefinedVariableBuilder : addScriptObject(s:ScriptObject)
 UndefinedVariableBuilder : getResult() : ScriptObject
 UndefinedVariableBuilder : clone() : UndefinedVariableBuilder
-note top : clone will deep copy all attributes.
 
 note bottom of UndefinedVariableBuilder
  The UndefinedVariableBuilder is unlike most builders in that is it paramtized solely by the token.  
