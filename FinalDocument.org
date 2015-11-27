@@ -1,4 +1,16 @@
 * Overall System, How all these sub systems interact
+The driver system gets everything going, and runs things at the highest level perspective.
+It's what reads in the initial options, sets the ScriptEvaluator, makes the ScriptEvaluator.
+
+The driver then will let options get the correct file, and then get the lexer from the ScriptEvaluator, tokenize the file, eval the tokens.
+Then, it will take the RenderedCard list, give each card to output, with options.
+Output will then write the card to disk.
+The program is then done, exit, printing any information left in logger. 
+
+Note that during each step, the Driver checks logger for errors, and decides if it should abort. 
+
+This describes the highest level of how the systems interact.
+For detail of how the systems interact internally, see each system.
  
 * General Goals, and Overview
 ** What features the system has
@@ -303,7 +315,17 @@ The driver then uses the ScriptEvaluator to eval those tokens.
 The tokens know what builder to make, and may do some small configuration to it. 
 Then the builders get directed, as said above. 
 When all the tokens are finished, the driver will retrieve the rendered cards.
+
+*** CardRepresentation system and Decal interactions
+- The ScriptEvaluator interacts with the CardRepresentation, and Decals fairly heavily.
+  - The builders create decals, and place them in leaf-layouts.
+  - The builders create, and assemble layouts.
+  - The builders create cards, and give them layouts.
+  - The builders create families.
+  - Render will call .render on a card, with the given families.
+    - After doing this, the result will be stored
+  - All objects defined are stored in the environment of the ScriptEvaluator
 ** Note on Lexer + ScriptEvaluator interfaces
-Paralell hierarchy!
+Parallel hierarchy!
 For each language supported, there will be a ScriptEvaluator + a Lexer implementor pair for it!
 
