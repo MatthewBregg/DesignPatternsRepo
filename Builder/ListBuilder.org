@@ -1,0 +1,27 @@
+  #+BEGIN_SRC plantuml :file ListBuilder.png
+skinparam dpi 300
+class ListBuilder
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+
+ScriptObjectBuilder <|-- ListBuilder
+ListBuilder : #addScriptObject(s:ScriptObject) 
+ListBuilder : +getResult() : ScriptObject 
+ListBuilder : +clone() : ListBuilder
+ListBuilder : list : ArrayList<ScriptObject>
+
+note top : getResult will simply place the list into a List ScriptObject, and return it.  
+note top : addScriptObject will simply append the given ScriptObject to the list.
+note top : clone will make a new list, and then add each item in the originators list to clones list. 
+note top : This Builder is pretty straight forward, just put everything it gets in a list, no errors or anything really. 
+
+
+
+
+
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:ListBuilder.png]]
+
+

@@ -350,7 +350,7 @@ Might want to  add in options object later.. Or it might be done at a higher lev
 - CardBuilder :  Ian
 - UndefinedFunctionBuilder : Matt : Done
 - UndefinedVariableBuilder : Matt : Done
-- ListBuilder : Ian 
+- ListBuilder : Ian  : Done
 - ConsBuilder : Brandon : Done
 - SizeBuilder : Brandon
 - PositionScaledBuilder   : Brandon
