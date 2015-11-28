@@ -7,67 +7,67 @@
 // define the low level layouts
 (define (BLACK_BOARDER) 
   (layout
-    (cons (leaf-layout blackRectangle) (position-scaled 5 5 85 20)) // create a black rectangle
-    (cons (leaf-layout blackRectangle) (position-scaled 4.5 4.5 85 20)) // creating an arbitrary colored rectangle
+    (cons (layout blackRectangle) (position-scaled 5 5 85 20)) // create a black rectangle
+    (cons (layout blackRectangle) (position-scaled 4.5 4.5 85 20)) // creating an arbitrary colored rectangle
   )
 )
 
 (define (HEADER color roadName) 
   (layout
-    (cons (leaf-layout blackRectangle) (position-scaled 10 7 80 13)) // create a black rectangle
-    (cons (leaf-layout (rectangle color)) (position-scaled 10.5 7.5 79 12)) // creating an arbitrary colored rectangle
-    (cons (leaf-layout (string "TITLE DEED" "Arial.font" "0x000000") "W") (position-scaled 30 15 10 10)) // create a string TITLE DEED
-    (cons (leaf-layout (string roadName "Arial.font" "0x000000") "W") (position-scaled 25 20 20 20)) // create a string AVE
+    (cons (layout blackRectangle) (position-scaled 10 7 80 13)) // create a black rectangle
+    (cons (layout (rectangle color)) (position-scaled 10.5 7.5 79 12)) // creating an arbitrary colored rectangle
+    (cons (layout (string "TITLE DEED" "Arial.font" "0x000000") "W") (position-scaled 30 15 10 10)) // create a string TITLE DEED
+    (cons (layout (string roadName "Arial.font" "0x000000") "W") (position-scaled 25 20 20 20)) // create a string AVE
   )
 )
 
 (define (BASE_RENT rent) 
   (layout
-    (cons (leaf-layout (string "RENT" "Arial.font" "0x000000") "W") (position-scaled 40 40 10 10)) 
-    (cons (leaf-layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 40 10 10)) 
+    (cons (layout (string "RENT" "Arial.font" "0x000000") "W") (position-scaled 40 40 10 10)) 
+    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 40 10 10)) 
   )
 )
 
 (define (WITH_HOUSES rent number) 
   (layout
-    (cons (leaf-layout (string (+ "WITH " number " House(s)") "Arial.font" "0x000000") "W") (position-scaled 20 (+ 45 (* number 5)) 10 10)) 
-    (cons (leaf-layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 70 (+ 45 (* number 5)) 10 10)) 
+    (cons (layout (string (+ "WITH " number " House(s)") "Arial.font" "0x000000") "W") (position-scaled 20 (+ 45 (* number 5)) 10 10)) 
+    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 70 (+ 45 (* number 5)) 10 10)) 
   )
 )
 
 (define (WITH_HOTEL rent) 
   (layout
-    (cons (leaf-layout (string "WITH HOTEL" "Arial.font" "0x000000") "W") (position-scaled 40 70 10 10))
-    (cons (leaf-layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 70 10 10))
+    (cons (layout (string "WITH HOTEL" "Arial.font" "0x000000") "W") (position-scaled 40 70 10 10))
+    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 70 10 10))
   )
 )
 
 (define (MORTGAGE m) 
   (layout
-    (cons (leaf-layout (string "MORTGAGE VALUE" "Arial.font" "0x000000") "W") (position-scaled 40 75 10 10)) 
-    (cons (leaf-layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 75 10 10))
+    (cons (layout (string "MORTGAGE VALUE" "Arial.font" "0x000000") "W") (position-scaled 40 75 10 10)) 
+    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 75 10 10))
   )
 )
 
 (define (HOUSE_COST c) 
   (layout
-    (cons (leaf-layout (string "HOUSES COST" "Arial.font" "0x000000") "W") (position-scaled 40 80 10 10))
-    (cons (leaf-layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 80 10 10))
-    (cons (leaf-layout (string "each" "Arial.font" "0x000000") "W") (position-scaled 50 80 10 10))
+    (cons (layout (string "HOUSES COST" "Arial.font" "0x000000") "W") (position-scaled 40 80 10 10))
+    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 80 10 10))
+    (cons (layout (string "each" "Arial.font" "0x000000") "W") (position-scaled 50 80 10 10))
   )
 )
 
 (define (HOTEL_COST c) 
   (layout
-    (cons (leaf-layout (string "HOTELS," "Arial.font" "0x000000") "W") (position-scaled 40 85 10 10))
-    (cons (leaf-layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 85 10 10))
-    (cons (leaf-layout (string "plus 4 houses" "Arial.font" "0x000000") "W") (position-scaled 50 85 10 10))
+    (cons (layout (string "HOTELS," "Arial.font" "0x000000") "W") (position-scaled 40 85 10 10))
+    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 85 10 10))
+    (cons (layout (string "plus 4 houses" "Arial.font" "0x000000") "W") (position-scaled 50 85 10 10))
   )
 )
 
 (define (FINE_PRINT c) 
   (layout
-    (cons (leaf-layout (string "If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group." "Arial.font" "0x000000") "W") (position-scaled 40 90 5 5))
+    (cons (layout (string "If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group." "Arial.font" "0x000000") "W") (position-scaled 40 90 5 5))
   )
 )
 

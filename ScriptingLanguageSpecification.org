@@ -93,8 +93,8 @@ Takes 0-n pairs of layouts and position-scaleds as arguments.
 
 (Layout 
   (cons layoutFoo position-scaledFoo)
-  (cons (leaf-layout foobarImage) wholeCard)
-  (cons (leaf-layout "foo") wholeCard)
+  (cons (layout foobarImage) wholeCard)
+  (cons (layout "foo") wholeCard)
 )
 
 #+END_SRC
