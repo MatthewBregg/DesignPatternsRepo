@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>970</x>
+      <y>40</y>
+      <w>170</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>/ScriptObjectBuilder/
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>130</y>
+      <w>240</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>SizeBuilder
+--
+state:State
+--
+addScriptObject(s:ScriptObject)
+getResult() : ScriptObject
+clone() : SizeBuilder</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>60</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1250</x>
+      <y>60</y>
+      <w>320</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>a size builder is a structure containing either a single number representing the length and width where length==width OR a tuple containing the width and height.
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>220</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>900</x>
+      <y>310</y>
+      <w>330</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>/State/
+--
+getResult(): ScriptObject
+addScriptObject(s:ScriptObject, c:SizeBuilder)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1310</x>
+      <y>490</y>
+      <w>340</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>ErrorState
+--
+--
+getResult(c:SizeBuilder): ScriptObject
+addScriptObject(s:ScriptObject, c: SizeBuilder)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1200</x>
+      <y>370</y>
+      <w>300</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;280.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1510</x>
+      <y>400</y>
+      <w>370</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>We have not received either a single number or two numbers. Thus, an error state is set and will polymorphically deploy to the caller.
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>890</x>
+      <y>480</y>
+      <w>340</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>OneState
+--
+size:ScriptObject
+--
+OneState(one:ScriptObject)
+getResult(c:SizeBuilder):ScriptObject
+addScriptObject(s:ScriptObject,c:SizeBuilder)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1310</x>
+      <y>570</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>getResult: returns an ErrorScriptObject
+addScriptObject: does nothing
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>890</x>
+      <y>590</y>
+      <w>360</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>getResult: returns a SizeSingle with a single value where width==height
+addScriptObject: set state of c to new TwoState (note: we need to check if there is another state)
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>370</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>770</x>
+      <y>400</y>
+      <w>290</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>We have received a single input and we interpret that as a single value where width == height, but we still want to check if there is another state!
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>450</x>
+      <y>490</y>
+      <w>360</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>TwoState
+--
+width: ScriptObject
+height: ScriptObject
+--
+TwoState(width:ScriptObject, height:ScriptObject)
+getResult(c:SizeBuilder):ScriptObject
+addScriptObject(s:ScriptObject, c:SizeBuilder)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>370</y>
+      <w>410</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>460</x>
+      <y>620</y>
+      <w>360</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>getResult: if there was another state, then we return TwoState. Else, we return OneState. Thus, TwoState needs to know about OneState!
+addScriptObject: set state of c to new ErrorState
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>400</x>
+      <y>420</y>
+      <w>280</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>We have received two script objects as input and we will coorespond those with the width and height
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>490</y>
+      <w>330</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Empty
+--
+--
+getResult(c:SizeBuilder)
+addScriptObject(s:ScriptObject, c:SizeBuilder)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>420</y>
+      <w>280</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>We have received two script objects as input and we will coorespond those with the width and height
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>210</x>
+      <y>370</y>
+      <w>750</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>730.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>580</y>
+      <w>380</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>getResult: returns an ErrorSCriptObject and set the state of c to new ErrorState
+addScriptObject: set the state of c to OneState
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>540</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
