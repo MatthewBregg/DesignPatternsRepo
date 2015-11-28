@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>430</x>
-      <y>0</y>
+      <y>30</y>
       <w>270</w>
       <h>90</h>
     </coordinates>
@@ -21,7 +21,7 @@
     <id>Relation</id>
     <coordinates>
       <x>180</x>
-      <y>80</y>
+      <y>110</y>
       <w>890</w>
       <h>180</h>
     </coordinates>
@@ -32,9 +32,9 @@
     <id>UMLClass</id>
     <coordinates>
       <x>900</x>
-      <y>240</y>
+      <y>270</y>
       <w>350</w>
-      <h>150</h>
+      <h>170</h>
     </coordinates>
     <panel_attributes>RectangleDecalBuilder
 --
@@ -45,16 +45,17 @@
 + getResult() : ScriptObject
 + setWidth (w double) : void
 + setHeigth (h double) : void
-+ setColor (c Color): void</panel_attributes>
++ setColor (c Color): void
++ clone (): RectangleDecalBuilder</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>40</x>
-      <y>240</y>
+      <y>270</y>
       <w>370</w>
-      <h>120</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>CircleDecalBuilder
 --
@@ -63,16 +64,17 @@
 --
 + getResult() : ScriptObject
 + setRadius (r double) : void
-+ setColor (c Color): void</panel_attributes>
++ setColor (c Color): void
++ clone (): CircleDecalBuilder</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>280</x>
-      <y>500</y>
+      <y>530</y>
       <w>360</w>
-      <h>160</h>
+      <h>210</h>
     </coordinates>
     <panel_attributes>TriangleDecalBuilder
 --
@@ -85,16 +87,17 @@
 + setASide (a double) : void
 + setBSide (b double) : void
 + setCSide (c double) : void
-+ setColor (c Color): void</panel_attributes>
++ setColor (c Color): void
++ clone (): TriangleDecalBuilder</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>730</x>
-      <y>500</y>
+      <y>530</y>
       <w>360</w>
-      <h>140</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /AnyShapeDecalBuilder/
@@ -104,14 +107,15 @@
 --
 + getResult() : ScriptObject
 + setPoints (list ArrayList&lt;Point&gt;) : void
-+ setColor (c Color): void</panel_attributes>
++ setColor (c Color): void
++ clone (): AnyShapeDecalBuilder</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>90</x>
-      <y>430</y>
+      <y>460</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -122,19 +126,19 @@
     <id>Relation</id>
     <coordinates>
       <x>40</x>
-      <y>350</y>
+      <y>400</y>
       <w>70</w>
-      <h>110</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 </panel_attributes>
-    <additional_attributes>50.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>330</x>
-      <y>730</y>
+      <y>760</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -145,19 +149,19 @@
     <id>Relation</id>
     <coordinates>
       <x>280</x>
-      <y>650</y>
+      <y>730</y>
       <w>70</w>
-      <h>110</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 </panel_attributes>
-    <additional_attributes>50.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>810</x>
-      <y>710</y>
+      <y>740</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -168,19 +172,19 @@
     <id>Relation</id>
     <coordinates>
       <x>760</x>
-      <y>630</y>
+      <y>680</y>
       <w>70</w>
-      <h>110</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 </panel_attributes>
-    <additional_attributes>50.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1180</x>
-      <y>450</y>
+      <y>480</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -191,19 +195,19 @@
     <id>Relation</id>
     <coordinates>
       <x>1130</x>
-      <y>380</y>
+      <y>430</y>
       <w>70</w>
-      <h>100</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;.
 </panel_attributes>
-    <additional_attributes>50.0;80.0;10.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>390</x>
-      <y>80</y>
+      <y>110</y>
       <w>500</w>
       <h>440</h>
     </coordinates>
