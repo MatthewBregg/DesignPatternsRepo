@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1215</x>
-      <y>477</y>
+      <x>1188</x>
+      <y>414</y>
       <w>324</w>
       <h>126</h>
     </coordinates>
@@ -21,8 +21,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>837</x>
-      <y>477</y>
+      <x>810</x>
+      <y>414</y>
       <w>333</w>
       <h>90</h>
     </coordinates>
@@ -39,8 +39,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>432</x>
-      <y>657</y>
+      <x>405</x>
+      <y>594</y>
       <w>369</w>
       <h>81</h>
     </coordinates>
@@ -57,8 +57,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>477</y>
+      <x>63</x>
+      <y>414</y>
       <w>342</w>
       <h>135</h>
     </coordinates>
@@ -77,8 +77,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>207</x>
-      <y>423</y>
+      <x>180</x>
+      <y>360</y>
       <w>423</w>
       <h>72</h>
     </coordinates>
@@ -88,8 +88,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>441</x>
-      <y>873</y>
+      <x>414</x>
+      <y>810</y>
       <w>333</w>
       <h>99</h>
     </coordinates>
@@ -105,8 +105,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>216</x>
-      <y>729</y>
+      <x>189</x>
+      <y>666</y>
       <w>405</w>
       <h>162</h>
     </coordinates>
@@ -116,8 +116,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>873</y>
+      <x>63</x>
+      <y>810</y>
       <w>315</w>
       <h>117</h>
     </coordinates>
@@ -134,8 +134,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1197</x>
-      <y>873</y>
+      <x>1170</x>
+      <y>810</y>
       <w>324</w>
       <h>99</h>
     </coordinates>
@@ -151,8 +151,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
-      <y>297</y>
+      <x>594</x>
+      <y>234</y>
       <w>333</w>
       <h>72</h>
     </coordinates>
@@ -168,8 +168,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>828</x>
-      <y>873</y>
+      <x>801</x>
+      <y>810</y>
       <w>324</w>
       <h>135</h>
     </coordinates>
@@ -187,8 +187,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>603</x>
-      <y>360</y>
+      <x>576</x>
+      <y>297</y>
       <w>207</w>
       <h>315</h>
     </coordinates>
@@ -198,8 +198,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>783</x>
-      <y>423</y>
+      <x>756</x>
+      <y>360</y>
       <w>621</w>
       <h>72</h>
     </coordinates>
@@ -209,8 +209,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>594</x>
-      <y>819</y>
+      <x>567</x>
+      <y>756</y>
       <w>801</w>
       <h>72</h>
     </coordinates>
@@ -220,8 +220,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>621</x>
-      <y>126</y>
+      <x>594</x>
+      <y>63</y>
       <w>297</w>
       <h>72</h>
     </coordinates>
@@ -235,8 +235,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>774</x>
-      <y>189</y>
+      <x>747</x>
+      <y>126</y>
       <w>27</w>
       <h>126</h>
     </coordinates>
@@ -246,8 +246,8 @@
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>252</x>
-      <y>126</y>
+      <x>225</x>
+      <y>63</y>
       <w>261</w>
       <h>63</h>
     </coordinates>
@@ -260,8 +260,8 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>126</y>
+      <x>477</x>
+      <y>63</y>
       <w>135</w>
       <h>27</h>
     </coordinates>
@@ -271,8 +271,8 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>180</x>
-      <y>306</y>
+      <x>153</x>
+      <y>243</y>
       <w>351</w>
       <h>90</h>
     </coordinates>
@@ -288,8 +288,8 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>522</x>
-      <y>351</y>
+      <x>495</x>
+      <y>288</y>
       <w>117</w>
       <h>27</h>
     </coordinates>

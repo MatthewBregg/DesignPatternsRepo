@@ -346,7 +346,6 @@ Might want to  add in options object later.. Or it might be done at a higher lev
 - LayoutBuilder   : Ervis   : Done
 - DefineBuilder   : Matt    : Done
 - FunctionBuilder : Matt    : Done
-
 - CardBuilder :  Ian
 - UndefinedFunctionBuilder : Matt : Done
 - UndefinedVariableBuilder : Matt : Done
@@ -361,6 +360,7 @@ Might want to  add in options object later.. Or it might be done at a higher lev
 - DecalBuilders 
   - ImageDecalBuilder :  Brandon
   - StringDecalBuilder : Brandon 
+  - DynamicDecalBuilder : Ervis
   - ShapeDecalBuilders      : Ervis   : Done
     - RectangleDecalBuilder : Ervis   : Done
     - CircleDecalBuilder    : Ervis   : Done
