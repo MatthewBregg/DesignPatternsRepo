@@ -216,6 +216,8 @@ RenderedCard : +getName():String
 RenderedCard : +getFront():Image
 RenderedCard : +getBack():Image
 
+CardLispScriptEvaluator o--> RenderedCard
+
 
 
 
