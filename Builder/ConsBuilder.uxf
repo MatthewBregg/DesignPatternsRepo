@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>30</y>
+      <w>280</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>ConsBuilder
+--
+map: Map&lt;ScriptObject,ScriptObject&gt;
+state: State = new EmptyState
+--
+addScriptObject(s: ScriptObject): void
+getResult(): ScriptObject
+clone(): ConsBuilder</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>220</y>
+      <w>400</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+State
+--
+--
+addScriptObject(s: ScriptObject, cb: ConsBuilder): void
+getResult(map:Map&lt;ScriptObject,ScriptObject)&gt;: ScriptObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>350</y>
+      <w>400</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+IncompleteState
+--
+--
+getResult(map:Map&lt;ScriptObject,ScriptObject&gt;): ScriptObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>350</y>
+      <w>400</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>FinishedState
+--
+--
+addScriptObject(s: ScriptObject, cb: ConsBuilder): void
+getResult(map:Map&lt;ScriptObject,ScriptObject&gt;): ScriptObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1020</x>
+      <y>350</y>
+      <w>400</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>ErrorState
+--
+--
+addScriptObject(s: ScriptObject, cb: ConsBuilder): void
+getResult(map:Map&lt;ScriptObject,ScriptObject&gt;): ScriptObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>580</x>
+      <y>470</y>
+      <w>390</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>addScriptObect: sets state to ErrorState
+getResult: returns a ConsPair with a map passed in  from cb
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1020</x>
+      <y>470</y>
+      <w>310</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>addScruptObject: maintains error state
+getResult: returns an ErrorStateScruptObject
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>470</y>
+      <w>310</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>getResult: returns an ErrorStateScruptObject
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>660</y>
+      <w>400</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>EmptyState
+--
+--
+addScriptObject(s: ScriptObject, cb: ConsBuilder): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>660</y>
+      <w>400</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>AwaitingValueState
+--
+key: ScriptObject
+--
+addScriptObject(s: ScriptObject, cb: ConsBuilder): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1020</x>
+      <y>660</y>
+      <w>400</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>DoneWithPairState
+--
+key: ScriptObject
+value: ScriptObject
+--
+addScriptObject(s: ScriptObject, cb: ConsBuilder): void
+finished(): </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>120</x>
+      <y>780</y>
+      <w>400</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>addScriptObect: Creates AwaitingValueState with given key 
+and sets the state to it
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>570</x>
+      <y>780</y>
+      <w>400</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>addScriptObect: Creates DoneWithPairState with given key 
+and value and sets the state to it
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1020</x>
+      <y>780</y>
+      <w>400</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>addScriptObect: sets state to ErrorState
+finished: adds key/value to cb map and sets state to FinishedState
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>140</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>310</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>260</y>
+      <w>280</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;260.0;10.0;260.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>260</y>
+      <w>290</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>270.0;10.0;10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>440</y>
+      <w>30</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>570</y>
+      <w>480</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;460.0;10.0;460.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>570</y>
+      <w>480</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;460.0;10.0;460.0;90.0</additional_attributes>
+  </element>
+</diagram>
