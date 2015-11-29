@@ -263,10 +263,11 @@ No design patterns used in it.
 
 ** NullScriptObject Class
 *Purpose:*
-It is a concrete class whose purpose is to create a null object when ….
+It is a concrete class whose purpose is to to denot that there is nothing to be created or nothing is being returned.
 
 *Interaction:* 
-…….
+It will implement and conform to the interface set by the parent class ScriptObject.
+
 *Design Patterns it belongs:*
 No design patterns used in it.
 
@@ -320,9 +321,9 @@ We decide to use this team in order to allow an easy and simple way to access al
 **** Why we used?
 Proxy pattern is used very lightly and only just one part of it. It is being used in the DynamicDecal class. The Dynamic Decal is the RealSubject, which will carry (execute) the request forwarded to it. The request would be to receive a decal given a string.
 **** What we gained?
-- 
+- We have the ability to indirectly reference to the Dycamin Decal class and retrieve something from it.
 **** Consequences
-- 
+- No consequences as a result of using this pattern.
 *** Adapter
 **** Why we used?
 The adapter pattern is used for our Image class. Our image class will not be able to directly conform to the Image interface provided by the Java libraries. Therefore, we need to create a JavaImageAdapter class to adapt the interface we want with the interface we have.
