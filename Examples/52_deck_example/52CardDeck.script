@@ -196,41 +196,71 @@
 //------------------------------------------------------
 //cards   
 //------------------------------------------------------
-(define blackAceCard (card cardSize "blackAce" (aceLayout "A" 0x000000) cardBackLayout))
-(define blackTwoCard (card cardSize "blackTwo" (aceLayout "2" 0x000000) cardBackLayout))
-(define blackThreeCard (card cardSize "blackThree" (aceLayout "3" 0x000000) cardBackLayout))
-(define blackFourCard (card cardSize "blackFour" (aceLayout "4" 0x000000) cardBackLayout))
-(define blackFiveCard (card cardSize "blackFive" (aceLayout "5" 0x000000) cardBackLayout))
-(define blackSixCard (card cardSize "blackSix" (aceLayout "6" 0x000000) cardBackLayout))
-(define blackSevenCard (card cardSize "blackSeven" (aceLayout "7" 0x000000) cardBackLayout))
-(define blackEightCard (card cardSize "blackEight" (aceLayout "8" 0x000000) cardBackLayout))
-(define blackNineCard (card cardSize "blackNine" (aceLayout "9" 0x000000) cardBackLayout))
-(define blackTenCard (card cardSize "blackTen" (aceLayout "10" 0x000000) cardBackLayout))
-(define blackJackCard (card cardSize "blackJack" (aceLayout "J" 0x000000) cardBackLayout))
-(define blackQueenCard (card cardSize "blackQueen" (aceLayout "Q" 0x000000) cardBackLayout))
-(define blackKingCard (card cardSize "blackKing" (aceLayout "K" 0x000000) cardBackLayout))
+(define blackAceCard
+  (card cardSize "blackAce" (aceLayout "A" 0x000000) cardBackLayout))
+(define blackTwoCard
+  (card cardSize "blackTwo" (aceLayout "2" 0x000000) cardBackLayout))
+(define blackThreeCard
+  (card cardSize "blackThree" (aceLayout "3" 0x000000) cardBackLayout))
+(define blackFourCard
+  (card cardSize "blackFour" (aceLayout "4" 0x000000) cardBackLayout))
+(define blackFiveCard
+  (card cardSize "blackFive" (aceLayout "5" 0x000000) cardBackLayout))
+(define blackSixCard
+  (card cardSize "blackSix" (aceLayout "6" 0x000000) cardBackLayout))
+(define blackSevenCard
+  (card cardSize "blackSeven" (aceLayout "7" 0x000000) cardBackLayout))
+(define blackEightCard
+  (card cardSize "blackEight" (aceLayout "8" 0x000000) cardBackLayout))
+(define blackNineCard
+  (card cardSize "blackNine" (aceLayout "9" 0x000000) cardBackLayout))
+(define blackTenCard
+  (card cardSize "blackTen" (aceLayout "10" 0x000000) cardBackLayout))
+(define blackJackCard
+  (card cardSize "blackJack" (aceLayout "J" 0x000000) cardBackLayout))
+(define blackQueenCard
+  (card cardSize "blackQueen" (aceLayout "Q" 0x000000) cardBackLayout))
+(define blackKingCard
+  (card cardSize "blackKing" (aceLayout "K" 0x000000) cardBackLayout))
 
-(define redAceCard (card cardSize "redAce" (aceLayout "A" #DD311D) cardBackLayout))
-(define redTwoCard (card cardSize "redTwo" (aceLayout "2" #DD311D) cardBackLayout))
-(define redThreeCard (card cardSize "redThree" (aceLayout "3" #DD311D) cardBackLayout))
-(define redFourCard (card cardSize "redFour" (aceLayout "4" #DD311D) cardBackLayout))
-(define redFiveCard (card cardSize "redFive" (aceLayout "5" #DD311D) cardBackLayout))
-(define redSixCard (card cardSize "redSix" (aceLayout "6" #DD311D) cardBackLayout))
-(define redSevenCard (card cardSize "redSeven" (aceLayout "7" #DD311D) cardBackLayout))
-(define redEightCard (card cardSize "redEight" (aceLayout "8" #DD311D) cardBackLayout))
-(define redNineCard (card cardSize "redNine" (aceLayout "9" #DD311D) cardBackLayout))
-(define redTenCard (card cardSize "redTen" (aceLayout "10" #DD311D) cardBackLayout))
-(define redJackCard (card cardSize "redJack" (aceLayout "J" #DD311D) cardBackLayout))
-(define redQueenCard (card cardSize "redQueen" (aceLayout "Q" #DD311D) cardBackLayout))
-(define redKingCard (card cardSize "redKing" (aceLayout "K" #DD311D) cardBackLayout))
+(define redAceCard
+  (card cardSize "redAce" (aceLayout "A" #DD311D) cardBackLayout))
+(define redTwoCard
+  (card cardSize "redTwo" (aceLayout "2" #DD311D) cardBackLayout))
+(define redThreeCard
+  (card cardSize "redThree" (aceLayout "3" #DD311D) cardBackLayout))
+(define redFourCard
+  (card cardSize "redFour" (aceLayout "4" #DD311D) cardBackLayout))
+(define redFiveCard
+  (card cardSize "redFive" (aceLayout "5" #DD311D) cardBackLayout))
+(define redSixCard
+  (card cardSize "redSix" (aceLayout "6" #DD311D) cardBackLayout))
+(define redSevenCard
+  (card cardSize "redSeven" (aceLayout "7" #DD311D) cardBackLayout))
+(define redEightCard
+  (card cardSize "redEight" (aceLayout "8" #DD311D) cardBackLayout))
+(define redNineCard
+  (card cardSize "redNine" (aceLayout "9" #DD311D) cardBackLayout))
+(define redTenCard
+  (card cardSize "redTen" (aceLayout "10" #DD311D) cardBackLayout))
+(define redJackCard
+  (card cardSize "redJack" (aceLayout "J" #DD311D) cardBackLayout))
+(define redQueenCard
+  (card cardSize "redQueen" (aceLayout "Q" #DD311D) cardBackLayout))
+(define redKingCard
+  (card cardSize "redKing" (aceLayout "K" #DD311D) cardBackLayout))
 
 //------------------------------------------------------
 //makes the subDeck of 13 cards, for each color
 //------------------------------------------------------
-(define redSubDeck (list redAceCard redTwoCard redThreeCard redFourCard redFiveCard redSixCard redSevenCard 
-                          redEightCard redNineCard redTenCard redJackCard redQueenCard redKingCard ))
-(define blackSubDeck (list blackAceCard blackTwoCard blackThreeCard blackFourCard blackFiveCard blackSixCard blackSevenCard 
-                          blackEightCard blackNineCard blackTenCard blackJackCard blackQueenCard blackKingCard ))
+(define redSubDeck (list redAceCard redTwoCard redThreeCard redFourCard
+                         redFiveCard redSixCard redSevenCard 
+                          redEightCard redNineCard redTenCard redJackCard
+                          redQueenCard redKingCard ))
+(define blackSubDeck (list blackAceCard blackTwoCard blackThreeCard blackFourCard
+                           blackFiveCard blackSixCard blackSevenCard 
+                          blackEightCard blackNineCard blackTenCard blackJackCard
+                          blackQueenCard blackKingCard ))
 
 //------------------------------------------------------
 //renders the subdeck 4 times for each suit
