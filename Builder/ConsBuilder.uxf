@@ -140,7 +140,7 @@ addScriptObject(s: ScriptObject, cb: ConsBuilder): void</panel_attributes>
       <w>400</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>AwaitingValueState
+    <panel_attributes>AwaitingSecondState
 --
 key: ScriptObject
 --
@@ -172,7 +172,7 @@ finished(): </panel_attributes>
       <w>400</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>addScriptObect: Creates AwaitingValueState with given key 
+    <panel_attributes>addScriptObect: Creates AwaitingSecondState with given ScriptObject 
 and sets the state to it
 bg=blue</panel_attributes>
     <additional_attributes/>
@@ -185,8 +185,7 @@ bg=blue</panel_attributes>
       <w>400</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>addScriptObect: Creates DoneWithPairState with given key 
-and value and sets the state to it
+    <panel_attributes>addScriptObect: Creates DoneWithPairState with given ScriptObject pair and sets the state to it
 bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
