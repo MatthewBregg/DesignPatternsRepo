@@ -28,6 +28,14 @@ CONFIG HAS TO BE REDONE, CONFIG IS NOW SCRIPT
 file:Examples/monopoly_example/monopoly.config
 
 
+* Card Representation System  (Ervis)
+** Overview
+The Card object is constructed by five attributes: two Layouts for front and back, a name, a width and a height. The Layout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base obejct that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
+
+
+*** Purpose
+*** Interaction
+*** Design Patterns it belongs
 Purpose: 
 Interaction: 
 Design Patterns it belongs:
