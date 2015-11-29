@@ -14,7 +14,7 @@ FamilyBuilder : getResult() : ScriptObject
 FamilyBuilder : addDecal(d:Decal):void
 FamilyBuilder : clone() : FamilyBuilder
 
-note bottom : Forwards getResult, addSTring, and AddDecal to State, changing parameters to fit, so \n getResult gets the Families currently stored name and string passed along, \n addString has the string unwrapped, and the builder itself passed along, \n and addDecal gets the builder reference as well. \n It will call receivedPair(this) on its state in the beginning of the addConsPair method, and call finishedPair(this) when the method is done. 
+note bottom : Forwards getResult, addSTring, and AddDecal to State, changing parameters to fit, so \n getResult gets the Families currently stored name and string passed along, \n addString has the string unwrapped, and the builder itself passed along, \n and addDecal gets the builder reference as well. \n It will call receivedPair(this) on its state in the beginning of the addConsPair method, and call finishedPair(this) when the method is done, calling on the consPair object acceptBuilderOnPair in between.
 
 
 abstract class State as "{abstract}\nState"
