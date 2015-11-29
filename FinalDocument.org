@@ -36,13 +36,27 @@ The Card object is constructed by five attributes: two Layouts for front and bac
 *** Purpose
 *** Interaction
 *** Design Patterns it belongs
-
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
 
 
 ** ScriptObject Class
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
 
 
 ** ComponentLayout Class
+Purpose:
+It is an abstract class which declares an interface for the objects that can belong to a layout such as a Decal or another layout. It will implement the default befaviours for some of the functunalities which will be the same in all the class that will inherit from this. It will declare an interface for accessing the child components.
+
+Interaction: 
+This abstract class will be inheriting from ScriptOject Class which is another abstract class. In addition it will override the method neccesary to build the layouts called acceptBuilder().
+
+Design Patterns it belongs:
+
 
 *** LeafLayout Class
 *** CompositeLayout Class
