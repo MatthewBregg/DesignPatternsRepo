@@ -299,6 +299,7 @@ void addToken(Token token) {
     obj.accept(this);
 
 }
+//This will be overriden by some builders!
 #+END_SRC
 
 The Builder itself is only dependent on the ScriptEvaluator, which contains the minimium operations needed for the language. 
@@ -480,17 +481,26 @@ file:Structure_UML/LexerUML.png
 **** Types
 ***** VariableToken
 - Leaf token, holds a var name.
+- Returns a VariableBuilderVisiter, with either an UndefinedVariable object if variable is not found, or the variable after looking it up in the env. 
 ***** AtomToken
+- Returns a ConstantBuilderVisiter with the value wrapped in an appropriate ScriptObject. 
 ****** StringAtomToken
 - Leaf token, holds a string.
 ****** DoubleAtomToken
 - Leaf token, holds a double.
 ***** ParseErrorToken
 - Leaf token, represents an error that occured during parsing.
+- Return a ConstantBuilderVisiter, with an ErrorScriptObject as the value.
 ***** ExpressionToken
 - The composite of the layouts.
   - Holds other tokens, they are the arguments given to the expression.
   - Holds the name of the function invoked.
+- Looks for its builder in the environment.
+  - If found, return it!
+  - If none found, then make an UndefinedFunctionBuilder
+    - If ExpressionToken is only variables, then return UndefinedFunctionBuilder with the given parameter names, and func name. 
+      - If the result of this Builder, an UndefinedFunction script object is given to a DefineBuilder as the first argument, that define builder will then define it in the env, so next time the funcname is found, it will be found in the environment!)
+    - Else, return an Undefined Function Builder with an ErrorScriptObject. 
 **** Purpose
 To represent a the language in objects, rather than plain text.
 To destringify it. 
