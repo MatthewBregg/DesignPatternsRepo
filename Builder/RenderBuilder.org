@@ -3,9 +3,9 @@ skinparam dpi 300
 
 class RenderBuilder
 
-RenderBuilder : families : ArrayList<Families> 
-RenderBuilder : card : Card
-RenderBuilder : setCard(c:Card)
+RenderBuilder : families : ArrayList<Family> 
+RenderBuilder : cards : ArrayList<Card>
+RenderBuilder : addCard(c:Card)
 RenderBuilder : addFamily(Family f)
 RenderBuilder : doRender()
 RenderBuilder : state : State = new Empty
@@ -17,7 +17,7 @@ RenderBuilder : addScriptObject(s:ScriptObject)
 RenderBuilder : getResult():ScriptObject
 RenderBuilder : clone() : RenderBuilder
 note top : clone will make a new list, with the elements of the existing one. Card will be shared, but since clone is used to get instances from factory, will always be null anyway when clone is called.
-note bottom : doRender calls on card render, with the families as an argument. It will then take the result, and add it to the eval, super.getEval().addRenderedCard(rc)
+note bottom : doRender calls on card render, with the families as an argument. It will then take the result, and add it to the eval, super.getEval().addRenderedCard(rc), does this for each card
 
 note bottom : Delegates getResult,addCard,addFamily to state. \n For addList, get the list, and for each ScriptObject, call accept(this). \n For ConsPair, do acceptBuilderOnPair(this).
 
@@ -28,9 +28,10 @@ State : {abstract}getResult(rb:RenderBuilder) : ScriptObject
 State : {abstract}addFamily(f:Family,rb:RenderBuilder)
 State : {abstract}addCard(c:Card,rb:RenderBuilder)
 
-State <|--Empty
-State <|--HaveCard
-State <|--ErrorState
+State <|-- Empty
+State <|-- HaveCard
+State <|-- ErrorState
+State <|-- HasFamily
 
 class Empty
 Empty : getResult(rb:RenderBuilder) : ScriptObject
@@ -49,6 +50,17 @@ HaveCard : addFamily(f:Family,rb:RenderBuilder)
 HaveCard : addCard(c:Card,rb:RenderBuilder)
 
 note top of HaveCard
+  getResult : Call rb.doRender(), return NullScriptObject
+  addFamily : call rb.addFamily(f), set rb state to HasFamily state.
+  addCard : call rb.addCard(c)
+end note
+
+class HasFamily
+HasFamily : getResult(rb:RenderBuilder) : ScriptObject
+HasFamily : addFamily(f:Family,rb:RenderBuilder)
+HasFamily : addCard(c:Card,rb:RenderBuilder)
+
+note top of HasFamily
   getResult : Call rb.doRender(), return NullScriptObject
   addFamily : call rb.addFamily(f)
   addCard : set rb state to error state.
