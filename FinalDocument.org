@@ -279,6 +279,28 @@ Thus, we can use a builder to separate the actual construction and representatio
 The builder itself knows what to do from the parameters given, and the tokens return the correct builder.
 The ScriptEvaluator then can run the same process for each builder to receive the script object result.
 
+This process will look something like this. 
+#+BEGIN_SRC java
+ScriptObject doParse(Tokens token) {
+    Builder builder = token.getBuilder(this);
+        
+    for (Token arg : token.getArgumentTokens()) {
+        builder.addToken(this);
+    }
+    ScriptObject obj = builder.getResult();
+
+    return obj;
+}
+#+END_SRC
+Builder will define addToken something like this.
+#+BEGIN_SRC java
+void addToken(Token token) {
+    ScriptObject obj = eval.doParse(token);
+    obj.accept(this);
+
+}
+#+END_SRC
+
 The Builder itself is only dependent on the ScriptEvaluator, which contains the minimium operations needed for the language. 
 
 This serves as the Director, and the implementor, CardLispScriptEvaluator, could potentially be replaced with a different one, allow the same builders to be used with a different language.
