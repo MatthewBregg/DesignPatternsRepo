@@ -28,53 +28,124 @@ CONFIG HAS TO BE REDONE, CONFIG IS NOW SCRIPT
 file:Examples/monopoly_example/monopoly.config
 
 
-* Card Representation System  (Ervis)
-** Overview
-The Card object is constructed by five attributes: two Layouts for front and back, a name, a width and a height. The Layout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base obejct that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
-
-
-*** Purpose
-*** Interaction
-*** Design Patterns it belongs
 Purpose: 
 Interaction: 
 Design Patterns it belongs:
 
+* Card Representation System
+** Overview
+The Card object is constructed by five attributes: two Layouts for front and back, a name, a width and a height. The Layout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base object that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
 
 ** ScriptObject Class
 Purpose: 
 Interaction: 
 Design Patterns it belongs:
 
-
-
 ** ComponentLayout Class
 Purpose:
-It is an abstract class which declares an interface for the objects that can belong to a layout such as a Decal or another layout. It will implement the default befaviours for some of the functunalities which will be the same in all the class that will inherit from this. It will declare an interface for accessing the child components.
-
+It is an abstract class which declares an interface for the objects that can belong to a layout such as a Decal or another layout. It will implement the default behaviours for some of the functionalities which will be the same in all the class that will inherit from this. It will declare an interface for accessing the child components.
 Interaction: 
-This abstract class will be inheriting from ScriptOject Class which is another abstract class. In addition it will override the method neccesary to build the layouts called acceptBuilder().
-
+This abstract class will be inheriting from ScriptObject class which is another abstract class. In addition it will override the method necessary to build the layouts called acceptBuilder (). Two subclasses will inherit from this the LeafLayout class and CompositeLayout class.
 Design Patterns it belongs:
-
-
+This class is designed using Composite design pattern and the iterator design patterns is included in it as well. 
 *** LeafLayout Class
-*** CompositeLayout Class
-**** SingleComponentLayout Class
-**** ArrayComponentLayout Class
-*** LayoutPositionPair Class
+Purpose: 
+It is an abstract class that will represent the leaf object in a composition. It has no children and the leaf will be of type object Decal. Moreover, this class has character attribute to denote the size that the decal will have in relative to the layout. The options are specified in the ScriptingLanguageSpecification.org. It will be able to offer default behavior on how to render a decal. The render () method will be overrriden by the concrete subclasses fo the Decal class.
+Interaction: 
+This class will inherit from the ComponentLayout abstract class. In addition from this class we can navigate to the abstract class Decal.
+Design Patterns it belongs:
+This class is designed using Composite design pattern.
 
+*** CompositeLayout Class
+Purpose: 
+It is an abstract class that will declare an interface for components that will have children. In addition it will provide default implementation to some of the methods necessary for adding child layout components and for rendering layouts into the card or another layout. It will also provide a default implementation for the method iterator (), which will create an iterator to traverse all the composed layouts.
+Interaction:  
+This class will inherit from the ComponentLayout abstract class and it will serve as a base for the other two classes ArrayComponentLayout and SingleComponentLayout.
+Design Patterns it belongs:
+This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
+
+**** SingleComponentLayout Class
+Purpose: 
+This is a concrete class that will be able to hold only a single child of type ComponentLayout. It will have zero or one thing as an attribute, a LayoutPositionPair, which will be discussed below.
+Interaction: 
+This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render method ().
+Design Patterns it belongs:
+This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
+
+
+**** ArrayComponentLayout Class
+Purpose: 
+This is a concrete class that will be able to hold an array of children of types ComponentLayout. The array will be filled with zero or many references to the LayoutPositionPair obejcts.
+Interaction: 
+This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render method (), addLayout (), removeLayout and iterator () to create an iterator.
+Design Patterns it belongs:
+This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
+
+
+
+*** LayoutPositionPair Class
+Purpose: 
+It is a concrete class which will allow our system to create structure where a specific ComponentLayout is associated with a PositionScaled. This is necessary because every layout most be placed in a specific relatively scaled position.
+Interaction: 
+This class does not inherit from any other classes, however, the SingleComponentLayout and the ArrayComponentLayout will maintain zero or more references to the objects created by this class.
+Design Patterns it belongs:
+It is not part of any of the design patterns.
 
 
 ** Decal Class
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
+
 *** Text Class
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
 *** ImageDecal
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
 *** DynamicDecal
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
 *** Shape Class
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
+
 **** Rectangle Class
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
 **** Circle Class
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
 **** Triangle Class
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
+
 **** AnyShape Class
+
+Purpose: 
+Interaction: 
+Design Patterns it belongs:
 
 ** Card Class
 
