@@ -99,8 +99,8 @@ Logger : adddError(ErrorMessage s)
 Logger : addWarning(ErrorMessage s)
 Logger : getWarnings():ArrayList<ErrorMessage>
 Logger : getErrors():ArrayList<ErrorMessage>
+note bottom : Logger is a singleton 
 
-note bottom : Is a singleton
 
 
 class ErrorMessage

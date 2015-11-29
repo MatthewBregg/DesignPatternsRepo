@@ -119,8 +119,8 @@ PositionScaled -- AsDefined
 class Size
 Size -- AsDefined
 class DoubleScriptWrapper
-DoubleScriptWrapper : -value : int
-DoubleScriptWrapper : +value() : int
+DoubleScriptWrapper : -value : double
+DoubleScriptWrapper : +value() : double
 class StringScriptWrapper
 StringScriptWrapper : -value : String
 StringScriptWrapper : +value() : String

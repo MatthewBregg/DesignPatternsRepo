@@ -5,7 +5,9 @@ skinparam dpi 300
 class JavaImage as "Image \n The one from Java Libraries"
 
 
-Interface ImageInterface
+Interface ImageInterface as "Image"
+
+note top : Conflicts with Javas name for Image. When Image is mentioned as a type in design, we mean this interface.
 
 ImageInterface : insertImage(subImage:Image,x_position:Double,y_position:Double)
 
