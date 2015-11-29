@@ -1,0 +1,248 @@
+#+BEGIN_SRC plantuml :file ShapeBuilders.png
+skinparam dpi 400
+abstract class ShapeBuilder as "{abstract}\nShapeBuilder"
+ShapeBuilder : -state:State
+ShapeBuilder : -setState(s:State)
+ShapeBuilder : +getResult():Shape
+ShapeBuilder : #addScriptObject(s:ScriptObject)
+ShapeBuilder : +addDouble(d:DoubleScriptWrapper)
+ShapeBuilder : +addString(d:StringScriptWrapper)
+ShapeBuilder : +{abstract} getNewShapeState():ShapeState
+
+
+
+note bottom : Delegates call to addDouble, addString, getResult, and getNewShape to it's state.
+note bottom : getNewShapeState() returns a new state of the given type of Builder. So Rectangle will return an EmptyRectangle state. This is a template method.
+
+
+class CircleBuilder
+CircleBuilder : getNewShapeState():ShapeState
+note bottom : getNewShapeState returns a new CircleInitialState
+
+class TriangleBuilder 
+TriangleBuilder : getNewShapeState():ShapeState
+note bottom : getNewShapeState returns a new TriangleInitialShape
+
+class RectangleBuilder 
+RectangleBuilder : getNewShapeState():ShapeState
+note bottom : getNewShapeState returns a new RectangleInitialShape
+
+class AnyShapeBuilder 
+AnyShapeBuilder : getNewShapeState():ShapeState
+note bottom : getNewShapeState returns a new InitialAnyShapeState
+
+ShapeBuilder <|-- TriangleBuilder 
+ShapeBuilder <|-- RectangleBuilder 
+ShapeBuilder <|-- CircleBuilder 
+ShapeBuilder <|-- AnyShapeBuilder 
+
+
+abstract class State 
+State : {abstract}getResult(b:ShapeBuilder)
+State : addScriptObject(b:ShapeBuilder)
+State : {abstract}addString(s:String,b:ShapeBuilder)
+State : {abstract}addDouble(d:double,b:ShapeBuilder)
+
+note top : addScriptObject will be implemented as setting b state to error state.
+
+
+class EmptyState
+EmptyState : getResult(b:ShapeBuilder)
+EmptyState : addString(s:String,b:ShapeBuilder)
+EmptyState : addDouble(d:double,b:ShapeBuilder)
+
+note top of EmptyState
+  getResult : Return error script object, set b state to error state.
+  addString : Check if String s is a valid color, if so, make the color, and set b state to new ColorState.
+  addDouble : Set b state to error state
+end note
+
+class ColorState
+ColorState : getResult(b:ShapeBuilder)
+ColorState : addString(s:String,b:ShapeBuilder)
+ColorState : addDouble(d:double,b:ShapeBuilder)
+ColorState : c:Color
+
+note top of ColorState
+  On construction, set ask B for its getNewShapeState, give said state a color.
+end note
+
+State <|-- EmptyState
+State <|-- ColorState
+
+abstract class ShapeState as "{abstract}ShapeState"
+ShapeState : c:Color
+
+State <|-- ShapeState
+
+
+
+
+
+class CircleInitialState
+CircleInitialState : getResult(b:ShapeBuilder)
+CircleInitialState : addString(s:String,b:ShapeBuilder)
+CircleInitialState : addDouble(d:double,b:ShapeBuilder)
+
+note top of CircleInitialState
+  getResult : Return error script object, set b state to error state.
+  addString : Set b state to error state
+  addDouble : Set b to CircleDoneState, give it d as radius and color. 
+end note
+
+class CircleDoneState
+CircleDoneState : getResult(b:ShapeBuilder)
+CircleDoneState : addString(s:String,b:ShapeBuilder)
+CircleDoneState : addDouble(d:double,b:ShapeBuilder)
+
+CircleDoneState : radius : Double
+note top of CircleDoneState
+  getResult : Return a new CircleDecal, using radius and color. 
+  addString : Set b state to error state
+  addDouble : Set b state to error state
+end note
+
+class TriangleInitialState
+TriangleInitialState : getResult(b:ShapeBuilder)
+TriangleInitialState : addString(s:String,b:ShapeBuilder)
+TriangleInitialState : addDouble(d:double,b:ShapeBuilder)
+
+note top of TriangleInitialState
+  getResult : Return error script object, set b state to error state.
+  addString : Set b state to error state
+  addDouble : Set b to TriangleOneState, give it d as l1 and color. 
+end note
+class TriangleOneState
+TriangleOneState : getResult(b:ShapeBuilder)
+TriangleOneState : addString(s:String,b:ShapeBuilder)
+TriangleOneState : addDouble(d:double,b:ShapeBuilder)
+TriangleOneState : l1 : Double
+
+note top of TriangleOneState
+  getResult : Return error script object, set b state to error state.
+  addString : Set b state to error state
+  addDouble : Set b to TriangleTwoState, give it l1, d as l2 and color. 
+end note
+class TriangleTwoState
+TriangleTwoState : getResult(b:ShapeBuilder)
+TriangleTwoState : addString(s:String,b:ShapeBuilder)
+TriangleTwoState : addDouble(d:double,b:ShapeBuilder)
+TriangleTwoState : l1 : Double
+TriangleTwoState : l2 : Double
+
+note top of TriangleTwoState
+  getResult : Return error script object, set b state to error state.
+  addString : Set b state to error state
+  addDouble : Set b to TriangleDoneState, give it l1, l2, d as l3, and color. 
+end note
+class TriangleDoneState
+TriangleDoneState : getResult(b:ShapeBuilder)
+TriangleDoneState : addString(s:String,b:ShapeBuilder)
+TriangleDoneState : addDouble(d:double,b:ShapeBuilder)
+TriangleDoneState : l1 : Double
+TriangleDoneState : l2 : Double
+TriangleDoneState : l3 : Double
+
+note top of TriangleDoneState
+  getResult : Return a new TriangleDecal, using l1,l2,l3 and color. 
+  addString : Set b state to error state
+  addDouble : Set b state to error state
+end note
+
+
+class RectangleInitialState
+RectangleInitialState : getResult(b:ShapeBuilder)
+RectangleInitialState : addString(s:String,b:ShapeBuilder)
+RectangleInitialState : addDouble(d:double,b:ShapeBuilder)
+
+note top of RectangleInitialState
+  getResult : Return error script object, set b state to error state.
+  addString : Set b state to error state
+  addDouble : Set b to RectangleOneState, give it d as width and color. 
+end note
+class RectangleWidthState
+RectangleWidthState : getResult(b:ShapeBuilder)
+RectangleWidthState : addString(s:String,b:ShapeBuilder)
+RectangleWidthState : addDouble(d:double,b:ShapeBuilder)
+RectangleWidthState : width : Double
+
+note top of RectangleWidthState
+  getResult : Return error script object, set b state to error state.
+  addString : Set b state to error state
+  addDouble : Set b to RectangleTwoState, give it width, and d as height and color. 
+end note
+class RectangleDoneState
+RectangleDoneState : getResult(b:ShapeBuilder)
+RectangleDoneState : addString(s:String,b:ShapeBuilder)
+RectangleDoneState : addDouble(d:double,b:ShapeBuilder)
+RectangleDoneState : width : Double
+RectangleDoneState : height : Double
+
+note top of RectangleDoneState
+  getResult : Return a new RectangleDecal, using width, height and color. 
+  addString : Set b state to error state
+  addDouble : Set b state to error state
+end note
+
+abstract class AnyShapeState as "{abstract}\nAnyShapeState"
+AnyShapeState : -points:List<Double>
+
+class InitialAnyShapeState
+InitialAnyShapeState : getResult(b:ShapeBuilder)
+InitialAnyShapeState : addString(s:String,b:ShapeBuilder)
+InitialAnyShapeState : addDouble(d:double,b:ShapeBuilder)
+
+note top of InitialAnyShapeState
+  getResult : Return error script object, set b to new error state
+  addString : Set b state to error state
+  addDouble : Set state to new AnyShapeExpectingX, paramitized with a list containing point d.
+end note
+
+
+class AnyShapeOnX
+AnyShapeOnX : getResult(b:ShapeBuilder)
+AnyShapeOnX : addString(s:String,b:ShapeBuilder)
+AnyShapeOnX : addDouble(d:double,b:ShapeBuilder)
+
+note top of AnyShapeOnX
+  getResult : Set b state to error state, return a error script object. 
+  addString : Set b state to error state
+  addDouble : Set b state to AnyShapeOnY, add d to list.
+end note
+class AnyShapeOnY
+AnyShapeOnY : getResult(b:ShapeBuilder)
+AnyShapeOnY : addString(s:String,b:ShapeBuilder)
+AnyShapeOnY : addDouble(d:double,b:ShapeBuilder)
+
+note top of AnyShapeOnY
+  getResult : Return a new AnyShapeDecal, with the given points.
+  addString : Set b state to error state
+  addDouble : Set b state to AnyShapeOnX, add d to list.
+end note
+
+ShapeBuilder +-- State
+ShapeState <|-- TriangleInitialState
+ShapeState <|-- TriangleOneState
+ShapeState <|-- TriangleTwoState
+ShapeState <|-- TriangleDoneState
+
+ShapeState <|-- CircleInitialState
+ShapeState <|-- CircleDoneState
+
+ShapeState <|-- RectangleInitialState
+ShapeState <|-- RectangleWidthState
+ShapeState <|-- RectangleDoneState
+ShapeState <|-- InitialAnyShapeState
+ShapeState <|-- AnyShapeState
+AnyShapeState <|-- AnyShapeOnX
+AnyShapeState <|-- AnyShapeOnY
+
+
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:ShapeBuilders.png]]
+
