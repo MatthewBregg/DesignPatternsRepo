@@ -36,7 +36,7 @@ The Card object is constructed by five attributes: two Layouts for front and bac
 *** Purpose
 *** Interaction
 *** Design Patterns it belongs
-Purpose: 
+/*Purpose: */
 Interaction: 
 Design Patterns it belongs:
 
