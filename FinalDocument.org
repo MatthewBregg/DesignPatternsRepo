@@ -121,59 +121,105 @@ Design Patterns it belongs:
 It is not part of any of the design patterns.
 
 ** Decal Class
-Purpose: 
-Interaction: 
-Design Patterns it belongs:
 
+Purpose: 
+This Abstract class will provide a common interface for various types of decals. I will also be implementing a default behaviors for the render () method and acceptBuilder () method, which will be overridden by the subclasses.
+
+Interaction: 
+This class will inherit from the ScriptObject class and four other subclasses will be implementing the rest of the functionalities defined by this abstract class.
+
+Design Patterns it belongs:
+No design patterns were used in this part of the system.
 
 *** Text Class
 
 Purpose: 
+A concrete class which comforts to the interface set by the Decal class. It will offer the user to put text objects into a card. I has three attributes a Color, a size and a font. This class will know how to render itself and how to load a text from a path given in the configuration file.
+
 Interaction: 
+It will inherit from the abstract class Decal.
+
 Design Patterns it belongs:
+No design patters used in it.
 
 *** ImageDecal
 
 Purpose: 
+
+A concrete class which offers the users to put an image into a card. This class will know how to render itself and how to load an image from a path given in the configuration file.
+
 Interaction: 
+It will inherit from the abstract class Decal.
+
 Design Patterns it belongs:
+No design patterns used in it.
+
 
 *** DynamicDecal
 
 Purpose: 
+
 Interaction: 
+
 Design Patterns it belongs:
 
 *** Shape Class
 
 Purpose: 
-Interaction: 
+This abstract class will provide a common interface for various shapes which conforming to the interface set by the Decal abstract class.
+
+Interaction:
+It will be inheriting from the Decal abstract class and four other classes or more will be implementing its functionalities. 
+
 Design Patterns it belongs:
+No design patterns used in it.
 
 
 **** Rectangle Class
 
 Purpose: 
+It will be implementing the interface set by the Shape class and it will offer the user the ability to draw a rectangle on a card. It will also be implementing the render () method in order to render itself on a card. I has three attributes, two dimension and a Color type attribute.
+
 Interaction: 
+I will be implementing the interface set by the Shape class and also inheriting from it.
+
 Design Patterns it belongs:
+No design patterns used in it.
+
 
 **** Circle Class
 
 Purpose: 
-Interaction: 
+It will be implementing the interface set by the Shape class and will offer users the ability to draw a circle with a specific radius and specific color on the card. It will override the render () method inherited from the Shape abstract class.
+
+Interaction:
+I will be implementing the interface set by the Shape class and also inheriting from it.
+
 Design Patterns it belongs:
+No design patterns used in it.
+
 
 **** Triangle Class
 
 Purpose: 
+It will be implementing the interfaces set by the Shape class and will offer the users the ability to draw a triangle with specific sides and specific color on the card. It will override the render () method.
+
 Interaction: 
+I will be implementing the interface set by the Shape class and also inheriting from it.
+
 Design Patterns it belongs:
+No design patterns used in it.
 
 **** AnyShape Class
 
 Purpose: 
+It will be implementing the interface set by the Shape class and will offer the user to build any type of shape by just giving a set of points. The user is responsible for giving the correct amount of point and computing where those points should be.
+
 Interaction: 
+I will be implementing the interface set by the Shape class and also inheriting from it.
+
 Design Patterns it belongs:
+No design patterns used in it.
 
 ** Card Class
 
