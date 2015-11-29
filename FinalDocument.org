@@ -1,3 +1,4 @@
+#+AUTHOR: DP Team
 * Overall System, How all these sub systems interact
 The driver system gets everything going, and runs things at the highest level perspective.
 It's what reads in the initial options, sets the ScriptEvaluator, makes the ScriptEvaluator.
