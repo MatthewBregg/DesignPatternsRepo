@@ -1,0 +1,6 @@
+Script BNF
+
+<CARD_SCRIPT>   ::= <statement>*
+<statement>     ::= "(" <keyword> <sub-statements>* ")"
+<keyword>       ::= render | layout | cons | + | define | position-scaled | position | list
+<sub-statement> ::= name | "name" | number | statement

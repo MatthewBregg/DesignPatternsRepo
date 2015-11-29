@@ -1,0 +1,5 @@
+Config BNF Form
+
+<CONFIG> ::= <name> '=' <path>
+<name>   ::= "\w+"
+<path>   ::= "\w+"
