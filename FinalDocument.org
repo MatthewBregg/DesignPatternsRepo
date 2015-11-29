@@ -27,7 +27,7 @@ file:Examples/monopoly_example/monopoly.script
 CONFIG HAS TO BE REDONE, CONFIG IS NOW SCRIPT
 file:Examples/monopoly_example/monopoly.config
 
-* Card Representation System (Ervis)
+* Card Representation System
 ** Overview
 The Card object is constructed by five attributes: two Layouts for front and back, a name, a width and a height. The Layout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base object that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
 
@@ -294,11 +294,42 @@ No design patterns used in it.
 
 ** Design Patterns used in Card Representation System
 The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, and *Addapter*.
-*** Why we used?
-*** What we gained?
-*** Consequences
 
-
+*** Composite
+**** Why we used?
+Our team decided to uses the composite pattern because it offers an easy way to represent hierarchies and also it offers an easy way to treat individual objects and composite objects the same way. Our system allows for a layout component to have layouts or simpler objects such as decal.
+**** What we gained?
+- Easy way to represent hierarchies of objects.
+- Easy way to nest composed and simple objects, inside one another.
+- We can treat individual and composed objects the same way.
+**** Consequences
+- It makes it easier to represent layouts and decals. 
+- It makes it easier to access the elements nested inside one another.
+- It would be easier to add different types of decal, which are not defined right now.
+- The designs looks general.
+*** Iterator
+**** Why we used?
+We decide to use this team in order to allow an easy and simple way to access all the elements that will be used to represent a card object. 
+**** What we gained?
+- A way to access the components without exposing its internal representation.
+- We could support different traversal algorithms, but we only need one.
+- It provides a uniform interface even for different structures.
+**** Consequences
+- No bad consequences on using the iterator patterns.
+*** Proxy
+**** Why we used?
+Proxy pattern is used very lightly and only just one part of it. It is being used in the DynamicDecal class. The Dynamic Decal is the RealSubject, which will carry (execute) the request forwarded to it. The request would be to receive a decal given a string.
+**** What we gained?
+- 
+**** Consequences
+- 
+*** Adapter
+**** Why we used?
+The adapter pattern is used for our Image class. Our image class will not be able to directly conform to the Image interface provided by the Java libraries. Therefore, we need to create a JavaImageAdapter class to adapt the interface we want with the interface we have.
+**** What we gained?
+- Ability to use an Image object, which behaves similar to the one used in Java libraries.
+**** Consequences
+- No bad consequences by using this design pattern.
 
 
 * Driver System (Includes Logger, output, options)
@@ -329,7 +360,7 @@ The design pattern that we thought would be fit to use in the Card Representatio
 
 
 
-* ScriptEvaluator system (Matt) (This includes all the builders, and the Lexer
+* ScriptEvaluator system  (This includes all the builders, and the Lexer
 When ever I say Builders, I mean subclasses of ScriptObjectBuilder
 
 ** Builder
@@ -385,7 +416,7 @@ They enable easily changing the construction process for a new object, and addin
 
 *** What we gained?
 - Ability to easily change how a certain thing is constructed, just replace the builder
-- The same process to construct all ScriptBuilders
+- The same process to construct all ScriptObjectBuilder
 - Can add new products by putting in new builders
 *** Consequences
 - Lots of builder classes, complicated design. 
