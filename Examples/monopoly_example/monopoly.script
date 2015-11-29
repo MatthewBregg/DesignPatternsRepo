@@ -4,201 +4,277 @@
 (cons electric_company_image c_electric_company_image)
 (cons water_works_image      c_water_works_image     ) 
 
-// define the low level layouts
+;; define the low level layouts
 (define (BLACK_BOARDER) 
   (layout
-    (cons (layout blackRectangle) (position-scaled 5 5 85 20)) // create a black rectangle
-    (cons (layout blackRectangle) (position-scaled 4.5 4.5 85 20)) // creating an arbitrary colored rectangle
+   (cons (layout blackRectangle) (position-scaled 5 5 85 20))
+   ;; create a black rectangle
+   (cons (layout blackRectangle) (position-scaled 4.5 4.5 85 20))
+   ;; creating an arbitrary colored rectangle
+   )
   )
-)
 
 (define (HEADER color roadName) 
   (layout
-    (cons (layout blackRectangle) (position-scaled 10 7 80 13)) // create a black rectangle
-    (cons (layout (rectangle color)) (position-scaled 10.5 7.5 79 12)) // creating an arbitrary colored rectangle
-    (cons (layout (string "TITLE DEED" "Arial.font" "0x000000") "W") (position-scaled 30 15 10 10)) // create a string TITLE DEED
-    (cons (layout (string roadName "Arial.font" "0x000000") "W") (position-scaled 25 20 20 20)) // create a string AVE
+   (cons (layout blackRectangle) (position-scaled 10 7 80 13))
+   ;; create a black rectangle
+   (cons (layout (rectangle color)) (position-scaled 10.5 7.5 79 12))
+   ;; creating an arbitrary colored rectangle
+   (cons (layout (string "TITLE DEED" "Arial.font" "0x000000") "W")
+         (position-scaled 30 15 10 10))
+   ;; create a string TITLE DEED
+   (cons (layout (string roadName "Arial.font" "0x000000") "W")
+         (position-scaled 25 20 20 20))
+   ;; create a string AVE
+   )
   )
-)
 
 (define (BASE_RENT rent) 
   (layout
-    (cons (layout (string "RENT" "Arial.font" "0x000000") "W") (position-scaled 40 40 10 10)) 
-    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 40 10 10)) 
+   (cons (layout (string "RENT" "Arial.font" "0x000000") "W")
+         (position-scaled 40 40 10 10)) 
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
+         (position-scaled 45 40 10 10)) 
+   )
   )
-)
 
 (define (WITH_HOUSES rent number) 
   (layout
-    (cons (layout (string (+ "WITH " number " House(s)") "Arial.font" "0x000000") "W") (position-scaled 20 (+ 45 (* number 5)) 10 10)) 
-    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 70 (+ 45 (* number 5)) 10 10)) 
+   (cons (layout (string (+ "WITH " number " House(s)") "Arial.font" "0x000000") "W")
+         (position-scaled 20 (+ 45 (* number 5)) 10 10)) 
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
+         (position-scaled 70 (+ 45 (* number 5)) 10 10)) 
+   )
   )
-)
 
 (define (WITH_HOTEL rent) 
   (layout
-    (cons (layout (string "WITH HOTEL" "Arial.font" "0x000000") "W") (position-scaled 40 70 10 10))
-    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 70 10 10))
+   (cons (layout (string "WITH HOTEL" "Arial.font" "0x000000") "W")
+         (position-scaled 40 70 10 10))
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
+         (position-scaled 45 70 10 10))
+   )
   )
-)
 
 (define (MORTGAGE m) 
   (layout
-    (cons (layout (string "MORTGAGE VALUE" "Arial.font" "0x000000") "W") (position-scaled 40 75 10 10)) 
-    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 75 10 10))
+   (cons (layout (string "MORTGAGE VALUE" "Arial.font" "0x000000") "W")
+         (position-scaled 40 75 10 10)) 
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
+         (position-scaled 45 75 10 10))
+   )
   )
-)
 
 (define (HOUSE_COST c) 
   (layout
-    (cons (layout (string "HOUSES COST" "Arial.font" "0x000000") "W") (position-scaled 40 80 10 10))
-    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 80 10 10))
-    (cons (layout (string "each" "Arial.font" "0x000000") "W") (position-scaled 50 80 10 10))
+   (cons (layout (string "HOUSES COST" "Arial.font" "0x000000") "W")
+         (position-scaled 40 80 10 10))
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
+         (position-scaled 45 80 10 10))
+   (cons (layout (string "each" "Arial.font" "0x000000") "W")
+         (position-scaled 50 80 10 10))
+   )
   )
-)
 
 (define (HOTEL_COST c) 
   (layout
-    (cons (layout (string "HOTELS," "Arial.font" "0x000000") "W") (position-scaled 40 85 10 10))
-    (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W") (position-scaled 45 85 10 10))
-    (cons (layout (string "plus 4 houses" "Arial.font" "0x000000") "W") (position-scaled 50 85 10 10))
+   (cons (layout (string "HOTELS," "Arial.font" "0x000000") "W")
+         (position-scaled 40 85 10 10))
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
+         (position-scaled 45 85 10 10))
+   (cons (layout (string "plus 4 houses" "Arial.font" "0x000000") "W")
+         (position-scaled 50 85 10 10))
+   )
   )
-)
-
+;;Below string is broken in two parts to fit in page,
+;;in real example, keep on one line
+(define mortage_string_x "If a player owns ALL the Lots of any Color-Group, 
+ the rent is Doubled on Unimproved Lots in that group.")
 (define (FINE_PRINT c) 
   (layout
-    (cons (layout (string "If a player owns ALL the Lots of any Color-Group, the rent is Doubled on Unimproved Lots in that group." "Arial.font" "0x000000") "W") (position-scaled 40 90 5 5))
+   (cons (layout
+          (string mortage_string_x "Arial.font" "0x000000") "W")
+         (position-scaled 40 90 5 5))
+   )
   )
-)
 
 (define (ICON c)
   (layout
-    (cons (layout (image c)) (position-scaled 40 25 10 10))
-  )
-) 
+   (cons (layout (image c))
+         (position-scaled 40 25 10 10))
+   )
+  ) 
 
 (define (NAME n)
   (layout
-    (cons (layout (string n "Arial.font" "0x000000") "W") (position-scaled 10 40 25 25))
+   (cons (layout (string n "Arial.font" "0x000000") "W")
+         (position-scaled 10 40 25 25))
+   )
   )
-)
 
 (define (RAILROAD_RENTS key value)
   (layout
-    (cons (layout (string key "Arial.font" "0x000000") "W") (position-scaled 10 55 12 12))
-    (cons (layout (string value "Arial.font" "0x000000") "W") (position-scaled 70 55 12 12))
+   (cons (layout (string key "Arial.font" "0x000000") "W")
+         (position-scaled 10 55 12 12))
+   (cons (layout (string value "Arial.font" "0x000000") "W")
+         (position-scaled 70 55 12 12))
+   )
   )
-)
 
 (define (MORTGAGE_VALUE value)
   (layout
-    (cons (layout (string "Mortgage Value" "Arial.font" "0x000000") "W") (position-scaled 10 85 12 12))
-    (cons (layout (string value "Arial.font" "0x000000") "W") (position-scaled 70 85 12 12))
+   (cons (layout (string "Mortgage Value" "Arial.font" "0x000000") "W")
+         (position-scaled 10 85 12 12))
+   (cons (layout (string value "Arial.font" "0x000000") "W")
+         (position-scaled 70 85 12 12))
+   )
   )
-)
 
 (define (UTILITY_RENT startY str)
   (layout
-    (cons (layout (string str "Arial.font" "0x000000") "W") (position-scaled 20 startX 12 12))
+   (cons (layout (string str "Arial.font" "0x000000") "W")
+         (position-scaled 20 startX 12 12))
+   )
   )
-)
 
 (define (B_NAME name)
   (layout 
-    (cons (layout (string name "Arial.font" "0x000000") "W") (position-scaled 25 20 20 20))
+   (cons (layout (string name "Arial.font" "0x000000") "W")
+         (position-scaled 25 20 20 20))
+   )
   )
-)
 
 (define (B_MORTGAGED value)
   (layout 
-    (cons (layout (string (+ "MORTGAGED for $ " value ) "Arial.font" "0x000000") "W") (position-scaled 25 20 14 14))
+   (cons (layout (string (+ "MORTGAGED for $ " value ) "Arial.font" "0x000000") "W")
+         (position-scaled 25 20 14 14))
+   )
   )
-)
 
-(define (B_FINE_PRINT)
+(define B_FINE_PRINT
   (layout 
-    (cons (layout (string "Card must be turned this side up if property is mortgaged" "Arial.font" "0x000000") "W") (position-scaled 5 80 10 10))
+   (cons (layout (string "Card must be turned this side up if property is mortgaged"
+                         "Arial.font" "0x000000") "W")
+         (position-scaled 5 80 10 10))
+   )
   )
-)
 
-// define the high level functions
-(define (ROAD color roadName rent rent1House rent2Houses rent3Houses rent4Houses rentHotel mortgageValue houseCost hotelCost)
-        (BLACK_BOARDER             ) 
-        (HEADER      color roadName) 
-        (BASE_RENT   rent          ) 
-        (WITH_HOUSES rent1House  1 )
-        (WITH_HOUSES rent2Houses 2 ) 
-        (WITH_HOUSES rent3Houses 3 ) 
-        (WITH_HOUSES rent4Houses 4 ) 
-        (WITH_HOTEL  rentHotel     ) 
-        (MORTGAGE    mortgageValue ) 
-        (HOUSE_COST  houseCost     ) 
-        (HOTEL_COST  hotelCost     )
-        (FINE_PRINT                )
-) 
+;; define the high level functions
+(define (ROAD
+         color
+         roadName
+         rent
+         rent1House
+         rent2Houses
+         rent3Houses
+         rent4Houses
+         rentHotel
+         mortgageValue
+         houseCost
+         hotelCost)
+  (BLACK_BOARDER) 
+  (HEADER color roadName) 
+  (BASE_RENT rent) 
+  (WITH_HOUSES rent1House 1)
+  (WITH_HOUSES rent2Houses 2) 
+  (WITH_HOUSES rent3Houses 3) 
+  (WITH_HOUSES rent4Houses 4) 
+  (WITH_HOTEL rentHotel) 
+  (MORTGAGE mortgageValue) 
+  (HOUSE_COST houseCost) 
+  (HOTEL_COST hotelCost)
+  (FINE_PRINT)
+  ) 
 
 (define (RAILROAD name iconpath)
-        (ICON iconpath      ) 
-        (NAME name          ) 
-        (RAILROAD_RENTS "Rent" "$25") 
-        (RAILROAD_RENTS "If 2 R.R.'s are owned" "50")
-        (RAILROAD_RENTS "If 3 ''     ''  ''" "100")
-        (RAILROAD_RENTS "If 4 ''     ''  ''" "200")
-        (MORTGAGE_VALUE 100 )
-) 
-
+  (ICON iconpath) 
+  (NAME name) 
+  (RAILROAD_RENTS "Rent" "$25") 
+  (RAILROAD_RENTS "If 2 R.R.'s are owned" "50")
+  (RAILROAD_RENTS "If 3 ''     ''  ''" "100")
+  (RAILROAD_RENTS "If 4 ''     ''  ''" "200")
+  (MORTGAGE_VALUE 100)
+  ) 
+;;Below string is broken in two parts to fit in page,
+;;in real example, keep on one line
+(define utility_60 "If both ''Utilities'' are owned rent
+ is 10 times amount shown on dice.")
 (define (UTILITY name iconpath)
-        (ICON iconpath     ) 
-        (NAME name         )
-        (UTILITY_RENT 40 "If one ''Utility'' is owned rent is 4 times amount shown on dice.")
-        (UTILITY_RENT 60 "If both ''Utilities'' are owned rent is 10 times amount shown on dice.")
-        (MORTGAGE_VALUE 75 )
-)  
+  (ICON iconpath     ) 
+  (NAME name         )
+  (UTILITY_RENT 40
+                "If one ''Utility'' is owned rent is 4 times amount shown on dice.")
+  (UTILITY_RENT 60
+                utility_60)
+  (MORTGAGE_VALUE 75 )
+  )  
 
 (define (BACK_OF_CARD name value)
-        (B_NAME name)
-        (B_MORTGAGED value)
-        (B_FINE_PRINT)
-)
+  (B_NAME name)
+  (B_MORTGAGED value)
+  (B_FINE_PRINT)
+  )
 
-// render the road cards
-(render ROAD "#452A77" "MEDITERRANEAN AVE." "2" "10" "30" "90" "160" "250" "30" "50" "50")
-(render ROAD "#452A77" "BALTIC AVE." "4" "20" "60" "180" "320" "450" "30" "50" "50")
+;; render the road cards
+(render ROAD "#452A77"
+        "MEDITERRANEAN AVE." "2" "10" "30" "90" "160" "250" "30" "50" "50")
+(render ROAD "#452A77"
+        "BALTIC AVE." "4" "20" "60" "180" "320" "450" "30" "50" "50")
 
-(render ROAD "#ACC0D9" "ORIENTAL AVE." "6" "30" "90" "270" "400" "550" "50" "50" "50")
-(render ROAD "#ACC0D9" "VERMONT AVE." "6" "30" "90" "270" "400" "550" "50" "50" "50")
-(render ROAD "#ACC0D9" "CONNECTICUT AVE." "8" "40" "100" "300" "450" "600" "60" "50" "50")
+(render ROAD "#ACC0D9"
+        "ORIENTAL AVE." "6" "30" "90" "270" "400" "550" "50" "50" "50")
+(render ROAD "#ACC0D9"
+        "VERMONT AVE." "6" "30" "90" "270" "400" "550" "50" "50" "50")
+(render ROAD "#ACC0D9"
+        "CONNECTICUT AVE." "8" "40" "100" "300" "450" "600" "60" "50" "50")
 
-(render ROAD "#D5307C" "ST. CHAERLES PLACE" "10" "50" "150" "450" "625" "750" "70" "100" "100")
-(render ROAD "#D5307C" "STATES AVE." "10" "50" "150" "450" "625" "750" "70" "100" "100")
-(render ROAD "#D5307C" "VIRGINIA AVE." "12" "60" "180" "500" "700" "900" "80" "100" "100")
+(render ROAD "#D5307C"
+        "ST. CHAERLES PLACE" "10" "50" "150" "450" "625" "750" "70" "100" "100")
+(render ROAD "#D5307C"
+        "STATES AVE." "10" "50" "150" "450" "625" "750" "70" "100" "100")
+(render ROAD "#D5307C"
+        "VIRGINIA AVE." "12" "60" "180" "500" "700" "900" "80" "100" "100")
 
-(render ROAD "#CF6519" "ST. JAMES PLACE" "14" "70" "200" "550" "750" "950" "90" "100" "100")
-(render ROAD "#CF6519" "TENNESSEE AVE." "14" "70" "200" "550" "750" "950" "90" "100" "100")
-(render ROAD "#CF6519" "NEW YORK AVE." "16" "80" "220" "600" "800" "1000" "100" "100" "100")
+(render ROAD "#CF6519"
+        "ST. JAMES PLACE" "14" "70" "200" "550" "750" "950" "90" "100" "100")
+(render ROAD "#CF6519"
+        "TENNESSEE AVE." "14" "70" "200" "550" "750" "950" "90" "100" "100")
+(render ROAD "#CF6519"
+        "NEW YORK AVE." "16" "80" "220" "600" "800" "1000" "100" "100" "100")
 
-(render ROAD "#DD311D" "KENTUCKY AVE." "18" "90" "250" "700" "875" "1050" "110" "150" "150")
-(render ROAD "#DD311D" "INDIANA AVE." "18" "90" "250" "700" "875" "1050" "110" "150" "150")
-(render ROAD "#DD311D" "ILLINOIS AVE." "20" "100" "300" "750" "925" "1100" "120" "150" "150")
+(render ROAD "#DD311D"
+        "KENTUCKY AVE." "18" "90" "250" "700" "875" "1050" "110" "150" "150")
+(render ROAD "#DD311D"
+        "INDIANA AVE." "18" "90" "250" "700" "875" "1050" "110" "150" "150")
+(render ROAD "#DD311D"
+        "ILLINOIS AVE." "20" "100" "300" "750" "925" "1100" "120" "150" "150")
 
-(render ROAD "#FEF037" "ATLANTIC AVE." "22" "110" "330" "800" "975" "1150" "130" "150" "150")
-(render ROAD "#FEF037" "VENTNOR AVE." "22" "110" "330" "800" "975" "1150" "130" "150" "150")
-(render ROAD "#FEF037" "MARVIN GARDENS" "24" "120" "360" "850" "1025" "1200" "140" "150" "150")
+(render ROAD "#FEF037"
+        "ATLANTIC AVE." "22" "110" "330" "800" "975" "1150" "130" "150" "150")
+(render ROAD "#FEF037"
+        "VENTNOR AVE." "22" "110" "330" "800" "975" "1150" "130" "150" "150")
+(render ROAD "#FEF037"
+        "MARVIN GARDENS" "24" "120" "360" "850" "1025" "1200" "140" "150" "150")
 
-(render ROAD "#39803A" "PACIFIC AVE." "26" "130" "390" "900" "1100" "1275" "150" "200" "200")
-(render ROAD "#39803A" "NORTH CAROLINA AVE." "26" "130" "390" "900" "1100" "1275" "150" "200" "200")
-(render ROAD "#39803A" "PENNSYLVANIA" "28" "150" "450" "1000" "1200" "1400" "160" "200" "200")
+(render ROAD "#39803A"
+        "PACIFIC AVE." "26" "130" "390" "900" "1100" "1275" "150" "200" "200")
+(render ROAD "#39803A"
+        "NORTH CAROLINA AVE." "26" "130" "390" "900" "1100" "1275" "150" "200" "200")
+(render ROAD "#39803A"
+        "PENNSYLVANIA" "28" "150" "450" "1000" "1200" "1400" "160" "200" "200")
 
-(render ROAD "#253E97" "PARK PLACE" "35" "175" "500" "1100" "1300" "1500" "175" "200" "200")
-(render ROAD "#253E97" "BOARDWALK" "50" "200" "600" "1400" "1700" "2000" "200" "200" "200")
+(render ROAD "#253E97"
+        "PARK PLACE" "35" "175" "500" "1100" "1300" "1500" "175" "200" "200")
+(render ROAD "#253E97"
+        "BOARDWALK" "50" "200" "600" "1400" "1700" "2000" "200" "200" "200")
 
-// render the railroad cards 
+;; render the railroad cards 
 (render RAILROAD "READING RAILROAD"      railroad_image)
 (render RAILROAD "PENNSYLVANIA RAILROAD" railroad_image)
 (render RAILROAD "B. & O. RAILROAD"      railroad_image)
 (render RAILROAD "SHORT LINE"            railroad_image)
 
-// render utility cards
+;;  render utility cards
 (render UTILITY "ELECTRIC COMPANY" electric_company_image)
 (render UTILITY "WATER WORKS"      c_water_works_image   )
 
