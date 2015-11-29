@@ -335,35 +335,42 @@ The adapter pattern is used for our Image class. Our image class will not be abl
 ** Driver Class
 *Purpose:*
 The Driver will be the first thing the program will call and it will invoke all the other functions. In essence the Driver is our main.
+
 *Interaction:* 
 The Driver will first call the Options class and parse through the config file. Aftwerwards the Driver will make the scriptEvaluator which will keep track of the script directory and make the appropriate Lexor. The evaluator will then use all the tokens outputted from the Lexor, throw it through the Builder Factory and construct the appropriate objects. In the end the evaluator returns the rendered cards to the Driver, who sends it to the Output class for it to be written and saved.
+
 *Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Logger Class
 *Purpose:*
 The purpose of the Logger is to keep track of any errors found when parsing through the files and constructing the objects. The Logger will exit out of the program and output the list of errors when checked.
+
 *Interaction:* 
 The errors will be added to the Logger when errors are found when contructing objects in the different builders. When the driver checks to see if there are any errors, the Logger will exit the program and output the appropriate errors.
+
 *Design Patterns it belongs:*
 The Logger class used the singleton design pattern. We don't need multiple instances and its helpful because we are able to encapsulate the sole instance of the Logger class and have strict control on adding and checking errors.
 
 ** Options Class
 *Purpose:*
 Is to keep track of different variables of the deck found in the config file, such as input/output/logger directories or card output 	types(png,jpg...).
+
 *Interaction:* 
 Is created in the driver after parsing the config file. Its also used by the logger and output class both use the options class for knowing where to write to. 
+
 *Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Output Class
 *Purpose:*
 Where all the cards in the deck are written to.
+
 *Interaction:* 
 The Driver will create the ouput class after evaluating the script, based on the options class. This is where all the cards will be written to after they are all created.
+
 *Design Patterns it belongs:*
 No design patterns used in it.
-
 
 
 * ScriptEvaluator system  (This includes all the builders, and the Lexer
