@@ -35,6 +35,7 @@
 + addLayout(l ComponentLayout): void
 + addPositionScaled (position PositionScaled): void
 + addLayoutPositionPair (LLP LayoutPositionPair): void
++ addString(s String): void
 + addConsPair (cp ConsPair): void
 + getState (): BuilderState
 + setComponentLayout (l ComponentLayout): void
@@ -216,8 +217,8 @@ lt=&lt;&lt;&lt;&lt;-</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>650</x>
-      <y>350</y>
+      <x>600</x>
+      <y>410</y>
       <w>280</w>
       <h>70</h>
     </coordinates>
@@ -230,8 +231,8 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>650</x>
-      <y>250</y>
+      <x>600</x>
+      <y>110</y>
       <w>280</w>
       <h>70</h>
     </coordinates>
@@ -267,7 +268,7 @@ bg=pink</panel_attributes>
     <panel_attributes>void startBuild (l ComponentLayout, LBV LayoutBuilderVisiter)
     / The Abstract class changes state
     if (arg1 == decal)
-        changeState (new LeafLayout, LBV);
+        changeState (new LeafLayoutState, LBV);
         LBV.getState().addLayout(l, LBV);
      if (arg is a pair)
         changeState (new ExamFirstArgState, LBV);
@@ -462,24 +463,24 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
-      <y>250</y>
-      <w>270</w>
-      <h>30</h>
+      <x>870</x>
+      <y>110</y>
+      <w>320</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;250.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;300.0;150.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
+      <x>870</x>
       <y>360</y>
-      <w>270</w>
-      <h>30</h>
+      <w>320</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;250.0;10.0</additional_attributes>
+    <additional_attributes>10.0;70.0;300.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -637,5 +638,56 @@ bg=pink</panel_attributes>
     <panel_attributes>lt=&lt;&lt;&lt;.
 </panel_attributes>
     <additional_attributes>360.0;10.0;330.0;10.0;330.0;110.0;10.0;110.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>600</x>
+      <y>260</y>
+      <w>280</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>void addConsPair(cp ConsPair){
+    cp.acceptBuilderOnPair(this);
+}
+bg=pink</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>870</x>
+      <y>290</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;300.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3670</x>
+      <y>960</y>
+      <w>260</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>240.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>3910</x>
+      <y>960</y>
+      <w>440</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes> void addString (s String) 
+ will be checking the first string if it isincorrect it will go to error state
+ If there there is more strings it will go to error state.
+ 
+bg=pink</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
