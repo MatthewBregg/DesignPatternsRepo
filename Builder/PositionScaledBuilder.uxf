@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>420</y>
+      <w>280</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>PositionScaledBuilder
+--
+x: double
+y: double
+scaledX: double
+scaledY: double
+--
+addScriptObject(s: ScriptObject): void
+addDouble(d: DoubleScriptWrapper):void
+getResult(): PositionScaled
+clone(): PositionScaledBuilder</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>200</y>
+      <w>280</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+ScriptObjectBuilder
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>240</y>
+      <w>30</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+</diagram>
