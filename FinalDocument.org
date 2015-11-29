@@ -29,30 +29,81 @@ file:Examples/monopoly_example/monopoly.config
 
 
 * Card Representation System  (Ervis)
-** for each class
+** Overview
+The Card object is constructed by five attributes: two Layouts for front and back, a name, a width and a height. The Layout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base obejct that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
+
+
 *** Purpose
-*** What patterns it partakes in
-** Design Patterns used
+*** Interaction
+*** Design Patterns it belongs
+
+
+
+** ScriptObject Class
+
+
+** ComponentLayout Class
+
+*** LeafLayout Class
+*** CompositeLayout Class
+**** SingleComponentLayout Class
+**** ArrayComponentLayout Class
+*** LayoutPositionPair Class
+
+
+
+** Decal Class
+*** Text Class
+*** ImageDecal
+*** DynamicDecal
+*** Shape Class
+**** Rectangle Class
+**** Circle Class
+**** Triangle Class
+**** AnyShape Class
+
+** Card Class
+
+** PositionScaled Class
+
+** Size Class
+
+** Family Class
+
+** ConsPair Class
+
+** List Class
+
+** ErrorScriptObject Class
+
+** NullScriptObject Class
+
+** DoubleScriptWrapper Class
+
+** StringScriptWrapper Class
+
+** UndefinedFunction Class
+
+** RenderedCard Class
+
+**
+
+
+
+
+** Design Patterns used in Card Representation System
 *** Why we used?
 *** What we gained?
 *** Consequences
 
 
-Note : This will include the ScriptObject, and everything inheriting from it.
-Note : Changing layouts to this.
-This covers
-- Layouts
-- ScriptObject
-  - Size,family, etc...
 
-** Decal System  (Ervis)
-** for each class
-*** Purpose
-*** What patterns it partakes in
-** Design Patterns used
-*** Why we used?
-*** What we gained?
-*** Consequences
+
+
+
+
+
+
 
 * Driver System (Includes Logger, output, options)
 ** Options Reading system
