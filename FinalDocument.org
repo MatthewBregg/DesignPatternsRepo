@@ -1,9 +1,9 @@
 #+AUTHOR: DP Team
 * Overall System, How all these sub systems interact
 The driver system gets everything going, and runs things at the highest level perspective.
-It's what reads in the initial options, sets the ScriptEvaluator, makes the ScriptEvaluator.
+It's what reads in the initial options, sets the ScriptEvaluator, and makes the ScriptEvaluator.
 
-The driver then will let options get the correct file, and then get the lexer from the ScriptEvaluator, tokenize the file, eval the tokens.
+The driver then will let options get the correct file, and then get the Lexer from the ScriptEvaluator, tokenize the file, eval the tokens.
 Then, it will take the RenderedCard list, give each card to output, with options.
 Output will then write the card to disk.
 The program is then done, exit, printing any information left in logger. 
@@ -30,266 +30,212 @@ The goal of our project is to design a functional Script-driven card generator (
 The Card object is constructed by five attributes: two Layouts for front and back, a name, a width and a height. The Layout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base object that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
 
 ** ScriptObject Class
-*Purpose:* 
+-*Purpose:* 
 It is an abstract class which will be declaring the interface for all the concrete object to use. The subclasses will be overriding its method, acceptBuilder (), in order to create a builder to build objects.
-
-*Interaction:* 
+-*Interaction:*  
 This class does not inherit from any other classes, however it serve as a base class for all other components, which will be inheriting from this.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 This class is not part of any design patterns explicitly, but lots of design patterns will be used in its subclasses and by overriding its methods.
 
 ** ComponentLayout Class
-*Purpose:*
+-*Purpose:*
 It is an abstract class which declares an interface for the objects that can belong to a layout such as a Decal or another layout. It will implement the default behaviours for some of the functionalities which will be the same in all the class that will inherit from this. It will declare an interface for accessing the child components.
-
-*Interaction:* 
+-*Interaction:*  
 This abstract class will be inheriting from ScriptObject class which is another abstract class. In addition it will override the method necessary to build the layouts called acceptBuilder (). Two subclasses will inherit from this the LeafLayout class and CompositeLayout class.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 This class is designed using Composite design pattern and the iterator design patterns is included in it as well. 
 
 *** LeafLayout Class
-*Purpose:* 
+-*Purpose:* 
 It is an abstract class that will represent the leaf object in a composition. It has no children and the leaf will be of type object Decal. Moreover, this class has character attribute to denote the size that the decal will have in relative to the layout. The options are specified in the ScriptingLanguageSpecification.org. It will be able to offer default behavior on how to render a decal. The render () method will be overrriden by the concrete subclasses fo the Decal class.
-
-*Interaction:* 
+-*Interaction:*  
 This class will inherit from the ComponentLayout abstract class. In addition from this class we can navigate to the abstract class Decal.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 This class is designed using Composite design pattern.
 
 *** CompositeLayout Class
-*Purpose:* 
+-*Purpose:* 
 It is an abstract class that will declare an interface for components that will have children. In addition it will provide default implementation to some of the methods necessary for adding child layout components and for rendering layouts into the card or another layout. It will also provide a default implementation for the method iterator (), which will create an iterator to traverse all the composed layouts.
-
-*Interaction:*  
+-*Interaction:*   
 This class will inherit from the ComponentLayout abstract class and it will serve as a base for the other two classes ArrayComponentLayout and SingleComponentLayout.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
 **** SingleComponentLayout Class
-*Purpose:* 
+-*Purpose:* 
 This is a concrete class that will be able to hold only a single child of type ComponentLayout. It will have zero or one thing as an attribute, a LayoutPositionPair, which will be discussed below.
-
-*Interaction:* 
+-*Interaction:*  
 This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render method ().
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
 **** ArrayComponentLayout Class
-*Purpose:* 
+-*Purpose:* 
 This is a concrete class that will be able to hold an array of children of types ComponentLayout. The array will be filled with zero or many references to the LayoutPositionPair obejcts.
-
-*Interaction:* 
+-*Interaction:*  
 This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render method (), addLayout (), removeLayout and iterator () to create an iterator.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
 *** LayoutPositionPair Class
-*Purpose:* 
+-*Purpose:* 
 It is a concrete class which will allow our system to create structure where a specific ComponentLayout is associated with a PositionScaled. This is necessary because every layout most be placed in a specific relatively scaled position.
-
-*Interaction:* 
+-*Interaction:*  
 This class does not inherit from any other classes, however, the SingleComponentLayout and the ArrayComponentLayout will maintain zero or more references to the objects created by this class.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 It is not part of any of the design patterns.
 
 ** Decal Class
-*Purpose:* 
+-*Purpose:* 
 This Abstract class will provide a common interface for various types of decals. I will also be implementing a default behaviors for the render () method and acceptBuilder () method, which will be overridden by the subclasses.
-
-*Interaction:* 
+-*Interaction:*  
 This class will inherit from the ScriptObject class and four other subclasses will be implementing the rest of the functionalities defined by this abstract class.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns were used in this part of the system.
 
 *** Text Class
-*Purpose:* 
+-*Purpose:* 
 A concrete class which comforts to the interface set by the Decal class. It will offer the user to put text objects into a card. I has three attributes a Color, a size and a font. This class will know how to render itself and how to load a text from a path given in the configuration file.
-
-*Interaction:* 
+-*Interaction:*  
 It will inherit from the abstract class Decal.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patters used in it.
 
 *** ImageDecal
-*Purpose:* 
+-*Purpose:* 
 A concrete class which offers the users to put an image into a card. This class will know how to render itself and how to load an image from a path given in the configuration file.
-
-*Interaction:* 
+-*Interaction:*  
 It will inherit from the abstract class Decal.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 *** DynamicDecal
-*Purpose:* 
+-*Purpose:* 
 It is a concrete class which offers the ability to look up a certain decal by name. It has one attribute of type string which will hold the value of the key.
-
-*Interaction:* 
+-*Interaction:*  
 It will conform to the interface set by the Decal class and override some of the methods defined in there.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 It can be seen as the RealSubject in the Proxy design pattern.
 
 *** Shape Class
-*Purpose:* 
+-*Purpose:* 
 This abstract class will provide a common interface for various shapes which conforming to the interface set by the Decal abstract class.
-
-*Interaction:*
+-*Interaction:* 
 It will be inheriting from the Decal abstract class and four other classes or more will be implementing its functionalities. 
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 **** Rectangle Class
-*Purpose:* 
+-*Purpose:* 
 It will be implementing the interface set by the Shape class and it will offer the user the ability to draw a rectangle on a card. It will also be implementing the render () method in order to render itself on a card. I has three attributes, two dimension and a Color type attribute.
-
-*Interaction:* 
+-*Interaction:*  
 I will be implementing the interface set by the Shape class and also inheriting from it.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 **** Circle Class
-*Purpose:* 
+-*Purpose:* 
 It will be implementing the interface set by the Shape class and will offer users the ability to draw a circle with a specific radius and specific color on the card. It will override the render () method inherited from the Shape abstract class.
-
-*Interaction:*
+-*Interaction:* 
 I will be implementing the interface set by the Shape class and also inheriting from it.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 **** Triangle Class
-*Purpose:* 
+-*Purpose:* 
 It will be implementing the interfaces set by the Shape class and will offer the users the ability to draw a triangle with specific sides and specific color on the card. It will override the render () method.
-
-*Interaction:* 
+-*Interaction:*  
 I will be implementing the interface set by the Shape class and also inheriting from it.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 **** AnyShape Class
-*Purpose:* 
+-*Purpose:* 
 It will be implementing the interface set by the Shape class and will offer the user to build any type of shape by just giving a set of points. The user is responsible for giving the correct amount of point and computing where those points should be.
-
-*Interaction:* 
+-*Interaction:*  
 I will be implementing the interface set by the Shape class and also inheriting from it.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Card Class
-*Purpose:*
+-*Purpose:*
 This is a concrete class which will be implementing the interface create by ScriptObject class. The objects create by this class will have all the necessary components that a card needs. In addition it will implement the render () method in order to render itself.
-
-*Interaction:* 
+-*Interaction:*  
 It will be inheriting from the ScriptObject concrete class and it will hold two layouts of type ComponentLayout, size attributes and a name.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** PositionScaled Class
 *Purpose:*
 It is a concrete class which will be implementing the interface defined by the ScriptObject class. It will offer the user to scale position where a component will be placed. The user needs will need to specify the change in percentage for the width, height, x and y position.
-
-*Interaction:* 
+-*Interaction:*  
 It will implement the interface set from the ScriptObject class and override some of behaviours defined there.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Size Class
 *Purpose:*
 It is a concrete class used by the user to set the size for various components that will be used in the card. It has two attributes a width and a height.
-
-*Interaction:* 
+-*Interaction:*  
 It will conform to the interface set by the ScriptObject class.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Family Class
 *Purpose:*
 It is a concrete class that will offer users the option to associate a certain Decal object with a string. This could be useful because if a certain decal needs to appear in many cards (or layouts) we can refer to it by the name and we don’t need to create it multiple times. 
-
-*Interaction:* 
+-*Interaction:*  
 This class will be implementing the interface set by the ScriptObject class. 
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** ConsPair Class
 *Purpose:*
 It is an abstract class that will enable the user to associate two different object with each other. Bothe these object will be of type ScriptObject. Script object is an abstract class implemented by many other concrete classes.
-
-*Interaction:* 
+-*Interaction:*  
 It will be implementing the interface set by the ScriptObject class and override the functionalities defined in there.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** List Class 
 *Purpose:*
 It is a concrete class that will enable the user to create a list of different objects. The elements in this list will be of type ScriptObject.
-
-*Interaction:* 
+-*Interaction:*  
 It will conform to the interface set by the ScriptObject class and override some of the functionalities defined there.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** ErrorScriptObject Class
 *Purpose:*
 It is a concrete class whose purpose is to create an error or display an error message if a certain token is undefined or unfound in the script language.
-
-*Interaction:* 
+-*Interaction:*  
 It will implement and conform to the interface set by the parent class ScriptObject.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** NullScriptObject Class
 *Purpose:*
 It is a concrete class whose purpose is to to denot that there is nothing to be created or nothing is being returned.
-
-*Interaction:* 
+-*Interaction:*  
 It will implement and conform to the interface set by the parent class ScriptObject.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** UndefinedFunction Class
 *Purpose:*
 It is a concrete class whose purpose is to throw an error when a call to an undefined function is made. The functions should be defined in the scripting language and then later on called with respective parameters.
-
-*Interaction:* 
+-*Interaction:*  
 It will implement and conform to the interface set by the ScriptObject class.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
-
 
 ** RenderedCard Class
 *Purpose:*
 It is a concrete class, whose object will be created as the final result of calling render methods in every component. When everything is rendered, this object will be created.
-
-*Interaction:* 
+-*Interaction:*  
 It will not be inheriting form any other class or being used s a sub class for other classes. However, it will be create by the ScrinptEvaluater’s concrete classes.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
-
 
 ** Design Patterns used in Card Representation System
 The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, and *Addapter*.
@@ -331,50 +277,41 @@ The adapter pattern is used for our Image class. Our image class will not be abl
 - No bad consequences by using this design pattern.
 
 
-* Driver System (Includes Logger, output, options)
+* Driver System
 ** Driver Class
-*Purpose:*
+-*Purpose:*
 The Driver will be the first thing the program will call and it will invoke all the other functions. In essence the Driver is our main.
-
-*Interaction:* 
+-*Interaction:*  
 The Driver will first call the Options class and parse through the config file. Aftwerwards the Driver will make the scriptEvaluator which will keep track of the script directory and make the appropriate Lexor. The evaluator will then use all the tokens outputted from the Lexor, throw it through the Builder Factory and construct the appropriate objects. In the end the evaluator returns the rendered cards to the Driver, who sends it to the Output class for it to be written and saved.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Logger Class
-*Purpose:*
+-*Purpose:*
 The purpose of the Logger is to keep track of any errors found when parsing through the files and constructing the objects. The Logger will exit out of the program and output the list of errors when checked.
-
-*Interaction:* 
+-*Interaction:*  
 The errors will be added to the Logger when errors are found when contructing objects in the different builders. When the driver checks to see if there are any errors, the Logger will exit the program and output the appropriate errors.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 The Logger class used the singleton design pattern. We don't need multiple instances and its helpful because we are able to encapsulate the sole instance of the Logger class and have strict control on adding and checking errors.
 
 ** Options Class
-*Purpose:*
-Is to keep track of different variables of the deck found in the config file, such as input/output/logger directories or card output 	types(png,jpg...).
-
-*Interaction:* 
+-*Purpose:*
+Is to keep track of different variables of the deck found in the config file, such as input/output/logger directories or card output  types(png, jpg...).
+-*Interaction:*  
 Is created in the driver after parsing the config file. Its also used by the logger and output class both use the options class for knowing where to write to. 
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Output Class
-*Purpose:*
+-*Purpose:*
 Where all the cards in the deck are written to.
-
-*Interaction:* 
+-*Interaction:*  
 The Driver will create the ouput class after evaluating the script, based on the options class. This is where all the cards will be written to after they are all created.
-
-*Design Patterns it belongs:*
+-*Design Patterns it belongs:*
 No design patterns used in it.
 
-
-* ScriptEvaluator system  (This includes all the builders, and the Lexer
-When ever I say Builders, I mean subclasses of ScriptObjectBuilder
+* ScriptEvaluator system 
+This includes all the Builders, and the Lexer. Whenever I say Builders, I mean subclasses of ScriptObjectBuilder
 
 ** Builder
 *** Why we used?
@@ -512,7 +449,7 @@ A more worthwhile Facade could be to make something that takes in a file path, r
 This being a fairly minor thing is the main reason I believe this not being a Facade is not a problem, the things it is doing are fairly simple. While it is interacting with a complex subsystem, the interactions are fairly simple.
 
 
-** Composite  for ScriptObject and Token?
+** Composite  for ScriptObject and Token
 *** ScriptObject
 ScriptObject and Token both feature recursive composition. 
 However, for the ScriptObject, this is limited to just a few special cases, and the ScriptObject has no child management operations. 
