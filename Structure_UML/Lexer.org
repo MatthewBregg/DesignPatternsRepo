@@ -11,7 +11,7 @@ Lexer : -makeDoubleToken(n:double) : Token
 Lexer : -makeParseErrorToken(position:int,error:String) : Token
 Lexer : -makeStringToken(str:String) : Token
 Lexer : -makeVariableToken(varName:String) : Token
-Lexer : -makeExpressionToken() : ExpressionToken
+Lexer : -makeExpressionToken(MutableExpressionToken falseToken) : Token
 
 class LispLexer
 LispLexer : -fileContents:String
@@ -19,11 +19,18 @@ LispLexer : -position:int
 Lexer <|.. LispLexer
 LispLexer : -tokens:List<Token>
 
+class MutableExpressionToken 
+MutableExpressionToken : funcName:String
+MutableExpressionToken : args:List<Token>
+MutableExpressionToken : allParamsVars:bool 
+note : Mutable version of expression token for constructing one, but cannot be used as one, as it is mutable.
+
+
 note top of LispLexer
  The lexer load the file into a String.
  It will then call tokenizeSexp on the String, pass in null for t.
  Then inside tokenizeSexp
- If there is a "(", then make an ExpressionToken.
+ If there is a "(", then make an MutableExpressionToken.
   Set t, if not null, allParamsVars to false.
   There should be a new symbol immediately after the opener
    If there isn't return a call makeErrorToken, and return.
@@ -31,8 +38,8 @@ note top of LispLexer
    Else, call makeErrorToken, and return. 
   Set the expression funcName to be this symbol. 
   Advance position past this symbol.
-  If the current position is a ")", then return Expression token, and move position past it.
-  Else Call tokenizeSexp again, and add the returned token to the ExpressionToken argument list.
+  If the current position is a ")", then return makeExpressionToken from MutableExpressionToken, return it, and move position past it.
+  Else Call tokenizeSexp again, and add the returned token to the MutableExpressionToken argument list.
 If double quotes are hit, call makeStringToken with the contents of those double quotes, and return the token.
   Set t, if not null, allParamsVars to false.
 If a number is hit, aka, anything with no spaces, and only 0-9 and maybe a decimal, then call 

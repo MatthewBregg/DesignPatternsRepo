@@ -49,7 +49,6 @@ Everything is immutable, so no cloning anymore, maybe GUI will be reason to brin
 
 
 * Example with new lisp for 52 cards
-
 #+BEGIN_SRC config
 (define spadeImage  (image "spadeImage.jpg"))
 (define heartImage  (image "heartImage.jpg"))

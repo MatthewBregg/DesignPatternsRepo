@@ -474,9 +474,11 @@ A fairly simple interface, see the UML for decals.
 
 To add support for additional scripting language, provided that the language can be represented with the existing token, just make a new implementor of the interface, and a corresponding ScriptEvaluator implementor!
 
+
 *** UML
 file:Structure_UML/LexerUML.png
 *** Token
+- Tokens are immutable after creation.
 **** Types
 ***** VariableToken
 - Leaf token, holds a var name.
