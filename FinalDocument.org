@@ -19,11 +19,11 @@ The goal of our project is to design a functional Script-driven card generator (
 
 ** Examples
 *** 52 cards
-file:Examples/52_deck_example/deckConfig.txt
-file:Examples/52_deck_example/deckScript.txt
+- file:Examples/52_deck_example/deckConfig.txt
+- file:Examples/52_deck_example/deckScript.txt
 *** Monopoly
-file:Examples/monopoly_example/monopoly.script
-file:Examples/monopoly_example/monopoly.config
+- file:Examples/monopoly_example/monopoly.script
+- file:Examples/monopoly_example/monopoly.config
 
 * Card Representation System
 ** Overview
