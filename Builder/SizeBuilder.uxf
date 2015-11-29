@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>10</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1060</x>
-      <y>30</y>
-      <w>170</w>
-      <h>30</h>
+      <x>776</x>
+      <y>160</y>
+      <w>136</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>/ScriptObjectBuilder/
 --
@@ -17,10 +17,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1030</x>
-      <y>120</y>
-      <w>240</w>
-      <h>100</h>
+      <x>752</x>
+      <y>224</y>
+      <w>216</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>SizeBuilder
 --
@@ -28,27 +28,28 @@ state:State
 --
 addScriptObject(s:ScriptObject)
 getResult() : ScriptObject
-clone() : SizeBuilder</panel_attributes>
+clone() : SizeBuilder
+addDouble(s:DoubleScriptWrapper)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1140</x>
-      <y>50</y>
-      <w>30</w>
-      <h>90</h>
+      <x>840</x>
+      <y>176</y>
+      <w>24</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1340</x>
-      <y>50</y>
-      <w>320</w>
-      <h>80</h>
+      <x>1000</x>
+      <y>192</y>
+      <w>256</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>a size builder is a structure containing either a single number representing the length and width where length==width OR a tuple containing the width and height.
 bg=white</panel_attributes>
@@ -57,35 +58,36 @@ bg=white</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1140</x>
-      <y>210</y>
-      <w>30</w>
-      <h>80</h>
+      <x>840</x>
+      <y>312</y>
+      <w>24</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>990</x>
-      <y>270</y>
-      <w>330</w>
+      <x>720</x>
+      <y>352</y>
+      <w>264</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>/State/
 --
 getResult(): ScriptObject
-addScriptObject(s:ScriptObject, c:SizeBuilder)</panel_attributes>
+addScriptObject(s:ScriptObject, c:SizeBuilder)
+addDouble(s:DoubleScriptWrapper)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1400</x>
-      <y>480</y>
-      <w>340</w>
-      <h>70</h>
+      <x>1048</x>
+      <y>536</y>
+      <w>272</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>ErrorState
 --
@@ -96,10 +98,10 @@ getResult(c:SizeBuilder): ScriptObject</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1290</x>
-      <y>340</y>
-      <w>300</w>
-      <h>160</h>
+      <x>960</x>
+      <y>424</y>
+      <w>240</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;280.0;140.0</additional_attributes>
@@ -107,10 +109,10 @@ getResult(c:SizeBuilder): ScriptObject</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1600</x>
-      <y>390</y>
-      <w>370</w>
-      <h>70</h>
+      <x>1208</x>
+      <y>464</y>
+      <w>296</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>We have not received either a single number or two numbers. Thus, an error state is set and will polymorphically deploy to the caller.
 bg=white</panel_attributes>
@@ -119,14 +121,14 @@ bg=white</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>980</x>
-      <y>470</y>
-      <w>340</w>
-      <h>100</h>
+      <x>712</x>
+      <y>528</y>
+      <w>272</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>OneState
 --
-size:ScriptObject
+width: DoubleScriptWrapper
 --
 OneState(one:ScriptObject)
 getResult(c:SizeBuilder):ScriptObject
@@ -136,10 +138,10 @@ addDouble(s:DoubleScriptWrapper)</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1400</x>
-      <y>560</y>
-      <w>310</w>
-      <h>40</h>
+      <x>1048</x>
+      <y>600</y>
+      <w>248</w>
+      <h>32</h>
     </coordinates>
     <panel_attributes>getResult: returns an ErrorScriptObject
 addScriptObject: does nothing
@@ -149,10 +151,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>980</x>
-      <y>580</y>
-      <w>360</w>
-      <h>80</h>
+      <x>712</x>
+      <y>616</y>
+      <w>288</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>getResult: returns a SizeSingle with a single value where width==height
 addDouble: set state of c to new TwoState (note: we need to check if there is another state)
@@ -162,10 +164,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1140</x>
-      <y>340</y>
-      <w>30</w>
-      <h>150</h>
+      <x>840</x>
+      <y>424</y>
+      <w>24</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
@@ -173,10 +175,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>860</x>
-      <y>390</y>
-      <w>290</w>
-      <h>80</h>
+      <x>616</x>
+      <y>464</y>
+      <w>232</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>We have received a single input and we interpret that as a single value where width == height, but we still want to check if there is another state!
 bg=white</panel_attributes>
@@ -185,15 +187,14 @@ bg=white</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>480</y>
-      <w>360</w>
-      <h>120</h>
+      <x>360</x>
+      <y>536</y>
+      <w>288</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>TwoState
 --
-width: ScriptObject
-height: ScriptObject
+height: DoubleScriptWrapper
 --
 TwoState(width:ScriptObject, height:ScriptObject)
 getResult(c:SizeBuilder):ScriptObject
@@ -203,10 +204,10 @@ addDouble(s:DoubleScriptWrapper)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>700</x>
-      <y>340</y>
-      <w>410</w>
-      <h>160</h>
+      <x>488</x>
+      <y>424</y>
+      <w>328</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>390.0;10.0;10.0;140.0</additional_attributes>
@@ -214,10 +215,10 @@ addDouble(s:DoubleScriptWrapper)</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>550</x>
-      <y>610</y>
-      <w>360</w>
-      <h>80</h>
+      <x>368</x>
+      <y>640</y>
+      <w>288</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>getResult: if there was another state, then we return TwoState. Else, we return OneState. Thus, TwoState needs to know about OneState!
 addDouble: set state of c to new ErrorState
@@ -227,10 +228,10 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>490</x>
-      <y>410</y>
-      <w>280</w>
-      <h>60</h>
+      <x>320</x>
+      <y>480</y>
+      <w>224</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>We have received two script objects as input and we will coorespond those with the width and height
 bg=white</panel_attributes>
@@ -239,25 +240,24 @@ bg=white</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>150</x>
-      <y>480</y>
-      <w>330</w>
-      <h>70</h>
+      <x>48</x>
+      <y>536</y>
+      <w>264</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Empty
 --
 --
-getResult(c:SizeBuilder)
-addDouble(s:DoubleScriptWrapper)</panel_attributes>
+getResult(c:SizeBuilder)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>90</x>
-      <y>410</y>
-      <w>280</w>
-      <h>60</h>
+      <x>0</x>
+      <y>480</y>
+      <w>224</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>We have received two script objects as input and we will coorespond those with the width and height
 bg=white</panel_attributes>
@@ -266,10 +266,10 @@ bg=white</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
-      <y>340</y>
-      <w>750</w>
-      <h>160</h>
+      <x>168</x>
+      <y>424</y>
+      <w>600</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>730.0;10.0;10.0;140.0</additional_attributes>
@@ -277,25 +277,37 @@ bg=white</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>90</x>
-      <y>570</y>
-      <w>380</w>
-      <h>100</h>
+      <x>0</x>
+      <y>608</y>
+      <w>304</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>getResult: returns an ErrorSCriptObject and set the state of c to new ErrorState
-addDouble: set the state of c to OneState
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>530</y>
-      <w>110</w>
-      <h>30</h>
+      <x>640</x>
+      <y>576</y>
+      <w>88</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>584</x>
+      <y>248</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Has the form
+(size a b)
+bg=white</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
