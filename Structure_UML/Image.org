@@ -4,14 +4,23 @@ skinparam dpi 300
 
 class JavaImage as "Image \n The one from Java Libraries"
 
-JavaImage <|-- Image
 
-class Image 
+Interface ImageInterface
 
-Image : insertImage(subImage:Image,x_position:Double,y_position:Double)
+ImageInterface : insertImage(subImage:Image,x_position:Double,y_position:Double)
 
-Image : resize(x:Int,y:Int)
+ImageInterface : resize(x:Int,y:Int)
 
-Image : Image(x:Int,y:Int)
+ImageInterface : Image(x:Int,y:Int)
+
+class JavaImageAdapter
+JavaImageAdapter : -JavaImage
+
+ImageInterface <|.. JavaImageAdapter 
+JavaImageAdapter --> JavaImage
 
 #+END_SRC
+
+#+RESULTS:
+[[file:ImageClass.png]]
+
