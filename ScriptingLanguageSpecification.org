@@ -15,6 +15,17 @@ This version does support defining functions atm.
 - A variable name can't start with a number, to make it determinable from an int atom.
   - It must start with an alpha character.
     
+*** Basic number ops
+Basic number ops, including +,-,/,*,^.
+Takes in two args, returns a third with the value. 
+#+BEGIN_SRC 
+(+ 1 2)
+(- 1 2)
+(* 1 2)
+(/ 1 2)
+(^ 1 2)
+#+END_SRC
+    
 *** concat-string
 Takes in n string, or numbers, returns one string of all those concattenated
 #+BEGIN_SRC 
