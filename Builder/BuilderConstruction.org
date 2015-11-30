@@ -342,6 +342,11 @@ class EvalFileBuilder
 BuilderVisiter <|-- EvalFileBuilder
 BuilderNoteS -- EvalFileBuilder
 
+'StringConcatBuilder
+class StringConcatBuilder
+BuilderVisiter <|-- StringConcatBuilder
+BuilderNoteS -- StringConcatBuilder
+
 #+END_SRC
 
 #+RESULTS:

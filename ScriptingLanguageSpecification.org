@@ -15,6 +15,14 @@ This version does support defining functions atm.
 - Right now, defines may not be nested, and must be done at top level.
 - A variable name can't start with a number, to make it determinable from an int atom.
   - It must start with an alpha character.
+    
+*** concat-string
+Takes in n string, or numbers, returns one string of all those concattenated
+#+BEGIN_SRC 
+(concat-string "foo" 3 "bar")
+(concat-string "Foo" "bar")
+
+#+END_SRC
 *** cons
 Takes two arguments, returns a pair holding the two arguments as one object
 #+BEGIN_SRC scheme
