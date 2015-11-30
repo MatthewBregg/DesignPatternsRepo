@@ -1,4 +1,3 @@
-#+AUTHOR: Design Patterns Team 
 * Overview of Scripting Language
 For the scripting language, we have choosen a lisp style language.
 While far from a complete lisp, it has a syntax similar to scheme, and could easily be extended, without breaking existing scripts.
