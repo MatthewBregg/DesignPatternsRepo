@@ -31,7 +31,7 @@ The Card object is constructed by five attributes: two Layouts for front and bac
 
 ** ScriptObject Class
 - *Purpose:* 
-It is an abstract class which will be declaring the interface for all the concrete object to use. The subclasses will be overriding its method, acceptBuilder (), in order to create a builder to build objects.
+It is an abstract class which will be declaring the interface for all the concrete object to use. The subclasses will be overriding its method, ~acceptBuilder ()~, in order to create a builder to build objects.
 - *Interaction:*  
 This class does not inherit from any other classes, however it serve as a base class for all other components, which will be inheriting from this.
 - *Design Patterns it belongs:*
