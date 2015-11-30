@@ -140,14 +140,14 @@
 (define (B_NAME name)
   (layout 
    (cons (layout (string name "Arial.font" "0x000000" 12) "W")
-         (position-scaled 25 20 20 20))
+         (position-scaled 25 20 100 100))
    )
   )
 
 (define (B_MORTGAGED value)
   (layout 
    (cons (layout (string (+ "MORTGAGED for $ " value ) "Arial.font" "0x000000" 12) "W")
-         (position-scaled 25 20 14 14))
+         (position-scaled 25 20 100 100))
    )
   )
 
@@ -217,9 +217,11 @@
   )  
 
 (define (BACK_OF_CARD name value)
-  (B_NAME name)
-  (B_MORTGAGED value)
-  (B_FINE_PRINT)
+  (layout
+    (cons (B_NAME name) (position-scaled 25 20 14 14))
+    (cons (B_MORTGAGED value) (position-scaled 25 20 14 14))
+    (cons (B_FINE_PRINT) (position-scaled 5 80 10 10))
+    )
   )
 
 ;; render the road cards
