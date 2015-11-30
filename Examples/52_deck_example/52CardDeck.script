@@ -1,25 +1,25 @@
-//------------------------------------------------------
-//size(in pixels) of the card
-//------------------------------------------------------
+;;------------------------------------------------------
+;;size(in pixels) of the card
+;;------------------------------------------------------
 (define cardSize (size 70 100))
 
 
-//------------------------------------------------------
-//back image of the card
-//------------------------------------------------------
+;;------------------------------------------------------
+;;back image of the card
+;;------------------------------------------------------
 (define cardBackImage (image "cardBack.jpg"))
 
-//------------------------------------------------------
-//suit images
-//------------------------------------------------------
+;;------------------------------------------------------
+;;suit images
+;;------------------------------------------------------
 (define spadeImage (image "spadeImage.jpg"))
 (define heartImage (image "heartImage.jpg"))
 (define diamondImage (image "diamondImage.jpg"))
 (define clubImage (image "clubImage.jpg"))
 
-//------------------------------------------------------
-//all face card images
-//------------------------------------------------------
+;;------------------------------------------------------
+;;all face card images
+;;------------------------------------------------------
 (define jackHeartImage (image "jackHeart.jpg"))
 (define queenHeartImage (image "queenHeart.jpg"))
 (define kingHeartImage (image "kingHeart.jpg"))
@@ -33,25 +33,24 @@
 (define queenClubImage (image ("queenClub.jpg"))
 (define kingClubImage (image ("kingClub.jpg"))
 
-//------------------------------------------------------
-//shape of card
-//------------------------------------------------------
+;;------------------------------------------------------
+;;shape of card
+;;------------------------------------------------------
 (define whiteRectangle (rectangle 0x000000 70 100 ))
 
-//------------------------------------------------------
-//relative positions and card size
-//------------------------------------------------------
+;;------------------------------------------------------
+;;relative positions and card size
+;;------------------------------------------------------
 (define wholeCard (position-scaled 0 0 100 100)) 
 (define numberTopLeft (position-scaled 5 5 5 5))
-(define numberBotRight (position-scaled 85 90 5 5)) 
-(define suitTopLeft (position-scaled 10 5 5 5)) 
-(define suitBotRight (position-scaled 90 90 5 5)) 
+(define numberBotRight (position-scaled 85 85 5 5)) 
+(define suitTopLeft (position-scaled 5 10 5 5)) 
+(define suitBotRight (position-scaled 85 90 5 5)) 
+;;..Moreposiitons
 
-//..Moreposiitons
-
-//------------------------------------------------------
-//family for all 4 suits
-//------------------------------------------------------
+;;------------------------------------------------------
+;;family for all 4 suits
+;;------------------------------------------------------
 (define HeartFamily (family (cons "suit" heartImage)
                             (cons "jackImage" jackHeartImage)
                             (cons "queenImage" queenHeartImage)
@@ -69,9 +68,9 @@
                            (cons "queenImage" queenClubImage)
                            (cons "kingImage" kingClubImage)))
 
-//------------------------------------------------------
-//base layouts for all the cards
-//------------------------------------------------------
+;;------------------------------------------------------
+;;base layouts for all the cards
+;;------------------------------------------------------
 (define (cardBackLayout)
   (layout
   (cons (layout whiteRectangle wholeCard))
@@ -193,9 +192,9 @@
   (cons (backGroundLayout value color) wholeCard)
   (cons (layout "kingImage") centerFace)))
 
-//------------------------------------------------------
-//cards   
-//------------------------------------------------------
+;;------------------------------------------------------
+;;cards   
+;;------------------------------------------------------
 (define blackAceCard
   (card cardSize "blackAce" (aceLayout "A" 0x000000) cardBackLayout))
 (define blackTwoCard
@@ -250,9 +249,9 @@
 (define redKingCard
   (card cardSize "redKing" (aceLayout "K" #DD311D) cardBackLayout))
 
-//------------------------------------------------------
-//makes the subDeck of 13 cards, for each color
-//------------------------------------------------------
+;;------------------------------------------------------
+;;makes the subDeck of 13 cards, for each color
+;;------------------------------------------------------
 (define redSubDeck (list redAceCard redTwoCard redThreeCard redFourCard
                          redFiveCard redSixCard redSevenCard 
                           redEightCard redNineCard redTenCard redJackCard
@@ -262,9 +261,9 @@
                           blackEightCard blackNineCard blackTenCard blackJackCard
                           blackQueenCard blackKingCard ))
 
-//------------------------------------------------------
-//renders the subdeck 4 times for each suit
-//------------------------------------------------------
+;;------------------------------------------------------
+;;renders the subdeck 4 times for each suit
+;;------------------------------------------------------
 (render redSuitSubDeck heartFamily)
 (render redSuitSubDeck diamondFamily)
 (render blackSuitSubDeck clubFamily)
