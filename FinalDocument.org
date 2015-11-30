@@ -406,16 +406,24 @@ Also, most builders have an error state they will go to if an invalid sequence o
 
     
 ** FactoryMethod 
-*** Where used
+*** Usage A
+**** Where used
 In the ScriptEvalutor interface, getLexer.
 Returns a implementor of the Lexer interface. 
 
 While right now there is only one Lexer implementor, if another language were added, this would change.
 
-*** Why?
+**** Why?
 If another language is added, then we will want to ensure we are using the correct scripting lexer for it.
 This ensures that with the parallel type hierarchy, the correct lexer and ScriptEvaluator are used.
 Since it is just a pair, an abstract factory is overkill, a single method will do.
+*** Usage B
+**** Where Used
+In the ShapeDecalBuilder, to get the correct state to go to, after getting a color.
+Since all shapes start with needing to get a color, but then go to some state specific state, depending on what specific subclass of ShapeBuilder it is, this is used to tie those paralell hierarchies together, and get the correct state. 
+**** Why?
+Two paralell hierarchies, the  ShapeBuilder subclasses, and their initial states.
+Since these are designed to work together, the factory method works perfectly here.
     
 ** Adapter (String/Double wrappers are tailored object adapters)
 *** Why we used?
