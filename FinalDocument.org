@@ -1,4 +1,4 @@
-#+AUTHOR: Matthew Bregg, Brandon Duong, Ervis Shqiponja, Ian Fell 
+#+AUTHOR: Matthew Bregg, Brandon Duong, Ian Fell, Ervis Shqiponja
 
 * Overall System, How all these sub systems interact
 The driver system gets everything going, and runs things at the highest level perspective.
