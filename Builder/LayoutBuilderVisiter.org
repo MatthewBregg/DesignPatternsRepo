@@ -1,0 +1,152 @@
+#+BEGIN_SRC plantuml :file LayoutBuilderVisiterTake2.png
+class LayoutBuilderVisiter
+LayoutBuilderVisiter : -state:State = new InitialState
+LayoutBuilderVisiter : -setState(s:State)
+LayoutBuilderVisiter : +addString(s:StringScriptWrapper)
+LayoutBuilderVisiter : +addDecal(d:Decal)
+LayoutBuilderVisiter : +addConsPair(c:ConsPair)
+LayoutBuilderVisiter : +addLayout(l:Layout)
+LayoutBuilderVisiter : +addPositionScaled(ps:PositionScaled)
+LayoutBuilderVisiter : +getResult()
+LayoutBuilderVisiter : #addScriptObject(s:ScriptObject)
+
+LayoutBuilderVisiter +-- State
+
+abstract class State as "{abstract}\nState"
+
+State : +{abstract}getResult(lb:LayoutBuilderVisiter)
+State : +{abstract}addString(s:StringScriptWrapper,lb:LayoutBuilderVisiter)
+State : +{abstract}addDecal(d:Decal,lb:LayoutBuilderVisiter)
+State : +{abstract}addConsPair(c:ConsPair,lb:LayoutBuilderVisiter)
+State : +{abstract}addLayout(l:Layout,lb:LayoutBuilderVisiter)
+State : +{abstract}addPositionScaled(ps:PositionScaled,lb:LayoutBuilderVisiter)
+State : #addScriptObject(s:ScriptObject,lb:LayoutBuilderVisiter)
+State : #goToErrorState(lb:LayoutBuilderVisiter)
+note top :  addScriptObject : Set lb state to error state
+note top : goToErrorState : Set lb to new error state
+
+State <|-- InitialState
+
+
+class InitialState
+InitialState : +getResult(lb:LayoutBuilderVisiter)
+InitialState : +addString(s:StringScriptWrapper,lb:LayoutBuilderVisiter)
+InitialState : +addDecal(d:Decal,lb:LayoutBuilderVisiter)
+InitialState : +addConsPair(c:ConsPair,lb:LayoutBuilderVisiter)
+InitialState : +addLayout(l:Layout,lb:LayoutBuilderVisiter)
+InitialState : +addPositionScaled(ps:PositionScaled,lb:LayoutBuilderVisiter)
+note top of InitialState
+ getResult : call goToErrorState, return error script object.
+ addString : Wrap the string in a new DynamicDecal, with s as the key, call this d, and then do lb.addDecal(d)
+ addDecal : set lb state to new LeafLayoutState, give decal d as paramater. 
+ addConsPair : Set lb state to new InitialCompositeLayoutState, 
+  Then call on that new state s, s.addConsPair(c,lb)
+ addLayout :  call goToErrorState
+ addPositionScaled : call goToErrorState
+end note
+
+abstract class CompositeLayoutState as "{abstract}\nCompositeLayoutState"
+CompositeLayoutState : -pairs:List<LayoutPositionPair>
+
+State <|-- CompositeLayoutState 
+
+class CompositeLayoutHaveLayout
+CompositeLayoutHaveLayout : - layout : ComponentLayout
+note top of CompositeLayoutHaveLayout
+ getResult : call goToErrorState, return error script object.
+ addString : call goToErrorState
+ addDecal :  call goToErrorState
+ addConsPair : call goToErrorState
+
+ addLayout :  call goToErrorState
+ addPositionScaled : Set lb state to CompositeLayoutHavePosition, giving layout, and ps as parameters
+end note
+
+class CompositeLayoutHavePosition
+note top : On construction, use the given layout, and position to add to supers pair list. 
+note top of CompositeLayoutHavePosition
+ getResult : Return a CompositeLayout with the given list of pairs.
+ addString : call goToErrorState
+ addDecal :  call goToErrorState
+ addConsPair : call goToErrorState
+
+ addLayout :  Set lb state to CompositeLayoutHaveLayout, giving l as an argument, and supers pair list as an argument.
+ addPositionScaled : call goToErrorState
+end note
+
+CompositeLayoutState <|-- CompositeLayoutHavePosition
+CompositeLayoutState <|-- CompositeLayoutHaveLayout
+
+class InitialCompositeLayoutState
+InitialCompositeLayoutState : +getResult(lb:LayoutBuilderVisiter)
+InitialCompositeLayoutState : +addString(s:StringScriptWrapper,lb:LayoutBuilderVisiter)
+InitialCompositeLayoutState : +addDecal(d:Decal,lb:LayoutBuilderVisiter)
+InitialCompositeLayoutState : +addConsPair(c:ConsPair,lb:LayoutBuilderVisiter)
+InitialCompositeLayoutState : +addLayout(l:Layout,lb:LayoutBuilderVisiter)
+InitialCompositeLayoutState : +addPositionScaled(ps:PositionScaled,lb:LayoutBuilderVisiter)
+note top of InitialCompositeLayoutState
+ getResult : call goToErrorState, return error script object.
+ addString : call goToErrorState
+ addDecal :  call goToErrorState
+ addConsPair : call goToErrorState
+
+ addLayout :  Set lb state to CompositeLayoutHaveLayout, giving l as an argument, and an empty pair list as an argument.
+ addPositionScaled : call goToErrorState
+end note
+
+State <|-- InitialCompositeLayoutState
+
+class LeafLayoutState
+LeafLayoutState : -d : decal
+LeafLayoutState : +getResult(lb:LayoutBuilderVisiter)
+LeafLayoutState : +addString(s:StringScriptWrapper,lb:LayoutBuilderVisiter)
+LeafLayoutState : +addDecal(d:Decal,lb:LayoutBuilderVisiter)
+LeafLayoutState : +addConsPair(c:ConsPair,lb:LayoutBuilderVisiter)
+LeafLayoutState : +addLayout(l:Layout,lb:LayoutBuilderVisiter)
+LeafLayoutState : +addPositionScaled(ps:PositionScaled,lb:LayoutBuilderVisiter)
+note top of LeafLayoutState
+ getResult : Return new leaf-layout with the given decal.
+ addString : If string is one of the given options, go to LeafLayoutWithOptionState, giving d, and s as parameters.
+ addDecal : call goToErrorState
+ addConsPair : call goToErrorState
+ addLayout :  call goToErrorState
+ addPositionScaled : call goToErrorState
+end note
+
+State <|-- LeafLayoutState
+
+class LeafLayoutWithOptionState
+LeafLayoutWithOptionState : -d : decal
+LeafLayoutWithOptionState : -option : String
+LeafLayoutWithOptionState : +getResult(lb:LayoutBuilderVisiter)
+LeafLayoutWithOptionState : +addString(s:StringScriptWrapper,lb:LayoutBuilderVisiter)
+LeafLayoutWithOptionState : +addDecal(d:Decal,lb:LayoutBuilderVisiter)
+LeafLayoutWithOptionState : +addConsPair(c:ConsPair,lb:LayoutBuilderVisiter)
+LeafLayoutWithOptionState : +addLayout(l:Layout,lb:LayoutBuilderVisiter)
+LeafLayoutWithOptionState : +addPositionScaled(ps:PositionScaled,lb:LayoutBuilderVisiter)
+note top of LeafLayoutWithOptionState
+ getResult : Return new leaf-layout with the given decal, and option.
+ addString : call goToErrorState
+ addDecal : call goToErrorState
+ addConsPair : call goToErrorState
+ addLayout :  call goToErrorState
+ addPositionScaled : call goToErrorState
+end note
+
+State <|-- LeafLayoutWithOptionState
+
+
+class ErrorState
+ErrorState : goToErrorState(lb:LayoutBuilderVisiter)
+
+State <|-- ErrorState
+
+note top : goToErrorState : Already in error state, do nothing!
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:LayoutBuilderVisiterTake2.png]]
+
