@@ -347,6 +347,11 @@ class StringConcatBuilder
 BuilderVisiter <|-- StringConcatBuilder
 BuilderNoteS -- StringConcatBuilder
 
+'NumberOperationBuilder
+class NumberOperationBuilder
+BuilderVisiter <|-- NumberOperationBuilder
+BuilderNoteS -- NumberOperationBuilder
+
 #+END_SRC
 
 #+RESULTS:

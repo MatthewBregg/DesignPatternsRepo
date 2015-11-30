@@ -28,6 +28,7 @@ note top of ConcatingState
   getResult : Return StringScriptWrapper, getting the string to paramatize it from the StringConcatBuilders StringBuilder
   addDouble : Add to the StringBuilder in StringConcatBuilder the given double converted to a string.
   addString : Add to the StringBuilder in StringConcatBuilder the given string.
+end note
 
 
 class ErrorState
@@ -35,7 +36,11 @@ class ErrorState
 note top : Only getResult does something, which is return error script object. All other methods overriden to do nothing, as already in error state!
 
 
-StringConcatBuiler +-- State
+StringConcatBuilder +-- State
 State <|-- ConcatingState
 State <|-- ErrorState
 #+END_SRC
+
+#+RESULTS:
+[[file:StringConcatBuilder.png]]
+

@@ -1,0 +1,93 @@
+#+BEGIN_SRC plantuml :file NumberOperationBuilder.png
+skinparam dpi 300
+
+class NumberOperationBuilder
+NumberOperationBuilder : getResult()
+NumberOperationBuilder : getOperation():Operaton
+NumberOperationBuilder : operation:Operaton
+NumberOperationBuilder : addDouble(d:DoubleScriptWrapper)
+NumberOperationBuilder : addScriptObject(s:ScriptObject)
+
+
+
+
+interface Operation<<interface>>
+Operation : {abstract}operate(a:double,b:double):double
+
+class AddOperation
+AddOperation : operate(a:double,b:double):double
+class SubtractOperation
+SubtractOperation : operate(a:double,b:double):double
+class DivideOperation
+DivideOperation : operate(a:double,b:double):double
+class MultiplyOperation
+MultiplyOperation : operate(a:double,b:double):double
+class ExponentiateOperation
+ExponentiateOperation : operate(a:double,b:double):double
+
+NumberOperationBuilder -> Operation
+
+Operation <|.. AddOperation
+Operation <|.. DivideOperation
+Operation <|.. SubtractOperation
+Operation <|.. MultiplyOperation
+Operation <|.. ExponentiateOperation
+
+
+abstract class State as "{abstract}\nState"
+State : sb:NumberOperationBuilder
+State : getBuilder()
+State : getResult()
+State : addDouble(d:DoubleScriptWrapper)
+State : addScriptObject(s:ScriptObject)
+
+note top : All methods will by default sent sb to error state. Except getResult, which also returns error script object, and getBuilder, which just returns builder.
+
+class ZeroNumState
+ZeroNumState : getResult()
+ZeroNumState : addDouble(d:DoubleScriptWrapper)
+
+note top of ZeroNumState 
+  getResult : set sb to error state
+  addDouble : Go to new OneNumState, giving d as a as parameter. 
+end note
+
+class OneNumState
+OneNumState : a : Double
+OneNumState : getResult()
+OneNumState : addDouble(d:DoubleScriptWrapper)
+
+note top of OneNumState 
+  getResult : set sb to error state
+  addDouble : Go to new TwoNumState, giving a, and d as b as parameters. 
+end note
+
+class TwoNumState
+TwoNumState : a : Double
+TwoNumState : b : Double
+TwoNumState : getResult()
+TwoNumState : addDouble(d:DoubleScriptWrapper)
+
+note top of TwoNumState 
+  getResult : Return DoubleScriptWrapper, with the value being the result of calling sb.getOperation().operate(a,b)
+  addDouble : set sb to new error state
+end note
+
+
+class ErrorState
+
+note top : Only getResult does something, which is return error script object. All other methods overriden to do nothing, as already in error state!
+
+
+NumberOperationBuilder +-- State
+State <|-- ZeroNumState
+State <|-- OneNumState
+State <|-- TwoNumState
+State <|-- ErrorState
+
+note "The number builder will be made with each of these different operations,\n and placed in the global environment of whatever ScriptEvaluator is used,\n with the symbols +,-,/,*,^ as appropriate,\n to provide basic number manipulation." as n1
+#+END_SRC
+
+#+RESULTS:
+[[file:NumberOperationBuilder.png]]
+

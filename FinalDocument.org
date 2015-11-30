@@ -316,6 +316,9 @@ No design patterns used in it.
 * ScriptEvaluator system 
 This includes all the Builders, and the Lexer. Whenever I say Builders, I mean subclasses of ScriptObjectBuilder
 
+** Basic Number manipulation
+Basic number manipulation is provided by the NumberOperationBuilder, which is paramatized with a command.
+A builder for each command should be mapped with the appropriate symbol in the environment, with the rest of the builders.
 ** Builder
 *** Why we used?
 We have a ScriptObject which needs to be constructed, but the script objects vary quite a bit, and are all constructed differently. 
@@ -392,6 +395,19 @@ Avoids need to cast when retrieving a ScriptObject from the environment, the Scr
   
 *** Where used
 In the ScriptObjectBuilder, and subclasses.
+** Command
+*** Where used?
+Number Operation Builder
+*** Why we used?
+Basic number manipulation can be done with some op, being applied to two numbers, resulting in a third.
+Some op can be division, adition, etc.
+To make a whole new builder for each one would be a class explosion, so instead, we paramatize the builder with the correct some op. 
+*** Consequences
+- Only one builder is needed to handle any number operation of the form a someop b = c.
+- Extra indirection than a hardcoded method, slightly slower, could potentially be slightly harder to follow, won't know immediately what builder does.
+- The Builder is paramatized with some number command to run upon creating a number value. 
+  
+
 ** State ( Builders )
 *** Why we used?
 Most of the  ScruptObjectBuilder concrete subclassess change what they do depending on what arguments are given in. Generally they need to choose how to create the thing they are supposed to build, based on arguments are given in. There are some cases where a builder might choose between a few different, but similar, concrete class based on the arguments. And some other of the ScriptObjects are only valid if certain arguments are given, and until then, the context doesn't know if valid arguments were given!
