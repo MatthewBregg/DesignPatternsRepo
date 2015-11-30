@@ -20,10 +20,10 @@
    ;; create a black rectangle
    (cons (layout (rectangle color)) (position-scaled 10.5 7.5 79 12))
    ;; creating an arbitrary colored rectangle
-   (cons (layout (string "TITLE DEED" "Arial.font" "0x000000") "W")
+   (cons (layout (string "TITLE DEED" "Arial.font" "0x000000" 10) "W")
          (position-scaled 30 15 10 10))
    ;; create a string TITLE DEED
-   (cons (layout (string roadName "Arial.font" "0x000000") "W")
+   (cons (layout (string roadName "Arial.font" "0x000000" 20) "W")
          (position-scaled 25 20 20 20))
    ;; create a string AVE
    )
@@ -31,59 +31,59 @@
 
 (define (BASE_RENT rent) 
   (layout
-   (cons (layout (string "RENT" "Arial.font" "0x000000") "W")
-         (position-scaled 40 40 10 10)) 
-   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
-         (position-scaled 45 40 10 10)) 
+   (cons (layout (string "RENT" "Arial.font" "0x000000" 12) "W")
+         (position-scaled 40 40 100 100)) 
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000" 12) "W")
+         (position-scaled 45 40 100 100)) 
    )
   )
 
 (define (WITH_HOUSES rent number) 
   (layout
-   (cons (layout (string (+ "WITH " number " House(s)") "Arial.font" "0x000000") "W")
-         (position-scaled 20 (+ 45 (* number 5)) 10 10)) 
-   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
-         (position-scaled 70 (+ 45 (* number 5)) 10 10)) 
+   (cons (layout (string (+ "WITH " number " House(s)") "Arial.font" "0x000000" 12) "W")
+         (position-scaled 20 (+ 45 (* number 5)) 100 100)) 
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000" 12) "W")
+         (position-scaled 70 (+ 45 (* number 5)) 100 100)) 
    )
   )
 
 (define (WITH_HOTEL rent) 
   (layout
-   (cons (layout (string "WITH HOTEL" "Arial.font" "0x000000") "W")
-         (position-scaled 40 70 10 10))
-   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
-         (position-scaled 45 70 10 10))
+   (cons (layout (string "WITH HOTEL" "Arial.font" "0x000000" 12) "W")
+         (position-scaled 40 70 100 100))
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000" 12) "W")
+         (position-scaled 45 70 100 100))
    )
   )
 
 (define (MORTGAGE m) 
   (layout
-   (cons (layout (string "MORTGAGE VALUE" "Arial.font" "0x000000") "W")
-         (position-scaled 40 75 10 10)) 
-   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
-         (position-scaled 45 75 10 10))
+   (cons (layout (string "MORTGAGE VALUE" "Arial.font" "0x000000" 12) "W")
+         (position-scaled 40 75 100 100)) 
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000" 12) "W")
+         (position-scaled 45 75 100 100))
    )
   )
 
 (define (HOUSE_COST c) 
   (layout
-   (cons (layout (string "HOUSES COST" "Arial.font" "0x000000") "W")
-         (position-scaled 40 80 10 10))
-   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
-         (position-scaled 45 80 10 10))
-   (cons (layout (string "each" "Arial.font" "0x000000") "W")
-         (position-scaled 50 80 10 10))
+   (cons (layout (string "HOUSES COST" "Arial.font" "0x000000" 12) "W")
+         (position-scaled 40 80 100 100))
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000" 12) "W")
+         (position-scaled 45 80 100 100))
+   (cons (layout (string "each" "Arial.font" "0x000000" 12) "W")
+         (position-scaled 50 80 100 100))
    )
   )
 
 (define (HOTEL_COST c) 
   (layout
-   (cons (layout (string "HOTELS," "Arial.font" "0x000000") "W")
-         (position-scaled 40 85 10 10))
-   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000") "W")
-         (position-scaled 45 85 10 10))
-   (cons (layout (string "plus 4 houses" "Arial.font" "0x000000") "W")
-         (position-scaled 50 85 10 10))
+   (cons (layout (string "HOTELS," "Arial.font" "0x000000" 12) "W")
+         (position-scaled 40 85 100 100))
+   (cons (layout (string (+ "$" rent ".") "Arial.font" "0x000000" 12) "W")
+         (position-scaled 45 85 100 100))
+   (cons (layout (string "plus 4 houses" "Arial.font" "0x000000" 12) "W")
+         (position-scaled 50 85 100 100))
    )
   )
 ;;Below string is broken in two parts to fit in page,
@@ -93,7 +93,7 @@
 (define (FINE_PRINT c) 
   (layout
    (cons (layout
-          (string mortage_string_x "Arial.font" "0x000000") "W")
+          (string mortage_string_x "Arial.font" "0x000000" 12) "W")
          (position-scaled 40 90 5 5))
    )
   )
@@ -101,52 +101,52 @@
 (define (ICON c)
   (layout
    (cons (layout (image c))
-         (position-scaled 40 25 10 10))
+         (position-scaled 40 25 100 100))
    )
   ) 
 
 (define (NAME n)
   (layout
-   (cons (layout (string n "Arial.font" "0x000000") "W")
-         (position-scaled 10 40 25 25))
+   (cons (layout (string n "Arial.font" "0x000000" 12) "W")
+         (position-scaled 10 40 100 100))
    )
   )
 
 (define (RAILROAD_RENTS key value)
   (layout
-   (cons (layout (string key "Arial.font" "0x000000") "W")
-         (position-scaled 10 55 12 12))
-   (cons (layout (string value "Arial.font" "0x000000") "W")
-         (position-scaled 70 55 12 12))
+   (cons (layout (string key "Arial.font" "0x000000" 12) "W")
+         (position-scaled 10 55 100 100))
+   (cons (layout (string value "Arial.font" "0x000000" 12) "W")
+         (position-scaled 70 55 100 100))
    )
   )
 
 (define (MORTGAGE_VALUE value)
   (layout
-   (cons (layout (string "Mortgage Value" "Arial.font" "0x000000") "W")
-         (position-scaled 10 85 12 12))
-   (cons (layout (string value "Arial.font" "0x000000") "W")
-         (position-scaled 70 85 12 12))
+   (cons (layout (string "Mortgage Value" "Arial.font" "0x000000" 12) "W")
+         (position-scaled 10 85 100 100))
+   (cons (layout (string value "Arial.font" "0x000000" 12) "W")
+         (position-scaled 70 85 100 100))
    )
   )
 
 (define (UTILITY_RENT startY str)
   (layout
-   (cons (layout (string str "Arial.font" "0x000000") "W")
-         (position-scaled 20 startX 12 12))
+   (cons (layout (string str "Arial.font" "0x000000" 12) "W")
+         (position-scaled 20 startX 100 100))
    )
   )
 
 (define (B_NAME name)
   (layout 
-   (cons (layout (string name "Arial.font" "0x000000") "W")
+   (cons (layout (string name "Arial.font" "0x000000" 12) "W")
          (position-scaled 25 20 20 20))
    )
   )
 
 (define (B_MORTGAGED value)
   (layout 
-   (cons (layout (string (+ "MORTGAGED for $ " value ) "Arial.font" "0x000000") "W")
+   (cons (layout (string (+ "MORTGAGED for $ " value ) "Arial.font" "0x000000" 12) "W")
          (position-scaled 25 20 14 14))
    )
   )
@@ -154,8 +154,8 @@
 (define B_FINE_PRINT
   (layout 
    (cons (layout (string "Card must be turned this side up if property is mortgaged"
-                         "Arial.font" "0x000000") "W")
-         (position-scaled 5 80 10 10))
+                         "Arial.font" "0x000000" 12) "W")
+         (position-scaled 0 0 100 100))
    )
   )
 
@@ -172,41 +172,48 @@
          mortgageValue
          houseCost
          hotelCost)
-  (BLACK_BOARDER) 
-  (HEADER color roadName) 
-  (BASE_RENT rent) 
-  (WITH_HOUSES rent1House 1)
-  (WITH_HOUSES rent2Houses 2) 
-  (WITH_HOUSES rent3Houses 3) 
-  (WITH_HOUSES rent4Houses 4) 
-  (WITH_HOTEL rentHotel) 
-  (MORTGAGE mortgageValue) 
-  (HOUSE_COST houseCost) 
-  (HOTEL_COST hotelCost)
-  (FINE_PRINT)
+  (layout 
+    (cons (BLACK_BOARDER) (position-scaled 5 5 85 20))
+    (cons (HEADER color roadName) (position-scaled 10 7 80 13))
+    (cons (BASE_RENT rent) (position-scaled 40 40 10 10) 
+    (cons (WITH_HOUSES rent1House 1) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+    (cons (WITH_HOUSES rent2Houses 2) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+    (cons (WITH_HOUSES rent3Houses 3) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+    (cons (WITH_HOUSES rent4Houses 4) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+    (cons (WITH_HOTEL rentHotel) (position-scaled 40 70 10 10))
+    (cons (MORTGAGE mortgageValue) (position-scaled 40 75 10 10)
+    (cons (HOUSE_COST houseCost) (position-scaled 40 80 10 10)) 
+    (cons (HOTEL_COST hotelCost) (position-scaled 40 85 10 10))
+    (cons (FINE_PRINT) (position-scaled 5 80 10 10))
+    )
   ) 
 
 (define (RAILROAD name iconpath)
-  (ICON iconpath) 
-  (NAME name) 
-  (RAILROAD_RENTS "Rent" "$25") 
-  (RAILROAD_RENTS "If 2 R.R.'s are owned" "50")
-  (RAILROAD_RENTS "If 3 ''     ''  ''" "100")
-  (RAILROAD_RENTS "If 4 ''     ''  ''" "200")
-  (MORTGAGE_VALUE 100)
+  (layout 
+    (cons (ICON iconpath) (position-scaled 40 25 10 10)) 
+    (cons (NAME name) (position-scaled 10 40 25 25))
+    (cons (RAILROAD_RENTS "Rent" "$25") (position-scaled 10 55 12 12))
+    (cons (RAILROAD_RENTS "If 2 R.R.'s are owned" "50") (position-scaled 10 65 12 12))
+    (cons (RAILROAD_RENTS "If 3 ''     ''  ''" "100") (position-scaled 10 75 12 12))
+    (cons (RAILROAD_RENTS "If 4 ''     ''  ''" "200") (position-scaled 10 85 12 12))
+    (cons (MORTGAGE_VALUE 100) (position-scaled 10 85 12 12))
+    )
   ) 
 ;;Below string is broken in two parts to fit in page,
 ;;in real example, keep on one line
 (define utility_60 "If both ''Utilities'' are owned rent
  is 10 times amount shown on dice.")
 (define (UTILITY name iconpath)
-  (ICON iconpath     ) 
-  (NAME name         )
-  (UTILITY_RENT 40
+  (layout 
+    (cons (ICON iconpath) (position-scaled 40 25 10 10)) 
+    (cons (NAME name) (position-scaled 10 40 25 25))
+    (cons (UTILITY_RENT 40
                 "If one ''Utility'' is owned rent is 4 times amount shown on dice.")
-  (UTILITY_RENT 60
-                utility_60)
-  (MORTGAGE_VALUE 75 )
+                (position-scaled 20 startX 12 12))
+    (cons (UTILITY_RENT 60
+                utility_60) )
+    (cons (MORTGAGE_VALUE 75 ) (position-scaled 10 85 12 12))
+    )
   )  
 
 (define (BACK_OF_CARD name value)
@@ -276,7 +283,7 @@
 
 ;;  render utility cards
 (render UTILITY "ELECTRIC COMPANY" electric_company_image)
-(render UTILITY "WATER WORKS"      c_water_works_image   )
+(render UTILITY "WATER WORKS"      c_water_works_image)
 
 
 
