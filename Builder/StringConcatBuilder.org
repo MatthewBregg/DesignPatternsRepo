@@ -1,0 +1,41 @@
+#+BEGIN_SRC plantuml :file StringConcatBuilder.png
+skinparam dpi 300
+
+class StringConcatBuilder
+StringConcatBuilder : sb:StringBuilder
+StringConcatBuilder : getStringBuilder()
+StringConcatBuilder : getResult()
+StringConcatBuilder : addDouble(d:DoubleScriptWrapper)
+StringConcatBuilder : addString(s:StringScriptWrapper)
+StringConcatBuilder : addScriptObject(s:ScriptObject)
+
+abstract class State as "{abstract}\nState"
+State : sb:StringConcatBuilder
+State : getBuilder()
+State : getResult()
+State : addDouble(d:DoubleScriptWrapper)
+State : addScriptObject(s:ScriptObject)
+State : addString(s:StringScriptWrapper)
+
+note top : All methods will by default sent sb to error state. Except getResult, which also returns error script object, and getBuilder, which just returns builder.
+
+class ConcatingState
+ConcatingState : getResult()
+ConcatingState : addDouble(d:DoubleScriptWrapper)
+ConcatingState : addString(s:StringScriptWrapper)
+
+note top of ConcatingState 
+  getResult : Return StringScriptWrapper, getting the string to paramatize it from the StringConcatBuilders StringBuilder
+  addDouble : Add to the StringBuilder in StringConcatBuilder the given double converted to a string.
+  addString : Add to the StringBuilder in StringConcatBuilder the given string.
+
+
+class ErrorState
+
+note top : Only getResult does something, which is return error script object. All other methods overriden to do nothing, as already in error state!
+
+
+StringConcatBuiler +-- State
+State <|-- ConcatingState
+State <|-- ErrorState
+#+END_SRC

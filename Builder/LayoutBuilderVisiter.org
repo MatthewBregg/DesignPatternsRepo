@@ -1,4 +1,5 @@
 #+BEGIN_SRC plantuml :file LayoutBuilderVisiterTake2.png
+skinparam dpi 300
 class LayoutBuilderVisiter
 LayoutBuilderVisiter : -state:State = new InitialState
 LayoutBuilderVisiter : -setState(s:State)
@@ -11,6 +12,8 @@ LayoutBuilderVisiter : +getResult()
 LayoutBuilderVisiter : #addScriptObject(s:ScriptObject)
 
 LayoutBuilderVisiter +-- State
+
+note top : Delegates methods to state that have same name, passing self as argument.
 
 abstract class State as "{abstract}\nState"
 
