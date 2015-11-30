@@ -41,7 +41,7 @@ State : getResult()
 State : addDouble(d:DoubleScriptWrapper)
 State : addScriptObject(s:ScriptObject)
 
-note top : All methods will by default sent sb to error state. Except getResult, which also returns error script object, and getBuilder, which just returns builder.
+note top : All methods will by default sent sb to error state. \n Except getResult, which also returns error script object, \n and getBuilder, which just returns builder.
 
 class ZeroNumState
 ZeroNumState : getResult()
@@ -69,14 +69,15 @@ TwoNumState : getResult()
 TwoNumState : addDouble(d:DoubleScriptWrapper)
 
 note top of TwoNumState 
-  getResult : Return DoubleScriptWrapper, with the value being the result of calling sb.getOperation().operate(a,b)
+  getResult : Return DoubleScriptWrapper, 
+    with the value being the result of calling sb.getOperation().operate(a,b)
   addDouble : set sb to new error state
 end note
 
 
 class ErrorState
 
-note top : Only getResult does something, which is return error script object. All other methods overriden to do nothing, as already in error state!
+note top : Only getResult does something, which is return error script object. \n All other methods overriden to do nothing, as already in error state!
 
 
 NumberOperationBuilder +-- State
