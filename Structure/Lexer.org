@@ -3,6 +3,13 @@
 #+BEGIN_SRC plantuml :file LexerUML.png
 skinparam dpi 300
 
+
+class MutableExpressionToken 
+MutableExpressionToken : funcName:String
+MutableExpressionToken : args:List<Token>
+MutableExpressionToken : allParamsVars:bool 
+note bottom : Mutable version of expression token \n for constructing one, \n but cannot be used as one, \n as it is mutable.
+
 interface Lexer<<interface>>
 Lexer : +tokenizeFile(file:Path) : List<Token>
 Lexer : -clear():void
@@ -18,13 +25,6 @@ LispLexer : -fileContents:String
 LispLexer : -position:int
 Lexer <|.. LispLexer
 LispLexer : -tokens:List<Token>
-
-class MutableExpressionToken 
-MutableExpressionToken : funcName:String
-MutableExpressionToken : args:List<Token>
-MutableExpressionToken : allParamsVars:bool 
-note : Mutable version of expression token for constructing one, but cannot be used as one, as it is mutable.
-
 
 note top of LispLexer
  The lexer load the file into a String.
