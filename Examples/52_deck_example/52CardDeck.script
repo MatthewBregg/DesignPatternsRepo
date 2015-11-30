@@ -7,36 +7,36 @@
 ;;------------------------------------------------------
 ;;back image of the card
 ;;------------------------------------------------------
-(define cardBackImage (image "cardBack.jpg"))
+(define cardBackImage (image "cardBack.png"))
 
 ;;------------------------------------------------------
 ;;suit images
 ;;------------------------------------------------------
-(define spadeImage (image "spadeImage.jpg"))
-(define heartImage (image "heartImage.jpg"))
-(define diamondImage (image "diamondImage.jpg"))
-(define clubImage (image "clubImage.jpg"))
+(define spadeImage (image "spadeImage.png"))
+(define heartImage (image "heartImage.png"))
+(define diamondImage (image "diamondImage.png"))
+(define clubImage (image "clubImage.png"))
 
 ;;------------------------------------------------------
 ;;all face card images
 ;;------------------------------------------------------
-(define jackHeartImage (image "jackHeart.jpg"))
-(define queenHeartImage (image "queenHeart.jpg"))
-(define kingHeartImage (image "kingHeart.jpg"))
-(define jackDiamondImage (image "jackDiamond.jpg"))
-(define queenDiamondImage (image ("queenDiamond.jpg"))
-(define kingDiamondImage (image ("kingDiamond.jpg"))
-(define jackSpadeImage (image ("jackSpade.jpg"))
-(define queenSpadeImage (image ("queenSpade.jpg"))
-(define kingSpadeImage (image ("kingSpade.jpg"))
-(define jackClubImage (image ("jackClub.jpg"))
-(define queenClubImage (image ("queenClub.jpg"))
-(define kingClubImage (image ("kingClub.jpg"))
+(define jackHeartImage (image "jackHeart.png"))
+(define queenHeartImage (image "queenHeart.png"))
+(define kingHeartImage (image "kingHeart.png"))
+(define jackDiamondImage (image "jackDiamond.png"))
+(define queenDiamondImage (image ("queenDiamond.png"))
+(define kingDiamondImage (image ("kingDiamond.png"))
+(define jackSpadeImage (image ("jackSpade.png"))
+(define queenSpadeImage (image ("queenSpade.png"))
+(define kingSpadeImage (image ("kingSpade.png"))
+(define jackClubImage (image ("jackClub.png"))
+(define queenClubImage (image ("queenClub.png"))
+(define kingClubImage (image ("kingClub.png"))
 
 ;;------------------------------------------------------
 ;;shape of card
 ;;------------------------------------------------------
-(define whiteRectangle (rectangle 0x000000 70 100 ))
+(define whiteRectangle (rectangle #FFFFFF 70 100 ))
 
 ;;------------------------------------------------------
 ;;relative positions and card size
@@ -46,7 +46,7 @@
 (define numberBotRight (position-scaled 85 85 5 5)) 
 (define suitTopLeft (position-scaled 5 10 5 5)) 
 (define suitBotRight (position-scaled 85 90 5 5)) 
-;;..Moreposiitons
+(define centerFace (position-scaled 10 5 75 90)) 
 
 ;;------------------------------------------------------
 ;;family for all 4 suits
@@ -74,7 +74,7 @@
 (define (cardBackLayout)
   (layout
   (cons (layout whiteRectangle wholeCard))
-  (cons (layout cardBack (position-scaled 5,5,90,90)))))
+  (cons (layout cardBack (position-scaled 5 5 90 90)))))
 (define (backgroundLayout value color) 
   (layout 
   (cons (layout whiteRectangle wholeCard))
@@ -85,97 +85,100 @@
 (define (aceLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (leaf-layout "suit") center)))
+  (cons (layout "suit") (position-scaled 40 40 20 20)))
 
 (define (twoLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-2-1)
-  (cons (layout "suit") center-2-2)))
+  (cons (layout "suit" (position-scaled 45 15 10 10)))
+  (cons (layout "suit" (position-scaled 45 75 10 10)))))
 
 (define (threeLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-3-1)
-  (cons (layout "suit") center-3-2)
-  (cons (layout "suit") center-3-3)))
+  (cons (layout "suit" (position-scaled 45 15 10 10)))
+  (cons (layout "suit" (position-scaled 45 45 10 10)))
+  (cons (layout "suit" (position-scaled 45 75 10 10)))))
 
 (define (fourLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-4-1)
-  (cons (layout "suit") center-4-2)
-  (cons (layout "suit") center-4-3)
-  (cons (layout "suit") center-4-4)))
+  (cons (layout "suit" (position-scaled 25 15 10 10)))
+  (cons (layout "suit" (position-scaled 65 15 10 10)))
+  (cons (layout "suit" (position-scaled 25 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 75 10 10)))))
 
 (define (fiveLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-5-1)
-  (cons (layout "suit") center-5-2)
-  (cons (layout "suit") center-5-3)
-  (cons (layout "suit") center-5-4)
-  (cons (layout "suit") center-5-5)))
+  (cons (layout "suit" (position-scaled 25 15 10 10)))
+  (cons (layout "suit" (position-scaled 65 15 10 10)))
+  (cons (layout "suit" (position-scaled 25 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 75 10 10)))    
+  (cons (layout "suit" (position-scaled 45 45 10 10)))))
+
 
 (define (sixLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-6-1)
-  (cons (layout "suit") center-6-2)
-  (cons (layout "suit") center-6-3)
-  (cons (layout "suit") center-6-4)
-  (cons (layout "suit") center-6-5)
-  (cons (layout "suit") center-6-6)))
+  (cons (backGroundLayout value color) wholeCard)
+  (cons (layout "suit" (position-scaled 25 15 10 10)))
+  (cons (layout "suit" (position-scaled 65 15 10 10)))
+  (cons (layout "suit" (position-scaled 25 45 10 10)))
+  (cons (layout "suit" (position-scaled 65 45 10 10)))
+  (cons (layout "suit" (position-scaled 25 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 75 10 10)))))
 
 (define (sevenLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-7-1)
-  (cons (layout "suit") center-7-2)
-  (cons (layout "suit") center-7-3)
-  (cons (layout "suit") center-7-4)
-  (cons (layout "suit") center-7-5)
-  (cons (layout "suit") center-7-6)
-  (cons (layout "suit") center-7-7)))
+  (cons (layout "suit" (position-scaled 25 15 10 10)))
+  (cons (layout "suit" (position-scaled 65 15 10 10)))
+  (cons (layout "suit" (position-scaled 25 45 10 10)))
+  (cons (layout "suit" (position-scaled 65 45 10 10)))
+  (cons (layout "suit" (position-scaled 25 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 75 10 10)))
+  (cons (layout "suit" (position-scaled 45 65 10 10)))))
 
 (define (eightLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-8-1)
-  (cons (layout "suit") center-8-2)
-  (cons (layout "suit") center-8-3)
-  (cons (layout "suit") center-8-4)
-  (cons (layout "suit") center-8-5)
-  (cons (layout "suit") center-8-6)
-  (cons (layout "suit") center-8-7)
-  (cons (layout "suit") center-8-8)))
+  (cons (backGroundLayout value color) wholeCard)
+  (cons (layout "suit" (position-scaled 25 15 10 10)))
+  (cons (layout "suit" (position-scaled 65 15 10 10)))
+  (cons (layout "suit" (position-scaled 25 45 10 10)))
+  (cons (layout "suit" (position-scaled 65 45 10 10)))
+  (cons (layout "suit" (position-scaled 25 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 45 10 10)))
+  (cons (layout "suit" (position-scaled 45 65 10 10)))))
 
 (define (nineLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-9-1)
-  (cons (layout "suit") center-9-2)
-  (cons (layout "suit") center-9-3)
-  (cons (layout "suit") center-9-4)
-  (cons (layout "suit") center-9-5)
-  (cons (layout "suit") center-9-6)
-  (cons (layout "suit") center-9-7)
-  (cons (layout "suit") center-9-8)
-  (cons (layout "suit") center-9-9)))
+  (cons (layout "suit" (position-scaled 25 15 10 10)))
+  (cons (layout "suit" (position-scaled 65 15 10 10)))
+  (cons (layout "suit" (position-scaled 25 35 10 10)))
+  (cons (layout "suit" (position-scaled 65 35 10 10)))
+  (cons (layout "suit" (position-scaled 25 55 10 10)))
+  (cons (layout "suit" (position-scaled 65 55 10 10)))
+  (cons (layout "suit" (position-scaled 25 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 75 10 10)))
+  (cons (layout "suit" (position-scaled 45 45 10 10)))))
 
 (define (tenLayout value color)
   (layout 
   (cons (backGroundLayout value color) wholeCard)
-  (cons (layout "suit") center-10-1)
-  (cons (layout "suit") center-10-2)
-  (cons (layout "suit") center-10-3)
-  (cons (layout "suit") center-10-4)
-  (cons (layout "suit") center-10-5)
-  (cons (layout "suit") center-10-6)
-  (cons (layout "suit") center-10-7)
-  (cons (layout "suit") center-10-8)
-  (cons (layout "suit") center-10-9)
-  (cons (layout "suit") center-10-10)))
+  (cons (layout "suit" (position-scaled 25 15 10 10)))
+  (cons (layout "suit" (position-scaled 65 15 10 10)))
+  (cons (layout "suit" (position-scaled 25 35 10 10)))
+  (cons (layout "suit" (position-scaled 65 35 10 10)))
+  (cons (layout "suit" (position-scaled 25 55 10 10)))
+  (cons (layout "suit" (position-scaled 65 55 10 10)))
+  (cons (layout "suit" (position-scaled 25 75 10 10)))
+  (cons (layout "suit" (position-scaled 65 75 10 10)))
+  (cons (layout "suit" (position-scaled 45 25 10 10)))
+  (cons (layout "suit" (position-scaled 45 65 10 10)))))
 
 (define (jackLayout  value color)
   (layout 
@@ -196,58 +199,58 @@
 ;;cards   
 ;;------------------------------------------------------
 (define blackAceCard
-  (card cardSize "blackAce" (aceLayout "A" 0x000000) cardBackLayout))
+  (card cardSize "blackAce" (aceLayout "A" #000000) cardBackLayout))
 (define blackTwoCard
-  (card cardSize "blackTwo" (aceLayout "2" 0x000000) cardBackLayout))
+  (card cardSize "blackTwo" (twoLayout "2" #000000) cardBackLayout))
 (define blackThreeCard
-  (card cardSize "blackThree" (aceLayout "3" 0x000000) cardBackLayout))
+  (card cardSize "blackThree" (threeLayout "3" #000000) cardBackLayout))
 (define blackFourCard
-  (card cardSize "blackFour" (aceLayout "4" 0x000000) cardBackLayout))
+  (card cardSize "blackFour" (fourLayout "4" #000000) cardBackLayout))
 (define blackFiveCard
-  (card cardSize "blackFive" (aceLayout "5" 0x000000) cardBackLayout))
+  (card cardSize "blackFive" (fiveLayout "5" #000000) cardBackLayout))
 (define blackSixCard
-  (card cardSize "blackSix" (aceLayout "6" 0x000000) cardBackLayout))
+  (card cardSize "blackSix" (sixLayout "6" #000000) cardBackLayout))
 (define blackSevenCard
-  (card cardSize "blackSeven" (aceLayout "7" 0x000000) cardBackLayout))
+  (card cardSize "blackSeven" (sevenLayout "7" #000000) cardBackLayout))
 (define blackEightCard
-  (card cardSize "blackEight" (aceLayout "8" 0x000000) cardBackLayout))
+  (card cardSize "blackEight" (eightLayout "8" #000000) cardBackLayout))
 (define blackNineCard
-  (card cardSize "blackNine" (aceLayout "9" 0x000000) cardBackLayout))
+  (card cardSize "blackNine" (nineLayout "9" #000000) cardBackLayout))
 (define blackTenCard
-  (card cardSize "blackTen" (aceLayout "10" 0x000000) cardBackLayout))
+  (card cardSize "blackTen" (tenLayout "10" #000000) cardBackLayout))
 (define blackJackCard
-  (card cardSize "blackJack" (aceLayout "J" 0x000000) cardBackLayout))
+  (card cardSize "blackJack" (jackLayout "J" #000000) cardBackLayout))
 (define blackQueenCard
-  (card cardSize "blackQueen" (aceLayout "Q" 0x000000) cardBackLayout))
+  (card cardSize "blackQueen" (queenLayout "Q" #000000) cardBackLayout))
 (define blackKingCard
-  (card cardSize "blackKing" (aceLayout "K" 0x000000) cardBackLayout))
+  (card cardSize "blackKing" (kingLayout "K" #000000) cardBackLayout))
 
 (define redAceCard
   (card cardSize "redAce" (aceLayout "A" #DD311D) cardBackLayout))
 (define redTwoCard
-  (card cardSize "redTwo" (aceLayout "2" #DD311D) cardBackLayout))
+  (card cardSize "redTwo" (twoLayout "2" #DD311D) cardBackLayout))
 (define redThreeCard
-  (card cardSize "redThree" (aceLayout "3" #DD311D) cardBackLayout))
+  (card cardSize "redThree" (threeLayout "3" #DD311D) cardBackLayout))
 (define redFourCard
-  (card cardSize "redFour" (aceLayout "4" #DD311D) cardBackLayout))
+  (card cardSize "redFour" (fourLayout "4" #DD311D) cardBackLayout))
 (define redFiveCard
-  (card cardSize "redFive" (aceLayout "5" #DD311D) cardBackLayout))
+  (card cardSize "redFive" (fiveLayout "5" #DD311D) cardBackLayout))
 (define redSixCard
-  (card cardSize "redSix" (aceLayout "6" #DD311D) cardBackLayout))
+  (card cardSize "redSix" (sixLayout "6" #DD311D) cardBackLayout))
 (define redSevenCard
-  (card cardSize "redSeven" (aceLayout "7" #DD311D) cardBackLayout))
+  (card cardSize "redSeven" (sevenLayout "7" #DD311D) cardBackLayout))
 (define redEightCard
-  (card cardSize "redEight" (aceLayout "8" #DD311D) cardBackLayout))
+  (card cardSize "redEight" (eightLayout "8" #DD311D) cardBackLayout))
 (define redNineCard
-  (card cardSize "redNine" (aceLayout "9" #DD311D) cardBackLayout))
+  (card cardSize "redNine" (nineLayout "9" #DD311D) cardBackLayout))
 (define redTenCard
-  (card cardSize "redTen" (aceLayout "10" #DD311D) cardBackLayout))
+  (card cardSize "redTen" (tenLayout "10" #DD311D) cardBackLayout))
 (define redJackCard
-  (card cardSize "redJack" (aceLayout "J" #DD311D) cardBackLayout))
+  (card cardSize "redJack" (jackLayout "J" #DD311D) cardBackLayout))
 (define redQueenCard
-  (card cardSize "redQueen" (aceLayout "Q" #DD311D) cardBackLayout))
+  (card cardSize "redQueen" (queenLayout "Q" #DD311D) cardBackLayout))
 (define redKingCard
-  (card cardSize "redKing" (aceLayout "K" #DD311D) cardBackLayout))
+  (card cardSize "redKing" (kingLayout "K" #DD311D) cardBackLayout))
 
 ;;------------------------------------------------------
 ;;makes the subDeck of 13 cards, for each color
@@ -267,4 +270,4 @@
 (render redSuitSubDeck heartFamily)
 (render redSuitSubDeck diamondFamily)
 (render blackSuitSubDeck clubFamily)
-(render BlackSuitSubDeck spadeFamily)
+(render blackSuitSubDeck spadeFamily)
