@@ -27,7 +27,7 @@ The goal of our project is to design a functional Script-driven card generator (
 
 * Card Representation System
 ** Overview
-The Card object is constructed by five attributes: two Layouts for front and back, a name, a width and a height. The Layout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base object that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
+The Card object is constructed by five attributes: two layouts for front and back, a name, a width and a height. The ;ayout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base object that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
 
 ** ScriptObject Class
 - *Purpose:* 
@@ -35,19 +35,19 @@ It is an abstract class which will be declaring the interface for all the concre
 - *Interaction:*  
 This class does not inherit from any other classes, however it serve as a base class for all other components, which will be inheriting from this.
 - *Design Patterns it belongs:*
-This class is not part of any design patterns explicitly, but lots of design patterns will be used in its subclasses and by overriding its methods.
+This class is not part of any design patterns explicitly, but lots of design patterns will be used in its subclasses and by overriding its method.
 
 ** ComponentLayout Class
 - *Purpose:* 
 It is an abstract class which declares an interface for the objects that can belong to a layout such as a Decal or another layout. It will implement the default behaviours for some of the functionalities which will be the same in all the class that will inherit from this. It will declare an interface for accessing the child components.
 - *Interaction:*  
-This abstract class will be inheriting from ScriptObject class which is another abstract class. In addition it will override the method necessary to build the layouts called acceptBuilder (). Two subclasses will inherit from this the LeafLayout class and CompositeLayout class.
+This abstract class will be inheriting from ScriptObject class which is another abstract class. In addition it will override the method necessary to build the layouts called ~acceptBuilder ()~. Two subclasses will inherit from this, the LeafLayout class and CompositeLayout class.
 - *Design Patterns it belongs:*
 This class is designed using Composite design pattern and the iterator design patterns is included in it as well. 
 
 *** LeafLayout Class
 - *Purpose:* 
-It is an abstract class that will represent the leaf object in a composition. It has no children and the leaf will be of type object Decal. Moreover, this class has character attribute to denote the size that the decal will have in relative to the layout. The options are specified in the ScriptingLanguageSpecification.org. It will be able to offer default behavior on how to render a decal. The render () method will be overrriden by the concrete subclasses fo the Decal class.
+It is an abstract class that will represent the leaf object in a composition. It has no children and the leaf will be of type object Decal. Moreover, this class has character attribute to denote the size that the decal will have in relative to the layout. The options are specified in the *ScriptingLanguageSpecification.org*. It will be able to offer default behavior on how to render a decal. The ~render ()~ method will be overrriden by the concrete subclasses of the Decal abstract class.
 - *Interaction:*  
 This class will inherit from the ComponentLayout abstract class. In addition from this class we can navigate to the abstract class Decal.
 - *Design Patterns it belongs:*
@@ -55,31 +55,31 @@ This class is designed using Composite design pattern.
 
 *** CompositeLayout Class
 - *Purpose:* 
-It is an abstract class that will declare an interface for components that will have children. In addition it will provide default implementation to some of the methods necessary for adding child layout components and for rendering layouts into the card or another layout. It will also provide a default implementation for the method iterator (), which will create an iterator to traverse all the composed layouts.
+It is an abstract class that will declare an interface for components that will have children. In addition it will provide default implementation to some of the methods necessary for adding child layout components and for rendering layouts into the card or another layout. It will also provide a default implementation for the method ~iterator ()~, which will create an iterator to traverse all the composed layouts.
 - *Interaction:*   
 This class will inherit from the ComponentLayout abstract class and it will serve as a base for the other two classes ArrayComponentLayout and SingleComponentLayout.
 - *Design Patterns it belongs:*
-This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
+This class is designed using Composite design pattern and the Iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
 **** SingleComponentLayout Class
 - *Purpose:* 
 This is a concrete class that will be able to hold only a single child of type ComponentLayout. It will have zero or one thing as an attribute, a LayoutPositionPair, which will be discussed below.
 - *Interaction:*  
-This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render method ().
+This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render ~method ()~.
 - *Design Patterns it belongs:*
-This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
+This class is designed using Composite design pattern and the Iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
 **** ArrayComponentLayout Class
 - *Purpose:* 
-This is a concrete class that will be able to hold an array of children of types ComponentLayout. The array will be filled with zero or many references to the LayoutPositionPair obejcts.
+This is a concrete class that will be able to hold an array of children of types ComponentLayout. The array will be filled with zero or many references to the LayoutPositionPair objects.
 - *Interaction:*  
-This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render method (), addLayout (), removeLayout and iterator () to create an iterator.
+This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the ~render ()~ method, ~addLayout ()~, ~removeLayout ()~ and ~iterator ()~ to create an iterator.
 - *Design Patterns it belongs:*
-This class is designed using Composite design pattern and the iterator design patterns is included in it as well to offer a way to access the composed layouts.
+This class is designed using Composite design pattern and the Iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
 *** LayoutPositionPair Class
 - *Purpose:* 
-It is a concrete class which will allow our system to create structure where a specific ComponentLayout is associated with a PositionScaled. This is necessary because every layout most be placed in a specific relatively scaled position.
+It is a concrete class which will allow our system to create structure where a specific ComponentLayout is associated with a PositionScaled. This is necessary because every layout must be placed in a specific relatively scaled position.
 - *Interaction:*  
 This class does not inherit from any other classes, however, the SingleComponentLayout and the ArrayComponentLayout will maintain zero or more references to the objects created by this class.
 - *Design Patterns it belongs:*
@@ -87,7 +87,7 @@ It is not part of any of the design patterns.
 
 ** Decal Class
 - *Purpose:* 
-This Abstract class will provide a common interface for various types of decals. I will also be implementing a default behaviors for the render () method and acceptBuilder () method, which will be overridden by the subclasses.
+This abstract class will provide a common interface for various types of decals. I will also be implementing a default behaviors for the ~render ()~ method and ~acceptBuilder ()~ method, which will be overridden by the subclasses.
 - *Interaction:*  
 This class will inherit from the ScriptObject class and four other subclasses will be implementing the rest of the functionalities defined by this abstract class.
 - *Design Patterns it belongs:*
@@ -95,7 +95,7 @@ No design patterns were used in this part of the system.
 
 *** Text Class
 - *Purpose:* 
-A concrete class which comforts to the interface set by the Decal class. It will offer the user to put text objects into a card. I has three attributes a Color, a size and a font. This class will know how to render itself and how to load a text from a path given in the configuration file.
+A concrete class which conforms to the interface set by the Decal class. It will user an option to put text objects into a card. It has three attributes a Color, a size and a font. This class will know how to render itself and how to load a text from a path given in the configuration file.
 - *Interaction:*  
 It will inherit from the abstract class Decal.
 - *Design Patterns it belongs:*
@@ -103,7 +103,7 @@ No design patters used in it.
 
 *** ImageDecal
 - *Purpose:* 
-A concrete class which offers the users to put an image into a card. This class will know how to render itself and how to load an image from a path given in the configuration file.
+A concrete class which offers the users an option to put an image into a card. This class will know how to render itself and how to load an image from a path given in the configuration file.
 - *Interaction:*  
 It will inherit from the abstract class Decal.
 - *Design Patterns it belongs:*
@@ -127,7 +127,7 @@ No design patterns used in it.
 
 **** Rectangle Class
 - *Purpose:* 
-It will be implementing the interface set by the Shape class and it will offer the user the ability to draw a rectangle on a card. It will also be implementing the render () method in order to render itself on a card. I has three attributes, two dimension and a Color type attribute.
+It will be implementing the interface set by the Shape class and it will offer the user the ability to draw a rectangle on a card. It will also be implementing the ~render ()~ method in order to render itself on a card. I has three attributes, two dimension and a Color type attribute.
 - *Interaction:*  
 I will be implementing the interface set by the Shape class and also inheriting from it.
 - *Design Patterns it belongs:*
@@ -135,7 +135,7 @@ No design patterns used in it.
 
 **** Circle Class
 - *Purpose:* 
-It will be implementing the interface set by the Shape class and will offer users the ability to draw a circle with a specific radius and specific color on the card. It will override the render () method inherited from the Shape abstract class.
+It will be implementing the interface set by the Shape class and will offer users the ability to draw a circle with a specific radius and specific color on the card. It will override the ~render ()~ method inherited from the Shape abstract class.
 - *Interaction:* 
 I will be implementing the interface set by the Shape class and also inheriting from it.
 - *Design Patterns it belongs:*
@@ -143,7 +143,7 @@ No design patterns used in it.
 
 **** Triangle Class
 - *Purpose:* 
-It will be implementing the interfaces set by the Shape class and will offer the users the ability to draw a triangle with specific sides and specific color on the card. It will override the render () method.
+It will be implementing the interfaces set by the Shape class and will offer the users the ability to draw a triangle with specific sides and specific color on the card. It will override the ~render ()~ method.
 - *Interaction:*  
 I will be implementing the interface set by the Shape class and also inheriting from it.
 - *Design Patterns it belongs:*
@@ -159,7 +159,7 @@ No design patterns used in it.
 
 ** Card Class
 - *Purpose:* 
-This is a concrete class which will be implementing the interface create by ScriptObject class. The objects create by this class will have all the necessary components that a card needs. In addition it will implement the render () method in order to render itself.
+This is a concrete class which will be implementing the interface create by ScriptObject class. The objects create by this class will have all the necessary components that a card needs. In addition it will implement the ~render ()~ method in order to render itself.
 - *Interaction:*  
 It will be inheriting from the ScriptObject concrete class and it will hold two layouts of type ComponentLayout, size attributes and a name.
 - *Design Patterns it belongs:*
@@ -233,7 +233,7 @@ No design patterns used in it.
 - *Purpose:*
 It is a concrete class, whose object will be created as the final result of calling render methods in every component. When everything is rendered, this object will be created.
 - *Interaction:*  
-It will not be inheriting form any other class or being used s a sub class for other classes. However, it will be create by the ScrinptEvaluater’s concrete classes.
+It will not be inheriting form any other class or being used as subclass for other classes. However, it will be create by the ScrinptEvaluater’s concrete classes.
 - *Design Patterns it belongs:*
 No design patterns used in it.
 
@@ -242,7 +242,7 @@ The design pattern that we thought would be fit to use in the Card Representatio
 
 *** Composite
 **** Why we used?
-Our team decided to uses the composite pattern because it offers an easy way to represent hierarchies and also it offers an easy way to treat individual objects and composite objects the same way. Our system allows for a layout component to have layouts or simpler objects such as decal.
+Our team decided to uses the Composite pattern because it offers an easy way to represent hierarchies and also it offers an easy way to treat individual objects and composite objects the same way. Our system allows for a layout component to have layouts or simpler objects such as decal.
 **** What we gained?
 - Easy way to represent hierarchies of objects.
 - Easy way to nest composed and simple objects, inside one another.
@@ -251,10 +251,10 @@ Our team decided to uses the composite pattern because it offers an easy way to 
 - It makes it easier to represent layouts and decals. 
 - It makes it easier to access the elements nested inside one another.
 - It would be easier to add different types of decal, which are not defined right now.
-- The designs looks general.
+- The design looks general.
 *** Iterator
 **** Why we used?
-We decide to use this team in order to allow an easy and simple way to access all the elements that will be used to represent a card object. 
+We decide to use this in order to allow an easy and simple way to access all the elements that will be used to represent a card object.
 **** What we gained?
 - A way to access the components without exposing its internal representation.
 - We could support different traversal algorithms, but we only need one.
