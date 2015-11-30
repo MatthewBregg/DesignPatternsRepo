@@ -172,49 +172,59 @@
          mortgageValue
          houseCost
          hotelCost)
-  (layout 
-    (cons (BLACK_BOARDER) (position-scaled 5 5 85 20))
-    (cons (HEADER color roadName) (position-scaled 10 7 80 13))
-    (cons (BASE_RENT rent) (position-scaled 40 40 10 10) 
-    (cons (WITH_HOUSES rent1House 1) (position-scaled 20 (+ 45 (* number 5)) 10 10))
-    (cons (WITH_HOUSES rent2Houses 2) (position-scaled 20 (+ 45 (* number 5)) 10 10))
-    (cons (WITH_HOUSES rent3Houses 3) (position-scaled 20 (+ 45 (* number 5)) 10 10))
-    (cons (WITH_HOUSES rent4Houses 4) (position-scaled 20 (+ 45 (* number 5)) 10 10))
-    (cons (WITH_HOTEL rentHotel) (position-scaled 40 70 10 10))
-    (cons (MORTGAGE mortgageValue) (position-scaled 40 75 10 10)
-    (cons (HOUSE_COST houseCost) (position-scaled 40 80 10 10)) 
-    (cons (HOTEL_COST hotelCost) (position-scaled 40 85 10 10))
-    (cons (FINE_PRINT) (position-scaled 5 80 10 10))
+  (card (size 5 5) "ROAD_CARD"
+    (layout
+      (cons (BLACK_BOARDER) (position-scaled 5 5 85 20))
+      (cons (HEADER color roadName) (position-scaled 10 7 80 13))
+      (cons (BASE_RENT rent) (position-scaled 40 40 10 10) 
+      (cons (WITH_HOUSES rent1House 1) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+      (cons (WITH_HOUSES rent2Houses 2) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+      (cons (WITH_HOUSES rent3Houses 3) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+      (cons (WITH_HOUSES rent4Houses 4) (position-scaled 20 (+ 45 (* number 5)) 10 10))
+      (cons (WITH_HOTEL rentHotel) (position-scaled 40 70 10 10))
+      (cons (MORTGAGE mortgageValue) (position-scaled 40 75 10 10)
+      (cons (HOUSE_COST houseCost) (position-scaled 40 80 10 10)) 
+      (cons (HOTEL_COST hotelCost) (position-scaled 40 85 10 10))
+      (cons (FINE_PRINT) (position-scaled 5 80 10 10))
+      )
+      (BACK_OF_CARD roadName mortgageValue)
     )
-  ) 
-
+  )
 (define (RAILROAD name iconpath)
-  (layout 
-    (cons (ICON iconpath) (position-scaled 40 25 10 10)) 
-    (cons (NAME name) (position-scaled 10 40 25 25))
-    (cons (RAILROAD_RENTS "Rent" "$25") (position-scaled 10 55 12 12))
-    (cons (RAILROAD_RENTS "If 2 R.R.'s are owned" "50") (position-scaled 10 65 12 12))
-    (cons (RAILROAD_RENTS "If 3 ''     ''  ''" "100") (position-scaled 10 75 12 12))
-    (cons (RAILROAD_RENTS "If 4 ''     ''  ''" "200") (position-scaled 10 85 12 12))
-    (cons (MORTGAGE_VALUE 100) (position-scaled 10 85 12 12))
+  (card (size 5 5) "RAILROAD_CARD"
+    (layout
+      (cons (ICON iconpath) (position-scaled 40 25 10 10)) 
+      (cons (NAME name) (position-scaled 10 40 25 25))
+      (cons (RAILROAD_RENTS "Rent" "$25") (position-scaled 10 55 12 12))
+      (cons (RAILROAD_RENTS "If 2 R.R.'s are owned" "50") (position-scaled 10 65 12 12))
+      (cons (RAILROAD_RENTS "If 3 ''     ''  ''" "100") (position-scaled 10 75 12 12))
+      (cons (RAILROAD_RENTS "If 4 ''     ''  ''" "200") (position-scaled 10 85 12 12))
+      (cons (MORTGAGE_VALUE 100) (position-scaled 10 85 12 12))
+      )
+     )
+    (BACK_OF_CARD name 100)
     )
-  ) 
+  )
+   
 ;;Below string is broken in two parts to fit in page,
 ;;in real example, keep on one line
 (define utility_60 "If both ''Utilities'' are owned rent
  is 10 times amount shown on dice.")
 (define (UTILITY name iconpath)
-  (layout 
-    (cons (ICON iconpath) (position-scaled 40 25 10 10)) 
-    (cons (NAME name) (position-scaled 10 40 25 25))
-    (cons (UTILITY_RENT 40
+  (card (size 5 5) "UTILITY"
+    (layout
+      (cons (ICON iconpath) (position-scaled 40 25 10 10)) 
+      (cons (NAME name) (position-scaled 10 40 25 25))
+      (cons (UTILITY_RENT 40
                 "If one ''Utility'' is owned rent is 4 times amount shown on dice.")
                 (position-scaled 20 startX 12 12))
-    (cons (UTILITY_RENT 60
+      (cons (UTILITY_RENT 60
                 utility_60) )
-    (cons (MORTGAGE_VALUE 75 ) (position-scaled 10 85 12 12))
-    )
-  )  
+      (cons (MORTGAGE_VALUE 75 ) (position-scaled 10 85 12 12))
+      )
+    (BACK_OF_CARD name 75)
+    )  
+  )
 
 (define (BACK_OF_CARD name value)
   (layout
