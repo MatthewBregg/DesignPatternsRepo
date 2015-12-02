@@ -3,7 +3,7 @@ skinparam dpi 400
 abstract class ShapeBuilder as "{abstract}\nShapeBuilder"
 ShapeBuilder : -state:State
 ShapeBuilder : -setState(s:State)
-ShapeBuilder : +getResult():Shape
+ShapeBuilder : +getResult():ShapeDecal
 ShapeBuilder : #addScriptObject(s:ScriptObject)
 ShapeBuilder : +addDouble(d:DoubleScriptWrapper)
 ShapeBuilder : +addString(d:StringScriptWrapper)
@@ -13,6 +13,7 @@ ShapeBuilder : +{abstract} getNewShapeState():ShapeState
 
 note bottom : Delegates call to addDouble, addString, getResult, and getNewShape to it's state.
 note bottom : getNewShapeState() returns a new state of the given type of Builder. So Rectangle will return an EmptyRectangle state. This is a template method.
+note bottom : These create a ShapeDecal with the correct shape as a parameter.
 
 
 class CircleBuilder
@@ -97,7 +98,7 @@ CircleDoneState : addDouble(d:double,b:ShapeBuilder)
 
 CircleDoneState : radius : Double
 note top of CircleDoneState
-  getResult : Return a new CircleDecal, using radius and color. 
+  getResult : Return a new ShapeDecal, with a Circle shape, using radius and color. 
   addString : Set b state to error state
   addDouble : Set b state to error state
 end note
@@ -144,7 +145,7 @@ TriangleDoneState : l2 : Double
 TriangleDoneState : l3 : Double
 
 note top of TriangleDoneState
-  getResult : Return a new TriangleDecal, using l1,l2,l3 and color. 
+  getResult : Return a new ShapeDecal with a triangle shape, using l1,l2,l3 and color. 
   addString : Set b state to error state
   addDouble : Set b state to error state
 end note
@@ -179,7 +180,7 @@ RectangleDoneState : width : Double
 RectangleDoneState : height : Double
 
 note top of RectangleDoneState
-  getResult : Return a new RectangleDecal, using width, height and color. 
+  getResult : Return a new ShapeDecal with a rectangle shape, using width, height and color. 
   addString : Set b state to error state
   addDouble : Set b state to error state
 end note
@@ -215,7 +216,7 @@ AnyShapeOnY : addString(s:String,b:ShapeBuilder)
 AnyShapeOnY : addDouble(d:double,b:ShapeBuilder)
 
 note top of AnyShapeOnY
-  getResult : Return a new AnyShapeDecal, with the given points.
+  getResult : Return a new ShapeDecal with an AnyShape, with the given points.
   addString : Set b state to error state
   addDouble : Set b state to AnyShapeOnX, add d to list.
 end note
