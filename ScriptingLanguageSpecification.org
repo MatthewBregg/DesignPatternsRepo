@@ -218,7 +218,7 @@ A size is used by a card to determine how many pixels it will be.
     - Specify where to log to
     - Defaults to .cardlog
   - load-builder
-    - Takes in a name, and the path to a builder class file.
+    - Takes in a name, and the path to a builder java file.
     - Loads said builder into script evaluator
       #+BEGIN_SRC scheme
 (set-option "load-builder" "name" "path")
