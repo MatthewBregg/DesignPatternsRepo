@@ -36,6 +36,6 @@ Can add more a new builder at runtime.
     - Let the builder factory have a static method that returns all "predefined" builders?
     
 * Final Document Edits
-Add text for section 5.12 (Abstract Factory with Prototypes)
-Fix all instances of "paramatized" to "parameterized".
-"Visiter" --> "Visitor"
+-Add text for section 5.12 (Abstract Factory with Prototypes)
+-Fix all instances of "paramatized" to "parameterized".
+-"Visiter" --> "Visitor"
