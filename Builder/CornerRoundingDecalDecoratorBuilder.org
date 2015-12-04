@@ -1,0 +1,57 @@
+#+BEGIN_SRC plantuml :file CornerRoundingDecalBuilder.png
+
+class CornerRoundingDecalBuilder
+CornerRoundingDecalBuilder : state : State = new EmptyState
+CornerRoundingDecalBuilder : addDecal(d:Decal)
+CornerRoundingDecalBuilder : getResult() 
+note top : Delegates messages to state.
+
+abstract class ScriptObjectBuilder
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
+
+ScriptObjectBuilder <|-- CornerRoundingDecalBuilder
+
+CornerRoundingDecalBuilder +-- CornerRoundingState
+
+CornerRoundingState <|-- ErrorState
+CornerRoundingState <|-- EmptyState
+CornerRoundingState <|-- FullState
+
+abstract class CornerRoundingState as "{abstract}\nCornerRoundingState"
+CornerRoundingState : -builder:CornerRoundingDecalBuilder
+CornerRoundingState : +getBuilder()
+CornerRoundingState : +{abstract}addDecal(d:Decal)
+CornerRoundingState : +{abstract}getResult()
+
+class ErrorState
+ErrorState : +addDecal(d:Decal)
+ErrorState : +getResult()
+note top : All methods do nothing, already in error state, get result returns an error script object
+
+class EmptyState
+EmptyState : +addDecal(d:Decal)
+EmptyState : +getResult()
+note top of EmptyState 
+ getResult : set builder to new error state, return error script object.
+ addDecal : set builder to new FullState, paramatized with decal d.
+end note
+
+class FullState
+FullState : - decal : Decal
+FullState : +addDecal(d:Decal)
+FullState : +getResult()
+note top of FullState 
+ getResult : Return new CornerRoundingDecalDecorator that decorates the decal reference. 
+ addDecal : set builder to new error state
+end note
+
+
+
+
+#+END_SRC		
+
+#+RESULTS:
+[[file:CornerRoundingDecalBuilder.png]]
+

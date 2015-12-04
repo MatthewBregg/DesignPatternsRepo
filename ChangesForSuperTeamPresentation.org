@@ -12,7 +12,7 @@
 *** DONE update token example with making a layout and co in the builderconstruction
 *** DONE RotateDecalDecorator
 *** DONE CropDecalDecorator
-*** TODO CornerRoundingDecalDecorator
+*** DONE CornerRoundingDecalDecorator
 *** TODO MaskDecalDecorator
 
 
