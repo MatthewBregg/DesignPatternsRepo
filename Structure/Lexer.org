@@ -8,7 +8,7 @@ class MutableExpressionToken
 MutableExpressionToken : funcName:String
 MutableExpressionToken : args:List<Token>
 MutableExpressionToken : allParamsVars:bool 
-note bottom : Mutable version of expression token \n for constructing one, \n but cannot be used as one, \n as it is mutable.
+note bottom : Mutable version of expression token \n for constructing Expresson token, \n but cannot be used as Expression token, \n as it is mutable.
 
 interface Lexer<<interface>>
 Lexer : +tokenizeFile(file:Path) : List<Token>

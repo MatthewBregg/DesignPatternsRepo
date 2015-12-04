@@ -67,7 +67,7 @@
       Options options = new OptionsParser(defaultOptionsFilePath);
       exitIfErors(options);
 
-      ScriptEvaluator evaluator = new ScriptEvaluator();
+      ScriptEvaluator evaluator = new LispScriptEvaluator();
 
       Lexer lexer = evaluator.getLexer();
       evaluator.evalTokens(lexer.tokenizeFile(options.scriptFile()));
@@ -139,13 +139,21 @@ enum OutputFormat {
 class Driver
 Driver : public static void main(String[] args)
 
-note top : The driver, after creating the ScriptEvaluator, will add the predefined builders to it, via eval.getEnvironmentList().addToTopEnv("Buildername",new XBuilder()), \n it will do this for all Builders defined in the Builders section.
+note top : The driver, after creating the ScriptEvaluator, will add the predefined builders to it, via eval.addToTopEnv("Buildername",new XBuilder()), \n it will do this for all Builders defined in the Builders section.
 
 Output --> OutputFormat
 
+interface ScriptEvaluator << interface >>
+hide ScriptEvaluator methods
+hide ScriptEvaluator members
+
+class RenderedCard
+hide RenderedCard methods
+hide RenderedCard members
+
 Driver --> Output
 Driver --> ScriptEvaluator
-Driver --> Options
+Driver --> Option
 Driver --> Logger
 Driver --> RenderedCard
   
