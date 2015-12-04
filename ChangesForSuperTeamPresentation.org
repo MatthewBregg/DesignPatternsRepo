@@ -10,7 +10,7 @@
 ** DONE Need to update DecalBuilders/add decorators
 ** TODO Need to add DecalDecorator builders.
 *** DONE update token example with making a layout and co in the builderconstruction
-*** TODO RotateDecalDecorator
+*** DONE RotateDecalDecorator
 *** TODO CropDecalDecorator
 *** TODO CornerRoundingDecalDecorator
 *** TODO MaskDecalDecorator

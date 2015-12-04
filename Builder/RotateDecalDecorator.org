@@ -1,0 +1,81 @@
+#+BEGIN_SRC plantuml :file RotateDecalDecoratorBuilder.png
+class RotateDecalDecoratorBuilder
+RotateDecalDecoratorBuilder : state : State = new EmptyState
+RotateDecalDecoratorBuilder : addDecal(d:Decal)
+RotateDecalDecoratorBuilder : addDouble(s:DoubleScriptObjectWrapper)
+RotateDecalDecoratorBuilder : getResult() 
+note top : Delegates messages to state.
+
+abstract class ScriptObjectBuilder
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
+
+ScriptObjectBuilder <|-- RotateDecalDecoratorBuilder
+
+RotateDecalDecoratorBuilder +-- RotateDecalState
+
+RotateDecalState <|-- ErrorState
+RotateDecalState <|-- EmptyState
+RotateDecalState <|-- FullState
+
+abstract class RotateDecalState as "{abstract}\nRotateDecalState"
+RotateDecalState : -b:RotateDecalDecoratorBuilder
+RotateDecalState : +getBuilder()
+RotateDecalState : +{abstract}addDecal(d:Decal)
+RotateDecalState : +{abstract}addDouble(d:double)
+RotateDecalState : +{abstract}getResult()
+
+class ErrorState
+ErrorState : +addDouble(d:double)
+ErrorState : +getResult()
+note top : All methods do nothing, already in error state, get result returns an error script object
+
+class EmptyState
+EmptyState : +addDouble(d:double)
+EmptyState : +addDecal(d:Decal)
+EmptyState : +getResult()
+note top of EmptyState 
+ getResult : set b to new error state, return error script object.
+ addDecal : set b to new HasDecalState, giving d as the decal.
+ addDouble : set B to new error state.
+end note
+
+
+class HasDecalState
+HasDecalState : -decal : Decal
+HasDecalState : +addDecal(d:Decal)
+HasDecalState : +addDouble(d:double)
+HasDecalState : +getResult()
+note top of HasDecalState 
+ getResult : set b to new error state, return error script object.
+ addDouble : set b to new FullState, giving d, and decal as parameters for angle and decal.
+ addDecal : set b to new error state.
+end note
+
+RotateDecalState <|-- HasDecalState
+
+
+class FullState
+FullState : decal : Decal
+FullState : angle : Double
+FullState : +addString(s:String)
+FullState : +addDouble(d:double)
+FullState : +getResult()
+note top of FullState 
+ getResult : Return new RotateDecalDecorator, using the decal, and angle stored.
+ addDouble : set b to new error state
+ addString : set b to new error state
+end note
+
+
+
+
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:RotateDecalDecoratorBuilder.org]]
+
