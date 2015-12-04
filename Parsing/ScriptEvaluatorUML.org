@@ -1,0 +1,69 @@
+#+BEGIN_SRC plantuml :file ScriptEvaluatorUML.png
+class BuilderFactory
+
+note bottom : Calls .clone() on the Builder retrieved from the map, and returns the clone.
+
+BuilderFactory : Map<String,ScriptObjectBuilder>
+BuilderFactory : getBuilder(s:String)
+BuilderFactory : addBuilder(name:String,b:ScriptObjectBuilder)
+
+class Environment
+Environment : builders : BuilderFactory 
+Environment : variables : Map<String,ScriptObject>
+Environment : getVariables() : Map<String,ScriptObject>
+Environment : getBuilders() : BuilderFactory
+
+class EnvironmentList
+
+EnvironmentList : envs : ArrayList<Environment>
+EnvironmentList : hasVariable(String name) : ScriptObject
+EnvironmentList : hasBuilder(String name) : BuilderFactory
+EnvironmentList : pushEnv(Environment env) : void
+EnvironmentList : popEnv() : void
+EnvironmentList : addToTopEnv(name:String,obj:ScriptObject):void
+EnvironmentList : addToTopEnv(name:String,builder:ScriptObjectBuilder):void
+
+
+note top : The EnvironmentList starts checking from the most recently pushed, until it gets to the oldest env. If no matching variable/builder is found, returns null.
+
+EnvironmentList o-> Environment
+
+interface ScriptEvaluator<<interface>>
+class CardLispScriptEvaluator
+
+ScriptEvaluator <|.. CardLispScriptEvaluator 
+
+CardLispScriptEvaluator : currentDirectory:Path
+CardLispScriptEvaluator : renderedCards : List<RenderedCard>
+ScriptEvaluator : setPath(p:Path)
+ScriptEvaluator : getLexer() : Lexer
+ScriptEvaluator : getPath():Path
+ScriptEvaluator : evalTokans(l:List<Token>) : void
+ScriptEvaluator : doParse(Token) : ScriptObject
+ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCard>
+ScriptEvaluator : addRenderedCard(rc:RenderedCard)
+ScriptEvaluator : getEnvironmentList() : EnvironmentList
+
+CardLispScriptEvaluator -> EnvironmentList
+
+note top : doParse gets the builder for that token, from the token, then for each argument token in the token, gives the builder said token, before returning the builder result. 
+
+
+
+Environment -> BuilderFactory
+
+
+class RenderedCard
+RenderedCard : -front : Image
+RenderedCard : -back  : Image
+RenderedCard : -name:String
+RenderedCard : +getName():String
+RenderedCard : +getFront():Image
+RenderedCard : +getBack():Image
+
+CardLispScriptEvaluator o--> RenderedCard
+#+END_SRC
+
+#+RESULTS:
+[[file:ScriptEvaluatorUML.png]]
+

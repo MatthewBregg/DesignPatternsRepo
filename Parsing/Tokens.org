@@ -1,0 +1,60 @@
+#+BEGIN_SRC plantuml :file TokensUML.png
+
+abstract class Token as "{abstract}\nToken"
+
+
+Token : {abstract}getArguments():List<Token>
+note top : For example,\n if (render someCard familyA (family \"foo\" (cons \"foo\" bar)), \n then someCard will be one token, familyA another, (family \"foo\" (cons \"foo\" bar)) will be a third. "
+Token : {abstract}getBuilder(ScriptEvaluator ScriptEvaluator):Builder
+class VariableToken
+note bottom : FamilyA would be one of these tokens, a variable that is referenced. \n A variable name can't start with a number, to make it determinable from an int.
+note left : When asked for a builder, will look in the ScriptEvaluators environment for a variable of it's name. \n If found, return a VariableBuilder, paramatized with said ScriptObject. \n If not found, return an UndefinedVariableBuilder, paramatized with the name.
+VariableToken : varName : String
+class ExpressionToken
+ExpressionToken : funcName : String
+note top : (family "foo" (cons "foo" bar)) would be one of these
+note left : When asked for a builder, will look in environment for builder matching current function name. \n If none found, will create an UndefinedFunctionBuilder, with the name, and paramater names paramaterized
+ExpressionToken : List<Token>
+ExpressionToken : allParamsVars : boolean = true
+note left : allParamsVars is defaults to true, and should any class that is not a variable be added to its arguments by the parser, it will be set to false.
+abstract class AtomToken as "{abstract}\nAtomToken"
+note top : Any ints or strings will be one of these. 
+class StringAtomToken 
+note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an StringScriptWrapper of the appropriate value
+StringAtomToken : value : String
+
+class DoubleAtomToken
+DoubleAtomToken : value : double
+note bottom : When asked for a builder, returns a ConstantBuilderVisiter, paramatized with an DoubleScriptWrapper of the appropriate value
+
+class ParseErrorToken
+note top : If a parse error is hit, then make this, and stop parsing.
+ParseErrorToken : error : String
+
+
+ParseErrorToken : getBuilder(ScriptEvaluator ScriptEvaluator): ErrorBuilderVisiter
+AtomToken : {abstract}getBuilder(ScriptEvaluator ScriptEvaluator): ConstantBuilderVisiter
+VariableToken : getBuilder(ScriptEvaluator ScriptEvaluator): VariableBuilderVisiter
+
+note "These tokens will add the info the builder they are returning needs, before returning" as N1
+
+N1 -- AtomToken
+N1 -- VariableToken
+N1 -- ParseErrorToken
+
+Token <|-- VariableToken
+note bottom : Get arguments is always empty
+Token <|-- ExpressionToken
+Token <|-- AtomToken
+AtomToken <|-- DoubleAtomToken
+AtomToken <|-- StringAtomToken
+Token <|-- ParseErrorToken
+note bottom : Get arguments is always empty
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:TokensUML.png]]
+

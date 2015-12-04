@@ -1,0 +1,90 @@
+#+BEGIN_SRC plantuml :file BuilderConstruction.png
+skinparam dpi 300
+
+abstract class BuilderVisiter as "{abstract}\nScriptObjectBuilder"
+abstract class ScriptObject as "{abstract}\nScriptObject"
+hide ScriptObject members
+hide ScriptObject methods
+note bottom : See ScriptObject UML for it's subclasses/more detail
+
+
+
+
+
+BuilderVisiter : -eval : ScriptEvaluator
+BuilderVisiter : +clone() : BuilderVisiter
+BuilderVisiter : +{abstract}getResult():ScriptObject
+BuilderVisiter : #getEval():ScriptEvaluator
+BuilderVisiter : +addLayout(l:Layout)
+BuilderVisiter : +addDecal(d:Decal)
+BuilderVisiter : +addString(s:StringScriptWrapper)
+BuilderVisiter : +addFamily(f:Family)
+BuilderVisiter : +addSize(s:Size)
+BuilderVisiter : +addPositionScaled(ps:PositionScaled)
+BuilderVisiter : +addCard(c:Card)
+BuilderVisiter : +addDouble(s:DoubleScriptWrapper)
+BuilderVisiter : +addList(l:List)
+BuilderVisiter : +addConsPair(p:ConsPair)
+BuilderVisiter : +addShape(s:Shape)
+BuilderVisiter : +addError(e:ErrorScriptObject)
+BuilderVisiter : +addNull(v:NullScriptObject)
+BuilderVisiter : +addToken(t:Token)
+BuilderVisiter : #{abstract}addScriptObject(s:ScriptObject)
+note top of BuilderVisiter 
+ Subclasses omitted, see attached umls for its subclasses
+
+ addToken will be implemented by default as running eval.doParse on the token, and then having the token accept itself.
+
+ add* except for token default to calling addScriptObject(*)
+
+ Clone will deep copy primitives, and collections, but will shallow copy/share most objects.
+
+ The add methods by default will forward to addScriptObject, so that each add* doesn't need to be overridden, can only override the adds that are expected, and can otherwise switch to error if an unexpected thing is added. 
+end note
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+' VarBuilder
+note "The Varbuilder is made by var token, so var token paramatizes VarBuilder with what it gets from looking up the var." as simpleBuilderNote
+class VarBuilder as "VariableBuilderVisiter"
+note top : Just returns the ScriptObject it is paramatized with as a result. Attemping to add to it will make it enter error state. 
+simpleBuilderNote -- VarBuilder
+BuilderVisiter <|-- VarBuilder
+
+'ConstantVisiter
+class ConstantBuilder as "ConstantBuilderVisiter"
+note top : Before the token returns it,\n the token will add the constant using the correct add method. 
+BuilderVisiter <|-- ConstantBuilder
+
+'LayoutVisiter
+class LayoutBuilder as "LayoutBuilderVisiter"
+
+BuilderVisiter <|-- LayoutBuilder
+
+
+note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:BuilderConstruction.png]]
