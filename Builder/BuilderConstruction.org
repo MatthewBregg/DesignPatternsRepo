@@ -99,6 +99,9 @@ note "As defined in other UML, members and operations ellided in this one" as As
 
 abstract class Layout as "{abstract}\nComponentLayout"
 Layout -- AsDefined
+class Shape as "{abstract}\nShape"
+Shape -- AsDefined
+ScriptObject <|-- Shape
 abstract class Decal as "{abstract}\nDecal"
 Decal -- AsDefined
 class ConsPair
@@ -112,7 +115,7 @@ class List
 List : list:List<ScriptObject>
 List : getList():List<ScriptObject>
 List : acceptBuilderOnAllItems(v:ScriptBuilderVisiter)
-note bottom : acceptBuilderOnAllItems \n Calls acceptBuilder on the first, and then the second item
+note bottom : acceptBuilderOnAllItems \n Calls acceptBuilder on each item in the list.
 class ErrorScriptObject
 class NullScriptObject
 class Card 

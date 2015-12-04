@@ -3,7 +3,7 @@ skinparam dpi 400
 abstract class ShapeBuilder as "{abstract}\nShapeBuilder"
 ShapeBuilder : -state:State
 ShapeBuilder : -setState(s:State)
-ShapeBuilder : +getResult():ShapeDecal
+ShapeBuilder : +getResult():Shape
 ShapeBuilder : #addScriptObject(s:ScriptObject)
 ShapeBuilder : +addDouble(d:DoubleScriptWrapper)
 ShapeBuilder : +addString(d:StringScriptWrapper)
@@ -13,7 +13,7 @@ ShapeBuilder : +{abstract} getNewShapeState():ShapeState
 
 note bottom : Delegates call to addDouble, addString, getResult, and getNewShape to it's state.
 note bottom : getNewShapeState() returns a new state of the given type of Builder. So Rectangle will return an EmptyRectangle state. This is a template method.
-note bottom : These create a ShapeDecal with the correct shape as a parameter.
+note bottom : These create a Shape with the correct shape.
 
 
 class CircleBuilder
@@ -54,25 +54,17 @@ EmptyState : addDouble(d:double,b:ShapeBuilder)
 
 note top of EmptyState
   getResult : Return error script object, set b state to error state.
-  addString : Check if String s is a valid color, if so, make the color, and set b state to new ColorState.
+  addString : Set b state to error state.
   addDouble : Set b state to error state
 end note
 
-class ColorState
-ColorState : getResult(b:ShapeBuilder)
-ColorState : addString(s:String,b:ShapeBuilder)
-ColorState : addDouble(d:double,b:ShapeBuilder)
-ColorState : c:Color
-
-note top of ColorState
-  On construction, set ask B for its getNewShapeState, give said state a color.
+note top of EmptyState
+  On construction, set b the result of it's getNewShapeState() method.
 end note
 
 State <|-- EmptyState
-State <|-- ColorState
 
 abstract class ShapeState as "{abstract}ShapeState"
-ShapeState : c:Color
 
 State <|-- ShapeState
 
@@ -88,7 +80,7 @@ CircleInitialState : addDouble(d:double,b:ShapeBuilder)
 note top of CircleInitialState
   getResult : Return error script object, set b state to error state.
   addString : Set b state to error state
-  addDouble : Set b to CircleDoneState, give it d as radius and color. 
+  addDouble : Set b to CircleDoneState, give it d as radius. 
 end note
 
 class CircleDoneState
@@ -98,7 +90,7 @@ CircleDoneState : addDouble(d:double,b:ShapeBuilder)
 
 CircleDoneState : radius : Double
 note top of CircleDoneState
-  getResult : Return a new ShapeDecal, with a Circle shape, using radius and color. 
+  getResult : Return a new  Circle shape, using radius. 
   addString : Set b state to error state
   addDouble : Set b state to error state
 end note
@@ -111,7 +103,7 @@ TriangleInitialState : addDouble(d:double,b:ShapeBuilder)
 note top of TriangleInitialState
   getResult : Return error script object, set b state to error state.
   addString : Set b state to error state
-  addDouble : Set b to TriangleOneState, give it d as l1 and color. 
+  addDouble : Set b to TriangleOneState, give it d as l1. 
 end note
 class TriangleOneState
 TriangleOneState : getResult(b:ShapeBuilder)
@@ -122,7 +114,7 @@ TriangleOneState : l1 : Double
 note top of TriangleOneState
   getResult : Return error script object, set b state to error state.
   addString : Set b state to error state
-  addDouble : Set b to TriangleTwoState, give it l1, d as l2 and color. 
+  addDouble : Set b to TriangleTwoState, give it l1, d as l2. 
 end note
 class TriangleTwoState
 TriangleTwoState : getResult(b:ShapeBuilder)
@@ -134,7 +126,7 @@ TriangleTwoState : l2 : Double
 note top of TriangleTwoState
   getResult : Return error script object, set b state to error state.
   addString : Set b state to error state
-  addDouble : Set b to TriangleDoneState, give it l1, l2, d as l3, and color. 
+  addDouble : Set b to TriangleDoneState, give it l1, l2, d as l3. 
 end note
 class TriangleDoneState
 TriangleDoneState : getResult(b:ShapeBuilder)
@@ -145,7 +137,7 @@ TriangleDoneState : l2 : Double
 TriangleDoneState : l3 : Double
 
 note top of TriangleDoneState
-  getResult : Return a new ShapeDecal with a triangle shape, using l1,l2,l3 and color. 
+  getResult : Return a new triangle shape, using l1,l2,l3. 
   addString : Set b state to error state
   addDouble : Set b state to error state
 end note
@@ -159,7 +151,7 @@ RectangleInitialState : addDouble(d:double,b:ShapeBuilder)
 note top of RectangleInitialState
   getResult : Return error script object, set b state to error state.
   addString : Set b state to error state
-  addDouble : Set b to RectangleOneState, give it d as width and color. 
+  addDouble : Set b to RectangleOneState, give it d as width. 
 end note
 class RectangleWidthState
 RectangleWidthState : getResult(b:ShapeBuilder)
@@ -170,7 +162,7 @@ RectangleWidthState : width : Double
 note top of RectangleWidthState
   getResult : Return error script object, set b state to error state.
   addString : Set b state to error state
-  addDouble : Set b to RectangleTwoState, give it width, and d as height and color. 
+  addDouble : Set b to RectangleTwoState, give it width, and d as height. 
 end note
 class RectangleDoneState
 RectangleDoneState : getResult(b:ShapeBuilder)
@@ -180,7 +172,7 @@ RectangleDoneState : width : Double
 RectangleDoneState : height : Double
 
 note top of RectangleDoneState
-  getResult : Return a new ShapeDecal with a rectangle shape, using width, height and color. 
+  getResult : Return a new rectangle shape, using width, height. 
   addString : Set b state to error state
   addDouble : Set b state to error state
 end note
@@ -216,7 +208,7 @@ AnyShapeOnY : addString(s:String,b:ShapeBuilder)
 AnyShapeOnY : addDouble(d:double,b:ShapeBuilder)
 
 note top of AnyShapeOnY
-  getResult : Return a new ShapeDecal with an AnyShape, with the given points.
+  getResult : Return a new AnyShape, with the given points.
   addString : Set b state to error state
   addDouble : Set b state to AnyShapeOnX, add d to list.
 end note

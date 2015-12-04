@@ -41,9 +41,9 @@ Takes two arguments, returns a pair holding the two arguments as one object
 #+END_SRC
 (See http://download.plt-scheme.org/doc/4.2.4/html/guide/Pairs__Lists__and_Scheme_Syntax.html)
 *** card
-Takes a card-size, name, and two layouts, one for the front, one for the back.
+Takes a card-size, name, and two layouts, one for the front, one for the back, and then the shape of the card.
 #+BEGIN_SRC scheme
-(card card-size "name" frontLayout backLayout)
+(card card-size "name" frontLayout backLayout shape)
 #+END_SRC
 When a card is rendered, it will pair the layout with the wholeCard position-scaled (0 0 100 100)
 
@@ -86,6 +86,7 @@ This layout can then be used with the above layout function.
 (layout image)
 (layout foobarImage)
 (layout "foo")
+(layout (color-decal "white"))
 #+END_SRC
 **** Leaf-Layout options
 A Leaf-Layout can be given a third argument, to determine some extra behavior.
@@ -100,19 +101,19 @@ Takes an extra parameter, either a W, or an H, A, or O.
 - The default is "S", so calling with the "S" argument is the same as not having a third argument
 *** layout
 Creates a Layout object.
-A layout contains 0-n pairs of layouts and position-scaleds.
-Takes 0-n pairs of layouts and position-scaleds as arguments.
+A layout contains 0-n tuples of layouts position-scaleds, and shapes.
+Takes 0-n tuples of layouts position-scaleds and shapes as arguments.
 #+BEGIN_SRC scheme
 (Layout
-  (cons layout0 position-scaled0)
-  (cons layout1 position-scaled1)
+  (list layout0 position-scaled0 shape0)
+  (list layout1 position-scaled1 shape1)
   ...
-  (cons layoutn-1 position-scaledn-1))
+  (list layoutn-1 position-scaledn-1 shapen-1))
 
 (Layout 
-  (cons layoutFoo position-scaledFoo)
-  (cons (layout foobarImage) wholeCard)
-  (cons (layout "foo") wholeCard)
+  (list layoutFoo position-scaledFoo rectanglebar)
+  (list (layout foobarImage) wholeCard rectanglefoo)
+  (list (layout "foo") (circle 3.14))
 )
 
 #+END_SRC
@@ -149,34 +150,42 @@ Returns null.
 (image "filepath.[jpg|png|etc]")
 (image "foo.jpg")
 #+END_SRC
-- Rectangle Decal
-#+BEGIN_SRC 
-(rectangle "color" width height)
-(rectangle "white" 100 200) 
-#+END_SRC
-- Triangle Decal
-#+BEGIN_SRC 
-(triangle "color" lengthA lengthB lengthC)
-(triangle "white" 100 200 300)
-#+END_SRC
-- AnyShape Decal
-  - Connect point0 -> point1, and then pointn-1 -> point0 to make a shape
-#+BEGIN_SRC 
-(any-shape "color" point0x point0y point1x point1y ... pointn-1x pointn-1y)
-(any-shape "white" 100 100 200 200 300 300)
-
-#+END_SRC
-- Circle Decal
-#+BEGIN_SRC 
-(circle "color" radius)
-(Circle "white" 100)
-#+END_SRC
+- Color Decal
+  - A decal takes in a color
+    #+BEGIN_SRC 
+(color-decal "color")
+(color-decal "white")
+    
+    #+END_SRC
 - String decal
 A string from a given font.
 #+BEGIN_SRC 
 (string "StringText" "Font" "Color" Size)
 (string "Hello World!" "Arial.font" "Red" 12)
 (string "1" "Arial.font" "Red" 12)
+#+END_SRC
+*** Shapes
+- Rectangle
+#+BEGIN_SRC 
+(rectangle width height)
+(rectangle 100 200) 
+#+END_SRC
+- Triangle
+#+BEGIN_SRC 
+(triangle lengthA lengthB lengthC)
+(triangle  100 200 300)
+#+END_SRC
+- AnyShape
+  - Connect point0 -> point1, and then pointn-1 -> point0 to make a shape
+#+BEGIN_SRC 
+(any-shape point0x point0y point1x point1y ... pointn-1x pointn-1y)
+(any-shape  100 100 200 200 300 300)
+
+#+END_SRC
+- Circle
+#+BEGIN_SRC 
+(circle radius)
+(Circle 100)
 #+END_SRC
 *** Position-Scaleds
 A position-scaled that can be used in the script
@@ -208,10 +217,16 @@ A size is used by a card to determine how many pixels it will be.
   - logfile
     - Specify where to log to
     - Defaults to .cardlog
+  - load-builder
+    - Takes in a name, and the path to a builder class file.
+    - Loads said builder into script evaluator
+      #+BEGIN_SRC scheme
+(set-option "load-builder" "name" "path")
+      #+END_SRC
       
 - Each option is enter in this format
 #+BEGIN_SRC 
-(set-option "option-name" "value")
+(set-option "option-name" values)
 #+END_SRC
 -So for example
 #+BEGIN_SRC 
