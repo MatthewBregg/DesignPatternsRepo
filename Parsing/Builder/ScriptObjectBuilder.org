@@ -1,4 +1,4 @@
-#+BEGIN_SRC plantuml :file BuilderConstruction.png
+#+BEGIN_SRC plantuml :file ScriptObjectBuilder.png
 skinparam dpi 300
 
 abstract class BuilderVisiter as "{abstract}\nScriptObjectBuilder"
@@ -64,21 +64,34 @@ end note
 
 
 ' VarBuilder
-note "The Varbuilder is made by var token, so var token paramatizes VarBuilder with what it gets from looking up the var." as simpleBuilderNote
+note "The Varbuilder is made by var token, so var token paramatizes VarBuilder with what it gets from looking up the var.\n Just returns the ScriptObject it is paramatized with as a result. Attemping to add to it will make it enter error state" as simpleBuilderNote
 class VarBuilder as "VariableBuilderVisiter"
-note top : Just returns the ScriptObject it is paramatized with as a result. Attemping to add to it will make it enter error state. 
+
 simpleBuilderNote -- VarBuilder
 BuilderVisiter <|-- VarBuilder
+hide VarBuilder members
+hide VarBuilder methods
 
 'ConstantVisiter
 class ConstantBuilder as "ConstantBuilderVisiter"
 note top : Before the token returns it,\n the token will add the constant using the correct add method. 
 BuilderVisiter <|-- ConstantBuilder
+hide ConstantBuilder members
+hide ConstantBuilder methods
 
 'LayoutVisiter
 class LayoutBuilder as "LayoutBuilderVisiter"
 
 BuilderVisiter <|-- LayoutBuilder
+hide LayoutBuilder members
+hide LayoutBuilder methods
+
+'Etc...
+class SeeOtherUMLs as "See Other UMLs, many subclasses ellided..."
+BuilderVisiter <|-- SeeOtherUMLs
+hide SeeOtherUMLs members
+hide SeeOtherUMLs methods
+hide SeeOtherUMLs circle
 
 
 note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
@@ -87,4 +100,4 @@ note bottom : Get result returns either a layout of some form, or an ErrorScript
 #+END_SRC
 
 #+RESULTS:
-[[file:BuilderConstruction.png]]
+[[file:ScriptObjectBuilder.png]]

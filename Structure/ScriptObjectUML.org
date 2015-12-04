@@ -1,0 +1,93 @@
+
+#+BEGIN_SRC plantuml :file ScriptObjectUML.png
+abstract class ScriptObject as "{abstract}\nScriptObject"
+note "As defined in other UML, members and operations ellided in this one" as AsDefined
+
+
+ScriptObject : {abstract}acceptBuilder(ScriptObjectBuilder v)
+
+abstract class Layout as "{abstract}\nComponentLayout"
+Layout -- AsDefined
+abstract class Shape as "{abstract}\nShape"
+Shape -- AsDefined
+ScriptObject <|-- Shape
+hide Shape members
+hide Shape methods
+abstract class Decal as "{abstract}\nDecal"
+Decal -- AsDefined
+class ConsPair
+ConsPair : first : ScriptObject
+ConsPair : second : ScriptObject
+ConsPair : first() : ScriptObject
+ConsPair : second() : ScriptObject
+ConsPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
+note bottom : acceptBuilderOnPair \n Calls acceptBuilder on the first, and then the second item
+class List
+List : list:List<ScriptObject>
+List : getList():List<ScriptObject>
+List : acceptBuilderOnAllItems(v:ScriptBuilderVisiter)
+note bottom : acceptBuilderOnAllItems \n Calls acceptBuilder on each item in the list.
+class ErrorScriptObject
+class NullScriptObject
+class Card 
+Card -- AsDefined
+class PositionScaled
+PositionScaled -- AsDefined
+class Size
+Size -- AsDefined
+class DoubleScriptWrapper
+DoubleScriptWrapper : -value : double
+DoubleScriptWrapper : +value() : double
+class StringScriptWrapper
+StringScriptWrapper : -value : String
+StringScriptWrapper : +value() : String
+class Family
+Family -- AsDefined
+
+class UndefinedFunction
+UndefinedFunction : -funcName : String
+UndefinedFunction : -funcArgumentNames : ArrayList<String>
+UndefinedFunction : +getFuncName() : String
+UndefinedFunction : +getFuncArgumentNames() : ArrayList<String>
+
+class UndefinedVariable
+UndefinedVariable : variableName : String
+UndefinedVariable : getVariableName() : String
+
+
+ScriptObject <|-- Family
+hide Family members
+hide Family methods
+ScriptObject <|-- StringScriptWrapper
+ScriptObject <|-- DoubleScriptWrapper
+ScriptObject <|-- Size
+hide Size members
+hide Size methods
+ScriptObject <|-- PositionScaled
+hide PositionScaled members
+hide PositionScaled methods
+ScriptObject <|-- Card
+hide Card members
+hide Card methods
+ScriptObject <|-- ErrorScriptObject
+hide ErrorScriptObject members
+hide ErrorScriptObject methods
+ScriptObject <|-- NullScriptObject
+hide NullScriptObject members
+hide NullScriptObject methods
+ScriptObject <|-- List
+ScriptObject <|-- ConsPair
+ScriptObject <|-- Decal
+hide Decal members
+hide Decal methods
+ScriptObject <|-- Layout
+hide Layout members
+hide Layout methods
+
+ScriptObject <|-- UndefinedFunction
+ScriptObject <|-- UndefinedVariable
+#+END_SRC
+
+#+RESULTS:
+[[file:ScriptObjectUML.png]]
+
