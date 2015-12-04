@@ -17,7 +17,7 @@
 
 
 ** DONE update script specification
-** TODO Split up BuilderConstruction.org
+** DONE Split up BuilderConstruction.org
 
 ** DONE make every builder inherit from the ScriptObject builder, then remove them from main uml.
 ** TODO Some of the state inner classes only have A circle, but not abstract tag. Might be worth fixing.
