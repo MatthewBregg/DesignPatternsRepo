@@ -34,11 +34,8 @@ Can add more a new builder at runtime.
     - If that changed, abstract factory might be apropriate?
     - Maybe the builder factory itself should?
     - Let the builder factory have a static method that returns all "predefined" builders?
-
-
-* Standard library
-- Add hollow-shape
-- Add border
-* Specifications
-- Add decal decorator specifications
-- mention that the LayeringDecalBuilder handles mask + inverted mask.
+    
+* Final Document Edits
+Add text for section 5.12 (Abstract Factory with Prototypes)
+Fix all instances of "paramatized" to "parameterized".
+"Visiter" --> "Visitor"
