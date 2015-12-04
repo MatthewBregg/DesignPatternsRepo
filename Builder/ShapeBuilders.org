@@ -1,5 +1,10 @@
 #+BEGIN_SRC plantuml :file ShapeBuilders.png
 skinparam dpi 400
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 abstract class ShapeBuilder as "{abstract}\nShapeBuilder"
 ShapeBuilder : -state:State
 ShapeBuilder : -setState(s:State)
@@ -14,6 +19,8 @@ ShapeBuilder : +{abstract} getNewShapeState():ShapeState
 note bottom : Delegates call to addDouble, addString, getResult, and getNewShape to it's state.
 note bottom : getNewShapeState() returns a new state of the given type of Builder. So Rectangle will return an EmptyRectangle state. This is a template method.
 note bottom : These create a Shape with the correct shape.
+
+ScriptObjectBuilder <|-- ShapeBuilder
 
 
 class CircleBuilder

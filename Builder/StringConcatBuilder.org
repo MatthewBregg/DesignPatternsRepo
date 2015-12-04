@@ -1,6 +1,10 @@
 #+BEGIN_SRC plantuml :file StringConcatBuilder.png
 skinparam dpi 300
 
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 class StringConcatBuilder
 StringConcatBuilder : sb:StringBuilder
 StringConcatBuilder : getStringBuilder()
@@ -8,6 +12,8 @@ StringConcatBuilder : getResult()
 StringConcatBuilder : addDouble(d:DoubleScriptWrapper)
 StringConcatBuilder : addString(s:StringScriptWrapper)
 StringConcatBuilder : addScriptObject(s:ScriptObject)
+
+ScriptObjectBuilder <|-- StringConcatBuilder
 
 abstract class State as "{abstract}\nState"
 State : sb:StringConcatBuilder

@@ -1,6 +1,11 @@
 #+BEGIN_SRC plantuml :file UndefinedFunctionBuilder.png
 skinparam dpi 300
 
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 class UndefinedFunctionBuilder
 UndefinedFunctionBuilder : ScriptObject obj;
 UndefinedFunctionBuilder : UndefinedFunctionBuilder(funcName : String, funcArgumentNames : ArrayList<String>)
@@ -21,6 +26,8 @@ note bottom of UndefinedFunctionBuilder
   The ExpressionToken, if it returns this builder type, will return an empty argument list when asked.
 
 end note
+
+ScriptObjectBuilder <|-- UndefinedFunctionBuilder
 #+END_SRC
 
 #+RESULTS:

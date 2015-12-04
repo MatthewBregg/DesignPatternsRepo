@@ -1,6 +1,11 @@
 #+BEGIN_SRC plantuml :file NumberOperationBuilder.png
 skinparam dpi 300
 
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 class NumberOperationBuilder
 NumberOperationBuilder : getResult()
 NumberOperationBuilder : getOperation():Operaton
@@ -9,10 +14,12 @@ NumberOperationBuilder : addDouble(d:DoubleScriptWrapper)
 NumberOperationBuilder : addScriptObject(s:ScriptObject)
 
 
+ScriptObjectBuilder <|-- NumberOperationBuilder
 
 
 interface Operation<<interface>>
 Operation : {abstract}operate(a:double,b:double):double
+
 
 class AddOperation
 AddOperation : operate(a:double,b:double):double

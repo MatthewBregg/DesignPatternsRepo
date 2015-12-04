@@ -1,6 +1,10 @@
 #+BEGIN_SRC plantuml :file UndefinedVariableBuilder.png
 skinparam dpi 300
 
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 class UndefinedVariableBuilder
 UndefinedVariableBuilder : ScriptObject obj;
 UndefinedVariableBuilder : UndefinedVariableBuilder(varName : String)
@@ -21,6 +25,8 @@ note bottom of UndefinedVariableBuilder
   
 
 end note
+
+ScriptObjectBuilder <|-- UndefinedVariableBuilder
 #+END_SRC
 
 #+RESULTS:

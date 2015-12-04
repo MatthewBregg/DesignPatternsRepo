@@ -6,6 +6,8 @@
     class DefineBuilder
 
 abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
 
 ScriptObjectBuilder <|-- DefineBuilder
 

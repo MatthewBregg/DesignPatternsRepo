@@ -30,10 +30,8 @@ clone(): PositionScaledBuilder</panel_attributes>
       <w>280</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;abstract&gt;&gt;
-ScriptObjectBuilder
---
---</panel_attributes>
+    <panel_attributes>{abstract}
+ScriptObjectBuilder</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

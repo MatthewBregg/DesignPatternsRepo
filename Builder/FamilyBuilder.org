@@ -1,5 +1,10 @@
 #+BEGIN_SRC plantuml :file FamilyBuilder.png
 skinparam dpi 300
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 class FamilyBuilder
 FamilyBuilder : map : Map<String,Decal>
 FamilyBuilder : name : String
@@ -16,6 +21,7 @@ FamilyBuilder : clone() : FamilyBuilder
 
 note bottom : Forwards getResult, addSTring, and AddDecal to State, changing parameters to fit, so \n getResult gets the Families currently stored name and string passed along, \n addString has the string unwrapped, and the builder itself passed along, \n and addDecal gets the builder reference as well. \n It will call receivedPair(this) on its state in the beginning of the addConsPair method, and call finishedPair(this) when the method is done, calling on the consPair object acceptBuilderOnPair in between.
 
+ScriptObjectBuilder <|-- FamilyBuilder
 
 abstract class State as "{abstract}\nState"
 State : {abstract}getResult(name:String,map:Map<String,Decal>):ScriptObject

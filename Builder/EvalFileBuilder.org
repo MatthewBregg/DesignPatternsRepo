@@ -1,6 +1,10 @@
 #+BEGIN_SRC plantuml :file EvalFileBuilder.png
 skinparam dpi 600
 
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 class EVF as "EvalFileBuilder"
 EVF : +getResult() : ScriptObject
 EVF : -obj : ScriptObject = new NullScriptObject
@@ -9,6 +13,8 @@ EVF : +addString(s:StringScriptWrapper) : void
 EVF : -getPathFromString(s:String) : Path
 EVF : -getDirectoryOfPath(p:Path) : Path
 EVF : +clone() : EvalFileBuilder
+
+ScriptObjectBuilder <|-- EVF
 
 note bottom of EVF
   getResult : Return obj

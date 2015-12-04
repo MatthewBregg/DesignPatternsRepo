@@ -1,6 +1,10 @@
 #+BEGIN_SRC plantuml :file RenderBuilder.png
 skinparam dpi 300
 
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
 class RenderBuilder
 
 RenderBuilder : families : ArrayList<Family> 
@@ -20,6 +24,8 @@ note top : clone will make a new list, with the elements of the existing one. Ca
 note bottom : doRender calls on card render, with the families as an argument. It will then take the result, and add it to the eval, super.getEval().addRenderedCard(rc), does this for each card
 
 note bottom : Delegates getResult,addCard,addFamily to state. \n For addList, get the list, and for each ScriptObject, call accept(this). \n For ConsPair, do acceptBuilderOnPair(this).
+
+ScriptObjectBuilder <|-- RenderBuilder
 
 RenderBuilder +-- State
 

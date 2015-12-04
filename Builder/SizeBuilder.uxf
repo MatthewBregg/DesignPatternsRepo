@@ -5,13 +5,13 @@
     <id>UMLClass</id>
     <coordinates>
       <x>776</x>
-      <y>160</y>
+      <y>152</y>
       <w>136</w>
-      <h>24</h>
+      <h>32</h>
     </coordinates>
-    <panel_attributes>/ScriptObjectBuilder/
---
---</panel_attributes>
+    <panel_attributes>{abstract}
+/ScriptObjectBuilder/
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

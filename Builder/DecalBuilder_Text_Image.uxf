@@ -7,16 +7,10 @@
       <x>600</x>
       <y>220</y>
       <w>280</w>
-      <h>120</h>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+    <panel_attributes>{abstract}
 ScriptObjectBuilder
---
---
-getResult(): ScriptObject
-addScriptObject(s: ScriptObject): void
-addString(s: ScriptStringWrapper): void
-addDouble(s: ScriptDoubleWrapper: void)
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -68,12 +62,12 @@ clone(): TextDecalBuilder</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>730</x>
-      <y>330</y>
+      <y>260</y>
       <w>280</w>
-      <h>110</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0;260.0;60.0;260.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;260.0;130.0;260.0;160.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>

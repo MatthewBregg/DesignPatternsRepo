@@ -4,6 +4,8 @@ skinparam dpi 300
 class ConstantBuilderVisiter
 
 abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
 
 ScriptObjectBuilder <|-- ConstantBuilderVisiter
 

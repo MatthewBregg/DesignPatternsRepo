@@ -6,7 +6,8 @@ CornerRoundingDecalBuilder : addDecal(d:Decal)
 CornerRoundingDecalBuilder : getResult() 
 note top : Delegates messages to state.
 
-abstract class ScriptObjectBuilder
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
 hide ScriptObjectBuilder methods
 hide ScriptObjectBuilder members
 

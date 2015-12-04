@@ -7,14 +7,11 @@
       <x>480</x>
       <y>110</y>
       <w>270</w>
-      <h>100</h>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+    <panel_attributes>{Abstract}
 /ScriptObjectBuilder/
---
---
-+ getResult() : ScriptObject
-+ addDecal (d Decal): void</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -62,11 +59,11 @@
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>200</y>
+      <y>150</y>
       <w>30</w>
-      <h>140</h>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
   </element>
 </diagram>

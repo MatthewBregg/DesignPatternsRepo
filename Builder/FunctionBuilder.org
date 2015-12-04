@@ -3,6 +3,8 @@ skinparam dpi 300
 class FunctionBuilder
 
 abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
 
 ScriptObjectBuilder <|-- FunctionBuilder
 FunctionBuilder : -paramNames : ArrayList<String>
