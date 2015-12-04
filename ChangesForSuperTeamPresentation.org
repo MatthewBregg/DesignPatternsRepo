@@ -25,3 +25,12 @@
 
 * Builder loader
 Can add more a new builder at runtime.
+- How are the normal builders added?
+  - ATM : Hard coded into the driver
+  - Should we change this?
+  - One idea : XML file of name, path pairs, read that file and load it. 
+  - Maybe the builders should just be added from the script evaluator?
+  - Right now we only have no idea of families of builders.
+    - If that changed, abstract factory might be apropriate?
+    - Maybe the builder factory itself should?
+    - Let the builder factory have a static method that returns all "predefined" builders?

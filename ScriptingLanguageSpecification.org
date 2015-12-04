@@ -7,11 +7,12 @@ While far from a complete lisp, it has a syntax similar to scheme, and could eas
 #+BEGIN_SRC scheme
 (define name value)
 (define fooConstant 3)
+(define (sqr x) (* x x))
 #+END_SRC
 Assigns to the name the given value.
 This version does support defining functions atm.
 (See http://www.scheme.com/tspl2d/binding.html)
-- Right now, defines may not be nested, and must be done at top level.
+- Right now, defines may be nested.
 - A variable name can't start with a number, to make it determinable from an int atom.
   - It must start with an alpha character.
     
