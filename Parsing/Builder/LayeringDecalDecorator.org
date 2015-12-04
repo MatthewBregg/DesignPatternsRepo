@@ -1,30 +1,33 @@
-#+BEGIN_SRC plantuml :file MaskDecalDecoratorBuilder.png
-class MaskDecalDecoratorBuilder
-MaskDecalDecoratorBuilder : state : State = new EmptyState
-MaskDecalDecoratorBuilder : addDecal(d:Decal)
-MaskDecalDecoratorBuilder : addPositionScaled(s:PositionScaled)
-MaskDecalDecoratorBuilder : getResult() 
+#+BEGIN_SRC plantuml :file LayeringDecalDecoratorBuilder.png
+class LayeringDecalDecoratorBuilder
+LayeringDecalDecoratorBuilder : state : State = new EmptyState
+LayeringDecalDecoratorBuilder : addDecal(d:Decal)
+LayeringDecalDecoratorBuilder : addPositionScaled(s:PositionScaled)
+LayeringDecalDecoratorBuilder : getResult() 
+LayeringDecalDecoratorBuilder : -LayeringDecalDecorator
+LayeringDecalDecoratorBuilder : getLayerDecoratorDecal(a:Decal,b:Decal,pos:PositionScaled) : Decal
 note top : Delegates messages to state.
+note top : Parameterize with the \n concrete LayeringDecalDecorator to return, \n do so for each subclass of \n LayeringDecalDecorator, so MaskDecalDecorator, and InvertedMaskDecalDecorator.
 
 
 abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
 hide ScriptObjectBuilder methods
 hide ScriptObjectBuilder members
 
-ScriptObjectBuilder <|-- MaskDecalDecoratorBuilder
+ScriptObjectBuilder <|-- LayeringDecalDecoratorBuilder
 
-MaskDecalDecoratorBuilder +-- MaskDecalState
+LayeringDecalDecoratorBuilder +-- LayeringDecalState
 
-MaskDecalState <|-- ErrorState
-MaskDecalState <|-- EmptyState
-MaskDecalState <|-- FullState
+LayeringDecalState <|-- ErrorState
+LayeringDecalState <|-- EmptyState
+LayeringDecalState <|-- FullState
 
-abstract class MaskDecalState as "{abstract}\nMaskDecalState"
-MaskDecalState : -b:MaskDecalDecoratorBuilder
-MaskDecalState : +getBuilder()
-MaskDecalState : +{abstract}addDecal(d:Decal)
-MaskDecalState : +{abstract}addPositionScaled(d:PositionScaled)
-MaskDecalState : +{abstract}getResult()
+abstract class LayeringDecalState as "{abstract}\nLayeringDecalState"
+LayeringDecalState : -b:LayeringDecalDecoratorBuilder
+LayeringDecalState : +getBuilder()
+LayeringDecalState : +{abstract}addDecal(d:Decal)
+LayeringDecalState : +{abstract}addPositionScaled(d:PositionScaled)
+LayeringDecalState : +{abstract}getResult()
 
 class ErrorState
 ErrorState : +addPositionScaled(d:PositionScaled)
@@ -53,7 +56,7 @@ note top of HasOneDecalState
  addDecal : set b to new HasTwoDecalState, giving decal, and d as the two decals.
 end note
 
-MaskDecalState <|-- HasOneDecalState
+LayeringDecalState <|-- HasOneDecalState
 
 class HasTwoDecalState
 HasTwoDecalState : -decal2 : Decal
@@ -67,7 +70,7 @@ note top of HasTwoDecalState
  addDecal : set b to new error state.
 end note
 
-MaskDecalState <|-- HasTwoDecalState
+LayeringDecalState <|-- HasTwoDecalState
 
 
 class FullState
@@ -78,7 +81,7 @@ FullState : +addString(s:String)
 FullState : +addPositionScaled(d:PositionScaled)
 FullState : +getResult()
 note top of FullState 
- getResult : Return new MaskDecalDecorator, using the decals, and PositionScaled stored.
+ getResult : Return new LayeringDecalDecorator, call on b, getLayerDecoratorDecal, using the decals, and PositionScaled stored, return result. 
  addPositionScaled : set b to new error state
  addString : set b to new error state
 end note
@@ -89,8 +92,9 @@ end note
 
 
 
+
 #+END_SRC
 
 #+RESULTS:
-[[file:MaskDecalDecoratorBuilder.png]]
+[[file:LayeringDecalDecoratorBuilder.png]]
 
