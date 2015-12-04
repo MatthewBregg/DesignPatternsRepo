@@ -8,12 +8,12 @@
 ** DONE Need to update Decal with more vistiers
 ** DONE add color decal builder.
 ** DONE Need to update DecalBuilders/add decorators
-** TODO Need to add DecalDecorator builders.
+** DONE Need to add DecalDecorator builders.
 *** DONE update token example with making a layout and co in the builderconstruction
 *** DONE RotateDecalDecorator
 *** DONE CropDecalDecorator
 *** DONE CornerRoundingDecalDecorator
-*** TODO MaskDecalDecorator
+*** DONE MaskDecalDecorator
 
 
 ** DONE update script specification

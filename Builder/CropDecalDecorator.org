@@ -49,7 +49,7 @@ HasDecalState : +addPositionScaled(d:PositionScaled)
 HasDecalState : +getResult()
 note top of HasDecalState 
  getResult : set b to new error state, return error script object.
- addPositionScaled : set b to new FullState, giving d, and decal as parameters for PositionScaled and decal.
+ addPositionScaled : set b to new FullState, giving d, and decal as parameters for positionScaled and decal.
  addDecal : set b to new error state.
 end note
 
@@ -58,7 +58,7 @@ CropDecalState <|-- HasDecalState
 
 class FullState
 FullState : decal : Decal
-FullState : PositionScaled : PositionScaled
+FullState : positionScaled : PositionScaled
 FullState : +addString(s:String)
 FullState : +addPositionScaled(d:PositionScaled)
 FullState : +getResult()

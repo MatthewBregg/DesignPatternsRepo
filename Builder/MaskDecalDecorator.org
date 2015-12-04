@@ -1,0 +1,96 @@
+#+BEGIN_SRC plantuml :file MaskDecalDecoratorBuilder.png
+class MaskDecalDecoratorBuilder
+MaskDecalDecoratorBuilder : state : State = new EmptyState
+MaskDecalDecoratorBuilder : addDecal(d:Decal)
+MaskDecalDecoratorBuilder : addPositionScaled(s:PositionScaled)
+MaskDecalDecoratorBuilder : getResult() 
+note top : Delegates messages to state.
+
+abstract class ScriptObjectBuilder
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
+
+ScriptObjectBuilder <|-- MaskDecalDecoratorBuilder
+
+MaskDecalDecoratorBuilder +-- MaskDecalState
+
+MaskDecalState <|-- ErrorState
+MaskDecalState <|-- EmptyState
+MaskDecalState <|-- FullState
+
+abstract class MaskDecalState as "{abstract}\nMaskDecalState"
+MaskDecalState : -b:MaskDecalDecoratorBuilder
+MaskDecalState : +getBuilder()
+MaskDecalState : +{abstract}addDecal(d:Decal)
+MaskDecalState : +{abstract}addPositionScaled(d:PositionScaled)
+MaskDecalState : +{abstract}getResult()
+
+class ErrorState
+ErrorState : +addPositionScaled(d:PositionScaled)
+ErrorState : +getResult()
+note top : All methods do nothing, already in error state, get result returns an error script object
+
+class EmptyState
+EmptyState : +addPositionScaled(d:PositionScaled)
+EmptyState : +addDecal(d:Decal)
+EmptyState : +getResult()
+note top of EmptyState 
+ getResult : set b to new error state, return error script object.
+ addDecal : set b to new HasDecalState, giving d as the decal.
+ addPositionScaled : set B to new error state.
+end note
+
+
+class HasOneDecalState
+HasOneDecalState : -decal : Decal
+HasOneDecalState : +addDecal(d:Decal)
+HasOneDecalState : +addPositionScaled(d:PositionScaled)
+HasOneDecalState : +getResult()
+note top of HasOneDecalState 
+ getResult : set b to new error state, return error script object.
+ addPositionScaled : set b to new error state
+ addDecal : set b to new HasTwoDecalState, giving decal, and d as the two decals.
+end note
+
+MaskDecalState <|-- HasOneDecalState
+
+class HasTwoDecalState
+HasTwoDecalState : -decal2 : Decal
+HasTwoDecalState : -decal1 : Decal
+HasTwoDecalState : +addDecal(d:Decal)
+HasTwoDecalState : +addPositionScaled(d:PositionScaled)
+HasTwoDecalState : +getResult()
+note top of HasTwoDecalState 
+ getResult : set b to new error state, return error script object.
+ addPositionScaled : set b to new FullState, giving decal1, decal2, and d as parameters for decal1, decal2, and positionScaled
+ addDecal : set b to new error state.
+end note
+
+MaskDecalState <|-- HasTwoDecalState
+
+
+class FullState
+FullState : decal2 : Decal
+FullState : decal1 : Decal
+FullState : PositionScaled : PositionScaled
+FullState : +addString(s:String)
+FullState : +addPositionScaled(d:PositionScaled)
+FullState : +getResult()
+note top of FullState 
+ getResult : Return new MaskDecalDecorator, using the decals, and PositionScaled stored.
+ addPositionScaled : set b to new error state
+ addString : set b to new error state
+end note
+
+
+
+
+
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:MaskDecalDecoratorBuilder.png]]
+
