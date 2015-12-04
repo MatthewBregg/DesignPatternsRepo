@@ -86,6 +86,8 @@ BuilderVisiter <|-- LayoutBuilder
 hide LayoutBuilder members
 hide LayoutBuilder methods
 
+note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
+
 'Etc...
 class SeeOtherUMLs as "See Other UMLs, many subclasses ellided..."
 BuilderVisiter <|-- SeeOtherUMLs
@@ -94,7 +96,6 @@ hide SeeOtherUMLs methods
 hide SeeOtherUMLs circle
 
 
-note bottom : Get result returns either a layout of some form, or an ErrorScriptObject, \n depending on arguments being given in.
 
 
 #+END_SRC
