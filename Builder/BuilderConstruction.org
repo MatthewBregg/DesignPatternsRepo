@@ -21,6 +21,7 @@ BuilderVisiter : +addCard(c:Card)
 BuilderVisiter : +addDouble(s:DoubleScriptWrapper)
 BuilderVisiter : +addList(l:List)
 BuilderVisiter : +addConsPair(p:ConsPair)
+BuilderVisiter : +addShape(s:Shape)
 BuilderVisiter : +addError(e:ErrorScriptObject)
 BuilderVisiter : +addNull(v:NullScriptObject)
 BuilderVisiter : +addToken(t:Token)
@@ -106,10 +107,12 @@ ConsPair : second : ScriptObject
 ConsPair : first() : ScriptObject
 ConsPair : second() : ScriptObject
 ConsPair : acceptBuilderOnPair(v:ScriptBuilderVisiter) 
-note bottom : Calls acceptBuilder on the first, and then the second item
+note bottom : acceptBuilderOnPair \n Calls acceptBuilder on the first, and then the second item
 class List
 List : list:List<ScriptObject>
 List : getList():List<ScriptObject>
+List : acceptBuilderOnAllItems(v:ScriptBuilderVisiter)
+note bottom : acceptBuilderOnAllItems \n Calls acceptBuilder on the first, and then the second item
 class ErrorScriptObject
 class NullScriptObject
 class Card 
