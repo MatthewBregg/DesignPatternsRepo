@@ -5,14 +5,22 @@
 ** DONE - uses a list
 ** DONE Need to update ScriptSpecification
 ** DONE Need to update ShapeBuilder :
-** TODO Need to update Decal with more vistiers
+** DONE Need to update Decal with more vistiers
 ** DONE add color decal builder.
-** TODO Need to update DecalBuilders/add decorators
+** DONE Need to update DecalBuilders/add decorators
 ** TODO Need to add DecalDecorator builders.
-*** DONE update token example with making a layout and co in the builderconstruction* TODO Update BuilderConstruction
+*** DONE update token example with making a layout and co in the builderconstruction
+*** TODO RotateDecalDecorator
+*** TODO CropDecalDecorator
+*** TODO CornerRoundingDecalDecorator
+*** TODO MaskDecalDecorator
+
 
 ** DONE update script specification
 ** TODO Split up BuilderConstruction.org
+
+** TODO make every builder inherit from the ScriptObject builder, then remove them from main uml.
+
 
 * Builder loader
 Can add more a new builder at runtime.

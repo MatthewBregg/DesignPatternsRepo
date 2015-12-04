@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>8</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1704</x>
-      <y>960</y>
-      <w>384</w>
-      <h>72</h>
+      <x>2200</x>
+      <y>890</y>
+      <w>480</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>DynamicDecal
 --
@@ -21,28 +21,26 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1288</x>
-      <y>976</y>
-      <w>392</w>
-      <h>80</h>
+      <x>1680</x>
+      <y>910</y>
+      <w>490</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>ImageDecal
 --
 - image: Image
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
 + load(Path path): Image
-
-</panel_attributes>
++ getDecalRenderer():ImageRenderingVisiter</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>576</x>
-      <y>960</y>
-      <w>304</w>
-      <h>120</h>
+      <x>790</x>
+      <y>890</y>
+      <w>380</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>Text
 --
@@ -50,19 +48,18 @@
 - color: Color
 - font:Font
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
-+ setText (newText String): void
 
-</panel_attributes>
++ setText (newText String): void
++ getDecalRenderer():TextRenderingVisiter</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>680</x>
-      <y>920</y>
-      <w>472</w>
-      <h>56</h>
+      <x>920</x>
+      <y>840</y>
+      <w>590</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>10.0;50.0;130.0;10.0;570.0;10.0</additional_attributes>
@@ -70,10 +67,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1144</x>
-      <y>784</y>
-      <w>344</w>
-      <h>88</h>
+      <x>1500</x>
+      <y>670</y>
+      <w>430</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Decal/
@@ -82,6 +79,7 @@
 --
 + render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
 + acceptBuilder(v ScriptObjectBuilder): void
+/+ getDecalRenderer():DecalRenderingVisiter/
 
 </panel_attributes>
     <additional_attributes/>
@@ -89,10 +87,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1024</x>
-      <y>864</y>
-      <w>280</w>
-      <h>128</h>
+      <x>1350</x>
+      <y>770</y>
+      <w>350</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>330.0;10.0;330.0;80.0;140.0;80.0;10.0;140.0</additional_attributes>
@@ -100,10 +98,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1280</x>
-      <y>920</y>
-      <w>592</w>
-      <h>72</h>
+      <x>1670</x>
+      <y>840</y>
+      <w>740</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>720.0;50.0;680.0;10.0;10.0;10.0;270.0;10.0;210.0;70.0</additional_attributes>
@@ -111,21 +109,21 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1280</x>
-      <y>712</y>
-      <w>24</w>
-      <h>88</h>
+      <x>1670</x>
+      <y>550</y>
+      <w>30</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>816</x>
-      <y>656</y>
-      <w>232</w>
-      <h>56</h>
+      <x>1090</x>
+      <y>510</y>
+      <w>290</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Note on ScriptObejct
 --
@@ -136,10 +134,10 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1040</x>
-      <y>656</y>
-      <w>120</w>
-      <h>24</h>
+      <x>1370</x>
+      <y>510</y>
+      <w>150</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
@@ -147,10 +145,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>752</x>
-      <y>816</y>
-      <w>312</w>
-      <h>80</h>
+      <x>1010</x>
+      <y>710</y>
+      <w>390</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>Note on the implementation of acceptBuilder
 --
@@ -164,10 +162,10 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1056</x>
-      <y>856</y>
-      <w>104</w>
-      <h>24</h>
+      <x>1390</x>
+      <y>760</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
@@ -175,27 +173,25 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>896</x>
-      <y>976</y>
-      <w>384</w>
-      <h>80</h>
+      <x>1190</x>
+      <y>910</y>
+      <w>480</w>
+      <h>90</h>
     </coordinates>
-    <panel_attributes>ColoredDecal
+    <panel_attributes>ColorDecal
 --
 - color : Color
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
-
-</panel_attributes>
++ getDecalRenderer():ColorRenderingVisiter</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1568</x>
-      <y>808</y>
-      <w>344</w>
-      <h>96</h>
+      <x>2030</x>
+      <y>700</y>
+      <w>430</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>MaskDecalDecorator
 --
@@ -203,7 +199,7 @@ bg=blue</panel_attributes>
 - contentDecal : Decal
 - pos : PositionScaled 
 --
-+ render(families ArrayList&lt;Families&gt;, size Size): Image
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
 
 
 </panel_attributes>
@@ -212,21 +208,21 @@ bg=blue</panel_attributes>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>1432</x>
-      <y>488</y>
-      <w>528</w>
-      <h>424</h>
+      <x>1860</x>
+      <y>300</y>
+      <w>660</w>
+      <h>530</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>24;296;24;24;512;24;512;408;480;408</additional_attributes>
+    <additional_attributes>30;370;30;30;640;30;640;510;600;510</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1480</x>
-      <y>808</y>
-      <w>104</w>
-      <h>24</h>
+      <x>1920</x>
+      <y>700</y>
+      <w>130</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
@@ -234,10 +230,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1600</x>
-      <y>552</y>
-      <w>232</w>
-      <h>152</h>
+      <x>2070</x>
+      <y>380</y>
+      <w>290</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>
 --
@@ -246,33 +242,500 @@ with the corresponding location from contentDecal.
 Google textmask for some good examples.
 Takes in a positionScaled to determine how to map
 mask pixels -&gt; content pixels.
+
+The shape will just be passed through to decals held, so 
+no visiter is needed, the shape of the decal references will always 
+be the same, so the process is shape agnostic. 
 bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1680</x>
-      <y>696</y>
-      <w>24</w>
-      <h>128</h>
+      <x>2170</x>
+      <y>640</y>
+      <w>30</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1144</x>
-      <y>656</y>
-      <w>264</w>
-      <h>64</h>
+      <x>1500</x>
+      <y>510</y>
+      <w>330</w>
+      <h>50</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+    <panel_attributes>{Abstract}
 /ScriptObject/
---
---
-+ acceptBuilder(v ScriptObjectBuilder): void</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>510</y>
+      <w>360</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ShapeVisiter
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2080</x>
+      <y>1040</y>
+      <w>290</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Note on dynamic decal render
+Overrides Decal render
+--
+Find the decal in the family.
+Then forward the render to that decal, and return result.
+If no decal matching key, return an error image.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2270</x>
+      <y>970</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>620</y>
+      <w>360</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>{abstract}
+DecalRenderingVisiter
+--
+- color : Color
+- families : ArrayList&lt;Family&gt;
+- size : Size
+--
++ getColor() : Color
++ getSize() : Size
++ getFamilies() : ArrayList&lt;Family&gt;
++ setFamilies(f:ArrayList&lt;Family&gt;
++ setSize(s:Size)
++ setColor(c:Color)
+/+ getImage() : Image/
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>650</x>
+      <y>440</y>
+      <w>390</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>Note on the implementation of render
+--
+/* Something along these lines */
+DecalRenderingVisiter v
+= new this.getDecalRenderer()
+v.setColor(c);
+v.setShape(s);
+v.setSize(size);
+v.setFamilies(families)
+s.accept(v);
+return v.getImage();
+--
+The visiter knows how to render it's decal, for each shape.
+The image decal will put the image in the shape, the text will 
+fit the text inside the shape with appropriate line wraps, and 
+ColoredDecal will return an image of the shape, in that color. 
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>860</y>
+      <w>360</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>TextRenderingVisiter
+--
+- text : String
+- font : Font
+--
++ visitRectangle(r:Rectangle) : void
++ visitTriangle(t:Triangle) : void
++ visitCircle(c:Circle) : void
++ visitAnyShape(a:AnyShape) : void
++ getImage() : Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>1050</y>
+      <w>360</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>ImageRenderingVisiter
+--
+- imageToRender:Image
+--
++ visitRectangle(r:Rectangle) : void
++ visitTriangle(t:Triangle) : void
++ visitCircle(c:Circle) : void
++ visitAnyShape(a:AnyShape) : void
++ getImage() : Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>1220</y>
+      <w>360</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>ColorRenderingVisiter
+--
+
+--
++ visitRectangle(r:Rectangle) : void
++ visitTriangle(t:Triangle) : void
++ visitCircle(c:Circle) : void
++ visitAnyShape(a:AnyShape) : void
++ getImage() : Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>1010</x>
+      <y>640</y>
+      <w>510</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;490;30</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1180</x>
+      <y>1130</y>
+      <w>390</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Note on getDecalRenderer
+--
+This is a factory method.
+Return the correct visiter for the decal, with the visiter given
+any references it might need.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>1050</x>
+      <y>1010</y>
+      <w>160</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;140;120</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>1300</x>
+      <y>970</y>
+      <w>140</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120;30;30;160</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>1400</x>
+      <y>980</y>
+      <w>350</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>330;30;30;150</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>540</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>710</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>180;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>710</y>
+      <w>50</w>
+      <h>630</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30;30;30;610</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>1290</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>160;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>1090</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>160;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>900</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>160;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1420</x>
+      <y>300</y>
+      <w>430</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>CropDecalDecorator
+--
+- toBeCropped : Decal
+- pos : PositionScaled 
+--
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1420</x>
+      <y>160</y>
+      <w>430</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>CornerRoundingDecalDecorator
+--
+- decal : Decal
+--
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1910</x>
+      <y>160</y>
+      <w>430</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>RotateDecalDecorator
+--
+- decal : Decal
+- angle : double
+
+--
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1050</x>
+      <y>150</y>
+      <w>290</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>These all override render to call the held decals render, and then
+apply a transformation to returned image.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1330</x>
+      <y>180</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1330</x>
+      <y>180</y>
+      <w>110</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1330</x>
+      <y>90</y>
+      <w>630</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;540.0;10.0;610.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1860</x>
+      <y>270</y>
+      <w>30</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;400.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1840</x>
+      <y>200</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>30.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1860</x>
+      <y>210</y>
+      <w>70</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;70.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1810</x>
+      <y>270</y>
+      <w>80</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>1850</x>
+      <y>250</y>
+      <w>140</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>30;420;30;60;120;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>1760</x>
+      <y>390</y>
+      <w>160</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>140;280;140;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>1350</x>
+      <y>250</y>
+      <w>170</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>150;420;30;190;70;30</additional_attributes>
   </element>
 </diagram>
