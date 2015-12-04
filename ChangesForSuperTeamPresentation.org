@@ -1,6 +1,11 @@
 * Shape is no longer a decal type, with implementors for each shape.
-Instead, we have one ShapeDecal, concrete, and then a Shape type, with an implementor for each type.
-The ShapeDecal holds some Shape, and upon render being called, will make a RenderVisiter, and have it be accepted by the shape.
-The ShapeDecal holds color, and paramtizes the visiter with the info it needs to render any shape.
-The Visiter then knows the details to ask each shape for how to render it, such as radius for a circle, and can then do that rendering.
-When this is done, the ShapeDecal will ask the visiter for said rendered image, and return that image.
+
+* Layouts have a shape
+- Need to update layout builder
+  - uses a list
+- Need to update ScriptSpecification
+- Need to update ShapeBuilder
+- Need to update Decal with more vistiers
+- Need to update DecalBuilders/add decorators
+- Need to add DecalDecorator builders.
+- Update BuilderConstruction
