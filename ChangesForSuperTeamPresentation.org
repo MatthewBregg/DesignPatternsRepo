@@ -2,12 +2,17 @@
 
 * Layouts have a shape
 ** DONE Need to update layout builder
-** TODO - uses a list
+** DONE - uses a list
 ** DONE Need to update ScriptSpecification
-** TODO Need to update ShapeBuilder :
+** DONE Need to update ShapeBuilder :
 ** TODO Need to update Decal with more vistiers
+** DONE add color decal builder.
 ** TODO Need to update DecalBuilders/add decorators
 ** TODO Need to add DecalDecorator builders.
-*** TODO update token example with making a layout and co in the builderconstruction* TODO Update BuilderConstruction
+*** DONE update token example with making a layout and co in the builderconstruction* TODO Update BuilderConstruction
 
-** TODO update script specification
+** DONE update script specification
+** TODO Split up BuilderConstruction.org
+
+* Builder loader
+Can add more a new builder at runtime.

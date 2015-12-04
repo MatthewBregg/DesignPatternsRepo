@@ -1,0 +1,64 @@
+#+BEGIN_SRC plantuml :file ColorDecalBuilder.png
+
+class ColorDecalBuilder
+ColorDecalBuilder : state : State = new EmptyState
+ColorDecalBuilder : addString(s:StringScriptObjectWrapper)
+ColorDecalBuilder : addDouble(s:DoubleScriptObjectWrapper)
+ColorDecalBuilder : getResult() 
+note top : Delegates messages to state.
+
+abstract class ScriptObjectBuilder
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
+
+ScriptObjectBuilder <|-- ColorDecalBuilder
+
+ColorDecalBuilder +-- ColorState
+
+ColorState <|-- ErrorState
+ColorState <|-- EmptyState
+ColorState <|-- FullState
+
+abstract class ColorState as "{abstract}\nColorState"
+ColorState : -cdb:ColorDecalBuilder
+ColorState : +getBuilder()
+ColorState : +{abstract}addString(s:String)
+ColorState : +{abstract}addDouble(d:double)
+ColorState : +{abstract}getResult()
+
+class ErrorState
+ErrorState : +addString(s:String)
+ErrorState : +addDouble(d:double)
+ErrorState : +getResult()
+note top : All methods do nothing, already in error state, get result returns an error script object
+
+class EmptyState
+EmptyState : +addString(s:String)
+EmptyState : +addDouble(d:double)
+EmptyState : +getResult()
+note top of EmptyState 
+ getResult : set cdb to new error state, return error script object.
+ addDouble : set cdb to new FullState, using the double to create a color
+ addString : set cdb to new FullState, using the String to create a color
+end note
+
+class FullState
+FullState : - color : Color
+FullState : +addString(s:String)
+FullState : +addDouble(d:double)
+FullState : +getResult()
+note top of FullState 
+ getResult : Return new color decal, using the stored color.
+ addDouble : set cdb to new error state
+ addString : set cdb to new error state
+end note
+
+
+
+
+#+END_SRC		
+
+#+RESULTS:
+[[file:ColorDecalBuilder.png]]
+
