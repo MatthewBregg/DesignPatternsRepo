@@ -50,7 +50,7 @@ If a symbol is hit, aka, something with an alpha character in it, then call make
      symbol, and return the token.
 In all three above cases, upon return, update the position.
 
-Then add the position returned from tokenizeSexp to the list of tokens, and call it again if position is still inside the string.
+Then add the token returned from tokenizeSexp to the list of tokens, and call it again if position is still inside the string.
 
 end note
   
