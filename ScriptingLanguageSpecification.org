@@ -1,4 +1,4 @@
-* Overview of Scripting Language
+* Scripting Language Specifications/Overview
 For the scripting language, we have choosen a lisp style language.
 While far from a complete lisp, it has a syntax similar to scheme, and could easily be extended, without breaking existing scripts.
 
@@ -276,3 +276,64 @@ A size is used by a card to determine how many pixels it will be.
 #+BEGIN_SRC 
 (set-option "output-dir" "./")
 #+END_SRC
+** Standard Library
+The program will ship with numerous built in functions.
+These functions will have std- prepended to their name, and will provide various functionalities that preimplemented in the language, to save the user the hassle of implementing them. All these functions could be done normally, in the scripting language. 
+
+This will be implemented in a std-functions.script, which will the driver will run through the evaluator when the program first runs. 
+
+*** add-border
+**** Parameters 
+- input-layout : The layout to add a border to
+- color : The color to make the border
+- size : how thick to make the border
+**** Return value
+- A layout with the border added
+  
+**** Example implementation
+#+BEGIN_SRC scheme
+
+    (define (std-add-border input-layout color size) 
+      (layout
+       (list input-layout 
+             (position-scaled size size
+                              (- 100 size) (- 100 size)))
+       (list
+        (leaf-layout (color-decal color)) whole-card)
+       )
+      )
+#+END_SRC
+*** get-colored-shape-in-a-layout
+**** Parameters
+- shape : The shape to put in the layout
+- color : the color to make it.
+**** Return value 
+- A layout with a leaf, which is paired with the shape, holding the color, over the whole layout.
+**** Example implementaiton
+#+BEGIN_SRC scheme
+  (define (std-get-colored-shape-in-a-layout shape color)
+    (layout
+     (list
+      (leaf-layout
+       (color-decal color)) whole-layout shape)
+     )
+    )
+#+END_SRC
+
+*** get-hollow-decal
+**** parameters
+- decal : The decal to be hollowed
+- size : A number, determines how much to hollow
+**** Return value
+- A decal that has been hollowed
+**** Example implementation
+#+BEGIN_SRC scheme
+  (define (std-get-hollow-decal decal size)
+    (inverted-mask-decal decal decal
+                         (position-scaled size size
+                                          (- 100 size) (- 100 size)))
+    )
+
+#+END_SRC
+*** Some constants
+- whole-layout : (position-scaled 0 0 100 100)
