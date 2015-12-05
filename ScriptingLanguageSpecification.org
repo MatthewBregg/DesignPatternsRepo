@@ -293,7 +293,7 @@ This will be implemented in a std-functions.script, which will the driver will r
 **** Example implementation
 #+BEGIN_SRC scheme
 
-    (define (std-add-border input-layout color size) 
+    (define (std--add-border input-layout color size) 
       (layout
        (list input-layout 
              (position-scaled size size
@@ -311,7 +311,7 @@ This will be implemented in a std-functions.script, which will the driver will r
 - A layout with a leaf, which is paired with the shape, holding the color, over the whole layout.
 **** Example implementaiton
 #+BEGIN_SRC scheme
-  (define (std-get-colored-shape-in-a-layout shape color)
+  (define (std--get-colored-shape-in-a-layout shape color)
     (layout
      (list
       (leaf-layout
@@ -328,7 +328,7 @@ This will be implemented in a std-functions.script, which will the driver will r
 - A decal that has been hollowed
 **** Example implementation
 #+BEGIN_SRC scheme
-  (define (std-get-hollow-decal decal size)
+  (define (std--get-hollow-decal decal size)
     (inverted-mask-decal decal decal
                          (position-scaled size size
                                           (- 100 size) (- 100 size)))
@@ -336,7 +336,8 @@ This will be implemented in a std-functions.script, which will the driver will r
 
 #+END_SRC
 *** Some constants
-- whole-layout : (position-scaled 0 0 100 100)
+- std--whole-layout : (position-scaled 0 0 100 100)
+- std--pi : Value of pi
 
   
 *** Many more things!

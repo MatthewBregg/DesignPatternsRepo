@@ -1,0 +1,93 @@
+
+* Slides
+** Slide 1
+#+BEGIN_SRC scheme
+  (cons 1 2)
+#+END_SRC
+** Slide 2
+#+BEGIN_SRC scheme
+(cons 1 (cons 2 3))
+
+#+END_SRC
+** Slide 3
+#+BEGIN_SRC scheme
+(layout (image "foo.jpg"))
+
+#+END_SRC
+** Slide 4
+#+BEGIN_SRC scheme
+
+  (layout (image "foo.jpg"))
+
+  (layout
+   (list (layout (color-decal "green")) whole-layout)
+   (list fooLayout (position-scaled 50 50 50 50) (rectangle 1 1))
+   )
+
+#+END_SRC
+** Slide 5
+#+BEGIN_SRC scheme
+
+
+  (define fooLayout (layout (image "foo.jpg")))
+
+  (define barLayout
+    (layout
+     (list (layout (color-decal "green")) whole-layout)
+     (list fooLayout (position-scaled 50 50 50 50) (rectangle 1 1))
+     )
+    )
+
+#+END_SRC
+** Slide 6
+#+BEGIN_SRC scheme
+
+  (define (anything image-file) 
+    (layout
+     (list (layout (color-decal "green")) whole card)
+     (list (layout (image image-file))  (position-scaled 50 50 50 50))
+     )
+    )
+(anything "foo.jpg")
+(anything "bar.jpg")
+
+
+
+
+
+#+END_SRC
+
+** Slide 7
+#+BEGIN_SRC scheme
+
+  (define (anything image-file) 
+    (layout
+     (list (layout (color-decal "green")) whole card)
+     (list (layout (image image-file))  (position-scaled 50 50 50 50))
+     )
+    )
+    (card (size 200 100) name (anything "foo.jpg") (anything "bar.jpg") (rectangle 100 100))
+
+#+END_SRC
+** Slide 8
+
+#+BEGIN_SRC scheme
+
+  (define (anything image-file) 
+    (layout
+     (list (layout (color-decal "green")) whole card)
+     (list (layout (image image-file))  (position-scaled 50 50 50 50))
+     )
+    )
+  (define (nothing image-file name)
+    (card
+     (size 200 100)
+     name
+     (anything image-file)
+     (anything image-file)
+     (rectangle 100 100))
+  )
+
+  (render (nothing "foo.jpg" "Foo"))
+  (render (nothing "bar.jpg" "bar"))
+#+END_SRC
