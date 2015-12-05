@@ -20,18 +20,19 @@
       <x>490</x>
       <y>80</y>
       <w>240</w>
-      <h>150</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>CardBuilder
 --
-state: State
+state: State = new CardSizeState();
 --
 addScriptObject(s:ScriptObject)
 getResult() : ScriptObject
 clone() : SizeBuilder
 addString(s:StringScriptWrapper)
 addLayout(l:layout)
-addSize(s:Size)</panel_attributes>
+addSize(s:Size)
+addShape(s:Shape)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -49,35 +50,39 @@ addSize(s:Size)</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>520</x>
-      <y>300</y>
+      <y>270</y>
       <w>270</w>
-      <h>120</h>
+      <h>170</h>
     </coordinates>
     <panel_attributes>/State/
 --
+- builder:CardBuilder
+--
+getBuilder()
 getResult()
 addScriptObject()
 addString(s:StringScriptWrapper)
 addLayout(l:layout)
-addSize(s:Size)</panel_attributes>
+addSize(s:Size)
+addShape(s:Shape)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>610</x>
-      <y>220</y>
+      <y>230</y>
       <w>30</w>
-      <h>100</h>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>980</x>
-      <y>550</y>
+      <x>1700</x>
+      <y>520</y>
       <w>340</w>
       <h>60</h>
     </coordinates>
@@ -90,12 +95,12 @@ getResult(c:SizeBuilder): ScriptObject</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>650</x>
-      <y>410</y>
-      <w>510</w>
-      <h>160</h>
+      <y>430</y>
+      <w>1230</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;490.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;1210.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -103,14 +108,12 @@ getResult(c:SizeBuilder): ScriptObject</panel_attributes>
       <x>750</x>
       <y>520</y>
       <w>210</w>
-      <h>100</h>
+      <h>50</h>
     </coordinates>
     <panel_attributes>CardSizeState
 --
-cardSize: Size
 --
-addSize(s:Size)
-getResult() : ScriptObject</panel_attributes>
+addSize(s:Size)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -123,10 +126,9 @@ getResult() : ScriptObject</panel_attributes>
     </coordinates>
     <panel_attributes>NameState
 --
-name: StringScriptWrapper
+size : Size
 --
-addString(s:StringScriptWrapper)
-getResult(): ScriptObject</panel_attributes>
+addString(s:StringScriptWrapper)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -139,10 +141,11 @@ getResult(): ScriptObject</panel_attributes>
     </coordinates>
     <panel_attributes>FrontLayoutState
 --
-layout: Layout
+size : Size
+name : String
 --
 addLayout(l:layout)
-getResult(): ScriptObject</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -151,78 +154,66 @@ getResult(): ScriptObject</panel_attributes>
       <x>300</x>
       <y>520</y>
       <w>190</w>
-      <h>90</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>BackLayoutState
 --
-layout: Layout
+size : Size
+name : String
+fLayout: Layout
 --
-addLayout(l:layout)
-getResult(): ScriptObject</panel_attributes>
+addLayout(l:layout)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>620</x>
-      <y>410</y>
+      <y>430</y>
       <w>200</w>
-      <h>130</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;180.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;180.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>90</x>
-      <y>410</y>
+      <y>430</y>
       <w>490</w>
-      <h>130</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>470.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>470.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>570</x>
-      <y>410</y>
+      <y>430</y>
       <w>50</w>
-      <h>130</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>30.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>30.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>350</x>
-      <y>410</y>
+      <y>430</y>
       <w>250</w>
-      <h>130</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>230.0;10.0;10.0;110.0</additional_attributes>
+    <additional_attributes>230.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>760</x>
-      <y>80</y>
-      <w>560</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>card builder has the form 
-(card "cardName" (size a b) (layout frontLayout...) (layout backLayout ...)
-bg=yellow</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>980</x>
-      <y>630</y>
+      <x>1700</x>
+      <y>600</y>
       <w>340</w>
       <h>30</h>
     </coordinates>
@@ -234,25 +225,23 @@ bg=yellow</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>750</x>
-      <y>630</y>
+      <y>580</y>
       <w>220</w>
       <h>120</h>
     </coordinates>
-    <panel_attributes>addSize: will add a tuple to the structure
-getResult: sets the state to the FrontLayoutState.  If the card is not ready, then return an ErrorScriptObject
-
+    <panel_attributes>addSize : Set b state to NameState, giving size as a parameter. 
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>750</x>
-      <y>170</y>
-      <w>560</w>
+      <x>740</x>
+      <y>120</y>
+      <w>340</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>delegate to the ScriptObjectBuilder for the defaults for the not included methods.
+    <panel_attributes>Delegates add* methods, and getResult, to state.
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
@@ -264,9 +253,8 @@ bg=yellow</panel_attributes>
       <w>220</w>
       <h>120</h>
     </coordinates>
-    <panel_attributes>addLayout: will add a layout to the card
-getResult: sets the state to an ErrorScriptObject state.  If the card is not ready, then return an ErrorScriptObject
-
+    <panel_attributes>addLayout : Set b state to BackLayout state, giving the layout,
+name, and the size as parameters. 
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
@@ -278,8 +266,8 @@ bg=yellow</panel_attributes>
       <w>220</w>
       <h>120</h>
     </coordinates>
-    <panel_attributes>addString: will add a String to the card
-getResult: sets the state to the CardSizeState. If the card is not ready, then return an ErrorScriptObject
+    <panel_attributes>addString : Set b state to FrontLayout state, giving the
+name, and the size as parameters. 
 bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
@@ -291,10 +279,111 @@ bg=yellow</panel_attributes>
       <w>220</w>
       <h>120</h>
     </coordinates>
-    <panel_attributes>addLayout: will add a layout to the card
-getResult: sets the state to the BackLayoutState.  If the card is not ready, then return an ErrorScriptObject
-
+    <panel_attributes>addLayout : Set b state to CardShapeState state,
+giving the flayout, layout,
+name, and the size as parameters. 
 bg=yellow</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>980</x>
+      <y>520</y>
+      <w>340</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>CardShapeState
+--
+size : Size
+name : String
+fLayout : ComponentLayout
+bLayout : BackLayout
+--
+addShape(s:Shape)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1330</x>
+      <y>520</y>
+      <w>340</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>CardDoneState
+--
+size : Size
+name : String
+fLayout : ComponentLayout
+bLayout : BackLayout
+shape : Shape
+--
+getResult()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>840</x>
+      <y>300</y>
+      <w>340</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>All methods except for getBuilder will set the  builders state
+to the error state.
+Get result will also return an error script object.
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>980</x>
+      <y>650</y>
+      <w>340</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>addShape : Set b state to the CardDoneState, giving
+size, name, fLayout,bLayout,and the shape as parameters. 
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1330</x>
+      <y>670</y>
+      <w>340</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>getResult : We have everything we need to make a new card, 
+so do so. Make a new card, and return it. 
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>430</y>
+      <w>340</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;320.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>780</x>
+      <y>390</y>
+      <w>610</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;590.0;130.0</additional_attributes>
   </element>
 </diagram>
