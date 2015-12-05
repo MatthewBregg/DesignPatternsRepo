@@ -560,21 +560,25 @@ Also, most builders have an error state they will go to if an invalid sequence o
 ** FactoryMethod 
 *** Usage A
 **** Where used
-\nIn the ScriptEvalutor interface, getLexer.
+\newline 
+In the ScriptEvalutor interface, getLexer.
 Returns a implementor of the Lexer interface. 
 
 While right now there is only one Lexer implementor, if another language were added, this would change.
 
 **** Why?
-\nIf another language is added, then we will want to ensure we are using the correct scripting lexer for it.
+\newline
+If another language is added, then we will want to ensure we are using the correct scripting lexer for it.
 This ensures that with the parallel type hierarchy, the correct lexer and ScriptEvaluator are used.
 Since it is just a pair, an abstract factory is overkill, a single method will do.
 *** Usage B
 **** Where Used
-\nIn the ShapeDecalBuilder, to get the correct state to go to, after getting a color.
+\newline
+In the ShapeDecalBuilder, to get the correct state to go to, after getting a color.
 Since all shapes start with needing to get a color, but then go to some state specific state, depending on what specific subclass of ShapeBuilder it is, this is used to tie those paralell hierarchies together, and get the correct state. 
 **** Why?
-\nTwo paralell hierarchies, the  ShapeBuilder subclasses, and their initial states.
+\newline
+Two paralell hierarchies, the  ShapeBuilder subclasses, and their initial states.
 Since these are designed to work together, the factory method works perfectly here.
     
 ** Adapter (String/Double wrappers are tailored object adapters)
@@ -704,24 +708,24 @@ file:Structure/LexerUML.png
       - If the result of this Builder is an UndefinedFunction script object, and is given to a DefineBuilder as the first argument, that DefineBuilder will then define the UndefinedFunction in the environment variables, so next time the function name is looked up, it will be found in the environment!
     - Else, return an UndefinedFunctionBuilder with an ErrorScriptObject. 
 **** Purpose
--To represent a the language in objects, rather than plain text.
--That logic can be put in one place, the lexer.
--Each token then knows what it is, and knows what builder to get. 
--This separates the text representation of the scripting language from the objects it creates.
+- To represent a the language in objects, rather than plain text.
+- That logic can be put in one place, the lexer.
+- Each token then knows what it is, and knows what builder to get. 
+- This separates the text representation of the scripting language from the objects it creates.
 
 ** ScriptEvaluator 
 *** Environment Subsystem
 **** Environment 
--An environment frame.
--Holds a map of strings to defined variables, and a BuilderFactory.
+- An environment frame.
+- Holds a map of strings to defined variables, and a BuilderFactory.
 **** EnvrionmentList
--The Environments for the language.
--Contains a list of Environments, and operations to check from the most recently defined to the original, global env if a variable, or builder is defined.
--Can also manage and remove environments. 
--Calling a function will add a frame to this, exiting a function removes said frame.
+- The Environments for the language.
+- Contains a list of Environments, and operations to check from the most recently defined to the original, global env if a variable, or builder is defined.
+- Can also manage and remove environments. 
+- Calling a function will add a frame to this, exiting a function removes said frame.
 **** BuilderFactory
--Holds the builder prototypes in a map. 
--Can add and retrieve them from the map. 
+- Holds the builder prototypes in a map. 
+- Can add and retrieve them from the map. 
 
 *** Builder subsystem
 The meat of this system.
@@ -732,9 +736,9 @@ The goal of these builders is to know how to construct a ScriptObject.
 Adding a new object just requires adding a new builder for it, and then adding a new method.
 Only the appropriate subclass Builders need to care about said new ScriptObject. Unlike with the usual Visitor pattern, not all the Builder Visitors need to be updated. 
 
--They encapsulate building a script object.
+- They encapsulate building a script object.
 
--See the Builder section earlier for more info.
+- See the Builder section earlier for more info.
 
 *** RenderedCard
 A simple "Plain Old Data" class, holds the rendered images of the card along with its name.
@@ -758,6 +762,6 @@ When all the tokens are finished, the driver will retrieve the rendered cards.
     - After doing this, the result will be stored.
   - All objects defined are stored in the environment of the ScriptEvaluator.
 ** Note on Lexer + ScriptEvaluator interfaces
--Parallel hierarchy!
--For each language supported, there will be a ScriptEvaluator and Lexer implementor pair for it!
+- Parallel hierarchy!
+- For each language supported, there will be a ScriptEvaluator and Lexer implementor pair for it!
 
