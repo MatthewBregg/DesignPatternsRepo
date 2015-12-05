@@ -1,0 +1,104 @@
+;;------------------------------------------------------
+;;size(in pixels) of the card
+;;------------------------------------------------------
+(define cardSize (size 70 100))
+
+;;------------------------------------------------------
+;;card images
+;;------------------------------------------------------
+(define cardBackImage (image "cardBack.png"))
+(define crown (image "crown.png"))
+
+;;------------------------------------------------------
+;;suit images
+;;------------------------------------------------------
+(define spadeImage (image "spadeImage.png"))
+(define heartImage (image "heartImage.png"))
+(define diamondImage (image "diamondImage.png"))
+(define clubImage (image "clubImage.png"))
+(define spadeBackground (image "spadeBackground.png"))
+(define heartBackground (image "heartBackground.png"))
+(define diamondBackground (image "diamondBackground.png"))
+(define clubBackground (image "clubBackground.png"))
+
+;;------------------------------------------------------
+;;shapes
+;;------------------------------------------------------
+(define roundedRectangleC (rectangle 70 100))
+	(corner-rounder roundedRectangleCard)
+(define rectangle (rectangle 70 100))
+
+;;------------------------------------------------------
+;;relative positions and card size
+;;------------------------------------------------------
+(define wholelayout (position-scaled 0 0 100 100)) 
+(define suitTopLeft (position-scaled 5 10 5 5)) 
+(define suitBotRight (position-scaled 85 90 5 5)) 
+(define centerFace (position-scaled 10 5 75 90)) 
+
+;;------------------------------------------------------
+;;custom Images/Text
+;;------------------------------------------------------
+(define customHeart (mask-decal heartImage heartBackground) wholeLayout)
+(define customDiamond (mask-decal diamondImage diamondBackground) wholeLayout)
+(define customClub (mask-decal clubImage clubBackground) wholeLayout)
+(define customSpade (mask-decal spadeImage spadeBackground) wholeLayout)
+
+
+;;------------------------------------------------------
+;;family for all 4 suits
+;;------------------------------------------------------
+(define HeartFamily (family (cons "suit" heartImage)
+                            (cons "customSuit" customHeart)))
+(define DiamondFamily (family (cons "suit" diamondImage )
+                              (cons "customSuit" customDiamond)))
+(define SpadeFamily (family (cons "suit" spadeImage)
+                            (cons "customSuit" customSpade)))
+(define ClubFamily (family (cons "suit" clubImage)
+                           (cons "customClub" customClub)))
+
+;;------------------------------------------------------
+;;base layouts for all the cards
+;;------------------------------------------------------
+(define (cardBackLayout)
+  (layout
+  (list ((layout cardBackImage) wholeCard roundedRectangleCard))))
+
+(define (baseLayout value color) 
+  (layout 
+  (list ((layout whiteRectangle) wholeCard))
+  (list ((layout (string value "arial" color 12)) (position-scaled 5 5 5 5)))
+  (list ((layout "suit") (position-scaled 5 10 5 5)))
+  (list ((layout "suit") (position-scaled 85 85 -5 -5)))
+  (list ((layout (string value "arial" color 12)) (position-scaled 85 90 -5 -5)))))
+
+;;------------------------------------------------------
+;;cards   
+;;------------------------------------------------------
+(define blackJackCard
+  (card cardSize "blackJack" (baseLayout "J" #000000) cardBackLayout))
+(define blackQueenCard
+  (card cardSize "blackQueen" (baseLayout "Q" #000000) cardBackLayout))
+(define blackKingCard
+  (card cardSize "blackKing" (baseLayout "K" #000000) cardBackLayout))
+
+(define redJackCard
+  (card cardSize "redJack" (baseLayout "J" #DD311D) cardBackLayout))
+(define redQueenCard
+  (card cardSize "redQueen" (baseLayout "Q" #DD311D) cardBackLayout))
+(define redKingCard
+  (card cardSize "redKing" (baseLayout "K" #DD311D) cardBackLayout))
+
+;;------------------------------------------------------
+;;makes the subDeck 
+;;------------------------------------------------------
+(define redCardDeck (list redJackCard redQueenCard redKingCard ))
+(define blackCardDeck (list blackJackCard blackQueenCard blackKingCard ))
+
+;;------------------------------------------------------
+;;renders the subdeck 4 times for each suit
+;;------------------------------------------------------
+(render redCardDeck heartFamily)
+(render redCardDeck diamondFamily)
+(render blackSuitSubDeck clubFamily)
+(render blackCardDeck spadeFamily)
