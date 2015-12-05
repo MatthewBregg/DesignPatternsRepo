@@ -126,7 +126,12 @@ Output : outputPath : Path
 Output : format : OutputFormat
 Output : writeCardToDisk(c:Card)
 Output : Output(o:Option)
-note bottom : Converts the lossless PNG Images to the output format, and then writes an image with the card name. Card name will have to be different when rerendered with a different family, so family name will be appended to card name.
+note bottom of Output
+ Converts the lossless PNG Images to the output format,
+ and then writes an image with the card name.
+ Card name will have to be different when rerendered with a different family,
+ so family name will be appended to card name.
+end note
 
 
 enum OutputFormat {
@@ -142,7 +147,10 @@ enum OutputFormat {
 class Driver
 Driver : public static void main(String[] args)
 
-note top : The driver, after creating the ScriptEvaluator, will add the predefined builders to it, via eval.addToTopEnv("Buildername",new XBuilder()), \n it will do this for all Builders defined in the Builders section.
+note top of Driver 
+ The driver, after creating the ScriptEvaluator, will add the predefined builders to it,
+ via eval.addToTopEnv("Buildername",new XBuilder()), it will do this for all Builders defined in the Builders section.
+end note
 
 Output --> OutputFormat
 
