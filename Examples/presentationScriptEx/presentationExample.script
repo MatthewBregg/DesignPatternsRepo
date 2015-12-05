@@ -100,5 +100,5 @@
 ;;------------------------------------------------------
 (render redCardDeck heartFamily)
 (render redCardDeck diamondFamily)
-(render blackCardDeck clubFamily)
+(render blackSuitSubDeck clubFamily)
 (render blackCardDeck spadeFamily)
