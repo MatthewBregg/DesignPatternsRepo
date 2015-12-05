@@ -13,6 +13,10 @@ Note that during each step, the Driver checks logger for errors, and decides if 
 
 This describes the highest level of how the systems interact.
 For detail of how the systems interact internally, see each system.
+
+* Plugins
+Custom builders can be written, and then loaded in at runtime.
+See the config section of the Script Specification for details. 
  
 * General Goals, and Overview
 ** What features the system has
@@ -88,7 +92,11 @@ file:Examples/monopoly_example/monopoly.pdf
 
 * Card Representation System
 ** Overview
-The Card object is constructed by five attributes: two layouts for front and back, a name, a width and a height. The ;ayout is of object ComponentLayout, which could be composed of other layouts or Decals. A Decal is the base object that can be put on a Card object. A Decal can be made of either an Image, a Text, a DynamicDecal or a Shape object.
+The Card object is constructed by five attributes: two layouts for front and back, a name, a width and a height, and a shape.
+The layout is of object ComponentLayout, which could be composed of either a list of  LayoutTuples or a Decal.
+A LayoutTuple is a POD with a Layout, PositionScaled, and a Shape.
+A Decal is the base object that can be put on a Card object.
+A Decal can be made of either an Image, a Text, a DynamicDecal or a color object.
 
 ** ScriptObject Class
 - *Purpose:* 
@@ -96,7 +104,8 @@ It is an abstract class which will be declaring the interface for all the concre
 - *Interaction:*  
 This class does not inherit from any other classes, however it serve as a base class for all other components, which will be inheriting from this.
 - *Design Patterns it belongs:*
-This class is not part of any design patterns explicitly, but lots of design patterns will be used in its subclasses and by overriding its method.
+This class is only part of the visiter pattern explicitly, but lots of design patterns will be used in its subclasses and by overriding its method.
+
 
 ** ComponentLayout Class
 - *Purpose:* 
@@ -108,7 +117,7 @@ This class is designed using Composite design pattern and the iterator design pa
 
 *** LeafLayout Class
 - *Purpose:* 
-It is an abstract class that will represent the leaf object in a composition. It has no children and the leaf will be of type object Decal. Moreover, this class has character attribute to denote the size that the decal will have in relative to the layout. The options are specified in the *ScriptingLanguageSpecification.org*. It will be able to offer default behavior on how to render a decal. The ~render ()~ method will be overrriden by the concrete subclasses of the Decal abstract class.
+It is an abstract class that will represent the leaf object in a composition. It has no children and the leaf will be of type object Decal. Moreover, this class has character attribute to denote the size that the decal will have in relative to the layout. The options are specified in the *ScriptingLanguageSpecification.org*. It will call render on the decal held, and pass in the appropriate information. 
 - *Interaction:*  
 This class will inherit from the ComponentLayout abstract class. In addition from this class we can navigate to the abstract class Decal.
 - *Design Patterns it belongs:*
@@ -117,44 +126,49 @@ This class is designed using Composite design pattern.
 *** CompositeLayout Class
 - *Purpose:* 
 It is an abstract class that will declare an interface for components that will have children. In addition it will provide default implementation to some of the methods necessary for adding child layout components and for rendering layouts into the card or another layout. It will also provide a default implementation for the method ~iterator ()~, which will create an iterator to traverse all the composed layouts.
+A child of it is a LayoutTuple.
 - *Interaction:*   
 This class will inherit from the ComponentLayout abstract class and it will serve as a base for the other two classes ArrayComponentLayout and SingleComponentLayout.
 - *Design Patterns it belongs:*
 This class is designed using Composite design pattern and the Iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
-**** SingleComponentLayout Class
-- *Purpose:* 
-This is a concrete class that will be able to hold only a single child of type ComponentLayout. It will have zero or one thing as an attribute, a LayoutPositionPair, which will be discussed below.
-- *Interaction:*  
-This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the render ~method ()~.
-- *Design Patterns it belongs:*
-This class is designed using Composite design pattern and the Iterator design patterns is included in it as well to offer a way to access the composed layouts.
-
 **** ArrayComponentLayout Class
 - *Purpose:* 
-This is a concrete class that will be able to hold an array of children of types ComponentLayout. The array will be filled with zero or many references to the LayoutPositionPair objects.
+This is a concrete class that will be able to hold an array of children of types LayoutTuple. The array will be filled with zero or many references to the LayoutTuple objects.
 - *Interaction:*  
 This class will inherit form the CompositeLayout abstract class. It will inherit the default implementation for the ~render ()~ method, ~addLayout ()~, ~removeLayout ()~ and ~iterator ()~ to create an iterator.
 - *Design Patterns it belongs:*
 This class is designed using Composite design pattern and the Iterator design patterns is included in it as well to offer a way to access the composed layouts.
 
-*** LayoutPositionPair Class
+*** LayoutTuple Class
 - *Purpose:* 
 It is a concrete class which will allow our system to create structure where a specific ComponentLayout is associated with a PositionScaled. This is necessary because every layout must be placed in a specific relatively scaled position.
 - *Interaction:*  
-This class does not inherit from any other classes, however, the SingleComponentLayout and the ArrayComponentLayout will maintain zero or more references to the objects created by this class.
+This class does not inherit from any other classes, however,  Composite layouts maintain zero or more references to the objects created by this class.
 - *Design Patterns it belongs:*
 It is not part of any of the design patterns.
+- *Contains*
+It is a POD, holding a Layout, a PositionScaled, and a Shape.
 
 ** Decal Class
-- *Purpose:* 
-This abstract class will provide a common interface for various types of decals. I will also be implementing a default behaviors for the ~render ()~ method and ~acceptBuilder ()~ method, which will be overridden by the subclasses.
-- *Interaction:*  
-This class will inherit from the ScriptObject class and four other subclasses will be implementing the rest of the functionalities defined by this abstract class.
-- *Design Patterns it belongs:*
-No design patterns were used in this part of the system.
+Decal provides an interface for something graphical. 
+Separate graphical objects from the rest of the system,
+  - Inherits from ScriptObject, and thus, can accept a visitor.
+  - Implements this Visiter method, visiter only ever need to know if something is a decal, not what type, to the Decal Type is the only Decal that implements acceptBuilder.
 
-*** Text Class
+*** DecalWithFM
+- *Purpose:* 
+This abstract class will provide a common interface for various types of decals. I will also be implementing a default behaviors for the ~render ()~ method and ~acceptBuilder ()~ method, the former of which may be overridden, the latter of which is final. 
+- *Interaction:*  
+This class will inherit from the Decal class and other subclasses will be implementing the rest of the functionalities defined by this abstract class.
+- *Design Patterns it belongs:*
+  - Has a factory method, to retrieve the correct visitor for rendering the held shape.
+- *Rendering* 
+  - To render, a decal makes a visitor, has that visitor visit the shape passed in to render, renders that shape with the image/color/text.
+  - This process is the same for 3 decals, so they just have to override the FM method, render can be left alone
+
+
+**** Text Class
 - *Purpose:* 
 A concrete class which conforms to the interface set by the Decal class. It will user an option to put text objects into a card. It has three attributes a Color, a size and a font. This class will know how to render itself and how to load a text from a path given in the configuration file.
 - *Interaction:*  
@@ -162,67 +176,82 @@ It will inherit from the abstract class Decal.
 - *Design Patterns it belongs:*
 No design patters used in it.
 
-*** ImageDecal
+**** ImageDecal
 - *Purpose:* 
 A concrete class which offers the users an option to put an image into a card. This class will know how to render itself and how to load an image from a path given in the configuration file.
 - *Interaction:*  
 It will inherit from the abstract class Decal.
 - *Design Patterns it belongs:*
 No design patterns used in it.
+Implements the FM.
+
+**** Color Class
+- *Purpose:* 
+This abstract class will provide a common interface for various colors which conforming to the interface set by the Decal abstract class.
+- *Interaction:* 
+It will be inheriting from the Decal abstract class 
+- *Design Patterns it belongs:*
+Implements the FM.
+
+**** Decal Rendering Visiters
+Each Visiter knows how to render either a text, image, or color decal for each shape. 
+The visiter is made by said decal via an FM, and then is accepted by the shape to do the rendering. 
+Paramatized with anything the visitor needs for rendering.
 
 *** DynamicDecal
 - *Purpose:* 
 It is a concrete class which offers the ability to look up a certain decal by name. It has one attribute of type string which will hold the value of the key.
 - *Interaction:*  
 It will conform to the interface set by the Decal class and override some of the methods defined in there.
+Render will look up the decal in family, and if it exists, then delegate the render call to it. 
 - *Design Patterns it belongs:*
 It can be seen as the RealSubject in the Proxy design pattern.
 
-*** Shape Class
-- *Purpose:* 
-This abstract class will provide a common interface for various shapes which conforming to the interface set by the Decal abstract class.
-- *Interaction:* 
-It will be inheriting from the Decal abstract class and four other classes or more will be implementing its functionalities. 
-- *Design Patterns it belongs:*
-No design patterns used in it.
 
+
+** Decal Decorator
+
+The Decal decorators implement the decorator pattern for decals. 
+They provide various functionality, such as rounding corners, masks, rotation, or cropping.
+Override render to call render on each decal(s), and then do some transformaton to the returned image(s).
+
+*** Pattern
+Decorator
+*** Purpose
+Provide basic manipulation utilities, things such as masks, and rotation, and cropping can be added, and chained, and the thing using it has no idea it is dealing with a decorator, not a true decal. 
+
+
+
+
+** Shapes
+
+*** Shape
+Provides a basic interface for a shape that can be visited. 
+Subclasses will override with the accept method as appropriate, and will contain attributes to represent their shape. 
+*** SubClasses
 **** Rectangle Class
-- *Purpose:* 
-It will be implementing the interface set by the Shape class and it will offer the user the ability to draw a rectangle on a card. It will also be implementing the ~render ()~ method in order to render itself on a card. I has three attributes, two dimension and a Color type attribute.
-- *Interaction:*  
-I will be implementing the interface set by the Shape class and also inheriting from it.
-- *Design Patterns it belongs:*
-No design patterns used in it.
-
+- Width
+- Height
 **** Circle Class
-- *Purpose:* 
-It will be implementing the interface set by the Shape class and will offer users the ability to draw a circle with a specific radius and specific color on the card. It will override the ~render ()~ method inherited from the Shape abstract class.
-- *Interaction:* 
-I will be implementing the interface set by the Shape class and also inheriting from it.
-- *Design Patterns it belongs:*
-No design patterns used in it.
-
+- Radius
 **** Triangle Class
-- *Purpose:* 
-It will be implementing the interfaces set by the Shape class and will offer the users the ability to draw a triangle with specific sides and specific color on the card. It will override the ~render ()~ method.
-- *Interaction:*  
-I will be implementing the interface set by the Shape class and also inheriting from it.
-- *Design Patterns it belongs:*
-No design patterns used in it.
-
+- Sides length a,b,c
 **** AnyShape Class
-- *Purpose:* 
-It will be implementing the interface set by the Shape class and will offer the user to build any type of shape by just giving a set of points. The user is responsible for giving the correct amount of point and computing where those points should be.
-- *Interaction:*  
-I will be implementing the interface set by the Shape class and also inheriting from it.
-- *Design Patterns it belongs:*
-No design patterns used in it.
+- List<Point>
+  
+*** ShapeVisiter
+Interface for something capable of visiting a Shape.
+Can be implemented for various things like rendering shapes, positioning things inside shapes...
+**** Rendering shape visitor :
+Can visit a shape, and then returns a rendered image of it. A version for image, text, and color
+**** Abstract Placer :
+Can position sub images inside an image, relative to a shape. Used by the CompositeLayout to position it's children inside it's shape. 
 
 ** Card Class
 - *Purpose:* 
-This is a concrete class which will be implementing the interface create by ScriptObject class. The objects create by this class will have all the necessary components that a card needs. In addition it will implement the ~render ()~ method in order to render itself.
+This is a concrete class which will be implementing the interface create by ScriptObject class. The objects create by this class will have all the necessary components that a card needs. In addition it will implement the ~render ()~ method in order to render itself, passing it's size, the families it's receives, and it's shape to each layout. 
 - *Interaction:*  
-It will be inheriting from the ScriptObject concrete class and it will hold two layouts of type ComponentLayout, size attributes and a name.
+It will be inheriting from the ScriptObject concrete class and it will hold two layouts of type ComponentLayout, size attributes, a name, and a shape. 
 - *Design Patterns it belongs:*
 No design patterns used in it.
 
@@ -245,6 +274,7 @@ No design patterns used in it.
 ** Family Class
 - *Purpose:*
 It is a concrete class that will offer users the option to associate a certain Decal object with a string. This could be useful because if a certain decal needs to appear in many cards (or layouts) we can refer to it by the name and we don’t need to create it multiple times. 
+In this case, the families name will be added to the card name to prevent filename conflicts.
 - *Interaction:*  
 This class will be implementing the interface set by the ScriptObject class. 
 - *Design Patterns it belongs:*
@@ -285,6 +315,7 @@ No design patterns used in it.
 ** UndefinedFunction Class
 - *Purpose:*
 It is a concrete class whose purpose is to throw an error when a call to an undefined function is made. The functions should be defined in the scripting language and then later on called with respective parameters.
+When a define builder receives it as a first argument, it will then define it!
 - *Interaction:*  
 It will implement and conform to the interface set by the ScriptObject class.
 - *Design Patterns it belongs:*
@@ -299,7 +330,49 @@ It will not be inheriting form any other class or being used as subclass for oth
 No design patterns used in it.
 
 ** Design Patterns used in Card Representation System
-The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, and *Addapter*.
+The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, *Addapter*, *Factory Method*,  *Visiter* and *Decorator*.
+*** Factory Method
+**** Why we used?
+Each non decorating, and non dynamic decal has a specific visiter which it must make. The super is the client. 
+**** What we gained?
+Customizes the render method with which object should be created, enabling the superclass to implement it.
+The render method calls this, similar to how a Template method calls methods, but since this is the only step customized in render, I don't consider render a template method. 
+**** Consequences
+The decal decorators, and dynamic decals, don't have a visitor to return, and thus, have to return null. This is bad. 
+
+*** Visiter
+**** The Shape Visitor used by Composite Layout
+***** Why we used?
+A composite layout has some shape, but doesn't know what shape, nor should it!. 
+It also shouldn't know how to position things inside a shape.
+Instead, the visiter is accepted by the shape, and thus knows what shape it has, and can then properly place items.
+***** What we gained?
+The composite layout need not know how to position things inside a shape, but still can.
+***** Consequences
+Visiter can get unwieldy, and a bit confusing.
+If we add a new shape, all visiters need be updated.
+**** The Shape Visitor used by Decal 
+***** Why we used?
+A Decal knows what it has that represents some visual thing, an image, text, or shape, but not how to render it in a circle, rectangle, or other shape, or even what shape it has.
+That is left to the visiter to determine, and do the rendering.
+***** What we gained?
+Decal don't care about what shape they are told to render in, just make their visiter, and have the visiter visit and render in that shape. 
+***** Consequences
+A visiter for each DecalWithFM implementor.
+If we add a new shape, all visiters need be updated.
+
+*** Decorator
+**** Why we used?
+We found that we wanted to do certain actions to decals, that would result in new decals be added.
+Cropping an image, masking an image, rotating an image, etc.
+Rather than making these as new decals, which would cause a class explosion, and be limited only to the pairs we made, we decided that it makes sense to crop/rotate/mask any decal, and made these actions decal decorators. 
+
+**** What we gained?
+We can do basic image manipulation by chaining decorator decals, and then using those decorators like normal decals. 
+**** Conseqences
+Potentially inefficient. 
+
+
 
 *** Composite
 **** Why we used?
@@ -344,8 +417,12 @@ The adapter pattern is used for our Image class. Our image class will not be abl
 The Driver will be the first thing the program will call and it will invoke all the other functions. In essence the Driver is our main.
 - *Interaction:*  
 The Driver will first call the Options class and parse through the config file. Aftwerwards the Driver will make the scriptEvaluator which will keep track of the script directory and make the appropriate Lexor. The evaluator will then use all the tokens outputted from the Lexor, throw it through the Builder Factory and construct the appropriate objects. In the end the evaluator returns the rendered cards to the Driver, who sends it to the Output class for it to be written and saved.
+
+Will also load any builders requested to be loaded, and place them in the ScriptEvaluators environment.
 - *Design Patterns it belongs:*
 No design patterns used in it.
+
+
 
 ** Logger Class
 - *Purpose:* 
