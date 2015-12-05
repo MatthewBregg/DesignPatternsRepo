@@ -372,22 +372,22 @@ The Driver will create the ouput class after evaluating the script, based on the
 No design patterns used in it.
 
 * ScriptEvaluator system 
-This includes all the Builders, and the Lexer. Whenever I say Builders, I mean subclasses of ScriptObjectBuilder
+This includes all the Builders, and the Lexer. Whenever I say Builders, I mean subclasses of ScriptObjectBuilder.
 
 ** Basic Number manipulation
-Basic number manipulation is provided by the NumberOperationBuilder, which is paramatized with a command.
+Basic number manipulation is provided by the NumberOperationBuilder, which is paramaterized with a command.
 A builder for each command should be mapped with the appropriate symbol in the environment, with the rest of the builders.
 ** Builder
 *** Why we used?
 We have a ScriptObject which needs to be constructed, but the script objects vary quite a bit, and are all constructed differently. 
-We can however, use a same general process, of first determining what to make, and then the arguments given.
+We can however, use a same general process, of first determining what to make, followed by the arguments given.
 Thus, we can use a builder to separate the actual construction and representation from the construction process.
 The builder itself knows what to do from the parameters given, and the tokens return the correct builder.
 The ScriptEvaluator then can run the same process for each builder to receive the script object result.
 
 This process will look something like this. 
 #+BEGIN_SRC java
-ScriptObject doParse(Tokens token) {
+ScriptObject doParse(Token token) {
     Builder builder = token.getBuilder(this);
         
     for (Token arg : token.getArgumentTokens()) {
@@ -410,33 +410,31 @@ void addToken(Token token) {
 
 The Builder itself is only dependent on the ScriptEvaluator, which contains the minimium operations needed for the language. 
 
-This serves as the Director, and the implementor, CardLispScriptEvaluator, could potentially be replaced with a different one, allow the same builders to be used with a different language.
+The ScriptEvaluator serves as the Director. The implementor, CardLispScriptEvaluator, could potentially be replaced with a different one, allowing the same builders to be used with a different language.
 
-Most however, do not actually need it.
-One could simple give a null ScriptObjectEvaluator to those that do not need it. 
-Or, one could make a constructor that automatically does this, to avoid the programmer having to worry.
-Or, split the ScriptObjectBuilder. 
-Keep the existing base, but add another subclass, and give that one the eval.
+Most, however, do not actually need it.
+One could simply give a null ScriptObjectEvaluator to those that do not need it. 
+One could also make a constructor that automatically does this, to avoid the programmer having to worry or possibly just split the ScriptObjectBuilder. 
+One can keep the existing base, but add another subclass, and give that one the ScriptEvaluator.
 Then, only the Builders that need it would have it.
-If it wasn't late Thursday, I would do this, but the benefits are minor, if any.
-Since ScriptObject often need the environment for look ups, it some ScriptObjects could be made, but some couldn't. Thus, even if the dependency on the ScriptEvaluator was removed for some builders, we wouldn't know when something that does require it might be made.
-Transparency would be loss either way, and it doesn't make sense to try to build ScriptObjects outside the script.
+If the dependency on the ScriptEvaluator was removed for some builders, it would help for standalone use, but for parsing a script, we wouldn't know when to make a Script object. We would then need a builder that requires a ScriptEvaluator reference.
+Transparency would be lost either way, and it doesn't make sense to try to build ScriptObjects outside the script.
 
 **** To Summarize
-Thus, the builders can be used with a variety of languages, and some could be used anywhere, although doing so would cost some transparency.
+The builders can be used with a variety of languages, and some could be used anywhere, although doing so would cost some transparency.
 They effectively isolate building objects from the rest of the scripting language, and allow a uniform process to create them all.
-They enable easily changing the construction process for a new object, and adding new builders can be used to add new language features.
+They enable easily changing the construction process for a new object, and adding new builders that can be used to add new language features.
 
 
 *** What we gained?
-- Ability to easily change how a certain thing is constructed, just replace the builder
-- The same process to construct all ScriptObjectBuilder
-- Can add new products by putting in new builders
+- Ability to easily change how a certain object is constructed, by just replacing the builder.
+- The same process can be used to construct all ScriptObjectBuilders.
+- Can add new products by adding new builders.
 *** Consequences
 - Lots of builder classes, complicated design. 
 - Builder might be overkill for some simple objects constructed.
-- Builder has access to script evaluator, which is needed for construction, but is some coupling.
-  - Evaluator has a big larger interface than it should to allow this coupling with the builders.
+- Builder has access to script evaluator, which is needed for construction, but adds some coupling.
+  - Evaluator has a larger interface than it should to allow this coupling with the builders.
 *** Where used
 In the ScriptObjectBuilder, and subclasses
 
@@ -448,8 +446,8 @@ Avoids need to cast when retrieving a ScriptObject from the environment, the Scr
 - Ability to avoid casting when adding parameters, and retrieving variables from the environment.
 *** Consequences
 - Must modify the ScriptObjectBuilder class for each new ScriptObject made
-  - However, since their is a default for adding, that is, to forward to addScriptObject for an unexpected/unneeded type, only the concrete builders that need to deal with this new type need to be modified, so in practice, not a big problem
-- Visiter has lots of methods, potentially lots to inherit.
+  - However, since there is a default for adding, that is, to forward to addScriptObject for an unexpected/unneeded type, only the concrete builders that need to deal with this new type need to be modified. So in practice, this is not a big problem.
+- Visitor has a lot of methods, potentially a lot to inherit.
   
 *** Where used
 In the ScriptObjectBuilder, and subclasses.
@@ -457,11 +455,11 @@ In the ScriptObjectBuilder, and subclasses.
 *** Where used?
 Number Operation Builder
 *** Why we used?
-Basic number manipulation can be done with some op, being applied to two numbers, resulting in a third.
-Some op can be division, adition, etc.
-To make a whole new builder for each one would be a class explosion, so instead, we paramatize the builder with the correct some op. 
+Basic number manipulation can be done with some opertation being applied to two numbers, resulting in a third.
+Some operations could be division, adition, etc.
+To make a whole new builder for each one would be a class explosion, so instead, we paramaterize the builder with the correct operation.
 *** Consequences
-- Only one builder is needed to handle any number operation of the form a someop b = c.
+- Only one builder is needed to handle any number operation of the form a <some operation> b = c.
 - Extra indirection than a hardcoded method, slightly slower, could potentially be slightly harder to follow, won't know immediately what builder does.
 - The Builder is paramatized with some number command to run upon creating a number value. 
   
@@ -485,32 +483,32 @@ Also, most builders have an error state they will go to if an invalid sequence o
 ** FactoryMethod 
 *** Usage A
 **** Where used
-In the ScriptEvalutor interface, getLexer.
+\nIn the ScriptEvalutor interface, getLexer.
 Returns a implementor of the Lexer interface. 
 
 While right now there is only one Lexer implementor, if another language were added, this would change.
 
 **** Why?
-If another language is added, then we will want to ensure we are using the correct scripting lexer for it.
+\nIf another language is added, then we will want to ensure we are using the correct scripting lexer for it.
 This ensures that with the parallel type hierarchy, the correct lexer and ScriptEvaluator are used.
 Since it is just a pair, an abstract factory is overkill, a single method will do.
 *** Usage B
 **** Where Used
-In the ShapeDecalBuilder, to get the correct state to go to, after getting a color.
+\nIn the ShapeDecalBuilder, to get the correct state to go to, after getting a color.
 Since all shapes start with needing to get a color, but then go to some state specific state, depending on what specific subclass of ShapeBuilder it is, this is used to tie those paralell hierarchies together, and get the correct state. 
 **** Why?
-Two paralell hierarchies, the  ShapeBuilder subclasses, and their initial states.
+\nTwo paralell hierarchies, the  ShapeBuilder subclasses, and their initial states.
 Since these are designed to work together, the factory method works perfectly here.
     
 ** Adapter (String/Double wrappers are tailored object adapters)
 *** Why we used?
 The Scripting language contains two types of Atom literals. These are numbers (doubles), and strings. 
-We want to use Javas built in String and double type, but those can't be aggregated with the rest of the ScriptObjects. String could potentially be stored as common type Object, but then we'd lose the ScriptObject specific stuff. double could be boxed in Double, and then stored as object, but same issue.
-The solution, is to make tailored object adapters, one for each type.
+We want to use Java's built in String and double type, but those can't be aggregated with the rest of the ScriptObjects. String could potentially be stored as common type Object, but then we'd lose the ScriptObject specific stuff. Double could be boxed in Double, and then stored as object, but the same issue arises.
+The solution is to make tailored object adapters, one for each type.
 They each have just one operation to adapt, which is to get the value.
 This lets the double and String be used with the rest of the ScriptObjects in the system.
 *** What we gained?
-double, and String can now be used with their Adapters as if they were any other ScriptObject sub type.
+Double, and String can now be used with their Adapters as if they were any other ScriptObject subtype.
 *** Consequences
 - Inefficiency of an extra object, and an extra reference to follow.
 
@@ -528,13 +526,13 @@ These are constant values, they shouldn't be changed. (If set was added, then th
 The ScriptEvaluator was originally going to just be a Facade. 
 The ScriptObjectBuilder subclasses would be fine to use without it, and could be used separately on tokens.
 However, as the Environment got more complicated, and a current working directory path was needed, the ScriptObject became coupled with the Builders. 
-A possible redesign would to make a data interface, which would be all the Builders dependended on, which could then enable the ScriptEvaluator to just be a Facade. However, I do not think that much would be gained from this, and while it is a fairly easy change to make, it is probably not worth the effort.
+A possible redesign would be to make a data interface, which all the Builders would be dependendent on, which could then enable the ScriptEvaluator to just be a Facade. However, I do not think that much would be gained from this, and while it is a fairly easy change to make, it is probably not worth the effort.
 A more worthwhile Facade could be to make something that takes in a file path, runs the Lexer on it, then the ScriptEvaluator, but this would still be a fairly minor thing.
 
-This being a fairly minor thing is the main reason I believe this not being a Facade is not a problem, the things it is doing are fairly simple. While it is interacting with a complex subsystem, the interactions are fairly simple.
+This being a fairly minor thing is the main reason I believe this not being a Facade is not a problem. The things it is doing are fairly simple. While it is interacting with a complex subsystem, the interactions are fairly simple.
 
 
-** Composite  for ScriptObject and Token
+** Composite for ScriptObject and Token
 *** ScriptObject
 ScriptObject and Token both feature recursive composition. 
 However, for the ScriptObject, this is limited to just a few special cases, and the ScriptObject has no child management operations. 
@@ -546,7 +544,7 @@ The Token features an ExpressionToken, which can have other tokens as arguments,
 The Token type also contains basic child management, in the form of getting the list of arguments as tokens.
 Leaf tokens return an empty list. 
 The intent is to enable an expression to be treated the same, regardless of whether it is a simple literal, a simple expression, or a bunch of sub expressions. 
-- Thus, this is an example of composite pattern
+- This is an example of composite pattern
 **** Why we used?
 Used to enable expression tokens to be made up of subexpressions, and for any piece of an expression to be treated the same when iterating through it, regardless of if it is a Variable, Expression, or Atom literal.
 **** What we gained?
@@ -559,16 +557,16 @@ Used to enable expression tokens to be made up of subexpressions, and for any pi
 
 ** Prototype (Builders)
 *** Why we used?
-Some of the Builders are paramtized and configured. (The FunctionBuilder is the main one).
-Additionally, need a way to get a new instance of the correct builders. 
+Some of the Builders are paramterized and configured. (The FunctionBuilder is the main one).
+Additionally, need a way to get a new instance of the correct builders.
 One option is to store class objects, or a giant conditional statement for each builder.
-But the latter hard codes them, and makes it hard to add dynamically (needed for FunctionBuilder), and both don't allow builders that have been configured to be stored. 
+The latter hard codes them, and makes it hard to add dynamically (needed for FunctionBuilder), and both don't allow builders that have been configured to be stored.
 
-While the FunctionBuilder is the main one that needs this, to store the FunctionBody and arguments it is given, and then stored with, it allows flexibility for future builders.
-For example, a number operation builder might have one builder concrete class, that takes in the operation to do, +,-,/,*,etc, and then store that builder paramatized with each operation as a prototype.
+While the FunctionBuilder is the main one that needs to store the FunctionBody and arguments it is given and stored with, it allows flexibility for future builders.
+For example, a number operation builder might have one concrete builder class, that takes in the operation to do, +,-,/,*,etc, and then store that builder paramaterized with each operation as a prototype.
 
 *** Implementation note
-For most of the builders, they are easy to clone. 
+Most of the builders are easy to clone. 
 They are stored with their freshly constructed state, and don't have much to share.
 They can share the initial state, but upon changing state, the clone will get it's own.
 The only condition is that any change to the clone shouldn't effect the original.
@@ -586,19 +584,19 @@ Since Tokens are not changed, the FunctionBuilder can share these.
 *** Why we used?
 *** What we gained?
 - Enabled tokens to easily retrieve the Builder they need.
-- To be able to store the Builders created for defined functions, and retrieve them as if they were the predefined Builders
-- To lesson hard coding Builder types in tokens.
+- To be able to store the Builders created for defined functions, and retrieve them as if they were the predefined Builders.
+- To lessen hard-coding Builder types in tokens.
 - Provide a central repository of the builder prototype. 
 *** Consequences
 - Memory consequence, Builder prototypes use memory in the map.
-- String comparisons can be more expensive time wise than hard coded class instances. 
+- String comparisons can be more expensive time-wise than hard-coded class instances. 
 
 ** Lexer
 *** Purpose
-To take an input file, and return a list of tokens from it. 
-A fairly simple interface, see the UML for decals.
+To take an input file, and return a list of tokens. 
 
-To add support for additional scripting language, provided that the language can be represented with the existing token, just make a new implementor of the interface, and a corresponding ScriptEvaluator implementor!
+To add support for additional scripting language, provided that the language can be represented with the existing tokens.
+To do this, one must make a new implementor of the interface, and a corresponding ScriptEvaluator implementor.
 
 
 *** UML
@@ -607,47 +605,46 @@ file:Structure/LexerUML.png
 - Tokens are immutable after creation.
 **** Types
 ***** VariableToken
-- Leaf token, holds a var name.
-- Returns a VariableBuilderVisiter, with either an UndefinedVariable object if variable is not found, or the variable after looking it up in the env. 
+- Leaf token, holds a variable name.
+- Returns a VariableBuilderVisitor, with either an UndefinedVariable object if variable is not found, or the variable if it is found in the environment variables. 
 ***** AtomToken
-- Returns a ConstantBuilderVisiter with the value wrapped in an appropriate ScriptObject. 
+- Returns a ConstantBuilderVisitor with the value wrapped in an appropriate ScriptObject. 
 ****** StringAtomToken
 - Leaf token, holds a string.
 ****** DoubleAtomToken
 - Leaf token, holds a double.
 ***** ParseErrorToken
 - Leaf token, represents an error that occured during parsing.
-- Return a ConstantBuilderVisiter, with an ErrorScriptObject as the value.
+- Returns a ConstantBuilderVisiter, with an ErrorScriptObject as the value.
 ***** ExpressionToken
 - The composite of the layouts.
   - Holds other tokens, they are the arguments given to the expression.
   - Holds the name of the function invoked.
 - Looks for its builder in the environment.
   - If found, return it!
-  - If none found, then make an UndefinedFunctionBuilder
-    - If ExpressionToken is only variables, then return UndefinedFunctionBuilder with the given parameter names, and func name. 
-      - If the result of this Builder, an UndefinedFunction script object is given to a DefineBuilder as the first argument, that define builder will then define it in the env, so next time the funcname is found, it will be found in the environment!)
-    - Else, return an Undefined Function Builder with an ErrorScriptObject. 
+  - If none found, then make an UndefinedFunctionBuilder.
+    - If ExpressionToken is composed only of variables, then return UndefinedFunctionBuilder with the given parameter names and function name. 
+      - If the result of this Builder is an UndefinedFunction script object, and is given to a DefineBuilder as the first argument, that DefineBuilder will then define the UndefinedFunction in the environment variables, so next time the function name is looked up, it will be found in the environment!
+    - Else, return an UndefinedFunctionBuilder with an ErrorScriptObject. 
 **** Purpose
-To represent a the language in objects, rather than plain text.
-To destringify it. 
-That logic can be put in one place, the lexer.
-Each token then knows what it is, and knows what builder to get. 
-This separates the text representation of the scripting language, from the objects it creates.
+-To represent a the language in objects, rather than plain text.
+-That logic can be put in one place, the lexer.
+-Each token then knows what it is, and knows what builder to get. 
+-This separates the text representation of the scripting language from the objects it creates.
 
 ** ScriptEvaluator 
 *** Environment Subsystem
 **** Environment 
-An environment frame.
-Holds a map of strings to defined variables, and a BuilderFactory.
+-An environment frame.
+-Holds a map of strings to defined variables, and a BuilderFactory.
 **** EnvrionmentList
-The Environment for the language.
-Contains a list of Environments, and operations to check from the most recently defined to the original, global env if a variable, or builder is defined.
-Can also manage and remove environments. 
-Calling a function will add a frame to this, exiting a function removes said frame.
+-The Environments for the language.
+-Contains a list of Environments, and operations to check from the most recently defined to the original, global env if a variable, or builder is defined.
+-Can also manage and remove environments. 
+-Calling a function will add a frame to this, exiting a function removes said frame.
 **** BuilderFactory
-Holds the builder prototypes in a map. 
-Can add, and retrieve them from the map. 
+-Holds the builder prototypes in a map. 
+-Can add and retrieve them from the map. 
 
 *** Builder subsystem
 The meat of this system.
@@ -656,34 +653,34 @@ Generally, one for each ScriptObject subclass.
 - See the UML for a complete list.
 The goal of these builders is to know how to construct a ScriptObject. 
 Adding a new object just requires adding a new builder for it, and then adding a new method.
-Only the appropriate sub Builders need to care about said new ScriptObject, so unlike with the usual visiter pattern, not all the Builder Visiters need to be updated. 
+Only the appropriate subclass Builders need to care about said new ScriptObject. Unlike with the usual Visitor pattern, not all the Builder Visitors need to be updated. 
 
-They encapsulate building a script object.
+-They encapsulate building a script object.
 
-See the Builder section earlier for more info.
+-See the Builder section earlier for more info.
 
 *** RenderedCard
-A simple POD class, holds the rendered images of the card, plus it's name.
+A simple "Plain Old Data" class, holds the rendered images of the card along with its name.
 
 
 ** Interactions
-The ScriptEvaluator implementor is what will go through the tokens, and run the constructor process on the builder.
+The ScriptEvaluator implementor is what will iterate through the tokens, and run the constructor process on the builder.
 The driver gets a Lexer from said implementor, and then uses that lexer to make Tokens.
-The driver then uses the ScriptEvaluator to eval those tokens. 
+The driver then uses the ScriptEvaluator to evaluate those tokens. 
 The tokens know what builder to make, and may do some small configuration to it. 
 Then the builders get directed, as said above. 
 When all the tokens are finished, the driver will retrieve the rendered cards.
 
 *** CardRepresentation system and Decal interactions
-- The ScriptEvaluator interacts with the CardRepresentation, and Decals fairly heavily.
+- The ScriptEvaluator interacts with the CardRepresentation and Decals fairly heavily.
   - The builders create decals, and place them in leaf-layouts.
-  - The builders create, and assemble layouts.
-  - The builders create cards, and give them layouts.
+  - The builders create and assemble layouts.
+  - The builders create cards and give them layouts.
   - The builders create families.
-  - Render will call .render on a card, with the given families.
-    - After doing this, the result will be stored
-  - All objects defined are stored in the environment of the ScriptEvaluator
+  - Render will call "render" on a card, with the given families.
+    - After doing this, the result will be stored.
+  - All objects defined are stored in the environment of the ScriptEvaluator.
 ** Note on Lexer + ScriptEvaluator interfaces
-Parallel hierarchy!
-For each language supported, there will be a ScriptEvaluator + a Lexer implementor pair for it!
+-Parallel hierarchy!
+-For each language supported, there will be a ScriptEvaluator and Lexer implementor pair for it!
 
