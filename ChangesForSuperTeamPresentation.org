@@ -39,3 +39,4 @@ Can add more a new builder at runtime.
   - Add text for section 5.12 (Abstract Factory with Prototypes)
   - Fix all instances of "paramatized" to "parameterized".
   - "Visiter" --> "Visitor"
+  - Fix lists from hyphens without spaces after them
