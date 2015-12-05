@@ -416,7 +416,7 @@ The adapter pattern is used for our Image class. Our image class will not be abl
 - *Purpose:* 
 The Driver will be the first thing the program will call and it will invoke all the other functions. In essence the Driver is our main.
 - *Interaction:*  
-The Driver will first call the Options class and parse through the config file. Aftwerwards the Driver will make the scriptEvaluator which will keep track of the script directory and make the appropriate Lexor. The evaluator will then use all the tokens outputted from the Lexor, throw it through the Builder Factory and construct the appropriate objects. In the end the evaluator returns the rendered cards to the Driver, who sends it to the Output class for it to be written and saved.
+The Driver will first call the Options class and parse through the config file. Afterwards the Driver will make the scriptEvaluator which will keep track of the script directory and make the appropriate Lexor. The evaluator will then use all the tokens outputted from the Lexor, throw it through the Builder Factory and construct the appropriate objects. In the end the evaluator returns the rendered cards to the Driver, who sends it to the Output class for it to be written and saved.
 
 Will also load any builders requested to be loaded, and place them in the ScriptEvaluators environment.
 - *Design Patterns it belongs:*
