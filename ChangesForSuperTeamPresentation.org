@@ -1,5 +1,3 @@
-* Shape is no longer a decal type, with implementors for each shape.
-
 * Layouts have a shape
 ** DONE Need to update layout builder
 ** DONE - uses a list
