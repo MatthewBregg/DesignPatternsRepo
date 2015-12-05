@@ -43,6 +43,8 @@ ScriptEvaluator : doParse(Token) : ScriptObject
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCard>
 ScriptEvaluator : addRenderedCard(rc:RenderedCard)
 ScriptEvaluator : getEnvironmentList() : EnvironmentList
+ScriptEvaluator : getBuilderFromEnv(name:String): ScriptObjectBuilder
+ScriptEvaluator : getScriptObjectFromEnv(name:String): ScriptObject
 
 ScriptEvaluator : addToTopEnv(name:String,obj:ScriptObject):void
 ScriptEvaluator : addToTopEnv(name:String,builder:ScriptObjectBuilder):void
