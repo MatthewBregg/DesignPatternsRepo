@@ -65,13 +65,16 @@
 
   void main() {
       Options options = new OptionsParser(defaultOptionsFilePath);
-      exitIfErors(options);
+      exitIfErrors(options);
 
       ScriptEvaluator evaluator = new LispScriptEvaluator();
 
       Lexer lexer = evaluator.getLexer();
+      //Add all the builders
+      //Get any builder java files loaded from options, load them in
+      //Read the std-functions.script file, eval it.
       evaluator.evalTokens(lexer.tokenizeFile(options.scriptFile()));
-      exitIfErors(options);
+      exitIfErrors(options);
 
 
 
