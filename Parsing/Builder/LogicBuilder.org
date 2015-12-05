@@ -1,0 +1,93 @@
+#+BEGIN_SRC plantuml :file LogicOperationBuilder.png
+skinparam dpi 300
+
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
+class LogicOperationBuilder
+LogicOperationBuilder : getResult()
+LogicOperationBuilder : getLogicOperation():LogicOperaton
+LogicOperationBuilder : operation:LogicOperaton
+LogicOperationBuilder : addScriptObject(s:ScriptObject)
+
+
+ScriptObjectBuilder <|-- LogicOperationBuilder
+
+
+interface LogicOperation<<interface>>
+LogicOperation : {abstract}operate(lhs:ScriptObject,rhs:ScriptObject):boolean
+
+
+class EqualOperation
+EqualOperation : operate(lhs:ScriptObject,rhs:ScriptObject):boolean
+note top : Uses .equals on the two objects.
+class NotEqualOperation
+NotEqualOperation : operate(lhs:ScriptObject,rhs:ScriptObject):boolean
+note top : Uses .equals on the two objects, inverts result. 
+
+LogicOperationBuilder -> LogicOperation
+
+LogicOperation <|.. EqualOperation
+LogicOperation <|.. NotEqualOperation
+
+
+abstract class State as "{abstract}\nState"
+State : sb:LogicOperationBuilder
+State : getBuilder()
+State : getResult()
+State : addScriptObject(s:ScriptObject)
+
+note top : All methods will by default sent sb to error state. \n Except getResult, which also returns error script object, \n and getBuilder, which just returns builder.
+
+class ZeroOperatorState
+ZeroOperatorState : getResult()
+ZeroOperatorState : addScriptObject(s:ScriptObject)
+note top of ZeroOperatorState 
+  getResult : set sb to error state
+  addScriptObject : Go to new OneOperatorState, giving s as a parameter. 
+end note
+
+class OneOperatorState
+OneOperatorState : a : ScriptObject
+OneOperatorState : getResult()
+OneOperatorState : addScriptObject(s:ScriptObject)
+
+note top of OneOperatorState 
+  getResult : set sb to error state
+  addScriptObject : Go to new TwoOperatorState, giving a, and s as parameters. 
+end note
+
+class TwoOperatorState
+TwoOperatorState : a : ScriptObject
+TwoOperatorState : b : ScriptObject
+TwoOperatorState : getResult()
+TwoOperatorState : addDouble(d:DoubleScriptWrapper)
+
+note top of TwoOperatorState 
+  getResult : Return a script object
+    With the value being the result of calling sb.getLogicOperation().operate(a,b)
+      If sb.getLogicOperation().operate(a,b) returns true, then return "#t", else return "#f". 
+      In both cases, wrap the string in a StringScriptObject
+  addScriptObject : set sb to new error state
+end note
+
+
+class ErrorState
+
+note top : Only getResult does something, which is return error script object. \n All other methods overriden to do nothing, as already in error state!
+
+
+LogicOperationBuilder +-- State
+State <|-- ZeroOperatorState
+State <|-- OneOperatorState
+State <|-- TwoOperatorState
+State <|-- ErrorState
+
+note "The logic builder will be made with each of these different logic operations,\n and placed in the global environment of whatever ScriptEvaluator is used,\n with the symbols !=,== as appropriate,\n to provide basic logic comparisons." as n1
+#+END_SRC
+
+#+RESULTS:
+[[file:LogicOperationBuilder.png]]
+

@@ -47,6 +47,24 @@ Takes a card-size, name, and two layouts, one for the front, one for the back, a
 (card card-size "name" frontLayout backLayout shape)
 #+END_SRC
 When a card is rendered, it will pair the layout with the wholeCard position-scaled (0 0 100 100)
+*** If statements
+The language has basic support for if statements. 
+The language takes in three s expressions, the first is evaluated, if it is "#f", then the third token is evaluated, and the result returned.
+If it is anything else, then the second token is evaluated, and the result returned. 
+#+BEGIN_SRC scheme
+(define x...
+(define y...
+(if "#f" 3 4)
+(if (== x y) (layout "foo") (layout "bar"))
+#+END_SRC
+**** Logic Operators
+The language supports two logic operators, ==, and !=. 
+These return "#f", or "#t".
+#+BEGIN_SRC scheme
+(!= "foo" "bar")
+
+#+END_SRC
+
 
 *** render
 Takes in a single card, a list of cards, or a pair of cards, and 0-n families.
