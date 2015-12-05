@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>2886</x>
-      <y>1092</y>
+      <y>1378</y>
       <w>624</w>
       <h>117</h>
     </coordinates>
@@ -13,7 +13,7 @@
 --
 - key:String
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape,option:Char): Image
 
 </panel_attributes>
     <additional_attributes/>
@@ -22,7 +22,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>2184</x>
-      <y>1066</y>
+      <y>1352</y>
       <w>637</w>
       <h>130</h>
     </coordinates>
@@ -38,7 +38,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>1027</x>
-      <y>1040</y>
+      <y>1326</y>
       <w>494</w>
       <h>195</h>
     </coordinates>
@@ -57,7 +57,7 @@
     <id>Relation</id>
     <coordinates>
       <x>1196</x>
-      <y>975</y>
+      <y>1261</y>
       <w>767</w>
       <h>91</h>
     </coordinates>
@@ -68,8 +68,8 @@
     <id>UMLClass</id>
     <coordinates>
       <x>1950</x>
-      <y>663</y>
-      <w>559</w>
+      <y>949</y>
+      <w>650</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
@@ -77,7 +77,7 @@
 --
 
 --
-/+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image/
+/+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape,option:char): Image/
 + acceptBuilder(v ScriptObjectBuilder): void
 
 </panel_attributes>
@@ -87,7 +87,7 @@
     <id>Relation</id>
     <coordinates>
       <x>1755</x>
-      <y>962</y>
+      <y>1248</y>
       <w>598</w>
       <h>130</h>
     </coordinates>
@@ -98,7 +98,7 @@
     <id>Relation</id>
     <coordinates>
       <x>2171</x>
-      <y>975</y>
+      <y>1261</y>
       <w>377</w>
       <h>117</h>
     </coordinates>
@@ -109,7 +109,7 @@
     <id>Relation</id>
     <coordinates>
       <x>2171</x>
-      <y>598</y>
+      <y>884</y>
       <w>39</w>
       <h>91</h>
     </coordinates>
@@ -120,7 +120,7 @@
     <id>UMLNote</id>
     <coordinates>
       <x>1417</x>
-      <y>546</y>
+      <y>832</y>
       <w>377</w>
       <h>91</h>
     </coordinates>
@@ -134,7 +134,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1781</x>
-      <y>546</y>
+      <y>832</y>
       <w>195</w>
       <h>39</h>
     </coordinates>
@@ -145,7 +145,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>1391</x>
-      <y>650</y>
+      <y>936</y>
       <w>507</w>
       <h>130</h>
     </coordinates>
@@ -162,7 +162,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1885</x>
-      <y>715</y>
+      <y>1001</y>
       <w>91</w>
       <h>39</h>
     </coordinates>
@@ -173,7 +173,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1547</x>
-      <y>1066</y>
+      <y>1352</y>
       <w>624</w>
       <h>117</h>
     </coordinates>
@@ -188,7 +188,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>2639</x>
-      <y>793</y>
+      <y>1079</y>
       <w>559</w>
       <h>169</h>
     </coordinates>
@@ -210,7 +210,7 @@ LayeringDecalDecorator
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>2418</x>
-      <y>273</y>
+      <y>559</y>
       <w>857</w>
       <h>688</h>
     </coordinates>
@@ -220,19 +220,19 @@ LayeringDecalDecorator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2496</x>
-      <y>702</y>
-      <w>169</w>
+      <x>2587</x>
+      <y>988</y>
+      <w>78</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;40.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
       <x>2691</x>
-      <y>377</y>
+      <y>663</y>
       <w>377</w>
       <h>351</h>
     </coordinates>
@@ -254,7 +254,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>2821</x>
-      <y>715</y>
+      <y>1001</y>
       <w>39</w>
       <h>104</h>
     </coordinates>
@@ -265,7 +265,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1950</x>
-      <y>546</y>
+      <y>832</y>
       <w>429</w>
       <h>65</h>
     </coordinates>
@@ -278,7 +278,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>299</x>
-      <y>546</y>
+      <y>832</y>
       <w>468</w>
       <h>78</h>
     </coordinates>
@@ -291,7 +291,7 @@ ShapeVisiter
     <id>UMLNote</id>
     <coordinates>
       <x>2730</x>
-      <y>1599</y>
+      <y>1885</y>
       <w>377</w>
       <h>182</h>
     </coordinates>
@@ -308,7 +308,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>2977</x>
-      <y>1196</y>
+      <y>1482</y>
       <w>39</w>
       <h>429</h>
     </coordinates>
@@ -319,7 +319,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>234</x>
-      <y>689</y>
+      <y>975</y>
       <w>468</w>
       <h>273</h>
     </coordinates>
@@ -329,6 +329,7 @@ DecalRenderingVisiter
 - color : Color
 - families : ArrayList&lt;Family&gt;
 - size : Size
+- option : char
 --
 + getColor() : Color
 + getSize() : Size
@@ -336,6 +337,7 @@ DecalRenderingVisiter
 + setFamilies(f:ArrayList&lt;Family&gt;
 + setSize(s:Size)
 + setColor(c:Color)
++ setOption(option:char)
 /+ getImage() : Image/
 
 </panel_attributes>
@@ -345,7 +347,7 @@ DecalRenderingVisiter
     <id>UMLNote</id>
     <coordinates>
       <x>832</x>
-      <y>624</y>
+      <y>910</y>
       <w>507</w>
       <h>325</h>
     </coordinates>
@@ -373,7 +375,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>208</x>
-      <y>1001</y>
+      <y>1287</y>
       <w>468</w>
       <h>182</h>
     </coordinates>
@@ -395,7 +397,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>208</x>
-      <y>1248</y>
+      <y>1534</y>
       <w>468</w>
       <h>169</h>
     </coordinates>
@@ -416,7 +418,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>208</x>
-      <y>1469</y>
+      <y>1755</y>
       <w>468</w>
       <h>182</h>
     </coordinates>
@@ -437,7 +439,7 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>1300</x>
-      <y>819</y>
+      <y>1105</y>
       <w>649</w>
       <h>64</h>
     </coordinates>
@@ -448,7 +450,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>1534</x>
-      <y>1352</y>
+      <y>1638</y>
       <w>507</w>
       <h>130</h>
     </coordinates>
@@ -464,7 +466,7 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>1365</x>
-      <y>1196</y>
+      <y>1482</y>
       <w>207</w>
       <h>181</h>
     </coordinates>
@@ -475,7 +477,7 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>1690</x>
-      <y>1144</y>
+      <y>1430</y>
       <w>181</w>
       <h>233</h>
     </coordinates>
@@ -486,7 +488,7 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>1820</x>
-      <y>1157</y>
+      <y>1443</y>
       <w>454</w>
       <h>220</h>
     </coordinates>
@@ -497,9 +499,9 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>468</x>
-      <y>585</y>
-      <w>52</w>
-      <h>117</h>
+      <y>871</y>
+      <w>64</w>
+      <h>129</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>39;39;39;104</additional_attributes>
@@ -508,9 +510,9 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>0</x>
-      <y>806</y>
-      <w>247</w>
-      <h>52</h>
+      <y>1092</y>
+      <w>259</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>234;39;39;39</additional_attributes>
@@ -519,9 +521,9 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>0</x>
-      <y>806</y>
-      <w>52</w>
-      <h>806</h>
+      <y>1092</y>
+      <w>64</w>
+      <h>818</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>39;39;39;793</additional_attributes>
@@ -530,7 +532,7 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>0</x>
-      <y>1560</y>
+      <y>1846</y>
       <w>234</w>
       <h>65</h>
     </coordinates>
@@ -541,9 +543,9 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>0</x>
-      <y>1300</y>
-      <w>221</w>
-      <h>52</h>
+      <y>1586</y>
+      <w>233</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>208;39;39;39</additional_attributes>
@@ -552,9 +554,9 @@ bg=blue</panel_attributes>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>0</x>
-      <y>1053</y>
-      <w>221</w>
-      <h>52</h>
+      <y>1339</y>
+      <w>233</w>
+      <h>64</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
     <additional_attributes>208;39;39;39</additional_attributes>
@@ -562,9 +564,9 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1846</x>
-      <y>273</y>
-      <w>559</w>
+      <x>1677</x>
+      <y>572</y>
+      <w>650</w>
       <h>156</h>
     </coordinates>
     <panel_attributes>CropDecalDecorator
@@ -572,7 +574,7 @@ bg=blue</panel_attributes>
 - toBeCropped : Decal
 - pos : PositionScaled 
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape,option:char): Image
 
 
 </panel_attributes>
@@ -581,16 +583,16 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1846</x>
-      <y>91</y>
-      <w>559</w>
+      <x>1768</x>
+      <y>377</y>
+      <w>624</w>
       <h>156</h>
     </coordinates>
     <panel_attributes>CornerRoundingDecalDecorator
 --
 - decal : Decal
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape,option:char): Image
 
 
 </panel_attributes>
@@ -599,9 +601,9 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2483</x>
-      <y>91</y>
-      <w>559</w>
+      <x>2613</x>
+      <y>351</y>
+      <w>637</w>
       <h>156</h>
     </coordinates>
     <panel_attributes>RotateDecalDecorator
@@ -610,7 +612,7 @@ bg=blue</panel_attributes>
 - angle : double
 
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape,option:char): Image
 
 
 </panel_attributes>
@@ -620,7 +622,7 @@ bg=blue</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>1365</x>
-      <y>78</y>
+      <y>364</y>
       <w>377</w>
       <h>91</h>
     </coordinates>
@@ -633,40 +635,40 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1729</x>
-      <y>117</y>
-      <w>143</w>
+      <y>403</y>
+      <w>65</w>
       <h>39</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;30.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1729</x>
-      <y>117</y>
-      <w>143</w>
-      <h>182</h>
+      <x>1664</x>
+      <y>403</y>
+      <w>104</w>
+      <h>195</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;90.0;120.0</additional_attributes>
+    <additional_attributes>60.0;10.0;10.0;130.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1729</x>
-      <y>0</y>
-      <w>819</w>
+      <y>286</y>
+      <w>949</w>
       <h>117</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;540.0;10.0;610.0;70.0</additional_attributes>
+    <additional_attributes>10.0;70.0;540.0;10.0;710.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2418</x>
-      <y>234</y>
+      <y>520</y>
       <w>39</w>
       <h>455</h>
     </coordinates>
@@ -676,52 +678,52 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2392</x>
-      <y>143</y>
-      <w>65</w>
+      <x>2379</x>
+      <y>429</y>
+      <w>78</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>30.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>40.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>2418</x>
-      <y>156</y>
-      <w>91</w>
-      <h>117</h>
+      <y>416</y>
+      <w>221</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;70.0;50.0;10.0</additional_attributes>
+    <additional_attributes>10.0;90.0;150.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2353</x>
-      <y>234</y>
-      <w>104</w>
-      <h>65</h>
+      <x>2184</x>
+      <y>520</y>
+      <w>273</w>
+      <h>78</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;30.0</additional_attributes>
+    <additional_attributes>190.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>2405</x>
-      <y>208</y>
-      <w>181</w>
-      <h>480</h>
+      <y>455</y>
+      <w>233</w>
+      <h>519</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>39;455;39;78;156;39</additional_attributes>
+    <additional_attributes>39;494;39;117;208;39</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
       <x>2288</x>
-      <y>390</y>
+      <y>676</y>
       <w>207</w>
       <h>298</h>
     </coordinates>
@@ -731,19 +733,19 @@ bg=blue</panel_attributes>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>1755</x>
-      <y>208</y>
-      <w>220</w>
-      <h>480</h>
+      <x>1417</x>
+      <y>481</y>
+      <w>558</w>
+      <h>493</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>195;455;39;247;91;39</additional_attributes>
+    <additional_attributes>533;468;39;130;351;39</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>3328</x>
-      <y>897</y>
+      <y>1183</y>
       <w>559</w>
       <h>156</h>
     </coordinates>
@@ -760,7 +762,7 @@ bg=blue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>3913</x>
-      <y>897</y>
+      <y>1183</y>
       <w>559</w>
       <h>156</h>
     </coordinates>
@@ -778,7 +780,7 @@ InvetedMaskDecalDecorator
     <id>Relation</id>
     <coordinates>
       <x>3185</x>
-      <y>767</y>
+      <y>1053</y>
       <w>884</w>
       <h>156</h>
     </coordinates>
@@ -789,8 +791,8 @@ InvetedMaskDecalDecorator
     <id>UMLClass</id>
     <coordinates>
       <x>1924</x>
-      <y>845</y>
-      <w>559</w>
+      <y>1131</y>
+      <w>650</w>
       <h>130</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
@@ -798,7 +800,7 @@ InvetedMaskDecalDecorator
 --
 
 --
-+ render(families ArrayList&lt;Families&gt;, size Size,s:Shape): Image
++ render(families ArrayList&lt;Families&gt;, size Size,s:Shape,option:char): Image
 /# getDecalRenderer():DecalRenderingVisiter/
 
 </panel_attributes>
@@ -808,7 +810,7 @@ InvetedMaskDecalDecorator
     <id>Relation</id>
     <coordinates>
       <x>2158</x>
-      <y>780</y>
+      <y>1066</y>
       <w>273</w>
       <h>91</h>
     </coordinates>
@@ -818,12 +820,12 @@ InvetedMaskDecalDecorator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2496</x>
-      <y>780</y>
-      <w>416</w>
+      <x>2587</x>
+      <y>1066</y>
+      <w>325</w>
       <h>338</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;80.0;130.0;300.0;240.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;230.0;240.0</additional_attributes>
   </element>
 </diagram>
