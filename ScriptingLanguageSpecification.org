@@ -64,6 +64,9 @@ These return "#f", or "#t".
 (!= "foo" "bar")
 
 #+END_SRC
+**** NOTE
+Using "#f" and "#t" rather than #t #f, small variation from normal lisp.
+
 
 
 *** render
