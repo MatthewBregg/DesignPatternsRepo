@@ -17,6 +17,19 @@ For detail of how the systems interact internally, see each system.
 * Plugins
 Custom builders can be written, and then loaded in at runtime.
 See the config section of the Script Specification for details. 
+* Turing Complete
+To quote Wikipedia, 
+#+BEGIN_QUOTE
+Turing complete if it has conditional branching (e.g., "if" and "goto" statements, or a "branch if zero" instruction. See OISC) and the ability to change an arbitrary amount of memory locations (e.g., the ability to maintain an arbitrary number of variables).
+#+END_QUOTE
+#+BEGIN_SRC 
+Wikipedia contributors. "Turing completeness." Wikipedia, The Free 
+   Encyclopedia. Wikipedia, The Free Encyclopedia, 15 Oct. 2015. Web. 5 Dec. 2015.
+
+#+END_SRC
+- Our language has
+  - If statements
+  - Ability to define variables
  
 * General Goals, and Overview
 ** What features the system has
