@@ -165,6 +165,48 @@ A string from a given font.
 (string "Hello World!" "Arial.font" "Red" 12)
 (string "1" "Arial.font" "Red" 12)
 #+END_SRC
+- Mask Decal
+  - Takes a decal, foo, and has the non transparent portions of foo replaced with corresponding portions of bar. What portion of bar maps to what portion of foo is determined by the position scaled.
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foo.png"))
+(define bar-decal (image "bar.png"))
+(mask-decal foo-decal bar-decal (position-scaled 0 0 100 100))
+    #+END_SRC
+  - Example of effect, mask would leave transparent back ground.
+  file:Examples/godzilla-text-poster.jpg
+- Inverted Mask Decal
+  - Takes a decal, foo, and a decal bar, and has the non transparent parts of bar removed from foo, leaving a bar shaped hole in foo.
+  - The position is used to determine where bar should be cut from foo.
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foo.png"))
+(define bar-decal (image "bar.png"))
+(inverted-mask-decal foo-decal bar-decal (position-scaled 0 0 100 100))
+    #+END_SRC
+  - Example: A circle hollowed out
+    file:Examples/black-circle.png
+- Rotate Decal 
+  - Takes in a decal, and a number, and returns a rotated version of that decal
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foobar.png"))
+(rotate-decal foo-decal 90)
+;;Returns a decal rotates 90 degrees.
+    #+END_SRC
+- Corner Rounding Decal
+  - Takes a decal, and rounds the corners. 
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foobar.png"))
+(corner-rounder foo-decal)
+;;Returns a decal with its corners rounded.
+    
+    #+END_SRC
+- Crop Decal 
+  - Takes in a decal, and a position-scaled, crops the decal to the area the position-scaled defines.
+#+BEGIN_SRC scheme
+(define foo-decal (image "foobar.png"))
+(crop-decal foo-decal (position-scaled 50 50 50 50))
+;;Returns a decal cropped to the middle.
+
+#+END_SRC
 *** Shapes
 - Rectangle
 #+BEGIN_SRC 
@@ -200,6 +242,7 @@ A size is used by a card to determine how many pixels it will be.
 #+BEGIN_SRC 
 (size width height)
 #+END_SRC
+
 
 
 
