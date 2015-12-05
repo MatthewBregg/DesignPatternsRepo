@@ -535,7 +535,7 @@ Number Operation Builder
 *** Why we used?
 Basic number manipulation can be done with some opertation being applied to two numbers, resulting in a third.
 Some operations could be division, adition, etc.
-To make a whole new builder for each one would be a class explosion, so instead, we paramaterize the builder with the correct operation.
+To make a whole new builder for each one would be a class explosion, so instead, we paramaterize the builder with the correct number operation.
 *** Consequences
 - Only one builder is needed to handle any number operation of the form a <some operation> b = c.
 - Extra indirection than a hardcoded method, slightly slower, could potentially be slightly harder to follow, won't know immediately what builder does.

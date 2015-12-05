@@ -8,8 +8,8 @@ hide ScriptObjectBuilder members
 
 class NumberOperationBuilder
 NumberOperationBuilder : getResult()
-NumberOperationBuilder : getOperation():Operaton
-NumberOperationBuilder : operation:Operaton
+NumberOperationBuilder : getNumberOperation():NumberOperaton
+NumberOperationBuilder : operation:NumberOperaton
 NumberOperationBuilder : addDouble(d:DoubleScriptWrapper)
 NumberOperationBuilder : addScriptObject(s:ScriptObject)
 
@@ -17,8 +17,8 @@ NumberOperationBuilder : addScriptObject(s:ScriptObject)
 ScriptObjectBuilder <|-- NumberOperationBuilder
 
 
-interface Operation<<interface>>
-Operation : {abstract}operate(a:double,b:double):double
+interface NumberOperation<<interface>>
+NumberOperation : {abstract}operate(a:double,b:double):double
 
 
 class AddOperation
@@ -32,13 +32,13 @@ MultiplyOperation : operate(a:double,b:double):double
 class ExponentiateOperation
 ExponentiateOperation : operate(a:double,b:double):double
 
-NumberOperationBuilder -> Operation
+NumberOperationBuilder -> NumberOperation
 
-Operation <|.. AddOperation
-Operation <|.. DivideOperation
-Operation <|.. SubtractOperation
-Operation <|.. MultiplyOperation
-Operation <|.. ExponentiateOperation
+NumberOperation <|.. AddOperation
+NumberOperation <|.. DivideOperation
+NumberOperation <|.. SubtractOperation
+NumberOperation <|.. MultiplyOperation
+NumberOperation <|.. ExponentiateOperation
 
 
 abstract class State as "{abstract}\nState"
@@ -56,7 +56,7 @@ ZeroNumState : addDouble(d:DoubleScriptWrapper)
 
 note top of ZeroNumState 
   getResult : set sb to error state
-  addDouble : Go to new OneNumState, giving d as a as parameter. 
+  addDouble : Go to new OneNumState, giving d as a parameter. 
 end note
 
 class OneNumState
@@ -66,7 +66,7 @@ OneNumState : addDouble(d:DoubleScriptWrapper)
 
 note top of OneNumState 
   getResult : set sb to error state
-  addDouble : Go to new TwoNumState, giving a, and d as b as parameters. 
+  addDouble : Go to new TwoNumState, giving a, and d as parameters. 
 end note
 
 class TwoNumState
@@ -77,7 +77,7 @@ TwoNumState : addDouble(d:DoubleScriptWrapper)
 
 note top of TwoNumState 
   getResult : Return DoubleScriptWrapper, 
-    with the value being the result of calling sb.getOperation().operate(a,b)
+    with the value being the result of calling sb.getNumberOperation().operate(a,b)
   addDouble : set sb to new error state
 end note
 
@@ -93,7 +93,7 @@ State <|-- OneNumState
 State <|-- TwoNumState
 State <|-- ErrorState
 
-note "The number builder will be made with each of these different operations,\n and placed in the global environment of whatever ScriptEvaluator is used,\n with the symbols +,-,/,*,^ as appropriate,\n to provide basic number manipulation." as n1
+note "The number builder will be made with each of these different number operations,\n and placed in the global environment of whatever ScriptEvaluator is used,\n with the symbols +,-,/,*,^ as appropriate,\n to provide basic number manipulation." as n1
 #+END_SRC
 
 #+RESULTS:
