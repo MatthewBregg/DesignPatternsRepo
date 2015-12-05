@@ -124,7 +124,7 @@ Option : LogFile() : Path
 class Output
 Output : outputPath : Path
 Output : format : OutputFormat
-Output : writeCardToDisk(c:Card)
+Output : writeCardToDisk(rc:RenderedCard)
 Output : Output(o:Option)
 note bottom of Output
  Converts the lossless PNG Images to the output format,
