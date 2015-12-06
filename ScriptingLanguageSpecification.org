@@ -204,6 +204,8 @@ A string from a given font.
 (inverted-mask-decal foo-decal bar-decal (position-scaled 0 0 100 100))
     #+END_SRC
   - Example: A circle hollowed out
+
+    #+ATTR_LATEX: :width 3cm
     file:Examples/black-circle.png
 - Rotate Decal 
   - Takes in a decal, and a number, and returns a rotated version of that decal
