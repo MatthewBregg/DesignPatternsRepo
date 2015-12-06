@@ -93,7 +93,6 @@ Takes in a n arguments, and returns a list of them.
 #+END_SRC
 *** position-scaled
 Takes in a x-offset%, y-offset%, and a scale-width% and scale-height%, and returns a position-scaled object. 
-- The two scale arguments are optional, default to 100.
 #+BEGIN_SRC scheme
 (position-scaled x-offset% y-offset% scale-width% scale-height%)
 (position-scaled 0 0 50 50)
@@ -252,12 +251,6 @@ A string from a given font.
 #+BEGIN_SRC 
 (circle radius)
 (Circle 100)
-#+END_SRC
-*** Position-Scaleds
-A position-scaled that can be used in the script
-#+BEGIN_SRC 
-(position-scaled x-offset% y-offset% scale-width% scale-height%)
-(position-scaled 0 0 100 100) 
 #+END_SRC
 
 *** Size

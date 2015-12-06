@@ -1,6 +1,8 @@
-#+AUTHOR: Matthew Bregg, Brandon Duong, Ian Fell, Ervis Shqiponja
+#+AUTHOR:
+#+TITLE: 
+#+DATE:
 #+LATEX_HEADER: \usepackage[margin=1.0in]{geometry}
-* Overall System, How all these sub systems interact
+* Overall System, Subsystem Components from each Subteam
 The driver system gets everything going, and runs things at the highest level perspective.
 It's what reads in the initial options, sets the ScriptEvaluator, and makes the ScriptEvaluator.
 
@@ -17,6 +19,44 @@ For detail of how the systems interact internally, see each system.
 * Plugins
 Custom builders can be written, and then loaded in at runtime.
 See the config section of the Script Specification for details. 
+
+* What we took from each project
+** Indonesia
+- The card representation being two systems
+  - The composite structure, and the visual representation for each position.
+  - Rather than each leaf being subclassed for each possible visual form, 
+    we separate the systems, and have leaf message forward to decal
+    which is an abstract class that represents something visual.
+- The scripting language itself, although it was greatly extended. 
+- Tokenizing the language.
+- Most of the parsing portion.
+  - Antiquities parsing specs were very high level, and we decided to focus 
+    on ours, which were more in detail,
+    and could be "implemented by a monkey"
+  - This includes the builders. 
+    
+
+** Antiquity 
+- Idea of layouts have shapes.
+- Shapes not being at all tied to decals
+- The way that layouts are rendered. This behavior was moved out into a visiter.
+
+- Shapes
+- Color decal
+
+** Both
+- We both came to a similar composite representation of a card.
+  - Indonesia used layouts
+  - Antiquity used panels
+  - Both had very similar functions, we took the layout name, but our layouts are mostly their panels. 
+- Using the visiter pattern in parsing.
+  
+** Neither, new ideas.
+- Standard library of functions implemented in language, to allow easy extension of new convenience features. 
+- If statements, which brings us to turing completeness.
+- Decal decorators for basic image operations. 
+- Plugins, dynamically loading builders.
+- Loading builders from an xml file into the environment.
 * Turing Complete
 To quote Wikipedia, 
 #+BEGIN_QUOTE
