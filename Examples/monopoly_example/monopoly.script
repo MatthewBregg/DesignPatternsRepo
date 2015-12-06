@@ -10,7 +10,7 @@
   (layout
    (list (layout color-decal "black") (position-scaled 5 5 85 20) rectangleHeader)
    ;; create a black rectangle
-   (list (layout color-decal "black") (position-scaled 5.5 5.5 85.5 20.5) rectangleHeader)
+   (list (layout color-decal "white") (position-scaled 5.5 5.5 85.5 20.5) rectangleHeader)
    ;; creating an arbitrary colored rectangle
    )
   )

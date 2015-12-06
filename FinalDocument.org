@@ -6,29 +6,30 @@
 The driver system gets everything going, and runs things at the highest level perspective.
 It's what reads in the initial options, sets the ScriptEvaluator, and makes the ScriptEvaluator.
 
-The driver then will let options get the correct file, and then get the Lexer from the ScriptEvaluator, tokenize the file, eval the tokens.
-Then, it will take the RenderedCard list, give each card to output, with options.
-Output will then write the card to disk.
-The program is then done, exit, printing any information left in logger. 
+The driver then will let Options get the correct file, and then get the Lexer from the ScriptEvaluator, tokenize the file, and evaluate the tokens.
+Then, it will take the RenderedCard list and give each card to output, with options.
+Output will then write the card to disk in the specified output file format.
+The program is then done and will exit, printing any information left in the logger. 
 
-Note that during each step, the Driver checks logger for errors, and decides if it should abort. 
+Note that during each step, the Driver checks the logger for errors, and decides if it should abort. 
 
 This describes the highest level of how the systems interact.
 For detail of how the systems interact internally, see each system.
 
 * Plugins
 Custom builders can be written, and then loaded in at runtime.
-See the config section of the Script Specification for details. 
+See the config section of the Script Specification for details.
+This allows for the language to add functionality at runtime by adding a feature to text file without having to recompile. This effectively adds keywords to the scripting language.
 
 * What we took from each project
 ** Indonesia
-- The card representation being two systems
+- The card representation as two systems:
   - The composite structure, and the visual representation for each position.
   - Rather than each leaf being subclassed for each possible visual form, 
-    we separate the systems, and have leaf message forward to decal
-    which is an abstract class that represents something visual.
+    we separate the systems, and have leaf messages forwarded to Decal,
+    which is an abstract class that represents visual elements.
 - The scripting language itself, although it was greatly extended. 
-- Tokenizing the language.
+- Tokenizing the language through the use of a recursive descent parser.
 - Most of the parsing portion.
   - Antiquities parsing specs were very high level, and we decided to focus 
     on ours, which were more in detail,
@@ -36,20 +37,20 @@ See the config section of the Script Specification for details.
   - This includes the builders. 
     
 
-** Antiquity 
-- Idea of layouts have shapes.
-- Shapes not being at all tied to decals
-- The way that layouts are rendered. This behavior was moved out into a visiter.
-
+** Antiquity
+- Idea of layouts having shapes.
+- Shapes being decoupled from decals.
+- The way that layouts are rendered. This behavior was moved out into a Visitor.
 - Shapes
 - Color decal
+- The scripting language was much more simplified and easier to understand for non-programmers, but was less extensible than Indonesia's Sheme-based script.
 
 ** Both
-- We both came to a similar composite representation of a card.
+- We both came to a similar Composite representation of a card.
   - Indonesia used layouts
   - Antiquity used panels
-  - Both had very similar functions, we took the layout name, but our layouts are mostly their panels. 
-- Using the visiter pattern in parsing.
+  - Both had very similar functions, we chose the layout name, but layouts are effectively panels. 
+- Using the Visitor pattern in parsing.
   
 ** Neither, new ideas.
 - Standard library of functions implemented in language, to allow easy extension of new convenience features. 
@@ -72,8 +73,8 @@ Wikipedia contributors. "Turing completeness." Wikipedia, The Free
   - Ability to define variables
  
 * General Goals, and Overview
-** What features the system has
-The goal of our project is to design a functional Script-driven card generator (SDCG) system that can output highly customizable cards. Using a lisp-esque inspired script language, the user can easily construct a multitude of unique card decks. The cards will be built from scratch using graphics, images, and text imputed in from the user. The images imputed are easily scalable and can be stretched or specified to maintain its original width, height, or even its aspect ratio. Our design allows for not only an easily customizable front layout, but also one for the back as well. Since most decks will have common patterns found throughout all the cards, we encourage users to make use of the layout component, which will enable the user to reuse and recycle similar base designs when making their cards. Another unique functionality of our design is the family component. With the use of families a user will be able to map user-made strings with specific images.  This is useful when decks are divided into subdecks containing common images in each subdeck, because the added functionality this aspect gives is for cards with similar layouts containing different images. When a user renders a card, it asks for the family as well, and will render all the images that are mapped with any of the keys it finds. This will render the appropriate image based on the key the user built the card or layout with. Lastly, our script language allows the construction of functions to help aid in process of creating your deck. Functions allow the user to create layouts with generic variable arguments that can be passed in when creating or rendering objects.
+** System Features
+The goal of our project is to design a functional Script-driven card generator (SDCG) system that can output highly customizable cards. Using a lisp-esque inspired script language, the user can easily construct a multitude of unique card decks. The cards will be built from scratch using graphics, images, and text imputed in from the user. The images inputed are easily scalable and can be stretched or specified to maintain its original width, height, or even its aspect ratio. Our design allows for not only an easily customizable front layout, but also one for the back as well. Since most decks will have common patterns found throughout all the cards, we encourage users to make use of the layout component, which will enable the user to reuse and recycle similar base designs when making their cards. Another unique functionality of our design is the family component. With the use of families a user will be able to map user-made strings with specific images.  This is useful when decks are divided into subdecks containing common images in each subdeck, because the added functionality this aspect gives is for cards with similar layouts containing different images. When a user renders a card, it asks for the family as well, and will render all the images that are mapped with any of the keys it finds. This will render the appropriate image based on the key the user built the card or layout with. Lastly, our script language allows the construction of functions to help aid in process of creating your deck. Functions allow the user to create layouts with generic variable arguments that can be passed in when creating or rendering objects.
 
 ** Scripting Language Specifications
 #+INCLUDE: "./ScriptingLanguageSpecification.org"
@@ -161,7 +162,7 @@ It is an abstract class which will be declaring the interface for all the concre
 - *Interaction:*  
 This class does not inherit from any other classes, however it serve as a base class for all other components, which will be inheriting from this.
 - *Design Patterns it belongs:*
-This class is only part of the visiter pattern explicitly, but lots of design patterns will be used in its subclasses and by overriding its method.
+This class is only part of the visitor pattern explicitly, but lots of design patterns will be used in its subclasses and by overriding its method.
 
 
 ** ComponentLayout Class
@@ -211,7 +212,7 @@ It is a POD, holding a Layout, a PositionScaled, and a Shape.
 Decal provides an interface for something graphical. 
 Separate graphical objects from the rest of the system,
   - Inherits from ScriptObject, and thus, can accept a visitor.
-  - Implements this Visiter method, visiter only ever need to know if something is a decal, not what type, to the Decal Type is the only Decal that implements acceptBuilder.
+  - Implements this Visitor method, visitor only ever need to know if something is a decal, not what type, to the Decal Type is the only Decal that implements acceptBuilder.
 
 *** DecalWithFM
 - *Purpose:* 
@@ -250,10 +251,10 @@ It will be inheriting from the Decal abstract class
 - *Design Patterns it belongs:*
 Implements the FM.
 
-**** Decal Rendering Visiters
-Each Visiter knows how to render either a text, image, or color decal for each shape. 
-The visiter is made by said decal via an FM, and then is accepted by the shape to do the rendering. 
-Paramatized with anything the visitor needs for rendering.
+**** Decal Rendering Visitors
+Each Visitor knows how to render either a text, image, or color decal for each shape. 
+The visitor is made by said decal via an FM, and then is accepted by the shape to do the rendering. 
+Parameterized with anything the visitor needs for rendering.
 
 *** DynamicDecal
 - *Purpose:* 
@@ -296,7 +297,7 @@ Subclasses will override with the accept method as appropriate, and will contain
 **** AnyShape Class
 - List<Point>
   
-*** ShapeVisiter
+*** ShapeVisitor
 Interface for something capable of visiting a Shape.
 Can be implemented for various things like rendering shapes, positioning things inside shapes...
 **** Rendering shape visitor :
@@ -387,53 +388,53 @@ It will not be inheriting form any other class or being used as subclass for oth
 No design patterns used in it.
 
 ** Design Patterns used in Card Representation System
-The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, *Addapter*, *Factory Method*,  *Visiter* and *Decorator*.
+The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, *Addapter*, *Factory Method*,  *Visitor* and *Decorator*.
 *** Factory Method
 **** Why we used?
-Each non decorating, and non dynamic decal has a specific visiter which it must make. The super is the client. 
+\newline Each non decorating, and non dynamic decal has a specific visitor which it must make. The super is the client. 
 **** What we gained?
-Customizes the render method with which object should be created, enabling the superclass to implement it.
+\newline Customizes the render method with which object should be created, enabling the superclass to implement it.
 The render method calls this, similar to how a Template method calls methods, but since this is the only step customized in render, I don't consider render a template method. 
 **** Consequences
-The decal decorators, and dynamic decals, don't have a visitor to return, and thus, have to return null. This is bad. 
+\newline The decal decorators, and dynamic decals, don't have a visitor to return, and thus, have to return null. This is bad. 
 
-*** Visiter
-**** The Shape Visitor used by Composite Layout
+*** Visitor
+**** The ShapeVisitor used by Composite Layout
 ***** Why we used?
-A composite layout has some shape, but doesn't know what shape, nor should it!. 
+\newline A composite layout has some shape, but doesn't know what shape, nor should it!. 
 It also shouldn't know how to position things inside a shape.
-Instead, the visiter is accepted by the shape, and thus knows what shape it has, and can then properly place items.
+Instead, the visitor is accepted by the shape, and thus knows what shape it has, and can then properly place items.
 ***** What we gained?
-The composite layout need not know how to position things inside a shape, but still can.
+\newline The composite layout need not know how to position things inside a shape, but still can.
 ***** Consequences
-Visiter can get unwieldy, and a bit confusing.
-If we add a new shape, all visiters need be updated.
-**** The Shape Visitor used by Decal 
+Visitor can get unwieldy, and a bit confusing.
+\newline If we add a new shape, all visitors need be updated.
+**** The ShapeVisitor used by Decal 
 ***** Why we used?
-A Decal knows what it has that represents some visual thing, an image, text, or shape, but not how to render it in a circle, rectangle, or other shape, or even what shape it has.
-That is left to the visiter to determine, and do the rendering.
+\newline A Decal knows what it has that represents some visual thing, an image, text, or shape, but not how to render it in a circle, rectangle, or other shape, or even what shape it has.
+That is left to the visitor to determine, and do the rendering.
 ***** What we gained?
-Decal don't care about what shape they are told to render in, just make their visiter, and have the visiter visit and render in that shape. 
+\newline Decal don't care about what shape they are told to render in, just make their visitor, and have the visitor visit and render in that shape. 
 ***** Consequences
-A visiter for each DecalWithFM implementor.
-If we add a new shape, all visiters need be updated.
+\newline A visitor for each DecalWithFM implementor.
+If we add a new shape, all visitors need be updated.
 
 *** Decorator
 **** Why we used?
-We found that we wanted to do certain actions to decals, that would result in new decals be added.
+\newline We found that we wanted to do certain actions to decals, that would result in new decals be added.
 Cropping an image, masking an image, rotating an image, etc.
 Rather than making these as new decals, which would cause a class explosion, and be limited only to the pairs we made, we decided that it makes sense to crop/rotate/mask any decal, and made these actions decal decorators. 
 
 **** What we gained?
-We can do basic image manipulation by chaining decorator decals, and then using those decorators like normal decals. 
+\newline We can do basic image manipulation by chaining decorator decals, and then using those decorators like normal decals. 
 **** Conseqences
-Potentially inefficient. 
+\newline Potentially inefficient. 
 
 
 
 *** Composite
 **** Why we used?
-Our team decided to uses the Composite pattern because it offers an easy way to represent hierarchies and also it offers an easy way to treat individual objects and composite objects the same way. Our system allows for a layout component to have layouts or simpler objects such as decal.
+\newline Our team decided to uses the Composite pattern because it offers an easy way to represent hierarchies and also it offers an easy way to treat individual objects and composite objects the same way. Our system allows for a layout component to have layouts or simpler objects such as decal.
 **** What we gained?
 - Easy way to represent hierarchies of objects.
 - Easy way to nest composed and simple objects, inside one another.
@@ -445,7 +446,7 @@ Our team decided to uses the Composite pattern because it offers an easy way to 
 - The design looks general.
 *** Iterator
 **** Why we used?
-We decide to use this in order to allow an easy and simple way to access all the elements that will be used to represent a card object.
+\newline We decide to use this in order to allow an easy and simple way to access all the elements that will be used to represent a card object.
 **** What we gained?
 - A way to access the components without exposing its internal representation.
 - We could support different traversal algorithms, but we only need one.
@@ -454,14 +455,15 @@ We decide to use this in order to allow an easy and simple way to access all the
 - No bad consequences on using the iterator patterns.
 *** Proxy
 **** Why we used?
-Proxy pattern is used very lightly and only just one part of it. It is being used in the DynamicDecal class. The Dynamic Decal is the RealSubject, which will carry (execute) the request forwarded to it. The request would be to receive a decal given a string.
+\newline Proxy pattern is used very lightly and only just one part of it. It is being used in the DynamicDecal class. The Dynamic Decal is the RealSubject, which will carry (execute) the request forwarded to it. The request would be to receive a decal given a string.
 **** What we gained?
 - We have the ability to indirectly reference to the Dycamin Decal class and retrieve something from it.
 **** Consequences
 - No consequences as a result of using this pattern.
-*** Adapter
+*** Pluggable Class Adapter
+
 **** Why we used?
-The adapter pattern is used for our Image class. Our image class will not be able to directly conform to the Image interface provided by the Java libraries. Therefore, we need to create a JavaImageAdapter class to adapt the interface we want with the interface we have.
+\newline The adapter pattern is used for our Image class. Our image class will not be able to directly conform to the Image interface provided by the Java libraries. Therefore, we need to create a JavaImageAdapter class to adapt the interface we want with the interface we have.
 **** What we gained?
 - Ability to use an Image object, which behaves similar to the one used in Java libraries.
 **** Consequences
@@ -470,7 +472,7 @@ The adapter pattern is used for our Image class. Our image class will not be abl
 
 * Driver System
 
-The builders are loaded from an xml file, which as a name, and path to each visiter to be loaded.
+The builders are loaded from an xml file, which as a name, and path to each visitor to be loaded.
 ** Strategy Pattern
 The OutputFormat enum, and Output use the strategy pattern, with each being the strategy, and context, respectively.
 Since an output shouldn't be burdened with every possible output format in a switch statement or something.
@@ -515,6 +517,15 @@ No design patterns used in it.
 * ScriptEvaluator system 
 This includes all the Builders, and the Lexer. Whenever I say Builders, I mean subclasses of ScriptObjectBuilder.
 
+** Pluggable Class Adapter
+The Lexer interface, and the ScriptEvaluator both act as pluggable adapters. 
+
+Since we decided that we shouldn't hard code in a certain textual syntax, 
+we decided to implement an interface, so that any language that can fit 
+into our token structure can be used by implementing the Lexer interface.
+If evaluating those tokens is changed by the language, which it likely is,
+as the script evaluator provides the interface for actually evaluating
+the language, which also should be implemented. 
 ** Basic Number manipulation
 Basic number manipulation is provided by the NumberOperationBuilder, which is paramaterized with a command.
 A builder for each command should be mapped with the appropriate symbol in the environment, with the rest of the builders.
@@ -583,7 +594,7 @@ In the ScriptObjectBuilder, and subclasses
 ** Visitor
 *** Why we used?
 Needed to perform various operations across the various forms of ScriptObjects, both for rendering, and to construct ScriptObjects that contain ScriptObjects. 
-Avoids need to cast when retrieving a ScriptObject from the environment, the ScriptObject tells the visiter what is being added. 
+Avoids need to cast when retrieving a ScriptObject from the environment, the ScriptObject tells the visitor what is being added. 
 *** What we gained?
 - Ability to avoid casting when adding parameters, and retrieving variables from the environment.
 *** Consequences
@@ -603,7 +614,7 @@ To make a whole new builder for each one would be a class explosion, so instead,
 *** Consequences
 - Only one builder is needed to handle any number operation of the form a <some operation> b = c.
 - Extra indirection than a hardcoded method, slightly slower, could potentially be slightly harder to follow, won't know immediately what builder does.
-- The Builder is paramatized with some number command to run upon creating a number value. 
+- The Builder is parameterized with some number command to run upon creating a number value. 
   
 
 ** State ( Builders )
@@ -692,7 +703,7 @@ Leaf tokens return an empty list.
 The intent is to enable an expression to be treated the same, regardless of whether it is a simple literal, a simple expression, or a bunch of sub expressions. 
 - This is an example of composite pattern
 **** Why we used?
-Used to enable expression tokens to be made up of subexpressions, and for any piece of an expression to be treated the same when iterating through it, regardless of if it is a Variable, Expression, or Atom literal.
+\newline Used to enable expression tokens to be made up of subexpressions, and for any piece of an expression to be treated the same when iterating through it, regardless of if it is a Variable, Expression, or Atom literal.
 **** What we gained?
 - ScriptEvaluator is simple, it does a simple iteration through the tokens. 
 - When designing, was able to fairly easily split the original AtomToken into two subclasses, which fit better. Flexibility in adding Token types. 
@@ -728,6 +739,7 @@ Since Tokens are not changed, the FunctionBuilder can share these.
   - Need to be careful of what can be shared, what must be deep copied. 
 ** Abstract Factory with Prototypes
 *** Why we used?
+To enable storing, and retrieving builders, some of which may be parameterized. For example, the function builders store the code to run when the function is called. 
 *** What we gained?
 - Enabled tokens to easily retrieve the Builder they need.
 - To be able to store the Builders created for defined functions, and retrieve them as if they were the predefined Builders.
@@ -761,7 +773,7 @@ file:Structure/LexerUML.png
 - Leaf token, holds a double.
 ***** ParseErrorToken
 - Leaf token, represents an error that occured during parsing.
-- Returns a ConstantBuilderVisiter, with an ErrorScriptObject as the value.
+- Returns a ConstantBuilderVisitor, with an ErrorScriptObject as the value.
 ***** ExpressionToken
 - The composite of the layouts.
   - Holds other tokens, they are the arguments given to the expression.

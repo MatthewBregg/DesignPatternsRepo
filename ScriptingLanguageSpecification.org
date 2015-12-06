@@ -272,10 +272,10 @@ A size is used by a card to determine how many pixels it will be.
     - Specify what format to output in
     - Defaults to png
   - output-file
-    - Specify where to output the result to
+    - Specify output file location
     - Defaults to ./
   - logfile
-    - Specify where to log to
+    - Specify location of Logger
     - Defaults to .cardlog
   - load-builder
     - Takes in a name, and the path to a builder java file.
@@ -285,19 +285,19 @@ A size is used by a card to determine how many pixels it will be.
 (set-option "load-builder" "name" "path")
       #+END_SRC
       
-- Each option is enter in this format
+- Each option is entered in this format.
 #+BEGIN_SRC 
 (set-option "option-name" values)
 #+END_SRC
--So for example
+For example,
 #+BEGIN_SRC 
 (set-option "output-dir" "./")
 #+END_SRC
-** Standard Library
-The program will ship with numerous built in functions.
-These functions will have std- prepended to their name, and will provide various functionalities that preimplemented in the language, to save the user the hassle of implementing them. All these functions could be done normally, in the scripting language. 
+** *Standard Library*
+\newline The program will ship with numerous built in functions.
+These functions will have std- prepended to their name, and will provide various functionalities that are preimplemented in the language, to save the user the hassle of implementing them. All of these functions could be performed normally, in the scripting language though.
 
-This will be implemented in a std-functions.script, which will the driver will run through the evaluator when the program first runs. 
+This will be implemented in a std-functions.script, which will the driver will pass to the evaluator when the program first runs. 
 
 *** add-border
 **** Parameters 
@@ -357,4 +357,4 @@ This will be implemented in a std-functions.script, which will the driver will r
 - std-pi : Value of pi
 
   
-*** Many more things!
+*** Many more fucntionalities could be added!
