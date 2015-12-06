@@ -162,7 +162,7 @@ It is an abstract class which will be declaring the interface for all the concre
 - *Interaction:*  
 This class does not inherit from any other classes, however it serve as a base class for all other components, which will be inheriting from this.
 - *Design Patterns it belongs:*
-This class is only part of the visiter pattern explicitly, but lots of design patterns will be used in its subclasses and by overriding its method.
+This class is only part of the visitor pattern explicitly, but lots of design patterns will be used in its subclasses and by overriding its method.
 
 
 ** ComponentLayout Class
@@ -212,7 +212,7 @@ It is a POD, holding a Layout, a PositionScaled, and a Shape.
 Decal provides an interface for something graphical. 
 Separate graphical objects from the rest of the system,
   - Inherits from ScriptObject, and thus, can accept a visitor.
-  - Implements this Visiter method, visiter only ever need to know if something is a decal, not what type, to the Decal Type is the only Decal that implements acceptBuilder.
+  - Implements this Visitor method, visitor only ever need to know if something is a decal, not what type, to the Decal Type is the only Decal that implements acceptBuilder.
 
 *** DecalWithFM
 - *Purpose:* 
@@ -254,7 +254,7 @@ Implements the FM.
 **** Decal Rendering Visitors
 Each Visitor knows how to render either a text, image, or color decal for each shape. 
 The visitor is made by said decal via an FM, and then is accepted by the shape to do the rendering. 
-Paramatized with anything the visitor needs for rendering.
+Parameterized with anything the visitor needs for rendering.
 
 *** DynamicDecal
 - *Purpose:* 
@@ -297,7 +297,7 @@ Subclasses will override with the accept method as appropriate, and will contain
 **** AnyShape Class
 - List<Point>
   
-*** ShapeVisiter
+*** ShapeVisitor
 Interface for something capable of visiting a Shape.
 Can be implemented for various things like rendering shapes, positioning things inside shapes...
 **** Rendering shape visitor :
@@ -388,10 +388,10 @@ It will not be inheriting form any other class or being used as subclass for oth
 No design patterns used in it.
 
 ** Design Patterns used in Card Representation System
-The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, *Addapter*, *Factory Method*,  *Visiter* and *Decorator*.
+The design pattern that we thought would be fit to use in the Card Representation System are *Composite*, *Iterator*, *Proxy*, *Addapter*, *Factory Method*,  *Visitor* and *Decorator*.
 *** Factory Method
 **** Why we used?
-\newline Each non decorating, and non dynamic decal has a specific visiter which it must make. The super is the client. 
+\newline Each non decorating, and non dynamic decal has a specific visitor which it must make. The super is the client. 
 **** What we gained?
 \newline Customizes the render method with which object should be created, enabling the superclass to implement it.
 The render method calls this, similar to how a Template method calls methods, but since this is the only step customized in render, I don't consider render a template method. 
@@ -403,21 +403,21 @@ The render method calls this, similar to how a Template method calls methods, bu
 ***** Why we used?
 \newline A composite layout has some shape, but doesn't know what shape, nor should it!. 
 It also shouldn't know how to position things inside a shape.
-Instead, the visiter is accepted by the shape, and thus knows what shape it has, and can then properly place items.
+Instead, the visitor is accepted by the shape, and thus knows what shape it has, and can then properly place items.
 ***** What we gained?
 \newline The composite layout need not know how to position things inside a shape, but still can.
 ***** Consequences
 Visitor can get unwieldy, and a bit confusing.
-\newline If we add a new shape, all visiters need be updated.
+\newline If we add a new shape, all visitors need be updated.
 **** The ShapeVisitor used by Decal 
 ***** Why we used?
 \newline A Decal knows what it has that represents some visual thing, an image, text, or shape, but not how to render it in a circle, rectangle, or other shape, or even what shape it has.
-That is left to the visiter to determine, and do the rendering.
+That is left to the visitor to determine, and do the rendering.
 ***** What we gained?
-\newline Decal don't care about what shape they are told to render in, just make their visiter, and have the visiter visit and render in that shape. 
+\newline Decal don't care about what shape they are told to render in, just make their visitor, and have the visitor visit and render in that shape. 
 ***** Consequences
-\newline A visiter for each DecalWithFM implementor.
-If we add a new shape, all visiters need be updated.
+\newline A visitor for each DecalWithFM implementor.
+If we add a new shape, all visitors need be updated.
 
 *** Decorator
 **** Why we used?
@@ -471,7 +471,7 @@ Rather than making these as new decals, which would cause a class explosion, and
 
 * Driver System
 
-The builders are loaded from an xml file, which as a name, and path to each visiter to be loaded.
+The builders are loaded from an xml file, which as a name, and path to each visitor to be loaded.
 ** Strategy Pattern
 The OutputFormat enum, and Output use the strategy pattern, with each being the strategy, and context, respectively.
 Since an output shouldn't be burdened with every possible output format in a switch statement or something.
@@ -604,7 +604,7 @@ To make a whole new builder for each one would be a class explosion, so instead,
 *** Consequences
 - Only one builder is needed to handle any number operation of the form a <some operation> b = c.
 - Extra indirection than a hardcoded method, slightly slower, could potentially be slightly harder to follow, won't know immediately what builder does.
-- The Builder is paramatized with some number command to run upon creating a number value. 
+- The Builder is parameterized with some number command to run upon creating a number value. 
   
 
 ** State ( Builders )
@@ -729,6 +729,7 @@ Since Tokens are not changed, the FunctionBuilder can share these.
   - Need to be careful of what can be shared, what must be deep copied. 
 ** Abstract Factory with Prototypes
 *** Why we used?
+To enable storing, and retrieving builders, some of which may be parameterized. For example, the function builders store the code to run when the function is called. 
 *** What we gained?
 - Enabled tokens to easily retrieve the Builder they need.
 - To be able to store the Builders created for defined functions, and retrieve them as if they were the predefined Builders.
