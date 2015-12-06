@@ -429,6 +429,13 @@ The adapter pattern is used for our Image class. Our image class will not be abl
 
 
 * Driver System
+
+The builders are loaded from an xml file, which as a name, and path to each visiter to be loaded.
+** Strategy Pattern
+The OutputFormat enum, and Output use the strategy pattern, with each being the strategy, and context, respectively.
+Since an output shouldn't be burdened with every possible output format in a switch statement or something.
+We want to be able to easily add more formats, and to avoid the Output class being bloated.
+Thus, the output class will delegate converting image into the correct output format, and then writing that to disk, to the enum it holds. 
 ** Driver Class
 - *Purpose:* 
 The Driver will be the first thing the program will call and it will invoke all the other functions. In essence the Driver is our main.
