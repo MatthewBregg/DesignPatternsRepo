@@ -120,6 +120,7 @@ Option : ScriptFile() : Path
 Option : OutFormat() : Enum
 Option : OutputFile() : Path
 Option : LogFile() : Path
+Option : GetPlugins() : List<BuilderNamePair>
 
 class Output
 Output : outputPath : Path
@@ -143,6 +144,9 @@ enum OutputFormat {
   GIF
   BMP
 }
+
+OutputFormat : writeCardtoDisk(o:Option,rc:RenderedCard)
+note top : This is the strategy pattern.
 
 class Driver
 Driver : public static void main(String[] args)

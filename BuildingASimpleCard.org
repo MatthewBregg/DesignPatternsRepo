@@ -1,20 +1,58 @@
+Overall, these slides go over the heart of the script evaluator, which is the process of which a ScriptObject is constructed, which is the same for all builders. 
+* ScriptObject slides
+ScriptObject serves as the equivelent of Javas object, but for our language. 
+contains an accept method for the builder visitor, which allows the things to be added to the builder to be added by visiting. 
+* ScriptObjectBuilder
+The Builder for ScriptObjects.
 
-* Slides
+As the various types in the scripting language can have varying ways to be constructed,
+ and returns varying representations,
+ but use the same overall process,
+ that is, choosing the representation to make, and then, for each argument,
+ using the visitor pattern to have the argument added to the builder. 
+
+* Language Slides
 ** Slide 1
+- Expression token
+  - cons keyword 
+    Expression token has the cons keywork, so this builder will be 
+    retrieved from the map
+  - Then, for each argument in the token, run doParse again on it. 
+    - These are both constants, with no arguments, so the result
+      from the tokens builder is returned immediately.
+  - These two script objects are added immediately to the cons.
+  - The builder got what it expected, and can successfully make the 
+    and return cons when getResult() is called. 
 #+BEGIN_SRC scheme
   (cons 1 2)
 #+END_SRC
 ** Slide 2
+- This is the same as before, but rather than both tokens being constant 
+  tokens, one is an expression token. 
+
+- Thus, doParse is ran on (cons 2 3) as above, and a ScriptObject is 
+  is returned. (A conspair). 
+  This conspair is added to the outer cons, with the script object holding
+  1. (DoubleScriptWrapper)
+- The builder can then make the outer cons containing these two objects.
+- getResult() will then return that script object.
 #+BEGIN_SRC scheme
 (cons 1 (cons 2 3))
 
 #+END_SRC
 ** Slide 3
+- So far, we have only cared about getting something.
+  - Cons just needs a ScriptObject.
+  - layout, and image, are a bit pickier.
+  - They use the visitor pattern to see what is given to them, and may 
+    return an error if they are not given what they expect. 
+  - This is a runtime error in our dynamic language. 
 #+BEGIN_SRC scheme
 (layout (image "foo.jpg"))
 
 #+END_SRC
 ** Slide 4
+- More complex example, but still follows the same process..
 #+BEGIN_SRC scheme
 
   (layout (image "foo.jpg"))
@@ -26,6 +64,9 @@
 
 #+END_SRC
 ** Slide 5
+- So far, everything written has been garbage collected right after
+  creation. Define playes something into the environment as 
+  a variable, which can be used later.
 #+BEGIN_SRC scheme
 
 
