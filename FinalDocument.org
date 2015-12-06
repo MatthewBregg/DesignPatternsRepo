@@ -40,7 +40,9 @@ The goal of our project is to design a functional Script-driven card generator (
 
 ** Examples
 *** 52 cards
+- Config
 #+INCLUDE: "./Examples/52_deck_example/52CardDeck.config" src scheme
+- Script
 #+INCLUDE: "./Examples/52_deck_example/52CardDeck.script" src scheme
 
 **** Data files
@@ -87,7 +89,9 @@ file:Examples/52_deck_example/queenSpades.png
 file:Examples/52_deck_example/52CardDeck.jpg
 
 *** Monopoly
+- Config
 #+INCLUDE: "Examples/monopoly_example/monopoly.script" src scheme
+- Script
 #+INCLUDE: "Examples/monopoly_example/monopoly.config" src scheme
 
 **** Data files
