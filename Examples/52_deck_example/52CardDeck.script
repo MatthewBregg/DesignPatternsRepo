@@ -44,7 +44,7 @@
 ;;------------------------------------------------------
 ;;relative positions and card size
 ;;------------------------------------------------------
-(define wholeCard (position-scaled 0 0 100 100)) 
+
 (define numberTopLeft (position-scaled 5 5 5 5))
 (define numberBotRight (position-scaled 85 85 5 5)) 
 (define suitTopLeft (position-scaled 5 10 5 5)) 
@@ -80,11 +80,11 @@
 ;;------------------------------------------------------
 (define (cardBackLayout)
   (layout
-   (list (layout cardBackImage) wholeCard rectangleCard)))
+   (list (layout cardBackImage) std-whole-layout rectangleCard)))
 
 (define (backgroundLayout value color) 
   (layout 
-   (list (layout (color-decal "white") wholeCard rectangle)
+   (list (layout (color-decal "white") std-whole-layout rectangle)
    (list (layout "suit") suitTopLeft rectangle)
    (list (layout "suit") suitBotRight rectangle)
    (list (layout (string value "arial" color 12)) numberTopLeft rectangle)
@@ -92,25 +92,25 @@
 
 (define (aceLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 40 40 20 20) rectangle)))
 
 (define (twoLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 45 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 45 75 10 10) rectangle)))
 
 (define (threeLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 45 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 45 45 10 10) rectangle)
    (list (layout "suit") (position-scaled 45 75 10 10) rectangle)))
 
 (define (fourLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
@@ -118,7 +118,7 @@
 
 (define (fiveLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
@@ -128,7 +128,7 @@
 
 (define (sixLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 25 45 10 10) rectangle)
@@ -138,7 +138,7 @@
 
 (define (sevenLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 25 45 10 10) rectangle)
@@ -149,7 +149,7 @@
 
 (define (eightLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 25 45 10 10) rectangle)
@@ -161,7 +161,7 @@
 
 (define (nineLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 25 35 10 10) rectangle)
@@ -174,7 +174,7 @@
 
 (define (tenLayout value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
    (list (layout "suit") (position-scaled 25 35 10 10) rectangle)
@@ -188,17 +188,17 @@
 
 (define (jackLayout  value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "jackImage") centerFace  rectangle)))
 
 (define (queenLayout  value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "queenImage") centerFace rectangle)))
 
 (define (kingLayout  value color)
   (layout 
-   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (backGroundLayout value color) std-whole-layout rectangle) 
    (list (layout "kingImage") centerFace rectangle)))
 
 ;;------------------------------------------------------
