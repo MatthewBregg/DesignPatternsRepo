@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>260</y>
+      <w>690</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>CompositePlacingVisiter
+--
+- families : ArrayList&lt;Family&gt;
+- size : Size
+- s:Shape
+- pos:PositionScaled
+- p:AbstractPlacer
+--
++ CompositePlacingVisiter(s:Size,shape:Shape,pos:PositionScaled,families:ArrayList&lt;Family&gt;)
++ visitRectangle(r:Rectangle) : void
++ visitTriangle(t:Triangle) : void
++ visitCircle(c:Circle) : void
++ visitAnyShape(a:AnyShape) : void
++ addLayoutToShape(l:LayoutTuple)
++ getImage() : Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>120</x>
+      <y>530</y>
+      <w>430</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Note..
+--
+Uses the visit method to determine which shape is held, and then create the correct 
+AbstractPlacer for the shape, giving the shape as parameter. 
+This occurs during construction.
+Then, addLayoutToShape will forward it's call to the AbstractPlacer.
+
+Get Image will get the image from the AbstractPlacer.
+--
+In the constructor
+...
+s.accept(this);
+...
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>150</x>
+      <y>140</y>
+      <w>360</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ShapeVisiter
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>640</x>
+      <y>80</y>
+      <w>430</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Note..
+--
+Each AbstractPlacer implements its own, relative placing algorithm.
+RectanglePlacer might look something like this.
+--
+   SubImage = l.layout.render(families,l.position,sub_size,l.shape);
+   image.insertImage(subImage,
+        l.position.x*(sub_size.x/100),
+        l.position.y*(sub_size.y/100));
+   }
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>820</x>
+      <y>260</y>
+      <w>290</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>{abstract}
+/AbstractPlacer/
+--
+- image : Image
+- size : Size
+- pos:PositionScaled
+- families : ArrayList&lt;Family&gt;
+--
+/+ addLayoutToShape(l:LayoutTuple)/
++ getImage():Image
++ setFamily(f:ArrayList&lt;Family&gt;)
++ setSize(s:Size)
++ setPosition(p:Position)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>520</y>
+      <w>290</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>RectanglePlacer
+--
+- r:Rectangle
+--
++ RectanglePlacer(r:Rectangle)
++ addLayoutToShape(l:LayoutTuple)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>650</x>
+      <y>650</y>
+      <w>290</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>CirclePlacer
+--
+- r:Circle
+--
++ CirclePlacer(c:Circle)
++ addLayoutToShape(l:LayoutTuple)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>460</y>
+      <w>200</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>180.0;10.0;180.0;150.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>960</x>
+      <y>600</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1020</x>
+      <y>520</y>
+      <w>290</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>TrianglePlacer
+--
+- r:Triangle
+--
++ TrianglePlacer(t:Triangle)
++ addLayoutToShape(l:LayoutTuple)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1030</x>
+      <y>650</y>
+      <w>290</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>AnyShapePlacer
+--
+- r:Anyshape
+--
++ anyShapePlacer(a:AnyShape)
++ addLayoutToShape(l:LayoutTuple)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1010</x>
+      <y>460</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>460</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1060</x>
+      <y>110</y>
+      <w>100</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0;80.0;170.0;50.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>30</x>
+      <y>270</y>
+      <w>110</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;270.0;10.0;270.0;10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>180</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>270</y>
+      <w>80</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+</panel_attributes>
+    <additional_attributes>60.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>
