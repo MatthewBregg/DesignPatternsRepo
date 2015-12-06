@@ -204,6 +204,8 @@ A string from a given font.
 (inverted-mask-decal foo-decal bar-decal (position-scaled 0 0 100 100))
     #+END_SRC
   - Example: A circle hollowed out
+
+    #+ATTR_LATEX: :width 3cm
     file:Examples/black-circle.png
 - Rotate Decal 
   - Takes in a decal, and a number, and returns a rotated version of that decal
@@ -285,6 +287,7 @@ A size is used by a card to determine how many pixels it will be.
   - load-builder
     - Takes in a name, and the path to a builder java file.
     - Loads said builder into script evaluator
+    - This defines a new keyword in the language, and serves as as plugin.
       #+BEGIN_SRC scheme
 (set-option "load-builder" "name" "path")
       #+END_SRC
