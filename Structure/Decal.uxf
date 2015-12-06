@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="13.3">
-  <zoom_level>13</zoom_level>
+  <zoom_level>7</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2886</x>
-      <y>1378</y>
-      <w>624</w>
-      <h>117</h>
+      <x>700</x>
+      <y>525</y>
+      <w>336</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>DynamicDecal
 --
@@ -21,10 +21,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2184</x>
-      <y>1352</y>
-      <w>637</w>
-      <h>130</h>
+      <x>343</x>
+      <y>616</y>
+      <w>217</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ImageDecal
 --
@@ -37,10 +37,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1027</x>
-      <y>1326</y>
-      <w>494</w>
-      <h>195</h>
+      <x>616</x>
+      <y>616</y>
+      <w>196</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>Text
 --
@@ -48,29 +48,17 @@
 - color: Color
 - font:Font
 --
-
 + setText (newText String): void
 + getDecalRenderer():TextRenderingVisiter</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1196</x>
-      <y>1261</y>
-      <w>767</w>
-      <h>91</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;50.0;130.0;10.0;570.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1950</x>
-      <y>949</y>
-      <w>650</w>
-      <h>130</h>
+      <x>672</x>
+      <y>217</y>
+      <w>350</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Decal/
@@ -86,32 +74,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1755</x>
-      <y>1248</y>
-      <w>598</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>440.0;10.0;330.0;20.0;140.0;20.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2171</x>
-      <y>1261</y>
-      <w>377</w>
-      <h>117</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>270.0;10.0;10.0;10.0;270.0;10.0;210.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2171</x>
-      <y>884</y>
-      <w>39</w>
-      <h>91</h>
+      <x>791</x>
+      <y>182</y>
+      <w>21</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
@@ -119,10 +85,10 @@
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1417</x>
-      <y>832</y>
-      <w>377</w>
-      <h>91</h>
+      <x>434</x>
+      <y>154</y>
+      <w>203</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>Note on ScriptObejct
 --
@@ -133,21 +99,21 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1781</x>
-      <y>832</y>
-      <w>195</w>
-      <h>39</h>
+      <x>630</x>
+      <y>154</y>
+      <w>56</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1391</x>
-      <y>936</y>
-      <w>507</w>
-      <h>130</h>
+      <x>420</x>
+      <y>210</y>
+      <w>217</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Note on the implementation of acceptBuilder
 --
@@ -161,21 +127,21 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1885</x>
-      <y>1001</y>
-      <w>91</w>
-      <h>39</h>
+      <x>630</x>
+      <y>245</y>
+      <w>56</w>
+      <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1547</x>
-      <y>1352</y>
-      <w>624</w>
-      <h>117</h>
+      <x>378</x>
+      <y>693</y>
+      <w>217</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>ColorDecal
 --
@@ -187,13 +153,13 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2639</x>
-      <y>1079</y>
-      <w>559</w>
-      <h>169</h>
+      <x>1071</x>
+      <y>511</y>
+      <w>301</w>
+      <h>91</h>
     </coordinates>
-    <panel_attributes>{abstract}
-LayeringDecalDecorator
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/LayeringDecalDecorator/
 --
 - maskDecal : Decal
 - contentDecal : Decal
@@ -207,67 +173,23 @@ LayeringDecalDecorator
     <additional_attributes/>
   </element>
   <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>2418</x>
-      <y>559</y>
-      <w>857</w>
-      <h>688</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>39;390;39;39;832;39;832;663;780;663</additional_attributes>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>2587</x>
-      <y>988</y>
-      <w>78</w>
-      <h>130</h>
+      <x>812</x>
+      <y>280</y>
+      <w>63</w>
+      <h>259</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;40.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>2691</x>
-      <y>663</y>
-      <w>377</w>
-      <h>351</h>
-    </coordinates>
-    <panel_attributes>
---
-Anything not transparent on maskDecal will be replaced 
-with the corresponding location from contentDecal.
-Google textmask for some good examples.
-Takes in a positionScaled to determine how to map
-mask pixels -&gt; content pixels.
-
-The shape will just be passed through to decals held, so 
-no visiter is needed, the shape of the decal references will always 
-be the same, so the process is shape agnostic. 
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2821</x>
-      <y>1001</y>
-      <w>39</w>
-      <h>104</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;320.0;70.0;320.0;70.0;350.0;70.0;320.0;10.0;320.0;70.0;320.0;70.0;350.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1950</x>
-      <y>832</y>
-      <w>429</w>
-      <h>65</h>
+      <x>672</x>
+      <y>154</y>
+      <w>231</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>{Abstract}
 /ScriptObject/
@@ -277,23 +199,24 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>299</x>
-      <y>832</y>
-      <w>468</w>
-      <h>78</h>
+      <x>70</x>
+      <y>147</y>
+      <w>252</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 ShapeVisiter
-</panel_attributes>
+
+group=1</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>2730</x>
-      <y>1885</y>
-      <w>377</w>
-      <h>182</h>
+      <x>833</x>
+      <y>602</y>
+      <w>203</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>Note on dynamic decal render
 Overrides Decal render
@@ -307,21 +230,21 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2977</x>
-      <y>1482</y>
-      <w>39</w>
-      <h>429</h>
+      <x>924</x>
+      <y>581</y>
+      <w>21</w>
+      <h>35</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;310.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>234</x>
-      <y>975</y>
-      <w>468</w>
-      <h>273</h>
+      <x>70</x>
+      <y>224</y>
+      <w>252</w>
+      <h>147</h>
     </coordinates>
     <panel_attributes>{abstract}
 DecalRenderingVisiter
@@ -340,16 +263,17 @@ DecalRenderingVisiter
 + setOption(option:char)
 /+ getImage() : Image/
 
-</panel_attributes>
+
+group=1</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>832</x>
-      <y>910</y>
-      <w>507</w>
-      <h>325</h>
+      <x>511</x>
+      <y>308</y>
+      <w>280</w>
+      <h>175</h>
     </coordinates>
     <panel_attributes>Note on the implementation of render
 --
@@ -374,10 +298,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>208</x>
-      <y>1287</y>
-      <w>468</w>
-      <h>182</h>
+      <x>70</x>
+      <y>378</y>
+      <w>252</w>
+      <h>105</h>
     </coordinates>
     <panel_attributes>TextRenderingVisiter
 --
@@ -390,16 +314,17 @@ bg=blue</panel_attributes>
 + visitAnyShape(a:AnyShape) : void
 + getImage() : Image
 
-</panel_attributes>
+
+group=1</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>208</x>
-      <y>1534</y>
-      <w>468</w>
-      <h>169</h>
+      <x>70</x>
+      <y>497</y>
+      <w>252</w>
+      <h>91</h>
     </coordinates>
     <panel_attributes>ImageRenderingVisiter
 --
@@ -411,16 +336,17 @@ bg=blue</panel_attributes>
 + visitAnyShape(a:AnyShape) : void
 + getImage() : Image
 
-</panel_attributes>
+
+group=1</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>208</x>
-      <y>1755</y>
-      <w>468</w>
-      <h>182</h>
+      <x>70</x>
+      <y>595</y>
+      <w>252</w>
+      <h>98</h>
     </coordinates>
     <panel_attributes>ColorRenderingVisiter
 --
@@ -432,27 +358,17 @@ bg=blue</panel_attributes>
 + visitAnyShape(a:AnyShape) : void
 + getImage() : Image
 
-</panel_attributes>
+
+group=1</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>1300</x>
-      <y>1105</y>
-      <w>649</w>
-      <h>64</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>39;39;624;39</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1534</x>
-      <y>1638</y>
-      <w>507</w>
-      <h>130</h>
+      <x>616</x>
+      <y>707</y>
+      <w>273</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Note on getDecalRenderer
 --
@@ -465,109 +381,82 @@ bg=blue</panel_attributes>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>1365</x>
-      <y>1482</y>
-      <w>207</w>
-      <h>181</h>
+      <x>161</x>
+      <y>168</y>
+      <w>34</w>
+      <h>69</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>39;39;182;156</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;.
+group=1</panel_attributes>
+    <additional_attributes>21;21;21;56</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>1690</x>
-      <y>1430</y>
-      <w>181</w>
-      <h>233</h>
+      <x>7</x>
+      <y>217</y>
+      <w>76</w>
+      <h>34</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>156;39;39;208</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;-
+group=1</panel_attributes>
+    <additional_attributes>63;21;21;21</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>1820</x>
-      <y>1443</y>
-      <w>454</w>
-      <h>220</h>
+      <x>7</x>
+      <y>217</y>
+      <w>34</w>
+      <h>398</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>429;39;39;195</additional_attributes>
+    <panel_attributes>lt=-
+group=1</panel_attributes>
+    <additional_attributes>21;21;21;385</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>468</x>
-      <y>871</y>
-      <w>64</w>
-      <h>129</h>
+      <x>7</x>
+      <y>581</y>
+      <w>76</w>
+      <h>34</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>39;39;39;104</additional_attributes>
+    <panel_attributes>lt=-
+group=1</panel_attributes>
+    <additional_attributes>63;21;21;21</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>0</x>
-      <y>1092</y>
-      <w>259</w>
-      <h>64</h>
+      <x>7</x>
+      <y>483</y>
+      <w>76</w>
+      <h>34</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>234;39;39;39</additional_attributes>
+    <panel_attributes>lt=-
+group=1</panel_attributes>
+    <additional_attributes>63;21;21;21</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>0</x>
-      <y>1092</y>
-      <w>64</w>
-      <h>818</h>
+      <x>7</x>
+      <y>364</y>
+      <w>76</w>
+      <h>34</h>
     </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>39;39;39;793</additional_attributes>
-  </element>
-  <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>0</x>
-      <y>1846</y>
-      <w>234</w>
-      <h>65</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>208;39;39;39</additional_attributes>
-  </element>
-  <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>0</x>
-      <y>1586</y>
-      <w>233</w>
-      <h>64</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>208;39;39;39</additional_attributes>
-  </element>
-  <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>0</x>
-      <y>1339</y>
-      <w>233</w>
-      <h>64</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>208;39;39;39</additional_attributes>
+    <panel_attributes>lt=-
+group=1</panel_attributes>
+    <additional_attributes>63;21;21;21</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1677</x>
-      <y>572</y>
-      <w>650</w>
-      <h>156</h>
+      <x>1071</x>
+      <y>406</y>
+      <w>350</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>CropDecalDecorator
 --
@@ -583,10 +472,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1768</x>
-      <y>377</y>
-      <w>624</w>
-      <h>156</h>
+      <x>1071</x>
+      <y>308</y>
+      <w>343</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>CornerRoundingDecalDecorator
 --
@@ -601,10 +490,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>2613</x>
-      <y>351</y>
-      <w>637</w>
-      <h>156</h>
+      <x>1071</x>
+      <y>203</y>
+      <w>343</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>RotateDecalDecorator
 --
@@ -621,10 +510,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1365</x>
-      <y>364</y>
-      <w>377</w>
-      <h>91</h>
+      <x>1134</x>
+      <y>119</y>
+      <w>203</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>These all override render to call the held decals render, and then
 apply a transformation to returned image.
@@ -632,122 +521,12 @@ bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1729</x>
-      <y>403</y>
-      <w>65</w>
-      <h>39</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;30.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1664</x>
-      <y>403</y>
-      <w>104</w>
-      <h>195</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1729</x>
-      <y>286</y>
-      <w>949</w>
-      <h>117</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;540.0;10.0;710.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2418</x>
-      <y>520</y>
-      <w>39</w>
-      <h>455</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;330.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2379</x>
-      <y>429</y>
-      <w>78</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>40.0;80.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2418</x>
-      <y>416</y>
-      <w>221</w>
-      <h>143</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;90.0;150.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>2184</x>
-      <y>520</y>
-      <w>273</w>
-      <h>78</h>
-    </coordinates>
-    <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>190.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>2405</x>
-      <y>455</y>
-      <w>233</w>
-      <h>519</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>39;494;39;117;208;39</additional_attributes>
-  </element>
-  <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>2288</x>
-      <y>676</y>
-      <w>207</w>
-      <h>298</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>182;273;182;39;39;39</additional_attributes>
-  </element>
-  <element>
-    <type>com.baselet.element.old.element.Relation</type>
-    <coordinates>
-      <x>1417</x>
-      <y>481</y>
-      <w>558</w>
-      <h>493</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>533;468;39;130;351;39</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3328</x>
-      <y>1183</y>
-      <w>559</w>
-      <h>156</h>
+      <x>1057</x>
+      <y>623</y>
+      <w>301</w>
+      <h>49</h>
     </coordinates>
     <panel_attributes>MaskDecalDecorator
 --
@@ -761,10 +540,10 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>3913</x>
-      <y>1183</y>
-      <w>559</w>
-      <h>156</h>
+      <x>1085</x>
+      <y>700</y>
+      <w>301</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>
 InvetedMaskDecalDecorator
@@ -779,21 +558,21 @@ InvetedMaskDecalDecorator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>3185</x>
-      <y>1053</y>
-      <w>884</w>
-      <h>156</h>
+      <x>1211</x>
+      <y>595</y>
+      <w>175</w>
+      <h>119</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;540.0;100.0;570.0;10.0;660.0;100.0</additional_attributes>
+    <additional_attributes>70.0;10.0;70.0;40.0;70.0;20.0;230.0;20.0;230.0;120.0;10.0;120.0;10.0;150.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1924</x>
-      <y>1131</y>
-      <w>650</w>
-      <h>130</h>
+      <x>343</x>
+      <y>525</y>
+      <w>350</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /DecalWithFM/
@@ -809,23 +588,78 @@ InvetedMaskDecalDecorator
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2158</x>
-      <y>1066</y>
-      <w>273</w>
-      <h>91</h>
+      <x>504</x>
+      <y>280</y>
+      <w>329</w>
+      <h>259</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;190.0;50.0</additional_attributes>
+    <additional_attributes>450.0;10.0;450.0;320.0;10.0;320.0;10.0;350.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>2587</x>
-      <y>1066</y>
-      <w>325</w>
-      <h>338</h>
+      <x>966</x>
+      <y>483</y>
+      <w>119</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0;230.0;240.0</additional_attributes>
+    <additional_attributes>10.0;10.0;150.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>833</x>
+      <y>301</y>
+      <w>203</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>
+--
+Anything not transparent on maskDecal will be replaced 
+with the corresponding location from contentDecal.
+Google textmask for some good examples.
+Takes in a positionScaled to determine how to map
+mask pixels -&gt; content pixels.
+
+The shape will just be passed through to decals held, so 
+no visiter is needed, the shape of the decal references will always 
+be the same, so the process is shape agnostic. 
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1015</x>
+      <y>203</y>
+      <w>70</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;50.0;40.0;50.0;300.0;80.0;300.0;50.0;300.0;50.0;460.0;80.0;460.0;50.0;460.0;50.0;160.0;80.0;160.0;50.0;160.0;50.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>938</x>
+      <y>168</y>
+      <w>518</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0;720.0;10.0;720.0;210.0;680.0;210.0;720.0;210.0;720.0;350.0;690.0;350.0;720.0;350.0;720.0;500.0;620.0;500.0;720.0;500.0;720.0;10.0;410.0;10.0;410.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>588</y>
+      <w>231</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;120.0;30.0;310.0;30.0;310.0;40.0;310.0;30.0;10.0;30.0;10.0;40.0;10.0;30.0;130.0;30.0;130.0;150.0</additional_attributes>
   </element>
 </diagram>
