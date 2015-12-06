@@ -81,6 +81,7 @@ As the various types in the scripting language can have varying ways to be const
 
 #+END_SRC
 ** Slide 6
+Expanding on define, to show a function.
 #+BEGIN_SRC scheme
 
   (define (anything image-file) 
@@ -99,6 +100,7 @@ As the various types in the scripting language can have varying ways to be const
 #+END_SRC
 
 ** Slide 7
+More complex function, and showing the languages representation of a card.
 #+BEGIN_SRC scheme
 
   (define (anything image-file) 
@@ -111,24 +113,28 @@ As the various types in the scripting language can have varying ways to be const
 
 #+END_SRC
 ** Slide 8
-
+Finally, render.
+Render will cause a card given to it to be... rendered into images, and 
+placed into a rendered list. This list will then be iterated through and output to disk by another part of the design. 
+The card created by the function, and render itself can then be safely
+ collected.
 #+BEGIN_SRC scheme
 
-  (define (anything image-file) 
+  (define (make-foo-layout image-file) 
     (layout
      (list (layout (color-decal "green")) whole card)
      (list (layout (image image-file))  (position-scaled 50 50 50 50))
      )
     )
-  (define (nothing image-file name)
+  (define (make-card image-file name)
     (card
      (size 200 100)
      name
-     (anything image-file)
-     (anything image-file)
+     (make-foo-layout image-file)
+     (make-foo-layout image-file)
      (rectangle 100 100))
   )
 
-  (render (nothing "foo.jpg" "Foo"))
-  (render (nothing "bar.jpg" "bar"))
+  (render (make-card "foo.jpg" "Foo"))
+  (render (make-card "bar.jpg" "bar"))
 #+END_SRC

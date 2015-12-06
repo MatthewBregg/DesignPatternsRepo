@@ -24,20 +24,20 @@
 (define queenHeartImage (image "queenHeart.png"))
 (define kingHeartImage (image "kingHeart.png"))
 (define jackDiamondImage (image "jackDiamond.png"))
-(define queenDiamondImage (image ("queenDiamond.png"))
-(define kingDiamondImage (image ("kingDiamond.png"))
-(define jackSpadeImage (image ("jackSpade.png"))
-(define queenSpadeImage (image ("queenSpade.png"))
-(define kingSpadeImage (image ("kingSpade.png"))
-(define jackClubImage (image ("jackClub.png"))
-(define queenClubImage (image ("queenClub.png"))
-(define kingClubImage (image ("kingClub.png"))
+(define queenDiamondImage (image ("queenDiamond.png")))
+(define kingDiamondImage (image ("kingDiamond.png")))
+(define jackSpadeImage (image ("jackSpade.png")))
+(define queenSpadeImage (image ("queenSpade.png")))
+(define kingSpadeImage (image ("kingSpade.png")))
+(define jackClubImage (image ("jackClub.png")))
+(define queenClubImage (image ("queenClub.png")))
+(define kingClubImage (image ("kingClub.png")))
 
 ;;------------------------------------------------------
 ;;shapes
 ;;------------------------------------------------------
 (define rectangleCard (rectangle 70 100))
-(corner-rounder rectangleCard)
+(define rectangleCard (corner-rounder rectangleCard))
 
 (define rectangle (rectangle 70 100))
 
@@ -54,19 +54,23 @@
 ;;------------------------------------------------------
 ;;family for all 4 suits
 ;;------------------------------------------------------
-(define HeartFamily (family (cons "suit" heartImage)
+(define HeartFamily (family "hearts"
+                            (cons "suit" heartImage)
                             (cons "jackImage" jackHeartImage)
                             (cons "queenImage" queenHeartImage)
                             (cons "kingImage" kingHeartImage)))
-(define DiamondFamily (family (cons "suit" diamondImage )
+(define DiamondFamily (family "diamond"
+                              (cons "suit" diamondImage )
                               (cons "jackImage" jackDiamondImage)
                               (cons "queenImage" queenDiamondImage)
                               (cons "kingImage" kingDiamondImage)))
-(define SpadeFamily (family (cons "suit" spadeImage)
+(define SpadeFamily (family "spades"
+                            (cons "suit" spadeImage)
                             (cons "jackImage" jackSpadeImage)
                             (cons "queenImage" queenSpadeImage)
                             (cons "kingImage" kingSpadeImage)))
-(define ClubFamily (family (cons "suit" clubImage)
+(define ClubFamily (family "clubs"
+                           (cons "suit" clubImage)
                            (cons "jackImage" jackClubImage)
                            (cons "queenImage" queenClubImage)
                            (cons "kingImage" kingClubImage)))
@@ -76,195 +80,195 @@
 ;;------------------------------------------------------
 (define (cardBackLayout)
   (layout
-  (list ((layout cardBackImage) wholeCard rectangleCard))
+   (list (layout cardBackImage) wholeCard rectangleCard)))
 
 (define (backgroundLayout value color) 
   (layout 
-  (list ((layout whiteRectangle) wholeCard rectangle))
-  (list ((layout "suit") suitTopLeft rectangle))
-  (list ((layout "suit") suitBotRight rectangle))
-  (list ((layout (string value "arial" color 12)) numberTopLeft rectangle))
-  (list ((layout (string value "arial" color 12)) numberBotRight rectangle))))
+   (list (layout (color-decal "white") wholeCard rectangle)
+   (list (layout "suit") suitTopLeft rectangle)
+   (list (layout "suit") suitBotRight rectangle)
+   (list (layout (string value "arial" color 12)) numberTopLeft rectangle)
+   (list ((layout (string value "arial" color 12)) numberBotRight rectangle))))
 
 (define (aceLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 40 40 20 20) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 40 40 20 20) rectangle)))
 
 (define (twoLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 45 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 75 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 45 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 75 10 10) rectangle)))
 
 (define (threeLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 45 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 75 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 45 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 75 10 10) rectangle)))
 
 (define (fourLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 25 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 75 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 75 10 10) rectangle)))
 
 (define (fiveLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 25 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 75 10 10) rectangle))     
-  (list ((layout "suit") (position-scaled 45 45 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 75 10 10) rectangle)     
+   (list (layout "suit") (position-scaled 45 45 10 10) rectangle)))
 
 
 (define (sixLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 25 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 75 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 75 10 10) rectangle)))
 
 (define (sevenLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 25 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 65 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 65 10 10) rectangle)))
 
 (define (eightLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 25 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 45 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 65 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 45 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 65 10 10) rectangle)))
 
 (define (nineLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 25 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 35 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 35 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 55 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 55 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 45 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 35 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 35 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 55 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 55 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 45 10 10) rectangle)))
 
 (define (tenLayout value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "suit") (position-scaled 25 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 15 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 35 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 35 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 55 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 55 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 25 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 65 75 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 25 10 10) rectangle))
-  (list ((layout "suit") (position-scaled 45 65 10 10) rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "suit") (position-scaled 25 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 15 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 35 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 35 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 55 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 55 10 10) rectangle)
+   (list (layout "suit") (position-scaled 25 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 65 75 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 25 10 10) rectangle)
+   (list (layout "suit") (position-scaled 45 65 10 10) rectangle)))
 
 (define (jackLayout  value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "jackImage") centerFace  rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "jackImage") centerFace  rectangle)))
 
 (define (queenLayout  value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "queenImage") centerFace rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "queenImage") centerFace rectangle)))
 
 (define (kingLayout  value color)
   (layout 
-  (list ((backGroundLayout value color) wholeCard rectangle)) 
-  (list ((layout "kingImage") centerFace rectangle))))
+   (list (backGroundLayout value color) wholeCard rectangle) 
+   (list (layout "kingImage") centerFace rectangle)))
 
 ;;------------------------------------------------------
 ;;cards   
 ;;------------------------------------------------------
 (define blackAceCard
-  (card cardSize "blackAce" (aceLayout "A" #000000) cardBackLayout))
+  (card cardSize "blackAce" (aceLayout "A" #000000) cardBackLayout rectangleCard))
 (define blackTwoCard
-  (card cardSize "blackTwo" (twoLayout "2" #000000) cardBackLayout))
+  (card cardSize "blackTwo" (twoLayout "2" #000000) cardBackLayout rectangleCard))
 (define blackThreeCard
-  (card cardSize "blackThree" (threeLayout "3" #000000) cardBackLayout))
+  (card cardSize "blackThree" (threeLayout "3" #000000) cardBackLayout rectangleCard))
 (define blackFourCard
-  (card cardSize "blackFour" (fourLayout "4" #000000) cardBackLayout))
+  (card cardSize "blackFour" (fourLayout "4" #000000) cardBackLayout rectangleCard))
 (define blackFiveCard
-  (card cardSize "blackFive" (fiveLayout "5" #000000) cardBackLayout))
+  (card cardSize "blackFive" (fiveLayout "5" #000000) cardBackLayout rectangleCard))
 (define blackSixCard
-  (card cardSize "blackSix" (sixLayout "6" #000000) cardBackLayout))
+  (card cardSize "blackSix" (sixLayout "6" #000000) cardBackLayout rectangleCard))
 (define blackSevenCard
-  (card cardSize "blackSeven" (sevenLayout "7" #000000) cardBackLayout))
+  (card cardSize "blackSeven" (sevenLayout "7" #000000) cardBackLayout rectangleCard))
 (define blackEightCard
-  (card cardSize "blackEight" (eightLayout "8" #000000) cardBackLayout))
+  (card cardSize "blackEight" (eightLayout "8" #000000) cardBackLayout rectangleCard))
 (define blackNineCard
-  (card cardSize "blackNine" (nineLayout "9" #000000) cardBackLayout))
+  (card cardSize "blackNine" (nineLayout "9" #000000) cardBackLayout rectangleCard))
 (define blackTenCard
-  (card cardSize "blackTen" (tenLayout "10" #000000) cardBackLayout))
+  (card cardSize "blackTen" (tenLayout "10" #000000) cardBackLayout rectangleCard))
 (define blackJackCard
-  (card cardSize "blackJack" (jackLayout "J" #000000) cardBackLayout))
+  (card cardSize "blackJack" (jackLayout "J" #000000) cardBackLayout rectangleCard))
 (define blackQueenCard
-  (card cardSize "blackQueen" (queenLayout "Q" #000000) cardBackLayout))
+  (card cardSize "blackQueen" (queenLayout "Q" #000000) cardBackLayout rectangleCard))
 (define blackKingCard
-  (card cardSize "blackKing" (kingLayout "K" #000000) cardBackLayout))
+  (card cardSize "blackKing" (kingLayout "K" #000000) cardBackLayout rectangleCard))
 
 (define redAceCard
-  (card cardSize "redAce" (aceLayout "A" #DD311D) cardBackLayout))
+  (card cardSize "redAce" (aceLayout "A" #DD311D) cardBackLayout rectangleCard))
 (define redTwoCard
-  (card cardSize "redTwo" (twoLayout "2" #DD311D) cardBackLayout))
+  (card cardSize "redTwo" (twoLayout "2" #DD311D) cardBackLayout rectangleCard))
 (define redThreeCard
-  (card cardSize "redThree" (threeLayout "3" #DD311D) cardBackLayout))
+  (card cardSize "redThree" (threeLayout "3" #DD311D) cardBackLayout rectangleCard))
 (define redFourCard
-  (card cardSize "redFour" (fourLayout "4" #DD311D) cardBackLayout))
+  (card cardSize "redFour" (fourLayout "4" #DD311D) cardBackLayout rectangleCard))
 (define redFiveCard
-  (card cardSize "redFive" (fiveLayout "5" #DD311D) cardBackLayout))
+  (card cardSize "redFive" (fiveLayout "5" #DD311D) cardBackLayout rectangleCard))
 (define redSixCard
-  (card cardSize "redSix" (sixLayout "6" #DD311D) cardBackLayout))
+  (card cardSize "redSix" (sixLayout "6" #DD311D) cardBackLayout rectangleCard))
 (define redSevenCard
-  (card cardSize "redSeven" (sevenLayout "7" #DD311D) cardBackLayout))
+  (card cardSize "redSeven" (sevenLayout "7" #DD311D) cardBackLayout rectangleCard))
 (define redEightCard
-  (card cardSize "redEight" (eightLayout "8" #DD311D) cardBackLayout))
+  (card cardSize "redEight" (eightLayout "8" #DD311D) cardBackLayout rectangleCard))
 (define redNineCard
-  (card cardSize "redNine" (nineLayout "9" #DD311D) cardBackLayout))
+  (card cardSize "redNine" (nineLayout "9" #DD311D) cardBackLayout rectangleCard))
 (define redTenCard
-  (card cardSize "redTen" (tenLayout "10" #DD311D) cardBackLayout))
+  (card cardSize "redTen" (tenLayout "10" #DD311D) cardBackLayout rectangleCard))
 (define redJackCard
-  (card cardSize "redJack" (jackLayout "J" #DD311D) cardBackLayout))
+  (card cardSize "redJack" (jackLayout "J" #DD311D) cardBackLayout rectangleCard))
 (define redQueenCard
-  (card cardSize "redQueen" (queenLayout "Q" #DD311D) cardBackLayout))
+  (card cardSize "redQueen" (queenLayout "Q" #DD311D) cardBackLayout rectangleCard))
 (define redKingCard
-  (card cardSize "redKing" (kingLayout "K" #DD311D) cardBackLayout))
+  (card cardSize "redKing" (kingLayout "K" #DD311D) cardBackLayout rectangleCard))
 
 ;;------------------------------------------------------
 ;;makes the subDeck of 13 cards, for each color
 ;;------------------------------------------------------
 (define redSubDeck (list redAceCard redTwoCard redThreeCard redFourCard
                          redFiveCard redSixCard redSevenCard 
-                          redEightCard redNineCard redTenCard redJackCard
-                          redQueenCard redKingCard ))
+                         redEightCard redNineCard redTenCard redJackCard
+                         redQueenCard redKingCard ))
 (define blackSubDeck (list blackAceCard blackTwoCard blackThreeCard blackFourCard
                            blackFiveCard blackSixCard blackSevenCard 
-                          blackEightCard blackNineCard blackTenCard blackJackCard
-                          blackQueenCard blackKingCard ))
+                           blackEightCard blackNineCard blackTenCard blackJackCard
+                           blackQueenCard blackKingCard ))
 
 ;;------------------------------------------------------
 ;;renders the subdeck 4 times for each suit
