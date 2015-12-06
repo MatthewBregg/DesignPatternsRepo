@@ -285,6 +285,7 @@ A size is used by a card to determine how many pixels it will be.
   - load-builder
     - Takes in a name, and the path to a builder java file.
     - Loads said builder into script evaluator
+    - This defines a new keyword in the language, and serves as as plugin.
       #+BEGIN_SRC scheme
 (set-option "load-builder" "name" "path")
       #+END_SRC
