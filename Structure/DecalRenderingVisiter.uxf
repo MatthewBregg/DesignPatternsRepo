@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>110</y>
+      <w>360</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>{abstract}
+DecalRenderingVisiter
+--
+- color : Color
+- families : ArrayList&lt;Family&gt;
+- size : Size
+- option : char
+--
++ getColor() : Color
++ getSize() : Size
++ getFamilies() : ArrayList&lt;Family&gt;
++ setFamilies(f:ArrayList&lt;Family&gt;
++ setSize(s:Size)
++ setColor(c:Color)
++ setOption(option:char)
+/+ getImage() : Image/
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>440</y>
+      <w>360</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>TextRenderingVisiter
+--
+- text : String
+- font : Font
+--
++ visitRectangle(r:Rectangle) : void
++ visitTriangle(t:Triangle) : void
++ visitCircle(c:Circle) : void
++ visitAnyShape(a:AnyShape) : void
++ getImage() : Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>450</y>
+      <w>360</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>ImageRenderingVisiter
+--
+- imageToRender:Image
+--
++ visitRectangle(r:Rectangle) : void
++ visitTriangle(t:Triangle) : void
++ visitCircle(c:Circle) : void
++ visitAnyShape(a:AnyShape) : void
++ getImage() : Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1020</x>
+      <y>450</y>
+      <w>360</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>ColorRenderingVisiter
+--
+
+--
++ visitRectangle(r:Rectangle) : void
++ visitTriangle(t:Triangle) : void
++ visitCircle(c:Circle) : void
++ visitAnyShape(a:AnyShape) : void
++ getImage() : Image
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>700</x>
+      <y>30</y>
+      <w>50</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Relation</type>
+    <coordinates>
+      <x>230</x>
+      <y>290</y>
+      <w>960</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>500;30;500;110;940;110;940;160;940;110;30;110;30;150;30;110;500;110;500;160</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>570</x>
+      <y>0</y>
+      <w>360</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ShapeVisiter
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
