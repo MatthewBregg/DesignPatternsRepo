@@ -24,7 +24,8 @@ As the various types in the scripting language can have varying ways to be const
   - The builder got what it expected, and can successfully make the 
     and return cons when getResult() is called. 
 #+BEGIN_SRC scheme
-  (cons 1 2)
+  (cons 1 "foo")
+  (list 1 2 "foo" "bar")
 #+END_SRC
 ** Slide 2
 - This is the same as before, but rather than both tokens being constant 
@@ -37,8 +38,7 @@ As the various types in the scripting language can have varying ways to be const
 - The builder can then make the outer cons containing these two objects.
 - getResult() will then return that script object.
 #+BEGIN_SRC scheme
-(cons 1 (cons 2 3))
-
+(cons 1 (cons "foo" 3))
 #+END_SRC
 ** Slide 3
 - So far, we have only cared about getting something.
