@@ -198,35 +198,4 @@ m2= 1
 </panel_attributes>
     <additional_attributes>540.0;260.0;590.0;260.0;590.0;10.0;10.0;10.0</additional_attributes>
   </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>720</x>
-      <y>350</y>
-      <w>80</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;110.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>780</x>
-      <y>330</y>
-      <w>310</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>Note on implementation of render() on a CompositeLayoout
---
-/*some code*/
-CompositePlacingVisiter v = new CompositePlacingVisiter(...);
-
-for (LayoutAndPositionHolder pair : this.data) {
-   v.addLayoutToShape(pair);
-}
-return v.getImage();
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
 </diagram>
