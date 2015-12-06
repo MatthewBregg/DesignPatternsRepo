@@ -1,0 +1,23 @@
+
+#+BEGIN_SRC plantuml :file CardUML.png
+
+class Card
+Card : render(f:ArrayList<Family>) : RenderedCard
+Card : size:Size
+Card : name:String
+Card : frontLayout:ComponentLayout
+Card : backLayout:ComponentLayout
+Card : shape : Shape
+
+note top of Card
+  Render calls render on each of the two layouts, and giving in the shape, size, family list, and whole-layout as parameters. 
+ 
+  The two image returned are used to construct a rendered card, along with not only the 
+  cards name, but the name from each family passed in.
+end note
+
+#+END_SRC
+
+#+RESULTS:
+[[file:CardUML.png]]
+

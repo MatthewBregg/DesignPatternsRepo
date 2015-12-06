@@ -1,7 +1,7 @@
 
 #+BEGIN_SRC plantuml :file ScriptObjectUML.png
 abstract class ScriptObject as "{abstract}\nScriptObject"
-note "As defined in other UML, members and operations ellided in this one" as AsDefined
+
 
 
 ScriptObject : {abstract}acceptBuilder(ScriptObjectBuilder v)

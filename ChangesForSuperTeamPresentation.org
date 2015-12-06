@@ -1,5 +1,3 @@
-* Shape is no longer a decal type, with implementors for each shape.
-
 * Layouts have a shape
 ** DONE Need to update layout builder
 ** DONE - uses a list
@@ -25,3 +23,18 @@
 
 * Builder loader
 Can add more a new builder at runtime.
+- How are the normal builders added?
+  - ATM : Hard coded into the driver
+  - Should we change this?
+  - One idea : XML file of name, path pairs, read that file and load it. 
+  - Maybe the builders should just be added from the script evaluator?
+  - Right now we only have no idea of families of builders.
+    - If that changed, abstract factory might be apropriate?
+    - Maybe the builder factory itself should?
+    - Let the builder factory have a static method that returns all "predefined" builders?
+    
+* Final Document Edits
+  - Add text for section 5.12 (Abstract Factory with Prototypes)
+  - Fix all instances of "paramatized" to "parameterized".
+  - "Visiter" --> "Visitor"
+  - Fix lists from hyphens without spaces after them

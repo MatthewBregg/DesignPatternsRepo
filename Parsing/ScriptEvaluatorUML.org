@@ -43,13 +43,20 @@ ScriptEvaluator : doParse(Token) : ScriptObject
 ScriptEvaluator : getCardsThatWereRendered() : List<RenderedCard>
 ScriptEvaluator : addRenderedCard(rc:RenderedCard)
 ScriptEvaluator : getEnvironmentList() : EnvironmentList
+ScriptEvaluator : getBuilderFromEnv(name:String): ScriptObjectBuilder
+ScriptEvaluator : getScriptObjectFromEnv(name:String): ScriptObject
 
 ScriptEvaluator : addToTopEnv(name:String,obj:ScriptObject):void
 ScriptEvaluator : addToTopEnv(name:String,builder:ScriptObjectBuilder):void
 
 CardLispScriptEvaluator -> EnvironmentList
 
-note top : doParse gets the builder for that token, from the token, then for each argument token in the token, gives the builder said token, before returning the builder result. 
+note top of ScriptEvaluator
+ doParse gets the builder for that token,
+ from the token, then for each argument token in the token,
+ gives the builder said token,
+ before returning the builder result. 
+end note
 
 
 

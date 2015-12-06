@@ -1,0 +1,100 @@
+#+BEGIN_SRC plantuml :file IfBuilder.png
+
+
+#+END_SRC
+
+#+BEGIN_SRC plantuml :file IfBuilder.png
+
+abstract class ScriptObjectBuilder as "{abstract}\nScriptObjectBuilder"
+hide ScriptObjectBuilder methods
+hide ScriptObjectBuilder members
+
+ScriptObjectBuilder <|-- IfBuilder
+
+class IfBuilder
+IfBuilder : getResult()
+IfBuilder : state : IfState = EmptyState
+IfBuilder : addToken(t:Token)
+IfBuilder : addString(s:StringScriptWrapper)
+IfBuilder : addScriptObject(s:ScriptObject)
+note top of IfBuilder
+  addToken : call state.evalTokenAdded(), if true,
+    call super.addToken(t), else state.gotToken(t)
+end note
+
+abstract class ifstate as "{abstract}\nIfState"
+ifstate : IfBuilder
+ifstate : getIfBuilder()
+ifstate : getResult() : ScriptObject
+ifstate : {abstract}evalTokenAdded() : boolean
+ifstate : gotToken(t:Token)
+ifstate : addString(s:String)
+ifstate : addScriptObject(s:ScriptObject)
+note bottom of ifstate
+  By default, all methods set state to error state,
+    except for getIfBuilder, and evalTokenAdded().
+  Get result will also return an error script object by default.
+end note
+
+class EmptyState
+EmptyState : evalTokenAdded() : boolean = true
+EmptyState : addString(s:String)
+EmptyState : addScriptObject(s:ScriptObject)
+
+note bottom of EmptyState
+  addString : Make a ConditionState, with a condition boolean set to :
+     If string = "#f", false, else true. 
+     Set the builder to this state.
+  addScriptObject : Make a condition state, with condition boolean 
+     set to false. Set the builder to this state.
+end note
+
+class TakenToken
+TakenToken : condition : boolean
+TakenToken : evalTokenAdded() : boolean = false
+TakenToken : gotToken(t:Token)
+note bottom of TakenToken
+  gotToken : make a new else token state,
+  with the condition, and t. 
+  Set the builder to this state
+end note
+
+class ElseToken
+ElseToken : condition : boolean
+ElseToken : taken : Token
+ElseToken : evalTokenAdded() : boolean = false
+ElseToken : gotToken(t:Token)
+
+note bottom of ElseToken
+  gotToken : make a new Done state, with the condition,
+  taken, and t. Set the builder to this state
+end note
+
+class Done
+Done : condition : boolean
+Done : taken : Token
+Done : else : Token
+Done : getResult()
+Done : evalTokenAdded()
+
+note bottom of Done
+ getResult() : Run the eval doParse on 
+                 either the taken token, or the else token, 
+                 depending on if the condition flag is true
+                 or false. Return value from doParse.
+ evalTokenAdded() : Go to error state
+end note
+
+ifstate <|-- TakenToken
+ifstate <|-- ElseToken
+ifstate <|-- ErrorState
+ifstate <|-- EmptyState
+ifstate <|-- Done
+IfBuilder +-- ifstate
+
+class ErrorState
+#+END_SRC
+
+#+RESULTS:
+[[file:IfBuilder.png]]
+

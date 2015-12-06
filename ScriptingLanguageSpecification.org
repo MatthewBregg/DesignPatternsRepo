@@ -1,4 +1,4 @@
-* Overview of Scripting Language
+* Scripting Language Specifications/Overview
 For the scripting language, we have choosen a lisp style language.
 While far from a complete lisp, it has a syntax similar to scheme, and could easily be extended, without breaking existing scripts.
 
@@ -7,11 +7,12 @@ While far from a complete lisp, it has a syntax similar to scheme, and could eas
 #+BEGIN_SRC scheme
 (define name value)
 (define fooConstant 3)
+(define (sqr x) (* x x))
 #+END_SRC
 Assigns to the name the given value.
 This version does support defining functions atm.
 (See http://www.scheme.com/tspl2d/binding.html)
-- Right now, defines may not be nested, and must be done at top level.
+- Right now, defines may be nested.
 - A variable name can't start with a number, to make it determinable from an int atom.
   - It must start with an alpha character.
     
@@ -46,6 +47,27 @@ Takes a card-size, name, and two layouts, one for the front, one for the back, a
 (card card-size "name" frontLayout backLayout shape)
 #+END_SRC
 When a card is rendered, it will pair the layout with the wholeCard position-scaled (0 0 100 100)
+*** If statements
+The language has basic support for if statements. 
+The language takes in three s expressions, the first is evaluated, if it is "#f", then the third token is evaluated, and the result returned.
+If it is anything else, then the second token is evaluated, and the result returned. 
+#+BEGIN_SRC scheme
+(define x...
+(define y...
+(if "#f" 3 4)
+(if (== x y) (layout "foo") (layout "bar"))
+#+END_SRC
+**** Logic Operators
+The language supports two logic operators, ==, and !=. 
+These return "#f", or "#t".
+#+BEGIN_SRC scheme
+(!= "foo" "bar")
+
+#+END_SRC
+**** NOTE
+Using "#f" and "#t" rather than #t #f, small variation from normal lisp.
+
+
 
 *** render
 Takes in a single card, a list of cards, or a pair of cards, and 0-n families.
@@ -164,6 +186,48 @@ A string from a given font.
 (string "Hello World!" "Arial.font" "Red" 12)
 (string "1" "Arial.font" "Red" 12)
 #+END_SRC
+- Mask Decal
+  - Takes a decal, foo, and has the non transparent portions of foo replaced with corresponding portions of bar. What portion of bar maps to what portion of foo is determined by the position scaled.
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foo.png"))
+(define bar-decal (image "bar.png"))
+(mask-decal foo-decal bar-decal (position-scaled 0 0 100 100))
+    #+END_SRC
+  - Example of effect, mask would leave transparent back ground.
+  file:Examples/godzilla-text-poster.jpg
+- Inverted Mask Decal
+  - Takes a decal, foo, and a decal bar, and has the non transparent parts of bar removed from foo, leaving a bar shaped hole in foo.
+  - The position is used to determine where bar should be cut from foo.
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foo.png"))
+(define bar-decal (image "bar.png"))
+(inverted-mask-decal foo-decal bar-decal (position-scaled 0 0 100 100))
+    #+END_SRC
+  - Example: A circle hollowed out
+    file:Examples/black-circle.png
+- Rotate Decal 
+  - Takes in a decal, and a number, and returns a rotated version of that decal
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foobar.png"))
+(rotate-decal foo-decal 90)
+;;Returns a decal rotates 90 degrees.
+    #+END_SRC
+- Corner Rounding Decal
+  - Takes a decal, and rounds the corners. 
+    #+BEGIN_SRC scheme
+(define foo-decal (image "foobar.png"))
+(corner-rounder foo-decal)
+;;Returns a decal with its corners rounded.
+    
+    #+END_SRC
+- Crop Decal 
+  - Takes in a decal, and a position-scaled, crops the decal to the area the position-scaled defines.
+#+BEGIN_SRC scheme
+(define foo-decal (image "foobar.png"))
+(crop-decal foo-decal (position-scaled 50 50 50 50))
+;;Returns a decal cropped to the middle.
+
+#+END_SRC
 *** Shapes
 - Rectangle
 #+BEGIN_SRC 
@@ -202,6 +266,7 @@ A size is used by a card to determine how many pixels it will be.
 
 
 
+
 * Config file
 - Allows one to set various options
 - Current options are 
@@ -232,3 +297,68 @@ A size is used by a card to determine how many pixels it will be.
 #+BEGIN_SRC 
 (set-option "output-dir" "./")
 #+END_SRC
+** Standard Library
+The program will ship with numerous built in functions.
+These functions will have std- prepended to their name, and will provide various functionalities that preimplemented in the language, to save the user the hassle of implementing them. All these functions could be done normally, in the scripting language. 
+
+This will be implemented in a std-functions.script, which will the driver will run through the evaluator when the program first runs. 
+
+*** add-border
+**** Parameters 
+- input-layout : The layout to add a border to
+- color : The color to make the border
+- size : how thick to make the border
+**** Return value
+- A layout with the border added
+  
+**** Example implementation
+#+BEGIN_SRC scheme
+
+    (define (std-add-border input-layout color size) 
+      (layout
+       (list input-layout 
+             (position-scaled size size
+                              (- 100 size) (- 100 size)))
+       (list
+        (leaf-layout (color-decal color)) whole-card)
+       )
+      )
+#+END_SRC
+*** get-colored-shape-in-a-layout
+**** Parameters
+- shape : The shape to put in the layout
+- color : the color to make it.
+**** Return value 
+- A layout with a leaf, which is paired with the shape, holding the color, over the whole layout.
+**** Example implementaiton
+#+BEGIN_SRC scheme
+  (define (std-get-colored-shape-in-a-layout shape color)
+    (layout
+     (list
+      (leaf-layout
+       (color-decal color)) whole-layout shape)
+     )
+    )
+#+END_SRC
+
+*** get-hollow-decal
+**** parameters
+- decal : The decal to be hollowed
+- size : A number, determines how much to hollow
+**** Return value
+- A decal that has been hollowed
+**** Example implementation
+#+BEGIN_SRC scheme
+  (define (std-get-hollow-decal decal size)
+    (inverted-mask-decal decal decal
+                         (position-scaled size size
+                                          (- 100 size) (- 100 size)))
+    )
+
+#+END_SRC
+*** Some constants
+- std-whole-layout : (position-scaled 0 0 100 100)
+- std-pi : Value of pi
+
+  
+*** Many more things!
