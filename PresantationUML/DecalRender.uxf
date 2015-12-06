@@ -4,10 +4,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>110</y>
-      <w>360</w>
-      <h>210</h>
+      <x>480</x>
+      <y>130</y>
+      <w>210</w>
+      <h>130</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 DecalRenderingVisitor
@@ -17,14 +17,7 @@ DecalRenderingVisitor
 - size : Size
 - option : char
 --
-+ getColor() : Color
-+ getSize() : Size
-+ getFamilies() : ArrayList&lt;Family&gt;
-+ setFamilies(f:ArrayList&lt;Family&gt;
-+ setSize(s:Size)
-+ setColor(c:Color)
-+ setOption(option:char)
-/+ getImage() : Image/
+
 
 </panel_attributes>
     <additional_attributes/>
@@ -32,21 +25,16 @@ DecalRenderingVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>120</x>
-      <y>440</y>
-      <w>360</w>
-      <h>150</h>
+      <x>240</x>
+      <y>400</y>
+      <w>170</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>TextRenderingVisitor
 --
 - text : String
 - font : Font
 --
-+ visitRectangle(r:Rectangle) : void
-+ visitTriangle(t:Triangle) : void
-+ visitCircle(c:Circle) : void
-+ visitAnyShape(a:AnyShape) : void
-+ getImage() : Image
 
 </panel_attributes>
     <additional_attributes/>
@@ -54,20 +42,15 @@ DecalRenderingVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>590</x>
-      <y>450</y>
-      <w>360</w>
-      <h>130</h>
+      <x>450</x>
+      <y>400</y>
+      <w>200</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>ImageRenderingVisitor
 --
 - imageToRender:Image
 --
-+ visitRectangle(r:Rectangle) : void
-+ visitTriangle(t:Triangle) : void
-+ visitCircle(c:Circle) : void
-+ visitAnyShape(a:AnyShape) : void
-+ getImage() : Image
 
 </panel_attributes>
     <additional_attributes/>
@@ -75,20 +58,14 @@ DecalRenderingVisitor
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1020</x>
-      <y>450</y>
-      <w>360</w>
-      <h>140</h>
+      <x>680</x>
+      <y>410</y>
+      <w>180</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>ColorRenderingVisitor
 --
-
 --
-+ visitRectangle(r:Rectangle) : void
-+ visitTriangle(t:Triangle) : void
-+ visitCircle(c:Circle) : void
-+ visitAnyShape(a:AnyShape) : void
-+ getImage() : Image
 
 </panel_attributes>
     <additional_attributes/>
@@ -96,35 +73,35 @@ DecalRenderingVisitor
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>710</x>
-      <y>10</y>
+      <x>560</x>
+      <y>50</y>
       <w>50</w>
-      <h>120</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>30;30;30;100</additional_attributes>
+    <additional_attributes>30;30;30;80</additional_attributes>
   </element>
   <element>
     <type>com.baselet.element.old.element.Relation</type>
     <coordinates>
-      <x>230</x>
-      <y>290</y>
-      <w>960</w>
-      <h>180</h>
+      <x>300</x>
+      <y>230</y>
+      <w>490</w>
+      <h>200</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>500;30;500;110;940;110;940;160;940;110;30;110;30;150;30;110;500;110;500;160</additional_attributes>
+    <additional_attributes>290;30;290;110;470;110;470;180;470;110;30;110;30;170;30;110;250;110;250;170</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>570</x>
-      <y>0</y>
-      <w>360</w>
+      <x>510</x>
+      <y>40</y>
+      <w>160</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;Interface&gt;&gt;
-/ShapeVisitor/
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ShapeVisitor
 </panel_attributes>
     <additional_attributes/>
   </element>

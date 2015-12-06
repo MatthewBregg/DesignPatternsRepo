@@ -5,11 +5,11 @@
     <id>UMLClass</id>
     <coordinates>
       <x>80</x>
-      <y>260</y>
+      <y>270</y>
       <w>690</w>
       <h>240</h>
     </coordinates>
-    <panel_attributes>CompositePlacingVisiter
+    <panel_attributes>CompositePlacingVisitor
 --
 - families : ArrayList&lt;Family&gt;
 - size : Size
@@ -60,8 +60,8 @@ bg=blue</panel_attributes>
       <w>360</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>&lt;&lt;interface&gt;&gt;
-ShapeVisiter
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+/ShapeVisiter/
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -94,7 +94,7 @@ bg=blue</panel_attributes>
       <w>290</w>
       <h>210</h>
     </coordinates>
-    <panel_attributes>{abstract}
+    <panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /AbstractPlacer/
 --
 - image : Image
@@ -250,10 +250,10 @@ bg=blue</panel_attributes>
       <x>310</x>
       <y>180</y>
       <w>30</w>
-      <h>100</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -261,10 +261,10 @@ bg=blue</panel_attributes>
       <x>760</x>
       <y>270</y>
       <w>80</w>
-      <h>40</h>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 </panel_attributes>
-    <additional_attributes>60.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>60.0;20.0;10.0;30.0</additional_attributes>
   </element>
 </diagram>
