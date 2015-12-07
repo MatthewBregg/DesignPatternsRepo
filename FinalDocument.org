@@ -472,21 +472,21 @@ Rather than making these as new decals, which would cause a class explosion, and
 
 * Driver System
 
-The builders are loaded from an xml file, which as a name, and path to each visitor to be loaded.
+The builders are loaded from an xml file, which has a name, and path to each visitor to be loaded.
 ** Strategy Pattern
 The OutputFormat enum, and Output use the strategy pattern, with each being the strategy, and context, respectively.
-Since an output shouldn't be burdened with every possible output format in a switch statement or something.
-We want to be able to easily add more formats, and to avoid the Output class being bloated.
-Thus, the output class will delegate converting image into the correct output format, and then writing that to disk, to the enum it holds. 
+This is because output shouldn't be burdened with every possible output format in a switch statement or something of the like.
+We want to be able to easily add more formats, and to avoid the Output class from becoming bloated.
+Thus, the output class will delegate converting an image into the correct output format, and then writing that to disk, for the enum it holds. 
 ** Driver Class
 - *Purpose:* 
-The Driver will be the first thing the program will call and it will invoke all the other functions. In essence the Driver is our main.
+The Driver will be the first thing the program will call and it will invoke all the other functions. In essence, the Driver is our main.
 - *Interaction:*  
-The Driver will first call the Options class and parse through the config file. Afterwards the Driver will make the scriptEvaluator which will keep track of the script directory and make the appropriate Lexor. The evaluator will then use all the tokens outputted from the Lexor, throw it through the Builder Factory and construct the appropriate objects. In the end the evaluator returns the rendered cards to the Driver, who sends it to the Output class for it to be written and saved.
+The Driver will first call the Options class and parse through the config file. Afterwards the Driver will make the scriptEvaluator which will keep track of the script directory and make the appropriate Lexor. The evaluator will then use all the tokens outputted from the Lexor, throw it through the Builder Factory and construct the appropriate objects. In the end, the evaluator returns the rendered cards to the Driver, who sends it to the Output class for it to be written and saved.
 
-Will also load any builders requested to be loaded, and place them in the ScriptEvaluators environment.
-- *Design Patterns it belongs:*
-No design patterns used in it.
+The Driver will also load any builders requesting to be loaded, and place them in the ScriptEvaluator's environment.
+- *Design Patterns used:*
+The Strategy pattern is used when outputting the image to the proper file format. The strategy, saveFileToDisk() is implemented in multiple subclasses for each file type.
 
 
 
@@ -495,27 +495,27 @@ No design patterns used in it.
 The purpose of the Logger is to keep track of any errors found when parsing through the files and constructing the objects. The Logger will exit out of the program and output the list of errors when checked.
 - *Interaction:*  
 The errors will be added to the Logger when errors are found when contructing objects in the different builders. When the driver checks to see if there are any errors, the Logger will exit the program and output the appropriate errors.
-- *Design Patterns it belongs:*
+- *Design Patterns used:*
 The Logger class used the singleton design pattern. We don't need multiple instances and its helpful because we are able to encapsulate the sole instance of the Logger class and have strict control on adding and checking errors.
 
 ** Options Class
 - *Purpose:* 
-Is to keep track of different variables of the deck found in the config file, such as input/output/logger directories or card output  types(png, jpg...).
+To keep track of different variables of the deck found in the config file, such as input/output/logger directories or card output  types(png, jpg...).
 - *Interaction:*  
-Is created in the driver after parsing the config file. Its also used by the logger and output class both use the options class for knowing where to write to. 
+The Options class is created in the driver after parsing the config file. It's also used by the logger and output class both use the options class for knowing where to write to. 
 - *Design Patterns it belongs:*
 No design patterns used in it.
 
 ** Output Class
 - *Purpose:* 
-Where all the cards in the deck are written to.
+Where all the cards in the deck are written to when saved.
 - *Interaction:*  
-The Driver will create the ouput class after evaluating the script, based on the options class. This is where all the cards will be written to after they are all created.
-- *Design Patterns it belongs:*
+The Driver will create the output class after evaluating the script, based on the options class. This is where all the cards will be written to after they are all created, rendered, and saved.
+- *Design Patterns used:*
 No design patterns used in it.
 
 * ScriptEvaluator system 
-This includes all the Builders, and the Lexer. Whenever I say Builders, I mean subclasses of ScriptObjectBuilder.
+This system includes all the Builders and the Lexer. Whenever I say Builders, I mean subclasses of ScriptObjectBuilder.
 
 ** Pluggable Class Adapter
 The Lexer interface, and the ScriptEvaluator both act as pluggable adapters. 
@@ -524,9 +524,9 @@ Since we decided that we shouldn't hard code in a certain textual syntax,
 we decided to implement an interface, so that any language that can fit 
 into our token structure can be used by implementing the Lexer interface.
 If evaluating those tokens is changed by the language, which it likely is,
-as the script evaluator provides the interface for actually evaluating
+the ScriptEvaluator provides the interface for actually evaluating
 the language, which also should be implemented. 
-** Basic Number manipulation
+** Basic Number Manipulation
 Basic number manipulation is provided by the NumberOperationBuilder, which is paramaterized with a command.
 A builder for each command should be mapped with the appropriate symbol in the environment, with the rest of the builders.
 ** Builder
